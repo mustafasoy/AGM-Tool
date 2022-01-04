@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Pwc - ArGe Teşvik Modül Kayıt Ol";
+    Layout = "~/Views/Shared/_AuthenticationLayout.cshtml";
+}
+
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-header row"></div>
+        <div class="content-body">
+            <!-- register section starts -->
+            <section class="row flexbox-container">
+                <div class="col-xl-8 col-10">
+                    <div class="card bg-authentication mb-0">
+                        <div class="row m-0">
+                            <!-- register section left -->
+                            <div class="col-md-6 col-12 px-0">
+                                <div class="card disable-rounded-right mb-0 p-2 h-100 d-flex justify-content-center">
+                                    <div class="card-header pb-1">
+                                        <div class="card-title">
+                                            <h4 class="text-center mb-2">Kayıt Ol</h4>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p>
+                                            <small>AGM Portalini kullanmaya başlamak için kayıt olun</small>
+                                        </p>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="#">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label for="inputfirstname">Adınız</label>
+                                                    <input type="text" class="form-control" id="inputfirstname" placeholder="Ad">
+                                                </div>
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label for="inputlastname">Soyadınız</label>
+                                                    <input type="text" class="form-control" id="inputlastname" placeholder="Soyad">
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-50">
+                                                <label class="text-bold-600" for="exampleInputUsername">kullanıcı adı</label>
+                                                <input type="text" class="form-control" id="exampleInputUsername" placeholder="Kullanıcı adı">
+                                            </div>
+                                            <div class="form-group mb-50">
+                                                <label class="text-bold-600" for="exampleInputEmail">Email adresi</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email adres">
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label class="text-bold-600" for="exampleInputPassword">Şifre</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword" placeholder="Şifre">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary glow position-relative w-100">KAYIT OL<i id="icon-arrow" class="bx bx-right-arrow-alt"></i></button>
+                                        </form>
+                                        <hr>
+                                        <div class="text-center"><small class="mr-25">Zaten hesabınız var mı?</small><a href="#"><small>Giriş yap</small> </a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- image section right -->
+                            <div class="col-md-6 d-md-block d-none text-center align-self-center p-3">
+                                <img class="img-fluid" src="~/frest/app-assets/images/authentication/register.png" alt="register logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- register section endss -->
+
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
