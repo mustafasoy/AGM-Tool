@@ -9,4 +9,8 @@
     <Folder Include="Concrete\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ArGeTesvikTool.WebUI\ArGeTesvikTool.WebUI.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,11 @@
+using ArGeTesvikTool.WebUI.Models;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -12,11 +17,23 @@ namespace ArGeTesvikTool.WebUI
 {
     public class Startup
     {
+        public IConfiguration _configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddControllersWithViews().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddDbContext<AppIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(_configuration["ConnectionStrings:DbConnection"]);
+            });
+            services.AddIdentity<AppIdentityUser, AppIdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -26,12 +43,19 @@ namespace ArGeTesvikTool.WebUI
             {
                 app.UseDeveloperExceptionPage();
             }
-            //Ýçerik dönmeyen sayfalarda, bilgilendirici sayfa getirir.
+            // Brings information page on pages that do not return content.
             app.UseStatusCodePages();
             app.UseStaticFiles();
-            //Microsoft Identity için kullanýlan middleware
+            // Middleware used for microsoft identity
             app.UseAuthentication();
-            app.UseMvcWithDefaultRoute();
+
+            app.UseMvc(ConfigureRoutes);//app.UseMvcWithDefaultRoute();
+        }
+
+        private void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+
+            routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}/{id?}");
         }
     }
 }
