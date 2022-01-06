@@ -54,8 +54,7 @@ namespace ArGeTesvikTool.WebUI
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
-
-            routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}/{id?}");
+            routeBuilder.MapRoute("Default", "{controller=Authentication}/{action=Login}/{id?}");
         }
     }
 }

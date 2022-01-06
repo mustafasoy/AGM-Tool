@@ -8,6 +8,8 @@ namespace ArGeTesvikTool.WebUI.Models.Authentication
 {
     public class LoginViewModel
     {
-        public Login LoginView { get; set; }
+        public string UserName { get; set; }
+
+        public string Password { get; set; }
     }
 }

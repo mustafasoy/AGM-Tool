@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewData["Title"] = "İşletme Bilgileri";
+}
+
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-12 mb-2 mt-1">
+                <div class="breadcrumbs-top">
+                    <h5 class="content-header-title float-left pr-1 mb-0">İşletme Bilgileri</h5>
+                </div>
+            </div>
+        </div>
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">İşletme Bilgileri</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="form form-horizontal">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>İşletme Ünvan</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="text" id="businessTitle" class="form-control" name="bTitle">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Faaliyet Kodu</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <textarea class="form-control" id="activityCode" rows="2" name="aCode"></textarea>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Adres</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <textarea class="form-control" id="address" rows="2" name="addy"></textarea>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>İl</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="text" id="country" class="form-control" name="county">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Telefon</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="tel" id="telephone" class="form-control" name="phone" placeholder="">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>E-posta Adresi</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="email" id="email" class="form-control" name="mail">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Yerli/Yabancı Ortaklık</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <textarea class="form-control" id="partner" rows="2" name="mate"></textarea>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Kuruluş Tarihi</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="date" id="date" class="form-control" name="fDate">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Ticaret Sicil Gazatesinde Yayımlama Tarihi</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="date" id="publishDate" class="form-control" name="pDate">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Sanayi/Ticaret Sicil No</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="text" id="tradeNumber" class="form-control" name="tNumber">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Kayıtlı Olduğu Sanayi/Ticaret Odası</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="text" id="chamberCommerce" class="form-control" name="cCommerce">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Vergi Dairesi/no</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="number" id="taxOffice" class="form-control" name="tOffice">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>SGK İşyeri Sicil No</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="number" id="registrationNo" class="form-control" name="rNumber">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Kuruluş Sermayesi</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="number" id="foundingCapital" class="form-control" name="fCapital">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Mevcut Sermaye</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="number" id="availableCapital" class="form-control" name="aCapital">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>KOBİ mi?</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <fieldset class="form-group">
+                                            <select class="form-control" id="isKobi">
+                                                <option>Evet</option>
+                                                <option>Hayır</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Mersis No</label>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input type="number" id="SystemNo" class="form-control" name="sNumber">
+                                    </div>
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary mr-1">Ekle</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
