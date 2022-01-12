@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
     <PackageReference Include="Mapster" Version="7.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
@@ -23,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ArGeTesvikTool.Business\ArGeTesvikTool.Business.csproj" />
+    <ProjectReference Include="..\ArGeTesvikTool.DataAccess\ArGeTesvikTool.DataAccess.csproj" />
     <ProjectReference Include="..\ArGeTesvikTool.Entities\ArGeTesvikTool.Entities.csproj" />
   </ItemGroup>
 

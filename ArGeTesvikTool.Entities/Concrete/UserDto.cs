@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.Entities.Concrete
 {
-    public class User : IEntity
+    public class UserDto : IEntity
     {
         public string Id { get; set; }
 

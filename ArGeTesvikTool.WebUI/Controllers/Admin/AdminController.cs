@@ -23,11 +23,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         public IActionResult List()
         {
             var userList = _userManager.Users.ToList();
-            List<User> newUser = new();
+            List<UserDto> newUser = new();
 
             foreach (var item in userList)
             {
-                User userLine = item.Adapt<User>();
+                UserDto userLine = item.Adapt<UserDto>();
                 newUser.Add(userLine);
             }
 

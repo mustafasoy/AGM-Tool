@@ -1,4 +1,7 @@
+using ArGeTesvikTool.Business.ValidationRules.CustomValidation;
+using ArGeTesvikTool.Business.ValidationRules.FluentValidation;
 using ArGeTesvikTool.WebUI.Models;
+using ArGeTesvikTool.WebUI.Models.Authentication;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +36,15 @@ namespace ArGeTesvikTool.WebUI
             {
                 options.UseSqlServer(_configuration["ConnectionStrings:DbConnection"]);
             });
-            services.AddIdentity<AppIdentityUser, AppIdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>();
+            services.AddIdentity<AppIdentityUser, AppIdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+            })
+                .AddPasswordValidator<PasswordValidator>()
+                .AddErrorDescriber<CustomIdentityErrorDescriber>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

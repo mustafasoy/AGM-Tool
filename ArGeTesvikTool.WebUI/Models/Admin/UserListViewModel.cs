@@ -8,6 +8,6 @@ namespace ArGeTesvikTool.WebUI.Models.Admin
 {
     public class UserListViewModel
     {
-        public List<User> UserList { get; set; }
+        public List<UserDto> UserList { get; set; }
     }
 }

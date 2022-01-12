@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation
 {
-    public class LoginValidator : AbstractValidator<LoginViewModel>
+    public class LoginValidator : AbstractValidator<LoginDto>
     {
         public LoginValidator()
         {

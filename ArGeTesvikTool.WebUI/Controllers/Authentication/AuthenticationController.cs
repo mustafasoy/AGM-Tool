@@ -1,5 +1,8 @@
-﻿using ArGeTesvikTool.WebUI.Models;
+﻿using ArGeTesvikTool.Business.Utilities;
+using ArGeTesvikTool.Business.ValidationRules.FluentValidation;
+using ArGeTesvikTool.WebUI.Models;
 using ArGeTesvikTool.WebUI.Models.Authentication;
+using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,7 +24,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        public IActionResult Login(LoginDto loginViewModel)
         {
             return View();
         }
@@ -32,9 +35,35 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+        public async Task<IActionResult> Register(RegisterDto registerViewModel)
         {
-            return View();
+            var validate = ValidatorTool.Validate(new RegisterValidator(), registerViewModel);
+            //password Msoy001_
+            if (validate.IsValid)
+            {
+                AppIdentityUser identityUser = registerViewModel.Adapt<AppIdentityUser>();
+
+                var result = await _userManager.CreateAsync(identityUser, registerViewModel.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            if (validate.Errors.Count > 0)
+            {
+                foreach (var error in validate.Errors)
+                {
+                    ModelState.AddModelError("", error.ErrorMessage);
+                }
+            }
+
+            return View(registerViewModel);
         }
 
         [HttpPost]

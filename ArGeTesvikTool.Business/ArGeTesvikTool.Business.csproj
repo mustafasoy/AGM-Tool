@@ -10,7 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArGeTesvikTool.WebUI\ArGeTesvikTool.WebUI.csproj" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ArGeTesvikTool.Entities\ArGeTesvikTool.Entities.csproj" />
   </ItemGroup>
 
 </Project>

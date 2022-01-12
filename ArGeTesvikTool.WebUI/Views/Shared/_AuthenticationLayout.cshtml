@@ -11,8 +11,10 @@
     <link rel="apple-touch-icon" href="~/frest/app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="~/frest/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
+
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/forms/select/select2.min.css">
     <!-- END: Vendor CSS-->
     <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/bootstrap.css">
@@ -25,6 +27,7 @@
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/pages/authentication.css">
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/plugins/forms/validation/form-validation.css">
     <!-- END: Page CSS-->
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="~/frest/assets/css/style.css">
@@ -34,12 +37,17 @@
     <div>
         @RenderBody()
     </div>
+
     <!-- BEGIN: Vendor JS-->
     <script src="~/frest/app-assets/vendors/js/vendors.min.js"></script>
     <script src="~/frest/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js"></script>
     <script src="~/frest/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
     <script src="~/frest/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
-    <!-- END: Vendor JS-->
+    <!-- BEGIN Vendor JS-->
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="~/frest/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="~/frest/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
+    <!-- END: Page Vendor JS-->
     <!-- BEGIN: Theme JS-->
     <script src="~/frest/app-assets/js/scripts/configs/vertical-menu-light.js"></script>
     <script src="~/frest/app-assets/js/core/app-menu.js"></script>
@@ -47,5 +55,8 @@
     <script src="~/frest/app-assets/js/scripts/components.js"></script>
     <script src="~/frest/app-assets/js/scripts/footer.js"></script>
     <!-- END: Theme JS-->
+    <!-- BEGIN: Page JS-->
+    <script src="~/frest/app-assets/js/scripts/forms/validation/form-validation.js"></script>
+    <!-- END: Page JS-->
 </body>
 </html>
