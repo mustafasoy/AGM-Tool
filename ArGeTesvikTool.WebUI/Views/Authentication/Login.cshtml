@@ -1,4 +1,4 @@
-﻿
+﻿@model LoginDto
 @{
     ViewBag.Title = "Pwc - ArGe Teşvik Modül Giriş";
     Layout = "~/Views/Shared/_AuthenticationLayout.cshtml";
@@ -31,14 +31,17 @@
                                                 </small>
                                             </div>
                                         </div>
-                                        <form action="#">
+                                        <form asp-action="Login" method="post" id="jquery-val-form">
+                                            <div asp-validation-summary="ModelOnly" class="error"></div>
                                             <div class="form-group mb-50">
-                                                <label class="text-bold-600" for="exampleInputEmail">Email</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email adresi">
+                                                <label asp-for="Email" class="text-bold-600"></label>
+                                                <input asp-for="Email" class="form-control" type="email" placeholder="Email">
+                                                <span asp-validation-for="Email" class="error"></span>
                                             </div>
                                             <div class="form-group">
-                                                <label class="text-bold-600" for="exampleInputPassword">Şifre</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword" placeholder="Şifre">
+                                                <label asp-for="Password" class="text-bold-600"></label>
+                                                <input asp-for="Password" class="form-control" type="password" placeholder="Şifre">
+                                                <span asp-validation-for="Password" class="error"></span>
                                             </div>
                                             <div class="form-group d-flex flex-md-row flex-column justify-content-between align-items-center">
                                                 <div class="text-left">
@@ -57,7 +60,7 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary glow w-100 position-relative" asp-controller="Home" asp-action="Index">
+                                            <button type="submit" class="btn btn-primary glow w-100 position-relative">
                                                 Giriş
                                                 <i id="icon-arrow" class="bx bx-right-arrow-alt"></i>
                                             </button>

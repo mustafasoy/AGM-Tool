@@ -24,9 +24,28 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         }
 
         [HttpPost]
-        public IActionResult Login(LoginDto loginViewModel)
+        public async Task<IActionResult> Login(LoginDto loginViewModel)
         {
-            return View();
+            var validate = ValidatorTool.Validate(new LoginValidator(), loginViewModel);
+            if (validate.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
+                if (user != null)
+                {
+                    //if user is exist. clear user cookie info
+                    await _signInManager.SignOutAsync();
+
+                    var signInResult = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
+
+                    if (signInResult.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                ModelState.AddModelError("", "Mail adresi veya şifresi bulunamadı!");
+
+            }
+            return View(loginViewModel);
         }
 
         public IActionResult Register()
@@ -66,11 +85,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View(registerViewModel);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Logout()
+        public void Logout()
         {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Login");
+            _signInManager.SignOutAsync().Wait();
         }
     }
 }

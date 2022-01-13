@@ -111,12 +111,12 @@
                                     Profili Düzenle
                                 </a>
                                 <div class="dropdown-divider mb-0"></div>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" asp-controller="Admin" asp-action="List">
                                     <i class="bx bx-id-card mr-50"></i>
                                     Kullanıcı Listesi
                                 </a>
                                 <div class="dropdown-divider mb-0"></div>
-                                <a asp-controller="Authentication" asp-action="Logout" class="dropdown-item" >
+                                <a asp-controller="Authentication" asp-action="Logout" asp-route-returnUrl="/Authentication/Login" class="dropdown-item">
                                     <i class="bx bx-power-off mr-50"></i>
                                     Çıkış Yap
                                 </a>

@@ -36,6 +36,23 @@ namespace ArGeTesvikTool.WebUI
             {
                 options.UseSqlServer(_configuration["ConnectionStrings:DbConnection"]);
             });
+
+            CookieBuilder cookieBuilder = new()
+            {
+                Name = "AGMTool",
+                HttpOnly = false,
+                SameSite = SameSiteMode.Lax,
+                SecurePolicy = CookieSecurePolicy.SameAsRequest
+            };
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = new PathString("/Authentication/Login");
+                options.LogoutPath = new PathString("/Authentication/Logout");
+                options.Cookie = cookieBuilder;
+                options.ExpireTimeSpan = TimeSpan.FromDays(30);
+                options.SlidingExpiration = true;
+            });
             services.AddIdentity<AppIdentityUser, AppIdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
