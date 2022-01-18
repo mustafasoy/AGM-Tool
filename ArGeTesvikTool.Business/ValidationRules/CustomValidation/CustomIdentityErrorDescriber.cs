@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.Business.ValidationRules.CustomValidation
 {
@@ -25,6 +20,11 @@ namespace ArGeTesvikTool.Business.ValidationRules.CustomValidation
         public override IdentityError DuplicateEmail(string email)
         {
             return new IdentityError() { Code = "DuplicateEmail", Description = $"{email} mail adresi kullanılmaktadır!" };
+        }
+
+        public override IdentityError InvalidToken()
+        {
+            return new IdentityError() { Code = "InvalidToken", Description = "Şifre yenileme linkin süresi dolmuştur!" };
         }
         #endregion
 

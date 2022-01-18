@@ -2,15 +2,16 @@
 using ArGeTesvikTool.WebUI.Models;
 using ArGeTesvikTool.WebUI.Models.Admin;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 {
+
+    [Authorize]
     public class AdminController : Controller
     {
         private UserManager<AppIdentityUser> _userManager { get; }

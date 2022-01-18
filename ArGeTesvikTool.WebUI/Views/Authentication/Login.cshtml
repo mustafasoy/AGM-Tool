@@ -1,6 +1,6 @@
 ﻿@model LoginDto
 @{
-    ViewBag.Title = "Pwc - ArGe Teşvik Modül Giriş";
+    ViewBag.Title = "AGM Giriş";
     Layout = "~/Views/Shared/_AuthenticationLayout.cshtml";
 }
 
@@ -34,20 +34,33 @@
                                         <form asp-action="Login" method="post" id="jquery-val-form">
                                             <div asp-validation-summary="ModelOnly" class="error"></div>
                                             <div class="form-group mb-50">
-                                                <label asp-for="Email" class="text-bold-600"></label>
-                                                <input asp-for="Email" class="form-control" type="email" placeholder="Email">
+                                                <label asp-for="Email" class="text-bold-600">
+                                                    Mail Adres
+                                                </label>
+                                                <input asp-for="Email" type="email" class="form-control" placeholder="Email">
                                                 <span asp-validation-for="Email" class="error"></span>
                                             </div>
                                             <div class="form-group">
-                                                <label asp-for="Password" class="text-bold-600"></label>
-                                                <input asp-for="Password" class="form-control" type="password" placeholder="Şifre">
+                                                <label asp-for="Password" class="text-bold-600">
+                                                    Şifre
+                                                </label>
+                                                <div id="show_hide_password">
+                                                    <fieldset class="form-group position-relative">
+                                                        <input asp-for="Password" class="form-control" type="password" placeholder="Şifre">
+                                                        <div class="form-control-position">
+                                                            <a href="">
+                                                                <i class="bx bx-show" aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
                                                 <span asp-validation-for="Password" class="error"></span>
                                             </div>
                                             <div class="form-group d-flex flex-md-row flex-column justify-content-between align-items-center">
                                                 <div class="text-left">
                                                     <div class="checkbox checkbox-sm">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="checkboxsmall" for="exampleCheck1">
+                                                        <input asp-for="RememberMe" type="checkbox" class="form-check-input">
+                                                        <label asp-for="RememberMe" class="checkboxsmall">
                                                             <small>
                                                                 Beni hatırla
                                                             </small>
@@ -55,8 +68,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="text-right">
-                                                    <a href="#" class="card-link">
-                                                        <small>Parolanızı mı unuttunuz?</small>
+                                                    <a asp-action="ResetPassword" class="card-link">
+                                                        <small>
+                                                            Parolanızı mı unuttunuz?
+                                                        </small>
                                                     </a>
                                                 </div>
                                             </div>
@@ -67,9 +82,13 @@
                                         </form>
                                         <hr>
                                         <div class="text-center">
-                                            <small class="mr-25">Hesabınız yok mu?</small>
+                                            <small class="mr-25">
+                                                Hesabınız yok mu?
+                                            </small>
                                             <a asp-action="Register">
-                                                <small>Üye ol</small>
+                                                <small>
+                                                    Üye ol
+                                                </small>
                                             </a>
                                         </div>
                                     </div>

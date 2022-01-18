@@ -1,9 +1,4 @@
 ﻿using ArGeTesvikTool.Entities.Abstract;
-using ArGeTesvikTool.Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.WebUI.Models.Authentication
 {
@@ -11,5 +6,6 @@ namespace ArGeTesvikTool.WebUI.Models.Authentication
     {
         public string Email { get; set; }
         public string Password { get; set; }
+        public bool RememberMe { get; set; }
     }
 }

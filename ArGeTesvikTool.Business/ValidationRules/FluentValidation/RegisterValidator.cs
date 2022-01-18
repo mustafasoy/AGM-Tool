@@ -1,12 +1,6 @@
-﻿using ArGeTesvikTool.Entities.Concrete;
-using ArGeTesvikTool.WebUI.Models.Authentication;
+﻿using ArGeTesvikTool.WebUI.Models.Authentication;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation
 {
@@ -24,7 +18,7 @@ namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation
             
             RuleFor(x => x.UserName)
                 .Must(HasValidUserName).WithMessage("Kullanıcı adı sayı içeremez!");
-            
+
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Mail adresi giriniz!")
                 .EmailAddress();

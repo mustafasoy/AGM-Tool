@@ -1,17 +1,17 @@
-﻿using ArGeTesvikTool.WebUI.Models.Authentication;
+﻿using ArGeTesvikTool.Entities.Concrete;
 using FluentValidation;
 
 namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation
 {
-    public class LoginValidator : AbstractValidator<LoginDto>
+    public class ResetPasswordValidator : AbstractValidator<ResetPasswordDto>
     {
-        public LoginValidator()
+        public ResetPasswordValidator()
         {
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Mail adresi giriniz!")
                 .EmailAddress();
 
-            RuleFor(x => x.Password)
+            RuleFor(x => x.NewPassword)
                 .NotEmpty().WithMessage("Şifre giriniz!");
         }
     }
