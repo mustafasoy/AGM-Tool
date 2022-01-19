@@ -55,6 +55,7 @@ namespace ArGeTesvikTool.WebUI
             {
                 options.LoginPath = new PathString("/Authentication/Login");
                 options.LogoutPath = new PathString("/Authentication/Logout");
+                options.AccessDeniedPath = new PathString("/Member/AccessDenied");
                 options.Cookie = cookieBuilder;
                 options.ExpireTimeSpan = TimeSpan.FromDays(30);
                 options.SlidingExpiration = true;

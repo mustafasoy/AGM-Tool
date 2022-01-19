@@ -54,6 +54,9 @@ $(function () {
                     required: true,
                     equalTo: '#Password'
                 },
+                'RoleName': {
+                    required: true
+                },
                 'SelectCountry': {
                     required: true
                 },

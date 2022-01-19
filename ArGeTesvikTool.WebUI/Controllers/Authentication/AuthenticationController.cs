@@ -106,12 +106,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             }
 
             if (validate.Errors.Count > 0)
-            {
-                foreach (var error in validate.Errors)
-                {
-                    ModelState.AddModelError("", error.ErrorMessage);
-                }
-            }
+                AddValidatorError(validate);
 
             return View(registerViewModel);
         }
@@ -199,10 +194,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
                     return RedirectToAction("Login");
                 }
 
-                foreach (var item in result.Errors)
-                {
-                    ModelState.AddModelError("", item.Description);
-                }
+                AddModelError(result);
             }
 
             return View(resetPasswordViewModel);
