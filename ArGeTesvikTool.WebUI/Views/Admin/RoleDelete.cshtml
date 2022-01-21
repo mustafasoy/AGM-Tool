@@ -1,7 +1,7 @@
 ﻿@model RoleDto
 
 @{
-    ViewData["Title"] = "Yeni Rol Oluştur";
+    ViewData["Title"] = "Rol Düzenle";
 }
 
 <!-- BEGIN: Content-->
@@ -17,17 +17,13 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="text-primary">
-                                    Yeni Rol Ekle
+                                    Rol Düzenle
                                 </h4>
                             </div>
                             <div class="card-body pb-0 mx-25">
                                 <hr />
                                 <form asp-action="CreateRole" id="jquery-val-form">
-                                    <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
+                                    <input type="hidden" asp-for="Id" />
                                     <div class="row invoice-info">
                                         <div class="col-lg-6 col-md-12 mt-25">
                                             <h6 class="invoice-address form-group">
@@ -54,10 +50,16 @@
                     <div class="col-xl-3 col-md-4 col-12">
                         <div class="card invoice-action-wrapper shadow-none border">
                             <div class="card-body">
-                                <button type="submit" class="btn btn-light-success btn-block" form="jquery-val-form">
-                                    <i class='bx bx-save'></i>
+                                <button type="submit" class="btn btn-light-primary btn-block" form="jquery-val-form" asp-action="RoleUpdate">
+                                    <i class='bx bx-edit'></i>
                                     <span>
-                                        Kaydet
+                                        Güncelle
+                                    </span>
+                                </button>
+                                <button type="submit" class="btn btn-light-danger btn-block" form="jquery-val-form" asp-action="RoleDelete">
+                                    <i class='bx bx-trash'></i>
+                                    <span>
+                                        Sil
                                     </span>
                                 </button>
                             </div>

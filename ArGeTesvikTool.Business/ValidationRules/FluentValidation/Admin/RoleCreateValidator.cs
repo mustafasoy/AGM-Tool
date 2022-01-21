@@ -7,7 +7,7 @@ namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation
     {
         public RoleCreateValidator()
         {
-            RuleFor(x => x.RoleName)
+            RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Role adı giriniz!");
         }
     }

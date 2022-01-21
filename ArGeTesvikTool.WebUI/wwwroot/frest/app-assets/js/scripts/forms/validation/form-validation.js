@@ -57,6 +57,9 @@ $(function () {
                 'RoleName': {
                     required: true
                 },
+                'RoleText': {
+                    required: true
+                },
                 'SelectCountry': {
                     required: true
                 },

@@ -1,0 +1,73 @@
+﻿@model RoleListViewModel
+
+@{
+    ViewData["Title"] = "Rol Liste";
+}
+
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-body">
+            <!-- role list -->
+            <section class="invoice-list-wrapper">
+                <div class="invoice-create-btn mb-1">
+                    <a asp-action="CreateRole" class="btn btn-primary invoice-create" role="button" aria-pressed="true">
+                        Rol Oluştur
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table invoice-data-table dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>
+                                    Rol adı
+                                </th>
+                                <th>
+                                    Rol tanım
+                                </th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Tags</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.RoleList)
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RoleText)
+                                    </td>
+                                    <td><small class="text-muted">12-08-19</small></td>
+                                    <td><span class="invoice-customer">Communications</span></td>
+                                    <td>
+                                        <span class="bullet bullet-success bullet-sm"></span>
+                                        <small class="text-muted">Technology</small>
+                                    </td>
+                                    <td><span class="badge badge-light-success badge-pill">PAID</span></td>
+                                    <td>
+                                        <a asp-action="RoleDelete" asp-route-id="@item.Id" method="post" style="margin-left:1.4rem">
+                                            <i class="bx bx-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/frest/app-assets/js/popup-message.js"></script>

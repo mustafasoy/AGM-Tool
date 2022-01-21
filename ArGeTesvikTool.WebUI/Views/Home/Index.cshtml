@@ -6,6 +6,60 @@
 }
 
 <div class="text-center" style="margin-top:15%; margin-left:10%">
-    
+
     <img src="~/frest/app-assets/images/background/borusan.png" />
 </div>
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-body">
+            <!-- Basic Modals start -->
+            <section id="basic-modals">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <!--Basic Modal -->
+                            <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="myModalLabel1">Yıl seçiniz</h3>
+                                            <button type="button" class="close rounded-pill" data-dismiss="modal" aria-label="Close">
+                                                <i class="bx bx-x"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <fieldset class="form-group">
+                                                <select class="form-control" id="basicSelect">
+                                                    <option>2019</option>
+                                                    <option>2020</option>
+                                                    <option>2021</option>
+                                                    <option>2022</option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary ml-1" data-dismiss="modal">
+                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Seç</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('#default').modal('show');
+    });
+</script>
