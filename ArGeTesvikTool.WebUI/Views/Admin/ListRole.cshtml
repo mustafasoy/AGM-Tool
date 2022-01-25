@@ -1,12 +1,9 @@
 ﻿@model RoleListViewModel
-
 @{
     ViewData["Title"] = "Rol Liste";
 }
-
 <!-- BEGIN: Content-->
 <div class="app-content content">
-    <div class="content-overlay"></div>
     <div class="content-wrapper">
         <div class="content-body">
             <!-- role list -->
@@ -28,11 +25,21 @@
                                 <th>
                                     Rol tanım
                                 </th>
-                                <th>Date</th>
-                                <th>Customer</th>
-                                <th>Tags</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>
+                                    Date
+                                </th>
+                                <th>
+                                    Customer
+                                </th>
+                                <th>
+                                    Tags
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Action
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,7 +62,7 @@
                                     </td>
                                     <td><span class="badge badge-light-success badge-pill">PAID</span></td>
                                     <td>
-                                        <a asp-action="RoleDelete" asp-route-id="@item.Id" method="post" style="margin-left:1.4rem">
+                                        <a asp-action="RoleDelete" asp-route-id="@item.Id" method="post">
                                             <i class="bx bx-edit"></i>
                                         </a>
                                     </td>

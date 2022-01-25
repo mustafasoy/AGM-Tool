@@ -37,7 +37,13 @@ $(function () {
                 'Name': {
                     required: true
                 },
+                'User.Name': {
+                    required: true
+                },
                 'LastName': {
+                    required: true
+                },
+                'User.LastName': {
                     required: true
                 },
                 'UserName': {

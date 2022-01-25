@@ -1,0 +1,111 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Kullanıcı Düzenle";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <!-- users edit start -->
+            <section class="users-edit">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="card-header">
+                                <h4 class="text-primary">
+                                    Kullanıcı Düzenle
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <hr />
+                            <div class="tab-pane active fade show" id="account" aria-labelledby="account-tab" role="tabpanel">
+                                <!-- users edit account form start -->
+                                <form asp-action="EditUser" method="post" id="jquery-val-form">
+                                    <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <input type="hidden" asp-for="User.Id" />
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label>
+                                                        Kullanıcı adı
+                                                    </label>
+                                                    <input asp-for="User.UserName" class="form-control" readonly="readonly">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label>
+                                                        İsim
+                                                    </label>
+                                                    <input asp-for="User.Name" class="form-control" placeholder="İsim">
+                                                    <span asp-validation-for="User.Name" class="error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label>
+                                                        Soy isim
+                                                    </label>
+                                                    <input asp-for="User.LastName" class="form-control" placeholder="Soy isim">
+                                                    <span asp-validation-for="User.LastName" class="error"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label>Mail adresi</label>
+                                                    <input asp-for="User.Email" class="form-control" readonly="readonly">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Rol</label>
+                                                <select class="form-control" asp-for="RoleName" asp-items="@(new SelectList(Model.RoleList,"Name","Name"))">
+                                                    @*@foreach (var item in Model.RoleList)
+                                                    {
+                                                        <option>@item.Name</option>
+                                                    }*@
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Durum</label>
+                                                <select class="form-control">
+                                                    <option>Active</option>
+                                                    <option>Pasif</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+                                            <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" asp-action="EditUser">
+                                                Kaydet
+                                            </button>
+                                            <button onclick="window.location='@Url.Action( "Index", "Home")'" type="reset" class="btn btn-light">
+                                                Vazgeç
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- users edit account form ends -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- users edit ends -->
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $('#roleName').change(function () {
+        $("roleNameText").val(this.value);
+    });
+
+</script>*@

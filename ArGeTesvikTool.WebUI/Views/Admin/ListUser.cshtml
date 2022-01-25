@@ -2,52 +2,58 @@
 @{
     ViewData["Title"] = "Kullanıcı Listesi";
 }
-
 <!-- BEGIN: Content-->
 <div class="app-content content">
-    <div class="content-overlay"></div>
     <div class="content-wrapper">
         <div class="content-header row">
         </div>
         <div class="content-body">
             <!-- users list start -->
             <section class="users-list-wrapper">
+                <div class="row">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            Yeni Rol Ekle
+                        </h4>
+                    </div>
+                </div>
                 <div class="users-list-filter px-1">
                     <form>
                         <div class="row border rounded py-2 mb-2">
                             <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="users-list-role">Rol</label>
-                                <fieldset class="form-group">
-                                    <select class="form-control" id="users-list-role">
-                                        <option value="">Any</option>
-                                        <option value="User">User</option>
-                                        <option value="Staff">Staff</option>
-                                    </select>
-                                </fieldset>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="users-list-status">Durum</label>
-                                <fieldset class="form-group">
-                                    <select class="form-control" id="users-list-status">
-                                        <option value="">Any</option>
-                                        <option value="Active">Active</option>
-                                        <option value="Close">Close</option>
-                                        <option value="Banned">Banned</option>
-                                    </select>
-                                </fieldset>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="users-list-verified">Doğrulanmış</label>
+                                <label for="users-list-verified">Doğrulandı</label>
                                 <fieldset class="form-group">
                                     <select class="form-control" id="users-list-verified">
-                                        <option value="">Any</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
+                                        <option value="">Hepsi</option>
+                                        <option value="Evet">Evet</option>
+                                        <option value="Hayır">Hayır</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <label for="users-list-role">Role</label>
+                                <fieldset class="form-group">
+                                    <select class="form-control" id="users-list-role">
+                                        <option value="">Hepsi</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Personel">Personel</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <label for="users-list-status">Status</label>
+                                <fieldset class="form-group">
+                                    <select class="form-control" id="users-list-status">
+                                        <option value="">Hepsi</option>
+                                        <option value="Aktif">Aktif</option>
+                                        <option value="Pasif">Pasif</option>
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-                                <button type="reset" class="btn btn-primary btn-block glow users-list-clear mb-0">Temizle</button>
+                                <button type="reset" class="btn btn-primary btn-block glow users-list-clear mb-0">
+                                    Temizle
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -60,28 +66,52 @@
                                 <table id="users-list-datatable" class="table">
                                     <thead>
                                         <tr>
-                                            <th>id</th>
-                                            <th>kullanıcı adı</th>
-                                            <th>mail</th>
-                                            <th>rol</th>
-                                            <th>doğrulanmış</th>
-                                            <th>durum</th>
-                                            <th>düzenle</th>
+                                            <th>
+                                                kullanıcı adı
+                                            </th>
+                                            <th>
+                                                ad soyad
+                                            </th>
+                                            <th>
+                                                doğrulandı
+                                            </th>
+                                            <th>
+                                                rol
+                                            </th>
+                                            <th>
+                                                durum
+                                            </th>
+                                            <th>
+                                                düzenle
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (Model.UserList.Count() == 0)
-                                        {
-                                            <tr>
-                                                <td colspan="7" class="text-center text-danger">Kullanıcı(lar) bulunamadı...</td>
-                                            </tr>
-                                        }
                                         @foreach (var item in Model.UserList)
                                         {
                                             <tr>
-                                                <td>@item.Id</td>
-                                                <td>@item.UserName</td>
-                                                <td>@item.Email</td>
+                                                <td>
+                                                    @item.UserName
+                                                </td>
+                                                <td>
+                                                    @item.Name @item.LastName
+                                                </td>
+                                                <td>
+                                                    Evet
+                                                </td>
+                                                <td>
+                                                    Personel
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-light-success">
+                                                        Active
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <a asp-action="EditUser" asp-route-id="@item.Id" method="post">
+                                                        <i class="bx bx-edit-alt"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         }
                                     </tbody>
@@ -97,3 +127,16 @@
     </div>
 </div>
 <!-- END: Content-->
+<script src="~/frest/app-assets/js/core/libraries/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var message = "@(TempData["SuccessMessage"] as string)";
+        if (message != "") {
+            toastr['success'](message, {
+            showMethod: 'slideDown',
+            hideMethod: 'slideUp',
+            timeOut: 2000,
+        })
+    };
+});
+</script>

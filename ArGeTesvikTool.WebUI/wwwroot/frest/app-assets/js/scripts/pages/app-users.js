@@ -1,27 +1,30 @@
-/*=========================================================================================
-    File Name: app-users.js
-    Description: Users page
-    --------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-    Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
 $(document).ready(function () {
 
     // variable declaration
     var usersTable;
     var usersDataArray = [],
-    form = $('.form-validate');
+        form = $('.form-validate');
 
     // datatable initialization
     if ($("#users-list-datatable").length > 0) {
         usersTable = $("#users-list-datatable").DataTable({
             responsive: true,
+            'language': {
+                'emptyTable': "Gosterilecek kayit bulunamadi",
+                'info': "_TOTAL_ kayittan _START_ ile _END_ arasi gosteriliyor",
+                'infoFiltered': "(_MAX_ toplam giristen filtrelendi)",
+                'infoEmpty':"0 kayittan 0 ile 0 arasi gosteriliyor",
+                "search": "Filtrele",
+                "sLengthMenu": "Kayit _MENU_ Listele",
+                'paginate': {
+                    "previous": "Geri",
+                    "next": "Ileri"
+                },
+            },
             'columnDefs': [
                 {
                     "orderable": false,
-                    "targets": [7]
+                    "targets": [5]
                 }]
         });
     };
@@ -80,7 +83,7 @@ $(document).ready(function () {
         });
     }
     // page users list clear filter
-    $(".users-list-clear").on("click", function(){
+    $(".users-list-clear").on("click", function () {
         usersTable.search("").draw();
     })
     // users music select
@@ -105,45 +108,45 @@ $(document).ready(function () {
     }
 
 
-  // Validation
-  if (form.length) {
-    $(form).each(function () {
-      var $this = $(this);
-      $this.validate({
-        submitHandler: function (form, event) {
-          event.preventDefault();
-        },
-        rules: {
-          username: {
-            required: true
-          },
-          name: {
-            required: true
-          },
-          email: {
-            required: true,
-            email: true
-          },
-          dob: {
-            required: true,
-            step: false
-          },
-          phone: {
-            required: true
-          },
-          website: {
-            required: true,
-            url: true
-          },
-          address: {
-            required: true
-          }
-        }
-      });
-    });
+    // Validation
+    if (form.length) {
+        $(form).each(function () {
+            var $this = $(this);
+            $this.validate({
+                submitHandler: function (form, event) {
+                    event.preventDefault();
+                },
+                rules: {
+                    username: {
+                        required: true
+                    },
+                    name: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    dob: {
+                        required: true,
+                        step: false
+                    },
+                    phone: {
+                        required: true
+                    },
+                    website: {
+                        required: true,
+                        url: true
+                    },
+                    address: {
+                        required: true
+                    }
+                }
+            });
+        });
 
-    $(this).on('submit', function (event) {
-      event.preventDefault();
-    });
-  }
+        $(this).on('submit', function (event) {
+            event.preventDefault();
+        });
+    }
 });

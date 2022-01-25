@@ -1,9 +1,7 @@
 ﻿@model UserDto
-
 @{
     ViewData["Title"] = "Kullanıcı İşlemleri";
 }
-
 <!-- BEGIN: Content-->
 <div class="app-content content">
     <div class="content-overlay"></div>
@@ -95,7 +93,7 @@
                                                             <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">
                                                                 Güncelle
                                                             </button>
-                                                            <button onclick="window.location= '@Url.Action( "Index", "Home")'" type="reset" class="btn btn-light mb-1">
+                                                            <button onclick="window.location='@Url.Action( "Index", "Home")'" type="reset" class="btn btn-light mb-1">
                                                                 Vazgeç
                                                             </button>
                                                         </div>

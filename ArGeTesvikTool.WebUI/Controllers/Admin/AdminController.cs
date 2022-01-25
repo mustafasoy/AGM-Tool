@@ -44,6 +44,84 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View(userListViewModel);
         }
 
+        public IActionResult EditUser(string id)
+        {
+            AppIdentityUser identityUser = _userManager.FindByIdAsync(id).Result;
+
+            IQueryable<AppIdentityRole> identityRole = _roleManager.Roles;
+            var getUserRole = _userManager.GetRolesAsync(identityUser).Result.FirstOrDefault();
+
+            TempData["UserRole"] = getUserRole != null ? getUserRole : string.Empty;
+
+            RoleDto userRole = new()
+            {
+                Name = getUserRole,
+            };
+
+            List<RoleDto> listRole = new() { };
+            listRole.Add(userRole);
+            foreach (var item in identityRole)
+            {
+                if (item.Name != getUserRole)
+                {
+                    RoleDto roleLine = item.Adapt<RoleDto>();
+                    listRole.Add(roleLine);
+                }
+            }
+
+            ViewBag.RoleList = listRole;
+
+            UserViewModel userViewModel = new()
+            {
+                User = identityUser.Adapt<UserDto>(),
+                RoleList = listRole
+            };
+
+            return View(userViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUser(UserViewModel userViewModel)
+        {
+            var validate = ValidatorTool.Validate(new UserInfoChangeValidator(), userViewModel.User);
+            if (validate.IsValid)
+            {
+                AppIdentityUser identityUser = _userManager.FindByIdAsync(userViewModel.User.Id).Result;
+
+                identityUser.Name = userViewModel.User.Name;
+                identityUser.LastName = userViewModel.User.LastName;
+
+                var identityResult = await _userManager.UpdateAsync(identityUser);
+
+                string oldUserRole = TempData["UserRole"].ToString();
+
+                if (oldUserRole != userViewModel.RoleName)
+                {
+                    if (!String.IsNullOrEmpty(oldUserRole))
+                        await _userManager.RemoveFromRoleAsync(identityUser, oldUserRole);
+
+                    await _userManager.AddToRoleAsync(identityUser, userViewModel.RoleName);
+                }
+
+                if (!identityResult.Succeeded)
+                {
+                    AddModelError(identityResult);
+                }
+                else
+                {
+                    await _userManager.UpdateSecurityStampAsync(identityUser);
+                    await _signInManager.SignOutAsync();
+                    await _signInManager.SignInAsync(identityUser, true);
+
+                    TempData["SuccessMessage"] = "Güncelleme işlemi tamamlandı...";
+
+
+                    return RedirectToAction("ListUser");
+                }
+            }
+            return View(userViewModel);
+        }
 
         public IActionResult CreateRole()
         {
@@ -66,7 +144,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
                 var result = await _roleManager.CreateAsync(role);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("ListRole");
+                    return RedirectToAction("ListUser");
                 }
 
                 AddModelError(result);
@@ -81,15 +159,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 
         public IActionResult ListRole()
         {
-            var roleList = _roleManager.Roles.ToList();
-
-            List<RoleDto> listRole = new();
-
-            foreach (var item in roleList)
-            {
-                RoleDto roleLine = item.Adapt<RoleDto>();
-                listRole.Add(roleLine);
-            }
+            List<RoleDto> listRole = GetUserRoleList();
 
             RoleListViewModel roleListViewModel = new()
             {
@@ -153,45 +223,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View(roleViewModel);
         }
 
-        public IActionResult RoleAssign(string id)
-        {
-            TempData["UserId"] = id;
-            AppIdentityUser identityUser = _userManager.FindByIdAsync(id).Result;
-            ViewBag.userName = identityUser.UserName;
-
-            IQueryable<AppIdentityRole> identityRole = _roleManager.Roles;
-            List<string> userRoles = _userManager.GetRolesAsync(identityUser).Result as List<string>;
-            List<RoleAssignViewModel> roleAssignViewModels = new();
-
-            foreach (var item in identityRole)
-            {
-                RoleAssignViewModel roleAssign = item.Adapt<RoleAssignViewModel>();
-
-                roleAssign.Exist = userRoles.Contains(item.Name);
-                roleAssignViewModels.Add(roleAssign);
-            }
-
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RoleAssign(List<RoleAssignViewModel> roleAssignViewModels)
-        {
-            AppIdentityUser identityUser = _userManager.FindByIdAsync(TempData["UserId"].ToString()).Result;
-
-            foreach (var item in roleAssignViewModels)
-            {
-                //if (item.Exist)
-                //    _userManager.AddToRoleAsync(identityUser, item.Name);
-                
-                //if (!item.Exist)
-                //    _userManager.RemoveFromRoleAsync(identityUser, item.Name);
-            }
-
-            return View(roleAssignViewModels);
-        }
-
         private RoleDto GetRole(string id)
         {
             var getRole = _roleManager.FindByIdAsync(id).Result;
@@ -199,6 +230,20 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             RoleDto roleInfo = getRole.Adapt<RoleDto>();
 
             return roleInfo;
+        }
+
+        private List<RoleDto> GetUserRoleList()
+        {
+            List<AppIdentityRole> roleList = _roleManager.Roles.ToList();
+            List<RoleDto> listRole = new();
+
+            foreach (var item in roleList)
+            {
+                RoleDto roleLine = item.Adapt<RoleDto>();
+                listRole.Add(roleLine);
+            }
+
+            return listRole;
         }
 
         private static bool CheckValidatorError(ValidationResult validate)
