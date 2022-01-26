@@ -10,6 +10,6 @@ namespace ArGeTesvikTool.WebUI.Models
     {
         public UserDto User { get; set; }
         public string RoleName { get; set; }
-        public List<RoleDto> RoleList { get; set; }
+        public List<RoleDto> Roles { get; set; }
     }
 }

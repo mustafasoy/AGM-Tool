@@ -1,4 +1,5 @@
 using ArGeTesvikTool.Business.ValidationRules.CustomValidation;
+using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using ArGeTesvikTool.WebUI.Models;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -26,7 +27,6 @@ namespace ArGeTesvikTool.WebUI
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddScoped<IMailService, PasswordSendMail>();
             services.AddDbContext<AppIdentityDbContext>(options =>
             {
                 options.UseSqlServer(_configuration["ConnectionStrings:DbConnection"]);
@@ -45,7 +45,7 @@ namespace ArGeTesvikTool.WebUI
 
             CookieBuilder cookieBuilder = new()
             {
-                Name = "AGMTool",
+                Name = "AGMIdentity",
                 HttpOnly = false,
                 SameSite = SameSiteMode.Lax,
                 SecurePolicy = CookieSecurePolicy.SameAsRequest

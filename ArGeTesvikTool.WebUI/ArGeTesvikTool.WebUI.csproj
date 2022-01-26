@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ArGeTesvikTool.Business\ArGeTesvikTool.Business.csproj" />
-    <ProjectReference Include="..\ArGeTesvikTool.DataAccess\ArGeTesvikTool.DataAccess.csproj" />
+    <ProjectReference Include="..\ArGeTesvikTool.Core\ArGeTesvikTool.Core.csproj" />
     <ProjectReference Include="..\ArGeTesvikTool.Entities\ArGeTesvikTool.Entities.csproj" />
   </ItemGroup>
 

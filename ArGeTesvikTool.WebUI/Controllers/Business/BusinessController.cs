@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ArGeTesvikTool.Business.Abstract.Business;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ArGeTesvikTool.WebUI.Controllers.Business
 {
     public class BusinessController : Controller
     {
-        public IActionResult Index()
+        private IBusinessInfoService _businessInfoService;
+
+        public BusinessController(IBusinessInfoService businessInfoService)
         {
-            return View();
+            _businessInfoService = businessInfoService;
         }
 
-        public IActionResult Intro()
+        public IActionResult Index()
         {
             return View();
         }
@@ -19,6 +22,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return View();
         }
 
-
+        public IActionResult Intro()
+        {
+            return View();
+        }
     }
 }

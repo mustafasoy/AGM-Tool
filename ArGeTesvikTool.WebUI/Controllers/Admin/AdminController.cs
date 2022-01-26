@@ -38,7 +38,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 
             UserListViewModel userListViewModel = new()
             {
-                UserList = newUser
+                Users = newUser
             };
 
             return View(userListViewModel);
@@ -51,7 +51,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             IQueryable<AppIdentityRole> identityRole = _roleManager.Roles;
             var getUserRole = _userManager.GetRolesAsync(identityUser).Result.FirstOrDefault();
 
-            TempData["UserRole"] = getUserRole != null ? getUserRole : string.Empty;
+            TempData["UserRole"] = getUserRole != null
+                ? getUserRole
+                : string.Empty;
 
             RoleDto userRole = new()
             {
@@ -74,7 +76,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             UserViewModel userViewModel = new()
             {
                 User = identityUser.Adapt<UserDto>(),
-                RoleList = listRole
+                Roles = listRole
             };
 
             return View(userViewModel);
@@ -98,7 +100,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 
                 if (oldUserRole != userViewModel.RoleName)
                 {
-                    if (!String.IsNullOrEmpty(oldUserRole))
+                    if (!string.IsNullOrEmpty(oldUserRole))
                         await _userManager.RemoveFromRoleAsync(identityUser, oldUserRole);
 
                     await _userManager.AddToRoleAsync(identityUser, userViewModel.RoleName);
@@ -163,7 +165,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 
             RoleListViewModel roleListViewModel = new()
             {
-                RoleList = listRole
+                Roles = listRole
             };
 
             return View(roleListViewModel);

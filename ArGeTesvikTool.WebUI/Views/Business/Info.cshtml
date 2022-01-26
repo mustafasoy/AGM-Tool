@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "İşletme Bilgileri";
+﻿@model BusinessInfoViewModel
+@{
+    ViewData["Title"] = "Info";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -15,115 +16,156 @@
                     </div>
                     <div class="card-body">
                         <hr />
-                        <form class="form form-horizontal">
+                        <form asp-action="Info" method="post" id="jquery-val-form">
+                            <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label>İşletme Ünvan</label>
+                                        <h6 class="invoice-address">
+                                            İşletme Ünvan
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="text" class="form-control" id="iBusinessTitle" name="inputBusinessTitle">
+                                        <input asp-for="BusinessInfo.Title" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Faaliyet Kodu</label>
+                                        <h6 class="invoice-address">
+                                            Faaliyet Kodu
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <textarea class="form-control" rows="2" id="iActivityCode" name="inputActivityCode"></textarea>
+                                        <textarea asp-for="BusinessInfo.ActivityCode" class="form-control" rows="2"></textarea>
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Adres</label>
+                                        <h6 class="invoice-address">
+                                            Adres
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <textarea class="form-control" rows="2" id="iAddress" name="inputAddress"></textarea>
+                                        <textarea asp-for="BusinessInfo.Adress" class="form-control" rows="2"></textarea>
                                     </div>
                                     <div class="col-md-4">
-                                        <label>İl</label>
+                                        <h6 class="invoice-address">
+                                            İl
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="text" class="form-control" id="iCountry" name="inğutCountry">
+                                        <input asp-for="BusinessInfo.Country" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Telefon</label>
+                                        <h6 class="invoice-address">
+                                            Telefon
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="tel" class="form-control" id="iTelephone" name="inputTelephone">
+                                        <input asp-for="BusinessInfo.Title" type="tel" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>E-posta Adresi</label>
+                                        <h6 class="invoice-address">
+                                            Mail adresi
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="email" class="form-control" id="iEmail" name="inputEmail">
+                                        <input asp-for="BusinessInfo.Mail" type="email" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Yerli/Yabancı Ortaklık</label>
+                                        <h6 class="invoice-address">
+                                            Yerli/Yabancı Ortaklık
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <textarea class="form-control" rows="2" id="iPartner" name="inputPartner"></textarea>
+                                        <textarea asp-for="BusinessInfo.Partner" class="form-control" rows="2"></textarea>
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Kuruluş Tarihi</label>
+                                        <h6 class="invoice-address">
+                                            Kuruluş Tarihi
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="date" class="form-control" id="iDate" name="inputDate">
+                                        <input asp-for="BusinessInfo.Date" type="date" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Ticaret Sicil Gazatesinde Yayımlama Tarihi</label>
+                                        <h6 class="invoice-address">
+                                            Ticaret Sicil Gazatesinde Yayımlama Tarihi
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="date" class="form-control" id="iPublishDate" name="inputPublishDate">
+                                        <input asp-for="BusinessInfo.PublishDate" type="date" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Sanayi/Ticaret Sicil No</label>
+                                        <h6 class="invoice-address">
+                                            Sanayi/Ticaret Sicil No
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="text" class="form-control" id="iTradeNumber" name="inputTradeNumber">
+                                        <input asp-for="BusinessInfo.TradeNumber" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Kayıtlı Olduğu Sanayi/Ticaret Odası</label>
+                                        <h6 class="invoice-address">
+                                            Kayıtlı Olduğu Sanayi/Ticaret Odası
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="text" class="form-control" id="iChamberCommerce" name="inputChamberCommerce">
+                                        <input asp-for="BusinessInfo.ChamberCommerce" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Vergi Dairesi/no</label>
+                                        <h6 class="invoice-address">
+                                            Vergi Dairesi
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="number" class="form-control" id="iTaxOffice" name="inputTaxOffice">
+                                        <input asp-for="BusinessInfo.TaxOffice" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>SGK İşyeri Sicil No</label>
+                                        <h6 class="invoice-address">
+                                            SGK İşyeri Sicil No
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="number" class="form-control" id="iRegistrationNo" name="inputRegistrationNo">
+                                        <input asp-for="BusinessInfo.RegistrationNo" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Kuruluş Sermayesi</label>
+                                        <h6 class="invoice-address">
+                                            Kuruluş Sermayesi
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="number" class="form-control" id="iFoundingCapital" name="inputFoundingCapital">
+                                        <input asp-for="BusinessInfo.FoundingCapital" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Mevcut Sermaye</label>
+                                        <h6 class="invoice-address">
+                                            Mevcut Sermaye
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="number" class="form-control" id="iAvailableCapital" name="inputAvailableCapital">
+                                        <input asp-for="BusinessInfo.AvaibleCapital" class="form-control">
                                     </div>
                                     <div class="col-md-4">
-                                        <label>KOBİ mi?</label>
+                                        <h6 class="invoice-address">
+                                            Kobi mi?
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group">
-                                            <select class="form-control" id="isKobi">
-                                                <option>Evet</option>
-                                                <option>Hayır</option>
+                                            <select class="form-control" asp-for="BusinessInfo.IsSME">
+                                                @foreach (var item in Model.isSME)
+                                                {
+                                                    <option>@item</option>
+                                                }
                                             </select>
                                         </fieldset>
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Mersis No</label>
+                                        <h6 class="invoice-address">
+                                            Mersis Numarası
+                                        </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input type="number" class="form-control" id="iSystemNo" name="inputSystemNo">
+                                        <input asp-for="BusinessInfo.CRSNumber" type="number" class="form-control">
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary mr-1">Kaydet</button>

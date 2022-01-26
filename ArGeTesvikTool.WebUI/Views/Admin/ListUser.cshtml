@@ -21,32 +21,56 @@
                     <form>
                         <div class="row border rounded py-2 mb-2">
                             <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="users-list-verified">Doğrulandı</label>
+                                <h6 class="invoice-address">
+                                    Doğrulandı
+                                </h6>
                                 <fieldset class="form-group">
                                     <select class="form-control" id="users-list-verified">
-                                        <option value="">Hepsi</option>
-                                        <option value="Evet">Evet</option>
-                                        <option value="Hayır">Hayır</option>
+                                        <option value="">
+                                            Hepsi
+                                        </option>
+                                        <option value="Evet">
+                                            Evet
+                                        </option>
+                                        <option value="Hayır">
+                                            Hayır
+                                        </option>
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="users-list-role">Role</label>
+                                <h6 class="invoice-address">
+                                    Rol
+                                </h6>
                                 <fieldset class="form-group">
                                     <select class="form-control" id="users-list-role">
-                                        <option value="">Hepsi</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="Personel">Personel</option>
+                                        <option value="">
+                                            Hepsi
+                                        </option>
+                                        <option value="Yönetici">
+                                            Yönetici
+                                        </option>
+                                        <option value="Personel">
+                                            Personel
+                                        </option>
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="users-list-status">Status</label>
+                                <h6 class="invoice-address">
+                                    Durum
+                                </h6>
                                 <fieldset class="form-group">
                                     <select class="form-control" id="users-list-status">
-                                        <option value="">Hepsi</option>
-                                        <option value="Aktif">Aktif</option>
-                                        <option value="Pasif">Pasif</option>
+                                        <option value="">
+                                            Hepsi
+                                        </option>
+                                        <option value="Aktif">
+                                            Aktif
+                                        </option>
+                                        <option value="Pasif">
+                                            Pasif
+                                        </option>
                                     </select>
                                 </fieldset>
                             </div>
@@ -87,7 +111,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model.UserList)
+                                        @foreach (var item in Model.Users)
                                         {
                                             <tr>
                                                 <td>
@@ -127,7 +151,7 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/js/core/libraries/jquery.min.js"></script>
+<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";

@@ -5,6 +5,6 @@ namespace ArGeTesvikTool.WebUI.Models
 {
     public class RoleListViewModel
     {
-        public List<RoleDto> RoleList { get; set; }
+        public List<RoleDto> Roles { get; set; }
     }
 }

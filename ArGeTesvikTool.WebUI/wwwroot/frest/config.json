@@ -2,146 +2,47 @@
   "html": "html",
   "starter_kit": "starter-kit",
   "documentation": "documentation",
-  "assets": "assets",
-  "app_assets": "app-assets",
-  "assets_path": "../../../assets",
-  "app_assets_path": "../../../app-assets",
-  "vendors_path": "./app-assets/vendors/",
+  "assets": "~/frest/assets",
+  "app_assets": "~/frest/app-assets",
+  "assets_path": "~/frest/assets",
+
+  "app_assets_path": "~/frest/app-assets",
+  "vendors_path": "~/frest/app-assets/vendors/",
   "destination": {
-    "js": "app-assets/js",
-    "css": "app-assets/css",
-    "css_rtl": "app-assets/css-rtl"
+    "js": "~/frest/app-assets/js",
+    "css": "~/frest/app-assets/css",
+    "css_rtl": "~/frest/app-assets/css-rtl"
   },
   "source": {
-    "path": "src",
-    "js": "src/js",
-    "sass": "src/scss",
+    "path": "~/frest/src",
+    "js": "~/frest/src/src/js",
+    "sass": "~/frest/src/scss",
     "template": "src/template-builder",
-    "documentation": "src/documentation"
+    "documentation": "~/frest/src/documentation"
   },
   "vendors": {
     "js": [
-      "jquery/jquery.min.js",
-      "popper/popper.min.js",
-      "bootstrap/bootstrap.min.js",
-      "perfectscrollbar/perfect-scrollbar.min.js",
-      "hammer/hammer.min.js",
-      "unison-js/unison-js.min.js",
-      "blockui/blockui.min.js",
-      "match-height/jquery.matchHeight-min.js",
-      "sliding-menu/jquery-slidingMenu.min.js",
-      "screenfull/screenfull.min.js",
-      "pace/pace.min.js",
-      "internationalization/i18n.min.js",
-      "internationalization/i18n-xhr.min.js",
-      "internationalization/lang-detector.min.js",
-      "internationalization/i18n-jquery.min.js"
+      "~/frest/app-assets/vendors/js/jquery/jquery.min.js",
+      "~/frest/app-assets/vendors/js/popper/popper.min.js",
+      "~/frest/app-assets/vendors/js/bootstrap/bootstrap.min.js",
+      "~/frest/app-assets/vendors/js/perfectscrollbar/perfect-scrollbar.min.js",
+      "~/frest/app-assets/vendors/js/hammer/hammer.min.js",
+      "~/frest/app-assets/vendors/js/unison-js/unison-js.min.js",
+      "~/frest/app-assets/vendors/js/blockui/blockui.min.js",
+      "~/frest/app-assets/vendors/js/match-height/jquery.matchHeight-min.js",
+      "~/frest/app-assets/vendors/js/sliding-menu/jquery-slidingMenu.min.js",
+      "~/frest/app-assets/vendors/js/screenfull/screenfull.min.js",
+      "~/frest/app-assets/vendors/js/pace/pace.min.js",
+      "~/frest/app-assets/vendors/js/internationalization/i18n.min.js",
+      "~/frest/app-assets/vendors/js/internationalization/i18n-xhr.min.js",
+      "~/frest/app-assets/vendors/js/internationalization/lang-detector.min.js",
+      "~/frest/app-assets/vendors/js/internationalization/i18n-jquery.min.js"
     ],
     "css": [
-      "boxicons/css/boxicons.min.css",
-      "flag-icons/css/flag-icon.min.css",
-      "pace/pace.min.css",
-      "perfect-scrollbar/perfect-scrollbar.min.css"
-    ]
-  },
-  "vertical_menu_template": {
-    "dashboardRename": "dashboard-ecommerce.html",
-    "pugSrc": [
-      "*.pug",
-      "!**/template.pug",
-      "!**/sk-horizontal-layout-1-column.pug"
-    ]
-  },
-  "vertical_menu_template_dark": {
-    "dashboardRename": "dashboard-analytics.html",
-    "pugSrc": [
-      "*.pug",
-      "!**/template.pug",
-      "!**/sk-horizontal-layout-1-column.pug"
-    ]
-  },
-  "vertical_menu_template_semi_dark": {
-    "dashboardRename": "dashboard-ecommerce.html",
-    "pugSrc": [
-      "*.pug",
-      "!**/template.pug",
-      "!**/sk-horizontal-layout-1-column.pug"
-    ]
-  },
-  "vertical_menu_boxicons_template": {
-    "dashboardRename": "dashboard-analytics.html",
-    "pugSrc": [
-      "*.pug",
-      "!**/template.pug",
-      "!**/sk-horizontal-layout-1-column.pug"
-    ]
-  },
-  "horizontal_menu_template": {
-    "dashboardRename": "dashboard-analytics.html",
-    "pugSrc": [
-      "*.pug",
-      "!**/template.pug",
-      "!**/sk-layout-2-columns.pug",
-      "!**/vertical-nav-fixed.pug",
-      "!**/vertical-nav-static.pug",
-      "!**/vertical-nav-light.pug",
-      "!**/vertical-nav-dark.pug",
-      "!**/vertical-nav-accordion.pug",
-      "!**/vertical-nav-collapsible.pug",
-      "!**/vertical-nav-flipped.pug",
-      "!**/vertical-nav-native-scroll.pug",
-      "!**/vertical-nav-right-side-icon.pug",
-      "!**/vertical-nav-bordered.pug",
-      "!**/vertical-nav-disabled-link.pug",
-      "!**/vertical-nav-styling.pug",
-      "!**/vertical-nav-tags-pills.pug",
-      "!**/sk-layout-1-column.pug",
-      "!**/layout-2-columns.pug",
-      "!**/layout-content-left-sidebar.pug",
-      "!**/layout-content-left-sticky-sidebar.pug",
-      "!**/layout-content-right-sidebar.pug",
-      "!**/layout-content-right-sticky-sidebar.pug",
-      "!**/layout-fixed-navbar-footer.pug",
-      "!**/layout-fixed-navbar-navigation.pug",
-      "!**/layout-fixed-navbar.pug",
-      "!**/layout-semi-dark.pug",
-      "!**/navbar-fixed-top.pug",
-      "!**/navbar-hide-on-scroll-bottom.pug",
-      "!**/navbar-hide-on-scroll-top.pug"
-    ]
-  },
-  "horizontal_menu_template_dark": {
-    "dashboardRename": "dashboard-ecommerce.html",
-    "pugSrc": [
-      "*.pug",
-      "!**/template.pug",
-      "!**/sk-layout-2-columns.pug",
-      "!**/vertical-nav-fixed.pug",
-      "!**/vertical-nav-static.pug",
-      "!**/vertical-nav-light.pug",
-      "!**/vertical-nav-dark.pug",
-      "!**/vertical-nav-accordion.pug",
-      "!**/vertical-nav-collapsible.pug",
-      "!**/vertical-nav-flipped.pug",
-      "!**/vertical-nav-native-scroll.pug",
-      "!**/vertical-nav-right-side-icon.pug",
-      "!**/vertical-nav-bordered.pug",
-      "!**/vertical-nav-disabled-link.pug",
-      "!**/vertical-nav-styling.pug",
-      "!**/vertical-nav-tags-pills.pug",
-      "!**/sk-layout-1-column.pug",
-      "!**/layout-2-columns.pug",
-      "!**/layout-content-left-sidebar.pug",
-      "!**/layout-content-left-sticky-sidebar.pug",
-      "!**/layout-content-right-sidebar.pug",
-      "!**/layout-content-right-sticky-sidebar.pug",
-      "!**/layout-fixed-navbar-footer.pug",
-      "!**/layout-fixed-navbar-navigation.pug",
-      "!**/layout-fixed-navbar.pug",
-      "!**/layout-semi-dark.pug",
-      "!**/navbar-fixed-top.pug",
-      "!**/navbar-hide-on-scroll-bottom.pug",
-      "!**/navbar-hide-on-scroll-top.pug"
+      "~/frest/app-assets/vendors/css/boxicons/css/boxicons.min.css",
+      "~/frest/app-assets/vendors/css/flag-icons/css/flag-icon.min.css",
+      "~/frest/app-assets/vendors/css/pace/pace.min.css",
+      "~/frest/app-assets/vendors/css/perfect-scrollbar/perfect-scrollbar.min.css"
     ]
   }
 }

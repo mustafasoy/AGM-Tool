@@ -1,6 +1,6 @@
 ﻿namespace ArGeTesvikTool.Entities.Abstract
 {
-    public class IEntity
+    public interface IEntity
     {
     }
 }
