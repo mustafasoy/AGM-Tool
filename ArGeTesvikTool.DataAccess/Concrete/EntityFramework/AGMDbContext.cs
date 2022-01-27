@@ -13,9 +13,13 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new BusinessInfoMap(modelBuilder.Entity<BusinessInfoDto>());
+            _ = new BusinessInfoMap(modelBuilder.Entity<BusinessInfoDto>());
         }
 
         public DbSet<BusinessInfoDto> BusinessInfos { get; set; }
+        public DbSet<BusinessIntroDto> BusinessIntros { get; set; }
+        public DbSet<GroupInfoDto> GroupInfos { get; set; }
+        public DbSet<ShareholdersDto> Shareholders { get; set; }
+        public DbSet<PersonnelDistributionDto> PersonnelDistributions { get; set; }
     }
 }

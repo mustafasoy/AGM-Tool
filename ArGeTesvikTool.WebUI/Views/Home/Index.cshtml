@@ -5,17 +5,17 @@
     <img src="~/frest/app-assets/images/background/borusan.png" />
 </div>
 <!-- BEGIN: Content-->
-<div class="app-content content">
+<!--<div class="app-content content">
     <div class="content-overlay"></div>
     <div class="content-wrapper">
-        <div class="content-body">
-            <!-- Basic Modals start -->
-            <section id="basic-modals">
-                <div class="row">
-                    <div class="col-md-6 col-12">
-                        <div class="card">
-                            <!--Basic Modal -->
-                            <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="content-body">-->
+<!-- Basic Modals start -->
+<!--<section id="basic-modals">
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <div class="card">-->
+<!--Basic Modal -->
+<!--<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -50,12 +50,24 @@
             </section>
         </div>
     </div>
-</div>
+</div>-->
 <!-- END: Content-->
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+@*<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#default').modal('show');
+        });
+    </script>*@
+<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#default').modal('show');
-    });
+        var message = "@(TempData["SuccessMessage"] as string)";
+        if (message != "") {
+            toastr['success'](message, {
+            showMethod: 'slideDown',
+            hideMethod: 'slideUp',
+            timeOut: 2000,
+        })
+    };
+});
 </script>

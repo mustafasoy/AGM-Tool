@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.WebUI.Models.Business
 {
-    public class BusinessInfoViewModel
+    public class GroupInfoViewModel
     {
-        public BusinessInfoDto BusinessInfo { get; set; }
+        public GroupInfoDto GroupInfo { get; set; }
     }
 }

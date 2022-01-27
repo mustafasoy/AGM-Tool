@@ -21,7 +21,7 @@ $(function () {
         $this.wrap('<div class="position-relative"></div>');
         $this
             .select2({
-                placeholder: 'Select value',
+                placeholder: 'Seciniz',
                 dropdownParent: $this.parent()
             })
             .change(function () {

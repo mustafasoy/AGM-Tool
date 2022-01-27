@@ -20,6 +20,8 @@
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/extensions/dragula.min.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/forms/select/select2.min.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/extensions/toastr.css">
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/pickers/pickadate/pickadate.css">
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/pickers/daterange/daterangepicker.css">
     <!-- END: Vendor CSS-->
     <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/bootstrap.css">
@@ -185,7 +187,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li active-when="/Business/Info">
                             <a asp-controller="Business" asp-action="Info">
                                 <i class="bx bx-sitemap"></i>
                                 <span class="menu-title text-truncate" data-i18n="Business Info">
@@ -193,7 +195,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li active-when="/Business/Intro">
                             <a asp-controller="Business" asp-action="Intro">
                                 <i class="bx bx-info-circle"></i>
                                 <span class="menu-title text-truncate" data-i18n="Business Intro">
@@ -201,8 +203,8 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/Business/GroupInfo">
+                            <a asp-controller="Business" asp-action="GroupInfo">
                                 <i class="bx bx-shape-circle"></i>
                                 <span class="menu-title text-truncate" data-i18n="Group Info">
                                     Bağlı Olduğu Holding
@@ -510,6 +512,12 @@
     <script src="~/frest/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
     <script src="~/frest/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
     <script src="~/frest/app-assets/vendors/js/extensions/toastr.min.js"></script>
+    <script src="~/frest/app-assets/vendors/js/pickers/pickadate/picker.js"></script>
+    <script src="~/frest/app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
+    <script src="~/frest/app-assets/vendors/js/pickers/pickadate/picker.time.js"></script>
+    <script src="~/frest/app-assets/vendors/js/pickers/pickadate/legacy.js"></script>
+    <script src="~/frest/app-assets/vendors/js/extensions/moment.min.js"></script>
+    <script src="~/frest/app-assets/vendors/js/pickers/daterange/daterangepicker.js"></script>
     <!-- END: Page Vendor JS-->
     <!-- BEGIN: Theme JS-->
     <script src="~/frest/app-assets/js/scripts/configs/vertical-menu-light.js"></script>
@@ -531,6 +539,7 @@
     <script src="~/frest/app-assets/js/scripts/pages/app-invoice.js"></script>
     <script src="~/frest/app-assets/js/scripts/forms/select/form-select2.js"></script>
     <script src="~/frest/app-assets/js/scripts/extensions/toastr.js"></script>
+    <script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
     <!-- END: Page JS-->
 </body>
 </html>

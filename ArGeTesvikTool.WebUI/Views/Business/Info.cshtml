@@ -4,7 +4,6 @@
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
-    <div class="content-overlay"></div>
     <div class="content-wrapper">
         <div class="row match-height">
             <div class="col-12">
@@ -54,7 +53,11 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.Country" class="form-control">
+                                        <fieldset class="form-group">
+                                            <select asp-for="BusinessInfo.City" class="select2 form-control select2-hidden-accessible" aria-hidden="true"  id="Cities">
+                                                <option selected="selected" value="">Seçiniz</option>
+                                            </select>
+                                        </fieldset>
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -62,7 +65,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.Title" type="tel" class="form-control">
+                                        <input asp-for="BusinessInfo.PhoneNumber" type="tel" class="form-control" maxlength="10">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -86,7 +89,12 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.Date" type="date" class="form-control">
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <input asp-for="BusinessInfo.Date" type="text" class="form-control pickadate-translations" placeholder="dd-mm-yyy">
+                                            <div class="form-control-position">
+                                                <i class='bx bx-calendar'></i>
+                                            </div>
+                                        </fieldset>
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -94,7 +102,12 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.PublishDate" type="date" class="form-control">
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <input asp-for="BusinessInfo.PublishDate" type="text" class="form-control pickadate-translations" placeholder="dd-mm-yyy">
+                                            <div class="form-control-position">
+                                                <i class='bx bx-calendar'></i>
+                                            </div>
+                                        </fieldset>
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -151,11 +164,8 @@
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group">
-                                            <select class="form-control" asp-for="BusinessInfo.IsSME">
-                                                @foreach (var item in Model.isSME)
-                                                {
-                                                    <option>@item</option>
-                                                }
+                                            <select asp-for="BusinessInfo.IsSME" asp-items="Html.GetEnumSelectList<Sme>()" class="form-control">
+                                                <option selected="selected" value="">Seçiniz</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -180,3 +190,5 @@
     </div>
 </div>
 <!-- END: Content-->
+<script src="~/frest/app-assets/js/core/libraries/jquery.min.js"></script>
+<script src="~/frest/app-assets/js/list-cities.js"></script>

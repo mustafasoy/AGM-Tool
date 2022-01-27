@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Business
 {
-    public class EfBusinessInfoDal : EfEntityRepositoryBase<BusinessInfoDto, AGMDbContext>, IBusinessInfoDal
+    public class EfGroupInfoDal : EfEntityRepositoryBase<GroupInfoDto, AGMDbContext>, IGroupInfoDal
     {
     }
 }

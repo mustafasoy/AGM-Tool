@@ -1,0 +1,75 @@
+﻿@model GroupInfoViewModel
+@{
+    ViewData["Title"] = "Bağlı Olduğu Holding/Grup Bilgileri";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            Bağlı Olduğu Holding / Grup Bilgileri
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="GroupInfo" method="post" id="jquery-val-form">
+                            <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            Holding / Grup Ünvanı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input asp-for="GroupInfo.CompanyName" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            Adres
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <textarea asp-for="GroupInfo.Address" class="form-control" rows="2"></textarea>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            Menşei
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <textarea asp-for="GroupInfo.Origin" class="form-control" rows="2"></textarea>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            Kuruluş Tarihi
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <input type="text" class="form-control single-daterange" placeholder="mm/dd/yyyy">
+                                            <div class="form-control-position">
+                                                <i class='bx bx-calendar'></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.Business.Abstract.Business
 {
-    public interface IBusinessInfoService
+    public interface IGroupInfoService
     {
-        void Add(BusinessInfoDto businessInfo);
-        void Update(BusinessInfoDto businessInfo);
+        void Add(GroupInfoDto businessInfo);
+        void Update(GroupInfoDto businessInfo);
         void Delete(int id);
-        BusinessInfoDto GetByYear(int year);
     }
 }

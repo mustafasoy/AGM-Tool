@@ -33,9 +33,9 @@ namespace ArGeTesvikTool.Business.Concrete.Business
             _businessInfoDal.Delete(new BusinessInfoDto { Id = id });
         }
 
-        public BusinessInfoDto GetById(int id)
+        public BusinessInfoDto GetByYear(int year)
         {
-            return _businessInfoDal.Get(x => x.Id == id);
+            return _businessInfoDal.Get(x => x.Year == year);
         }
     }
 }

@@ -9,11 +9,10 @@ namespace ArGeTesvikTool.Entities.EfCodeFirstMappings
     {
         public BusinessInfoMap(EntityTypeBuilder<BusinessInfoDto> entityTypeBuilder)
         {
-            entityTypeBuilder.ToTable("BusinessInfos");
-
             entityTypeBuilder.HasIndex(x => x.Year)
                 .IsUnique();
 
+            #region Column Properties
             entityTypeBuilder.Property(x => x.Id)
                 .HasColumnName("Id");
 
@@ -33,9 +32,13 @@ namespace ArGeTesvikTool.Entities.EfCodeFirstMappings
                 .HasColumnName("Adress")
                 .HasMaxLength(200);
 
-            entityTypeBuilder.Property(x => x.Country)
-                .HasColumnName("Country")
+            entityTypeBuilder.Property(x => x.City)
+                .HasColumnName("City")
                 .HasMaxLength(15);
+
+            entityTypeBuilder.Property(x => x.PhoneNumber)
+                .HasColumnName("PhoneNumber")
+                .HasMaxLength(10);
 
             entityTypeBuilder.Property(x => x.Mail)
                 .HasColumnName("Mail")
@@ -78,7 +81,8 @@ namespace ArGeTesvikTool.Entities.EfCodeFirstMappings
                 .HasColumnName("IsSME");
 
             entityTypeBuilder.Property(x => x.CRSNumber)
-                .HasColumnName("CRSNumber");
+                .HasColumnName("CRSNumber"); 
+            #endregion
         }
     }
 }
