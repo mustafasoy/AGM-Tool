@@ -1,0 +1,103 @@
+﻿@model FinancialInfoViewModel
+@{
+    ViewData["Title"] = "Mali/Finansal Bilgi";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <h4 class="text-primary">
+                Mali ve Finansal Bilgi
+            </h4>
+            <br />
+            <section class="invoice-list-wrapper">
+                <div class="invoice-create-btn mb-1">
+                    <a asp-action="" class="btn btn-primary invoice-create" role="button" aria-pressed="true">
+                        Finansal Bilgi Ekle
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table invoice-data-table dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>
+                                    2020
+                                </th>
+                                <th>
+                                    2019
+                                </th>
+                                <th>
+                                    2018
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Net Satışlar (TL)</td>
+                                <td>2.600.738.439,13</td>
+                                <td>2.431.014.296,00</td>
+                                <td>2.554.737.348,29</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Toplam Bilanço (Aktifler Toplamı) (TL)</td>
+                                <td>1.449.095.850,78</td>
+                                <td>1.312.279.957.00</td>
+                                <td>1.1276.254.816,31</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Kısa Vadeli Borçlar (TL)</td>
+                                <td>966.355.366,26</td>
+                                <td>1.172.028.096,00</td>
+                                <td>1.045.338.288,17</td>
+                            </tr>
+                            @*@foreach (var item in Model.FinancialInfo)
+        {
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NetSales)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalAsset)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SortTermLoan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LongTermLoan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DomesticSales)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExportSales)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GrossSales)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RDExpenditure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AcquisitionTurnover)
+                </td>
+            </tr>
+        }*@
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

@@ -211,8 +211,8 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/Business/Shareholder">
+                            <a asp-controller="Business" asp-action="Shareholder">
                                 <i class="bx bx-user-plus"></i>
                                 <span class="menu-title text-truncate" data-i18n="Shareholders">
                                     İşletme Ortakları
@@ -227,8 +227,8 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/Business/PersonnelDistribution">
+                            <a asp-controller="Business" asp-action="PersonnelDistribution">
                                 <i class="bx bxs-group"></i>
                                 <span class="menu-item text-truncate" data-i18n="Personnel Distribution">
                                     Personel Dağılımı
@@ -243,8 +243,8 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/Business/FinancialInfo">
+                            <a asp-controller="Business" asp-action="FinancialInfo">
                                 <i class="bx bx-wallet"></i>
                                 <span class="menu-title text-truncate" data-i18n="Business Financial Info">
                                     Mali ve Finanslar Bilgi
@@ -262,24 +262,24 @@
                         </span>
                     </a>
                     <ul class="menu-content">
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenter/Contact">
+                            <a asp-controller="RdCenter" asp-action="Contact">
                                 <i class="bx bx-task"></i>
-                                <span class="menu-title text-truncate" data-i18n="RD Executive">
+                                <span class="menu-title text-truncate" data-i18n="RD Contact">
                                     AGM Yetkilileri
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenter/Info">
+                            <a asp-controller="RdCenter" asp-action="Info">
                                 <i class="bx bx-info-circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="RD Info">
                                     AGM Bilgileri
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a asp-controller="Agm" asp-action="Schema">
+                        <li active-when="/RdCenter/Schema">
+                            <a asp-controller="RdCenter" asp-action="Schema">
                                 <i class="bx bx-git-repo-forked"></i>
                                 <span class="menu-item text-truncate" data-i18n="RD Setup Schema">
                                     Organizasyon Şeması
@@ -313,8 +313,8 @@
                         </span>
                     </a>
                     <ul class="menu-content">
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenter/PersonnelInfo">
+                            <a asp-controller="RdCenter" asp-action="PersonnelInfo">
                                 <i class="bx bx-user-plus"></i>
                                 <span class="menu-item text-truncate" data-i18n="Working Staff Info">
                                     Çalışan Personel Bilgileri
@@ -329,11 +329,11 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenter/RewardSystem">
+                            <a asp-controller="RdCenter" asp-action="RewardSystem">
                                 <i class="bx bx-chart"></i>
                                 <span class="menu-title text-truncate" data-i18n="Reward System">
-                                    Perf. Değ/Ödül Sistemi
+                                    Perf.Değ./Ödül Sistemi
                                 </span>
                             </a>
                         </li>

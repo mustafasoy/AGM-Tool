@@ -1,0 +1,105 @@
+﻿@model RdCenterPersonnelInfoViewModel
+
+@{
+    ViewData["Title"] = "Ar-Ge Merkezi Personel Bilgileri";
+}
+
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <h4 class="text-primary">
+                Ar-Ge Merkezi Personel Bilgileri
+            </h4>
+            <br />
+            <section class="invoice-list-wrapper">
+                <div class="invoice-create-btn mb-1">
+                    <a asp-action="" class="btn btn-primary invoice-create" role="button" aria-pressed="true">
+                        Yeni Personel Ekle
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table invoice-data-table dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>
+                                    Sıra No
+                                </th>
+                                <th>
+                                    T.C /
+                                    <br />
+                                    Yabancı Kimlik No
+                                </th>
+                                <th>
+                                    İsim Soyisim
+                                </th>
+                                <th>
+                                    Uyruğu
+                                </th>
+                                <th>
+                                    Eğitim Durumu
+                                </th>
+                                <th>
+                                    Mezun Olduğu Okul / Bölüm
+                                </th>
+                                <th>
+                                    Görevi
+                                </th>
+                                <th>
+                                    SGK Sicik No
+                                </th>
+                                <th>
+                                    İşe Başladığı Tarihi
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>1</td>
+                                <td>25751002912</td>
+                                <td>Hilal Cansu Çelik</td>
+                                <td>Türkiye</td>
+                                <td>Lisans</td>
+                                <td>Uludağ Üniversite / Uluslararası ilişkiler</td>
+                                <td>Araştırmacı</td>
+                                <td>16112002083270</td>
+                                <td>08.04.2016</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>2</td>
+                                <td>34963117352</td>
+                                <td>Cüneyt Toker</td>
+                                <td>Türkiye</td>
+                                <td>Yüksek Lisans</td>
+                                <td>Bahçeşehir Üniversite / İşletme</td>
+                                <td>Araştırmacı</td>
+                                <td>41012002083270</td>
+                                <td>08.04.2016</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>3</td>
+                                <td>62163117352</td>
+                                <td>Erdem Hamarat</td>
+                                <td>Türkiye</td>
+                                <td>Lisans</td>
+                                <td>Bahçeşehir Üniversite / Matematik ve Bilgisayar Bilimleri</td>
+                                <td>Araştırmacı</td>
+                                <td>34012002083270</td>
+                                <td>08.04.2016</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

@@ -20,8 +20,8 @@ namespace ArGeTesvikTool.Entities.EfCodeFirstMappings
                 .HasColumnName("Year")
                 .HasMaxLength(4);
 
-            entityTypeBuilder.Property(x => x.Title)
-                .HasColumnName("Title")
+            entityTypeBuilder.Property(x => x.CompanyName)
+                .HasColumnName("CompanyName")
                 .HasMaxLength(100);
 
             entityTypeBuilder.Property(x => x.ActivityCode)
@@ -81,7 +81,7 @@ namespace ArGeTesvikTool.Entities.EfCodeFirstMappings
                 .HasColumnName("IsSME");
 
             entityTypeBuilder.Property(x => x.CRSNumber)
-                .HasColumnName("CRSNumber"); 
+                .HasColumnName("CRSNumber");
             #endregion
         }
     }

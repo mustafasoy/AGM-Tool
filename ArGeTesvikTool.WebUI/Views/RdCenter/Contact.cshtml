@@ -1,6 +1,6 @@
-﻿@model GroupInfoViewModel
+﻿@model RdCenterContactViewModel
 @{
-    ViewData["Title"] = "Bağlı Olduğu Holding/Grup Bilgileri";
+    ViewData["Title"] = "Ar-Ge Merkezi Yetkilileri";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -10,12 +10,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="text-primary">
-                            Bağlı Olduğu Holding / Grup Bilgileri
+                            Ar-Ge Merkezi Yetkilileri
                         </h4>
                     </div>
                     <div class="card-body">
                         <hr />
-                        <form asp-action="GroupInfo" method="post" id="jquery-val-form">
+                        <form asp-action="Contact" method="post" id="jquery-val-form">
                             <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
@@ -25,40 +25,48 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
-                                            Holding / Grup Ünvanı
+                                            T.C Kimlik No / Yabancı Kimlik No
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="GroupInfo.CompanyName" class="form-control">
+                                        <input asp-for="RdCenterContact.IdentityNumber" class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
-                                            Adres
-                                        </h6>
-                                    </div>
-                                    <div class="col-md-8 form-group">
-                                        <textarea asp-for="GroupInfo.Address" class="form-control" rows="2"></textarea>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h6 class="invoice-address">
-                                            Menşei
-                                        </h6>
-                                    </div>
-                                    <div class="col-md-8 form-group">
-                                        <textarea asp-for="GroupInfo.Origin" class="form-control" rows="2"></textarea>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h6 class="invoice-address">
-                                            Kuruluş Tarihi
+                                            Doğum Tarihi
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="GroupInfo.FoundingDate" type="text" class="form-control single-daterange" placeholder="mm/dd/yyyy">
+                                            <input asp-for="RdCenterContact.Birthday" type="text" class="form-control single-daterange" placeholder="mm/dd/yyyy">
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>
                                         </fieldset>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            İsim Soyisim
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input asp-for="RdCenterContact.NameSurname" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            E-Posta
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input asp-for="RdCenterContact.Mail" type="email" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            Mobil Telefon Numarası
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input asp-for="RdCenterContact.PhoneNumber" type="tel" class="form-control" maxlength="10">
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary mr-1">Kaydet</button>

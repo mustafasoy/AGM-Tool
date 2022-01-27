@@ -1,20 +1,19 @@
-﻿@model RoleListViewModel
+﻿@model ShareholderViewModel
 @{
-    ViewData["Title"] = "Rol Liste";
+    ViewData["Title"] = "İşletme Ortakları";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
     <div class="content-wrapper">
         <div class="content-body">
             <h4 class="text-primary">
-                Rol Liste
+                Bağlı Olduğu Holding / Grup Bilgileri
             </h4>
             <br />
-            <!-- role list -->
             <section class="invoice-list-wrapper">
                 <div class="invoice-create-btn mb-1">
-                    <a asp-action="CreateRole" class="btn btn-primary invoice-create" role="button" aria-pressed="true">
-                        Rol Oluştur
+                    <a asp-action="" class="btn btn-primary invoice-create" role="button" aria-pressed="true">
+                        Yeni ortak ekle
                     </a>
                 </div>
                 <div class="table-responsive">
@@ -24,49 +23,42 @@
                                 <th></th>
                                 <th></th>
                                 <th>
-                                    Rol adı
+                                    Ortak Adı / Ünvanı
                                 </th>
                                 <th>
-                                    Rol tanım
+                                    Uyruğu
                                 </th>
                                 <th>
-                                    Date
+                                    Pay (%)
                                 </th>
                                 <th>
-                                    Customer
+                                    Pay Tutarı (TL)
                                 </th>
                                 <th>
-                                    Tags
-                                </th>
-                                <th>
-                                    Status
-                                </th>
-                                <th>
-                                    Action
+                                    Düzenle
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Roles)
+                            @foreach (var item in Model.Shareholder)
                             {
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
+                                        @Html.DisplayFor(modelItem => item.CompanyName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.RoleText)
+                                        @Html.DisplayFor(modelItem => item.Origin)
                                     </td>
-                                    <td><small class="text-muted">12-08-19</small></td>
-                                    <td><span class="invoice-customer">Communications</span></td>
                                     <td>
-                                        <span class="bullet bullet-success bullet-sm"></span>
-                                        <small class="text-muted">Technology</small>
+                                        @Html.DisplayFor(modelItem => item.Share)
                                     </td>
-                                    <td><span class="badge badge-light-success badge-pill">PAID</span></td>
                                     <td>
-                                        <a asp-action="RoleDelete" asp-route-id="@item.Id" method="post">
+                                        @Html.DisplayFor(modelItem => item.ShareAmount)
+                                    </td>
+                                    <td>
+                                        <a asp-action="" asp-route-id="@item.Id" method="post">
                                             <i class="bx bx-edit"></i>
                                         </a>
                                     </td>

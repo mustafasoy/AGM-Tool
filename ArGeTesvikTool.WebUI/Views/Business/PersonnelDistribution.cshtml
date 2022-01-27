@@ -1,0 +1,90 @@
+﻿@model PersonnelDistributionViewModel
+@{
+    ViewData["Title"] = "Personel Dağılımı";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <h4 class="text-primary">
+                Bağlı Olduğu Holding / Grup Bilgileri
+            </h4>
+            <br />
+            <section class="invoice-list-wrapper">
+                <div class="invoice-create-btn mb-1">
+                    <a asp-action="" class="btn btn-primary invoice-create" role="button" aria-pressed="true">
+                        Yeni ortak ekle
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table invoice-data-table dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>
+                                    Birim
+                                </th>
+                                <th>
+                                    Doktoro Üstü
+                                </th>
+                                <th>
+                                    Doktora
+                                </th>
+                                <th>
+                                    Yüksek Lisans
+                                </th>
+                                <th>
+                                    Lisans
+                                </th>
+                                <th>
+                                    Ön Lisans
+                                </th>
+                                <th>
+                                    Lise ve Diğer
+                                </th>
+                                <th>
+                                    Toplam
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.PersonnelDistribution)
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CompanyUnit)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PostDoctoral)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Doctoral)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MasterDegree)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BachelorDegree)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AssociateDegree)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HighSchool)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Total)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

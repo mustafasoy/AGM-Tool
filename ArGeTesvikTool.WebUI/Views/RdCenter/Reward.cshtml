@@ -1,6 +1,6 @@
-﻿@model BusinessIntroViewModel
+﻿@model RdCenterRewardViewModel
 @{
-    ViewData["Title"] = "İşletme Tanıtıcı Bilgileri";
+    ViewData["Title"] = "Performans Değerlendirme ve Ödül Sistemi";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -10,12 +10,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="text-primary">
-                            İşletme Tanıtıcı Bilgileri
+                            Performans Değerlendirme ve Ödül Sistemi
                         </h4>
                     </div>
                     <div class="card-body">
                         <hr />
-                        <form asp-action="Intro" method="post" id="jquery-val-form">
+                        <form asp-action="Reward" method="post" id="jquery-val-form">
                             <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
@@ -25,10 +25,10 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <h6 class="invoice-address">
-                                            İşletme Ünvan
+                                            Açıklama
                                         </h6>
                                         <fieldset class="form-group">
-                                            <textarea asp-for="BusinessIntro.Intro" class="form-control" rows="15"></textarea>
+                                            <textarea asp-for="Reward.Text" class="form-control" rows="15"></textarea>
                                         </fieldset>
                                     </div>
                                     <div class="col-12 d-flex justify-content-end">

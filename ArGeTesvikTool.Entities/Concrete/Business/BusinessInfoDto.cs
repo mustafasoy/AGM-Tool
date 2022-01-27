@@ -7,7 +7,7 @@ namespace ArGeTesvikTool.Entities.Concrete.Business
     {
         public int Id { get; set; }
         public int Year { get; set; }
-        public string Title { get; set; }
+        public string CompanyName { get; set; }
         public string ActivityCode { get; set; }
         public string Adress { get; set; }
         public string City { get; set; }
@@ -16,7 +16,7 @@ namespace ArGeTesvikTool.Entities.Concrete.Business
         public string Partner { get; set; }
         public DateTime Date { get; set; }
         public DateTime PublishDate { get; set; }
-        public int  TradeNumber { get; set; }
+        public int TradeNumber { get; set; }
         public string ChamberCommerce { get; set; }
         public string TaxOffice { get; set; }
         public int RegistrationNo { get; set; }
@@ -27,7 +27,7 @@ namespace ArGeTesvikTool.Entities.Concrete.Business
     }
     public enum Sme
     {
-         Hayır, Evet
+        Hayır, Evet
     }
 
 }

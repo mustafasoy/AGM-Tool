@@ -1,9 +1,8 @@
 ﻿using ArGeTesvikTool.Business.Abstract.Business;
-using ArGeTesvikTool.DataAccess.Abstract;
 using ArGeTesvikTool.Entities.Concrete.Business;
 using ArGeTesvikTool.WebUI.Models.Business;
-using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace ArGeTesvikTool.WebUI.Controllers.Business
 {
@@ -20,61 +19,56 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             _groupInfoService = groupInfoService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult Info(int year)
         {
-            var businessInfo = _businessInfoService.GetByYear(year);
+            var info = _businessInfoService.GetByYear(year);
 
-            BusinessInfoViewModel businessInfoView = new()
+            BusinessInfoViewModel infoViewModel = new()
             {
-                BusinessInfo = businessInfo
+                BusinessInfo = info
             };
 
-            return View(businessInfoView);
+            return View(infoViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Info(BusinessInfoViewModel businessInfoViewModel)
+        public IActionResult Info(BusinessInfoViewModel infoViewModel)
         {
             if (ModelState.IsValid)
             {
-                _businessInfoService.Add(businessInfoViewModel.BusinessInfo);
+                _businessInfoService.Add(infoViewModel.BusinessInfo);
                 TempData["SuccessMessage"] = "Veriler eklendi...";
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(businessInfoViewModel);
+            return View(infoViewModel);
         }
 
         public IActionResult Intro(int year)
         {
-            var businessIntro = _businessIntroService.GetByYear(year);
+            var intro = _businessIntroService.GetByYear(year);
 
-            BusinessIntroViewModel businessIntroView = new()
+            BusinessIntroViewModel introViewModel = new()
             {
-                BusinessIntro = businessIntro
+                BusinessIntro = intro
             };
 
-            return View(businessIntroView);
+            return View(introViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Intro(BusinessIntroViewModel businessIntroViewModel)
+        public IActionResult Intro(BusinessIntroViewModel introViewModel)
         {
             if (ModelState.IsValid)
             {
-                _businessIntroService.Add(businessIntroViewModel.BusinessIntro);
+                _businessIntroService.Add(introViewModel.BusinessIntro);
                 TempData["SuccessMessage"] = "Veriler eklendi...";
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(businessIntroViewModel);
+            return View(introViewModel);
         }
 
         public IActionResult GroupInfo()
@@ -94,6 +88,110 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             }
 
             return View(groupInfoViewModel);
+        }
+
+        public IActionResult Shareholder()
+        {
+            List<ShareholdersDto> shareholderList = new();
+
+            shareholderList.Add(new ShareholdersDto
+            {
+                CompanyName = "Borusan Holding AŞ",
+                Origin = "Türkiye",
+                Share = 36,
+                ShareAmount = 100,
+            });
+
+            shareholderList.Add(new ShareholdersDto
+            {
+                CompanyName = "Borusan Yatırım Paz AŞ",
+                Origin = "Türkiye",
+                Share = 11,
+                ShareAmount = 300,
+            });
+
+            ShareholderViewModel shareholderViewModel = new()
+            {
+                Shareholder = shareholderList
+            };
+
+            return View(shareholderViewModel);
+        }
+
+        public IActionResult PersonnelDistribution()
+        {
+            List<PersonnelDistributionDto> personnelDistribution = new();
+
+            personnelDistribution.Add(new PersonnelDistributionDto
+            {
+                CompanyUnit = "İdari",
+                PostDoctoral = 0,
+                Doctoral = 0,
+                MasterDegree = 69,
+                BachelorDegree = 525,
+                AssociateDegree = 210,
+                HighSchool = 310,
+                Total = 1114
+            });
+
+            personnelDistribution.Add(new PersonnelDistributionDto
+            {
+                CompanyUnit = "Mali",
+                PostDoctoral = 0,
+                Doctoral = 0,
+                MasterDegree = 8,
+                BachelorDegree = 52,
+                AssociateDegree = 9,
+                HighSchool = 6,
+                Total = 75
+            });
+
+            PersonnelDistributionViewModel personnelDistributionViewModel = new()
+            {
+                PersonnelDistribution = personnelDistribution
+            };
+
+            return View(personnelDistributionViewModel);
+        }
+
+        public IActionResult FinancialInfo()
+        {
+            //List<FinancialInfoDto> financialInfo = new();
+
+            //financialInfo.Add(new FinancialInfoDto
+            //{
+            //    NetSales = 2600,
+            //    TotalAsset = 1449,
+            //    SortTermLoan = 966,
+            //    LongTermLoan = 403,
+            //    DomesticSales = 2618,
+            //    ExportSales = 380,
+            //    GrossSales = 2618,
+            //    RDExpenditure = 12746,
+            //    AcquisitionTurnover = 434
+            //});
+
+            //financialInfo.Add(new FinancialInfoDto
+            //{
+            //    NetSales = 2600,
+            //    TotalAsset = 1449,
+            //    SortTermLoan = 966,
+            //    LongTermLoan = 403,
+            //    DomesticSales = 2618,
+            //    ExportSales = 380,
+            //    GrossSales = 2618,
+            //    RDExpenditure = 12746,
+            //    AcquisitionTurnover = 434
+            //});
+
+            //FinancialInfoViewModel financialInfoViewModel = new()
+            //{
+            //    FinancialInfo = financialInfo
+            //};
+
+            //return View(financialInfoViewModel);
+
+            return View();
         }
     }
 }
