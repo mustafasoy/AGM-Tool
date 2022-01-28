@@ -1,11 +1,6 @@
 ﻿using ArGeTesvikTool.Entities.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ArGeTesvikTool.Entities.Concrete.RdCenter
+namespace ArGeTesvikTool.Entities.Concrete.RdCenterPerson
 {
     public class RdCenterRewardDto : IEntity
     {

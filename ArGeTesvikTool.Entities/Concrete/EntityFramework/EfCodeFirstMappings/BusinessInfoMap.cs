@@ -20,8 +20,8 @@ namespace ArGeTesvikTool.Entities.EfCodeFirstMappings
                 .HasColumnName("Year")
                 .HasMaxLength(4);
 
-            entityTypeBuilder.Property(x => x.CompanyName)
-                .HasColumnName("CompanyName")
+            entityTypeBuilder.Property(x => x.Title)
+                .HasColumnName("Title")
                 .HasMaxLength(100);
 
             entityTypeBuilder.Property(x => x.ActivityCode)

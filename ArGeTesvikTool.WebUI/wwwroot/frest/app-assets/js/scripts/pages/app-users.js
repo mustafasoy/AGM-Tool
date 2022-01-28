@@ -11,6 +11,7 @@ $(document).ready(function () {
             responsive: true,
             'language': {
                 'emptyTable': "Gosterilecek kayit bulunamadi",
+                'zeroRecords': "Hicbir eslesen kayit bulunamadi",
                 'info': "_TOTAL_ kayittan _START_ ile _END_ arasi gosteriliyor",
                 'infoFiltered': "(_MAX_ toplam giristen filtrelendi)",
                 'infoEmpty':"0 kayittan 0 ile 0 arasi gosteriliyor",

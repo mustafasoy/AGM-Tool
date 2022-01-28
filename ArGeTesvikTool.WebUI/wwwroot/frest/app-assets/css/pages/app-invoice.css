@@ -190,7 +190,7 @@
 
 .invoice-list-wrapper table.dataTable.dtr-column > tbody > tr > td.control:before,
 .invoice-list-wrapper table.dataTable.dtr-column > tbody > tr > th.control:before {
-  line-height: 18px;
+  line-height: 14px;
 }
 
 .invoice-edit-wrapper hr {

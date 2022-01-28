@@ -1,0 +1,107 @@
+﻿@model RdCenterProjectViewModel
+@{
+    ViewData["Title"] = "Tamamlanan Proje Liste";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <h4 class="text-primary">
+                Tamamlanan Projeler Listesi
+            </h4>
+            <br />
+            <section class="invoice-list-wrapper">
+                @*<div class="invoice-create-btn mb-1">
+                        <a asp-action="" class="btn btn-primary invoice-create" role="button" aria-pressed="true">
+                            Yeni Personel Ekle
+                        </a>
+                    </div>*@
+                <div class="users-list-table">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- datatable start -->
+                            <div class="table-responsive">
+                                <table id="users-list-datatable" class="table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Sıra No
+                                            </th>
+                                            <th>
+                                                Proje Kodu
+                                            </th>
+                                            <th>
+                                                Proje Adı
+                                            </th>
+                                            <th>
+                                                Özkaynakla
+                                                <br />
+                                                Karşılanan Tutar
+                                            </th>
+                                            <th>
+                                                Destek Tutar
+                                            </th>
+                                            <th>
+                                                Ulusal Destek
+                                                <br />
+                                                Programının Adı
+                                            </th>
+                                            <th>
+                                                Ulusalarası Destek
+                                                <br />
+                                                Programının Adı
+                                            </th>
+                                            <th>
+                                                Toplam Proje Bütçesi
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>LOJ.18.027</td>
+                                            <td>Elektrikli Araç Platfom Projesi</td>
+                                            <td>1.501.838,92</td>
+                                            <td>788.069,00</td>
+                                            <td>
+                                                3.1.3. 1509
+                                                <br />
+                                                Uluslararası Sanayi Ar-Ge Projeleri
+                                                <br />
+                                                Destekleme Programı
+                                            </td>
+                                            <td>Çevçeve Programları</td>
+                                            <td>2.289.907,92</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>LOJ.19.034</td>
+                                            <td>Atlas Filo Yönetimi Uygulaması</td>
+                                            <td>4.014.662,16</td>
+                                            <td>0</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>4.014.907,92</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>LOJ.20.038</td>
+                                            <td>TIM Ev Teslimatı Projesi</td>
+                                            <td>2.034.244,86</td>
+                                            <td>0</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>2.034.244,86</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- datatable ends -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

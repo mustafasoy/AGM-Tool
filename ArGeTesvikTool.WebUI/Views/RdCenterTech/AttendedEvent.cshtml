@@ -1,0 +1,104 @@
+﻿@model RdCenterAttendedEventViewModel
+
+@{
+    ViewData["Title"] = "Katılım Sağlanan Kongre, Konferans";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <h4 class="text-primary">
+                Katılım Sağlanan Sempozyum, Kongre, Konferanslar
+            </h4>
+            <br />
+            <section class="invoice-list-wrapper">
+                <div class="invoice-create-btn mb-1">
+                    <a asp-action="" class="btn btn-primary invoice-create" role="button" aria-pressed="true">
+                        Yeni Bilgi Ekle
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table invoice-data-table dt-responsive" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>
+                                    Sıra No
+                                </th>
+                                <th>
+                                    Türü
+                                </th>
+                                <th>
+                                    Katılım Sağlanan Konferans, Sempozyum, vb. Bilimsel Etkinlik
+                                </th>
+                                <th>
+                                    Yurt İçi/Yurt Dışı
+                                </th>
+                                <th>
+                                    Katılım Tarihi Aralığı
+                                </th>
+                                <th>
+                                    Kişi Sayısı
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>1</td>
+                                <td>
+                                    Konferans
+                                </td>
+                                <td>ALICE Roadmap to Physical Internet</td>
+                                <td>
+                                    Yurt Dışı
+                                </td>
+                                <td>19.11.2020-19.11.2020</td>
+                                <td>
+                                    1
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>2</td>
+                                <td>
+                                    Konferans
+                                </td>
+                                <td>
+                                    "Ar-Ge ve Tasarım Merkezlerinde Patent Yönetimi Nasıl Olmalı?" Semineri
+                                </td>
+                                <td>
+                                    Yurt İçi
+                                </td>
+                                <td>30.04.2020-30.04.2020</td>
+                                <td>
+                                    1
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>1</td>
+                                <td>
+                                    Konferans
+                                </td>
+                                <td>Agile Summit 2020</td>
+                                <td>
+                                    Yurt İçi
+                                </td>
+                                <td>20.11.2020-21.11.2020</td>
+                                <td>
+                                    12
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ArGeTesvikTool.WebUI.Models.RdCenterTech.RdCenterSoftwareViewModel>
+
+@{
+    ViewData["Title"] = "Cihaz ve Yazılım Liste";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <h4 class="text-primary">
+                Ar-Ge / Tasarım Amaçlı Kullanılan Bilgi Teknolojileri Cihazları ve Lisanslı Yazılımların Listesi
+            </h4>
+            <br />
+            <section class="invoice-list-wrapper">
+                <div class="invoice-create-btn mb-1">
+                    <a asp-action="" class="btn btn-primary invoice-create" role="button" aria-pressed="true">
+                        Yeni Bilgi Ekle
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table invoice-data-table dt-responsive" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>
+                                    Sıra No
+                                </th>
+                                <th>
+                                    Cihaz / Yazılım Adı
+                                </th>
+                                <th>
+                                    Adet
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>1</td>
+                                <td>
+                                    Apple Notebook
+                                </td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>2</td>
+                                <td>
+                                    HP ELITEBOOK 840 G5
+                                </td>
+                                <td>12</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>3</td>
+                                <td>
+                                    HP ZBOOK 15 G5
+                                </td>
+                                <td>4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

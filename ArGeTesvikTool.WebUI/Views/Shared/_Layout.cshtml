@@ -16,8 +16,6 @@
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/tables/datatable/dataTables.checkboxes.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/charts/apexcharts.css">
-    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/extensions/dragula.min.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/forms/select/select2.min.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/extensions/toastr.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/pickers/pickadate/pickadate.css">
@@ -28,13 +26,9 @@
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/bootstrap-extended.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/colors.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/components.css">
-    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/themes/dark-layout.css">
-    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/themes/semi-dark-layout.css">
     <!-- END: Theme CSS-->
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/pages/widgets.css">
-    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/pages/dashboard-analytics.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/pages/authentication.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/plugins/forms/validation/form-validation.css">
     <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/pages/app-users.css">
@@ -313,8 +307,8 @@
                         </span>
                     </a>
                     <ul class="menu-content">
-                        <li active-when="/RdCenter/PersonnelInfo">
-                            <a asp-controller="RdCenter" asp-action="PersonnelInfo">
+                        <li active-when="/RdCenterPerson/PersonInfo">
+                            <a asp-controller="RdCenterPerson" asp-action="PersonInfo">
                                 <i class="bx bx-user-plus"></i>
                                 <span class="menu-item text-truncate" data-i18n="Working Staff Info">
                                     Çalışan Personel Bilgileri
@@ -329,8 +323,8 @@
                                 </span>
                             </a>
                         </li>
-                        <li active-when="/RdCenter/RewardSystem">
-                            <a asp-controller="RdCenter" asp-action="RewardSystem">
+                        <li active-when="/RdCenterPerson/RewardSystem">
+                            <a asp-controller="RdCenterPerson" asp-action="Reward">
                                 <i class="bx bx-chart"></i>
                                 <span class="menu-title text-truncate" data-i18n="Reward System">
                                     Perf.Değ./Ödül Sistemi
@@ -364,16 +358,16 @@
                         </span>
                     </a>
                     <ul class="menu-content">
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenterTech/CompletedProject">
+                            <a asp-controller="RdCenterTech" asp-action="CompletedProject">
                                 <i class="bx bx-check-circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="Completed Project">
                                     Tamamlanan Projeler
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenterTech/OngoingProject">
+                            <a asp-controller="RdCenterTech" asp-action="OngoingProject">
                                 <i class="bx bx-minus-circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="Ongoing Project">
                                     Devam Eden Projeler
@@ -388,32 +382,32 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenterTech/Collaboration">
+                            <a asp-controller="RdCenterTech" asp-action="Collaboration">
                                 <i class="bx bx-compass"></i>
                                 <span class="menu-item text-truncate" data-i18n="International Collaboration">
                                     Uluslararası İşbirlikleri
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenterTech/AcademicLibrary">
+                            <a asp-controller="RdCenterTech" asp-action="AcademicLibrary">
                                 <i class="bx bx-data"></i>
                                 <span class="menu-item text-truncate" data-i18n="Academic Library">
                                     Kütüphane/Veri Tabanı
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenterTech/AttendedEvent">
+                            <a asp-controller="RdCenterTech" asp-action="AttendedEvent">
                                 <i class="bx bx-book-bookmark"></i>
                                 <span class="menu-item text-truncate" data-i18n="Attended Event">
                                     Katılınan Etkinlik/Eğitim
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenterTech/Property">
+                            <a asp-controller="RdCenterTech" asp-action="Property">
                                 <i class="bx bx-copyright"></i>
                                 <span class="menu-item text-truncate" data-i18n="Intellectual Property">
                                     Fikri/Sınai Mülkiyet Hak.
@@ -428,10 +422,10 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenterTech/Software">
+                            <a asp-controller="RdCenterTech" asp-action="Software">
                                 <i class="bx bx-file"></i>
-                                <span class="menu-item text-truncate" data-i18n="Other Info">
+                                <span class="menu-item text-truncate" data-i18n="Software Info">
                                     Ekipman ve Yazılım Liste
                                 </span>
                             </a>
@@ -500,14 +494,9 @@
     <!-- demo chat-->
     <div class="sidenav-overlay" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div>
     <div class="drag-target" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div>
-    <!-- BEGIN: Footer-->
-    <!-- END: Footer-->
     <!-- BEGIN: Vendor JS-->
     <script src="~/frest/app-assets/vendors/js/vendors.min.js"></script>
-    <script src="~/frest/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js"></script>
-    <script src="~/frest/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
-    <script src="~/frest/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
-    <!-- BEGIN Vendor JS-->
+    <!-- END Vendor JS-->
     <!-- BEGIN: Page Vendor JS-->
     <script src="~/frest/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
     <script src="~/frest/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
@@ -524,7 +513,6 @@
     <script src="~/frest/app-assets/js/core/app-menu.js"></script>
     <script src="~/frest/app-assets/js/core/app.js"></script>
     <script src="~/frest/app-assets/js/scripts/components.js"></script>
-    <script src="~/frest/app-assets/js/scripts/footer.js"></script>
     <script src="~/frest/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
     <script src="~/frest/app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="~/frest/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js"></script>

@@ -1,9 +1,9 @@
 ﻿using ArGeTesvikTool.Entities.Abstract;
 using System;
 
-namespace ArGeTesvikTool.Entities.Concrete.RdCenter
+namespace ArGeTesvikTool.Entities.Concrete.RdCenterPerson
 {
-    public class RdCenterPersonnelInfoDto : IEntity
+    public class RdCenterPersonInfoDto : IEntity
     {
         public int Id { get; set; }
         public string IdentityNumber { get; set; }

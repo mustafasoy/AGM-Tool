@@ -190,7 +190,6 @@
             ]
         }
     });
-
     // Date Ranges
     $('.dateranges').daterangepicker({
         ranges: {
