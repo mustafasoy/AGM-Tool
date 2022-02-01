@@ -1,8 +1,6 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
-
-namespace ArGeTesvikTool.Business.Concrete
+﻿namespace ArGeTesvikTool.Business.Concrete
 {
-    public class MailConfigurationDto : IEntity
+    public class MailConfigurationDto
     {
         public string SmtpServer { get; set; }
         public int Port { get; set; }

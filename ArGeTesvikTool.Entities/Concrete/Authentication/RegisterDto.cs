@@ -1,8 +1,6 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
-
-namespace ArGeTesvikTool.WebUI.Models.Authentication
+﻿namespace ArGeTesvikTool.WebUI.Models.Authentication
 {
-    public class RegisterDto : IEntity
+    public class RegisterDto
     {
         public string Name { get; set; }
         public string LastName { get; set; }

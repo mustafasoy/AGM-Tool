@@ -1,8 +1,6 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
-
-namespace ArGeTesvikTool.Entities.Concrete
+﻿namespace ArGeTesvikTool.Entities.Concrete
 {
-    public class UserDto : IEntity
+    public class UserDto
     {
         public string Id { get; set; }
         public string UserName { get; set; }

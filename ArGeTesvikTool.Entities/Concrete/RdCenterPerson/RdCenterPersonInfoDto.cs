@@ -1,11 +1,10 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
+﻿using ArGeTesvikTool.Core.Entities;
 using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenterPerson
 {
-    public class RdCenterPersonInfoDto : IEntity
+    public class RdCenterPersonInfoDto : AuditableEntity
     {
-        public int Id { get; set; }
         public string IdentityNumber { get; set; }
         public string NameSurname { get; set; }
         public string Nationality { get; set; }

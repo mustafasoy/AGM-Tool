@@ -173,11 +173,11 @@
                         </span>
                     </a>
                     <ul class="menu-content">
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center" href="#">
+                        <li active-when="/Business/Contact">
+                            <a asp-controller="Business" asp-action="Contact">
                                 <i class="bx bx-street-view"></i>
-                                <span class="menu-item text-truncate" data-i18n="Business Official">
-                                    İşletme Yetkilileri
+                                <span class="menu-item text-truncate" data-i18n="Business Contact">
+                                    İşletme Yetkilisi
                                 </span>
                             </a>
                         </li>
@@ -260,7 +260,7 @@
                             <a asp-controller="RdCenter" asp-action="Contact">
                                 <i class="bx bx-task"></i>
                                 <span class="menu-title text-truncate" data-i18n="RD Contact">
-                                    AGM Yetkilileri
+                                    AGM Yetkilisi
                                 </span>
                             </a>
                         </li>
@@ -323,7 +323,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li active-when="/RdCenterPerson/RewardSystem">
+                        <li active-when="/RdCenterPerson/Reward">
                             <a asp-controller="RdCenterPerson" asp-action="Reward">
                                 <i class="bx bx-chart"></i>
                                 <span class="menu-title text-truncate" data-i18n="Reward System">

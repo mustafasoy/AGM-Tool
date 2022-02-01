@@ -1,12 +1,10 @@
 ﻿using ArGeTesvikTool.Core.Entities;
-using System;
 
-namespace ArGeTesvikTool.Entities.Concrete.RdCenter
+namespace ArGeTesvikTool.Entities.Concrete.Business
 {
-    public class RdCenterContactDto : AuditableEntity
+    public class BusinessContactDto : AuditableEntity
     {
         public string IdentityNumber { get; set; }
-        public DateTime Birthday { get; set; }
         public string NameSurname { get; set; }
         public string Mail { get; set; }
         public int PhoneNumber { get; set; }

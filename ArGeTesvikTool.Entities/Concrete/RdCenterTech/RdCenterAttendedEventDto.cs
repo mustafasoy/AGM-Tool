@@ -1,11 +1,10 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
+﻿using ArGeTesvikTool.Core.Entities;
 using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
 {
-    public class RdCenterAttendedEventDto:IEntity
+    public class RdCenterAttendedEventDto : AuditableEntity
     {
-        public int Id { get; set; }
         public string Type { get; set; }
         public string AttendedEvent { get; set; }
         public string Location { get; set; }

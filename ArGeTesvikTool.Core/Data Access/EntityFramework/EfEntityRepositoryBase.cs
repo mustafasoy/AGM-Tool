@@ -1,5 +1,4 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Linq.Expressions;
 namespace ArGeTesvikTool.Core.Data_Access.EntityFramework
 {
     public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
-        where TEntity : class, IEntity, new()
+        where TEntity : class, new()
         where TContext : DbContext, new()
     {
         public void Add(TEntity entity)
@@ -44,8 +43,8 @@ namespace ArGeTesvikTool.Core.Data_Access.EntityFramework
         public List<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null)
         {
             using TContext context = new();
-            return filter == null 
-                ? context.Set<TEntity>().ToList() 
+            return filter == null
+                ? context.Set<TEntity>().ToList()
                 : context.Set<TEntity>().Where(filter).ToList();
         }
     }

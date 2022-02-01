@@ -1,11 +1,9 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
+﻿using ArGeTesvikTool.Core.Entities;
 
 namespace ArGeTesvikTool.Entities.Concrete.Business
 {
-    public class BusinessIntroDto : IEntity
+    public class BusinessIntroDto : AuditableEntity
     {
-        public int Id { get; set; }
-        public int Year { get; set; }
         public string Intro { get; set; }
     }
 }

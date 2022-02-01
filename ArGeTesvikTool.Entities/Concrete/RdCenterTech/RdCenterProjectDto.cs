@@ -1,10 +1,9 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
+﻿using ArGeTesvikTool.Core.Entities;
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
 {
-    public class RdCenterProjectDto : IEntity
+    public class RdCenterProjectDto : AuditableEntity
     {
-        public int Id { get; set; }
         public string ProjectCode { get; set; }
         public string ProjectName { get; set; }
         public decimal ShareholdersAmount { get; set; }

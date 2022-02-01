@@ -1,12 +1,12 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
+﻿using ArGeTesvikTool.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace ArGeTesvikTool.Core.Data_Access
 {
-    public interface IEntityRepository<T> 
-        where T : class, IEntity, new()
+    public interface IEntityRepository<T>
+        where T : class, new()
     {
         T Get(Expression<Func<T, bool>> filter = null);
         List<T> GetList(Expression<Func<T, bool>> filter = null);

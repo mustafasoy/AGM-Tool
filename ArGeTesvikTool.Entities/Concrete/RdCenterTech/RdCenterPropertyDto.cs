@@ -1,9 +1,9 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
+﻿using ArGeTesvikTool.Core.Entities;
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
 {
-    public class RdCenterPropertyDto:IEntity
+    public class RdCenterPropertyDto : AuditableEntity
     {
-        public int Id { get; set; }
+
     }
 }

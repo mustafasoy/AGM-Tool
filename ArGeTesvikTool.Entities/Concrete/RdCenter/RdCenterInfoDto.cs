@@ -1,10 +1,9 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
+﻿using ArGeTesvikTool.Core.Entities;
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenter
 {
-    public class RdCenterInfoDto : IEntity
+    public class RdCenterInfoDto : AuditableEntity
     {
-        public int Id { get; set; }
         public string CompanyName { get; set; }
         public string Address { get; set; }
         public string Location { get; set; }

@@ -1,10 +1,9 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
+﻿using ArGeTesvikTool.Core.Entities;
 
 namespace ArGeTesvikTool.Entities.Concrete.Business
 {
-    public class FinancialInfoDto : IEntity
+    public class FinancialInfoDto : AuditableEntity
     {
-        public int Id { get; set; }
         public decimal NetSales { get; set; }
         public decimal TotalAsset { get; set; }
         public decimal SortTermLoan { get; set; }

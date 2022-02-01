@@ -1,6 +1,7 @@
-﻿@model RdCenterContactViewModel
+﻿@model BusinessContactViewModel
+
 @{
-    ViewData["Title"] = "Ar-Ge Merkezi Yetkilisi";
+    ViewData["Title"] = "İşletme Yetkilileri";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -10,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="text-primary">
-                            Ar-Ge Merkezi Yetkilisi
+                            Ar-Ge Merkezi Yetkilileri
                         </h4>
                     </div>
                     <div class="card-body">
@@ -29,20 +30,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterContact.IdentityNumber" class="form-control">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h6 class="invoice-address">
-                                            Doğum Tarihi
-                                        </h6>
-                                    </div>
-                                    <div class="col-md-8 form-group">
-                                        <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="RdCenterContact.Birthday" type="text" class="form-control single-daterange" placeholder="mm/dd/yyyy">
-                                            <div class="form-control-position">
-                                                <i class='bx bx-calendar'></i>
-                                            </div>
-                                        </fieldset>
+                                        <input asp-for="BusinessContact.IdentityNumber" class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -50,7 +38,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterContact.NameSurname" class="form-control">
+                                        <input asp-for="BusinessContact.NameSurname" class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -58,7 +46,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterContact.Mail" type="email" class="form-control">
+                                        <input asp-for="BusinessContact.Mail" type="email" class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -66,7 +54,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterContact.PhoneNumber" type="tel" class="form-control" maxlength="10">
+                                        <input asp-for="BusinessContact.PhoneNumber" type="tel" class="form-control" maxlength="10">
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary mr-1">Kaydet</button>

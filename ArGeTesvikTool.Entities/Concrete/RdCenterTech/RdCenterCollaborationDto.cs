@@ -1,10 +1,9 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
+﻿using ArGeTesvikTool.Core.Entities;
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
 {
-    public class RdCenterCollaborationDto:IEntity
+    public class RdCenterCollaborationDto : AuditableEntity
     {
-        public int Id { get; set; }
         public string Collaboration { get; set; }
         public string Partner { get; set; }
         public string Country { get; set; }

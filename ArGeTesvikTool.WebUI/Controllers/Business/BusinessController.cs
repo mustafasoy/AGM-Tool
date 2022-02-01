@@ -19,6 +19,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             _groupInfoService = groupInfoService;
         }
 
+        public IActionResult Contact(int year)
+        {
+            return View();
+        }
+
         public IActionResult Info(int year)
         {
             var info = _businessInfoService.GetByYear(year);

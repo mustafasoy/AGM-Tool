@@ -1,13 +1,11 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
+﻿using ArGeTesvikTool.Core.Entities;
 using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.Business
 {
-    public class BusinessInfoDto : IEntity
+    public class BusinessInfoDto : AuditableEntity
     {
-        public int Id { get; set; }
-        public int Year { get; set; }
-        public string Title { get; set; }
+        public string CompanyName { get; set; }
         public string ActivityCode { get; set; }
         public string Adress { get; set; }
         public string City { get; set; }

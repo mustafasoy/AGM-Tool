@@ -15,6 +15,8 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<PasswordSendMail>().As<IMailService>().SingleInstance();
 
             #region Business
+            builder.RegisterType<BusinessContactManager>().As<IBusinessContactService>().SingleInstance();
+            builder.RegisterType<EfBusinessContactDal>().As<IBusinessContactDal>().SingleInstance();
             builder.RegisterType<BusinessInfoManager>().As<IBusinessInfoService>().SingleInstance();
             builder.RegisterType<EfBusinessInfoDal>().As<IBusinessInfoDal>().SingleInstance();
             builder.RegisterType<BusinessIntroManager>().As<IBusinessIntroService>().SingleInstance();

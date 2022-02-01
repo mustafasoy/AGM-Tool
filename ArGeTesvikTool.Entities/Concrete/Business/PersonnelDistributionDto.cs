@@ -1,10 +1,9 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
+﻿using ArGeTesvikTool.Core.Entities;
 
 namespace ArGeTesvikTool.Entities.Concrete.Business
 {
-    public class PersonnelDistributionDto : IEntity
+    public class PersonnelDistributionDto : AuditableEntity
     {
-        public int Id { get; set; }
         public string CompanyUnit { get; set; }
         public int PostDoctoral { get; set; }
         public int Doctoral { get; set; }

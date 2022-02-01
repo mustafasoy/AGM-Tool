@@ -1,9 +1,6 @@
-﻿using ArGeTesvikTool.Entities.Abstract;
-using System.ComponentModel.DataAnnotations;
-
-namespace ArGeTesvikTool.Entities.Concrete
+﻿namespace ArGeTesvikTool.Entities.Concrete
 {
-    public class RoleDto : IEntity
+    public class RoleDto 
     {
         public string Id { get; set; }
         public string Name { get; set; }
