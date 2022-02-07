@@ -7,7 +7,6 @@ namespace ArGeTesvikTool.Core.Entities
         protected AuditableEntity()
         {
             Year = DateTime.Now.Year;
-            ModifiedDate = DateTime.Now;
         }
         public int Year { get; set; }
         public DateTime CreatedDate { get; set; }

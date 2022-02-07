@@ -14,6 +14,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 
         protected AppIdentityUser GetCurrentUser => _userManager.FindByNameAsync(User.Identity.Name).Result;
         
+        public BaseController()
+        {
+
+        }
+
         public BaseController(UserManager<AppIdentityUser> userManager, SignInManager<AppIdentityUser> signInManager, RoleManager<AppIdentityRole> roleManager = null)
         {
             _userManager = userManager;
@@ -35,6 +40,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             {
                 ModelState.AddModelError("", item.ErrorMessage);
             }
+        }
+
+        public bool CheckValidatorError(ValidationResult validate)
+        {
+            return validate.Errors.Count > 0;
         }
     }
 }

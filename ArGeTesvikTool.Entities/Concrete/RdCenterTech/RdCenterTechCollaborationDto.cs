@@ -2,7 +2,7 @@
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
 {
-    public class RdCenterCollaborationDto : AuditableEntity
+    public class RdCenterTechCollaborationDto : AuditableEntity
     {
         public string Collaboration { get; set; }
         public string Partner { get; set; }

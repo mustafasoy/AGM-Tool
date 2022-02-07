@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace ArGeTesvikTool.WebUI.Models.RdCenterTech
 {
-    public class RdCenterAttendedEventViewModel
+    public class RdCenterTechPropertyViewModel
     {
-        public List<RdCenterAttendedEventDto> AttendedEventList { get; set; }
+        public List<RdCenterTechPropertyDto> PropertyList { get; set; }
     }
 }

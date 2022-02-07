@@ -30,7 +30,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessContact.IdentityNumber" class="form-control">
+                                        <input asp-for="BusinessContact.IdentityNumber" type="number" maxlength="11" class="form-control" onkeydown="return event.keyCode !== 69">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -54,7 +54,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessContact.PhoneNumber" type="tel" class="form-control" maxlength="10">
+                                        <input asp-for="BusinessContact.PhoneNumber" type="number" maxlength="11" class="form-control" onkeydown="return event.keyCode !== 69">
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary mr-1">Kaydet</button>

@@ -1,4 +1,12 @@
-﻿using ArGeTesvikTool.Entities.Concrete.Business;
+﻿using ArGeTesvikTool.Entities.Concrete;
+using ArGeTesvikTool.Entities.Concrete.Business;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenter;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerson;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech;
+using ArGeTesvikTool.Entities.Concrete.RdCenter;
+using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
+using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
@@ -10,144 +18,65 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
             optionsBuilder.UseSqlServer(@"Data Source=TR996928-1809;Initial Catalog=AGMDb;Integrated Security=True");
         }
 
-
+        #region #region Business Db Map
         public DbSet<BusinessContactDto> BusinessContracts { get; set; }
         public DbSet<BusinessInfoDto> BusinessInfos { get; set; }
+        public DbSet<BusinessIntroDto> BusinessIntros { get; set; }
+        public DbSet<GroupInfoDto> GroupInfos { get; set; }
+        public DbSet<ShareholdersDto> Shareholders { get; set; }
+        public DbSet<PersonnelDistributionDto> PersonnelDistributions { get; set; }
+        #endregion
+
+        #region RdCenter Db Map
+        public DbSet<RdCenterContactDto> RdCenterContracts { get; set; }
+        public DbSet<RdCenterInfoDto> RdCenterInfos { get; set; }
+        #endregion
+
+        #region RdCenterPerson Db Map
+        public DbSet<RdCenterPersonInfoDto> RdCenterPersonInfos { get; set; }
+        public DbSet<RdCenterPersonRewardDto> RdCenterPersonRewards { get; set; }
+        #endregion
+
+        #region RdCenterTech Db Map
+        public DbSet<RdCenterTechAcademicLibraryDto> RdCenterTechAcademicLibraries { get; set; }
+        public DbSet<RdCenterTechAttendedEventDto> RdCenterTechAttendedEvents { get; set; }
+        public DbSet<RdCenterTechCollaborationDto> RdCenterTechCollaborations { get; set; }
+        public DbSet<RdCenterTechOngoingProjectDto> RdCenterTechCompletedProjects { get; set; }
+        public DbSet<RdCenterTechOngoingProjectDto> RdCenterTechOngoingProjects { get; set; }
+        public DbSet<RdCenterTechSoftwareDto> RdCenterTechSoftwares { get; set; }
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region Business Contract
-            modelBuilder.Entity<BusinessContactDto>(entity =>
-            {
-                entity.ToTable("BusinessContracts");
-                entity.HasIndex(x => x.Year).IsUnique();
-
-                entity.Property(x => x.Id).HasColumnName("Id");
-                entity.Property(x => x.Year).HasColumnName("Year").HasMaxLength(4);
-
-                entity.Property(x => x.CreatedDate).HasColumnName("CreatedDate").HasColumnType("date");
-                entity.Property(x => x.CreatedUserName).HasColumnName("CreatedUserName");
-                entity.Property(x => x.ModifiedDate).HasColumnName("ModifiedDate").HasColumnType("date");
-                entity.Property(x => x.ModifedUserName).HasColumnName("ModifedUserName");
-            });
+            #region Business Db Map
+            _ = new BusinessContactMap(modelBuilder.Entity<BusinessContactDto>());
+            _ = new BusinessInfoMap(modelBuilder.Entity<BusinessInfoDto>());
+            _ = new BusinessIntroMap(modelBuilder.Entity<BusinessIntroDto>());
+            _ = new GroupInfoMap(modelBuilder.Entity<GroupInfoDto>());
+            _ = new ShareholdersMap(modelBuilder.Entity<ShareholdersDto>());
+            _ = new PersonnelDistributionMap(modelBuilder.Entity<PersonnelDistributionDto>());
             #endregion
 
-            #region Business Info
-            modelBuilder.Entity<BusinessInfoDto>(entity =>
-            {
-                entity.ToTable("BusinessInfos");
-                entity.HasIndex(x => x.Year).IsUnique();
-
-                entity.Property(x => x.Id).HasColumnName("Id");
-                entity.Property(x => x.Year).HasColumnName("Year").HasMaxLength(4);
-
-                entity.Property(x => x.CompanyName).HasColumnName("CompanyName").HasMaxLength(100);
-                entity.Property(x => x.ActivityCode).HasColumnName("ActivityCode").HasMaxLength(100);
-                entity.Property(x => x.Adress).HasColumnName("Adress").HasMaxLength(200);
-                entity.Property(x => x.City).HasColumnName("City").HasMaxLength(15);
-                entity.Property(x => x.PhoneNumber).HasColumnName("PhoneNumber");
-                entity.Property(x => x.Mail).HasColumnName("Mail").HasMaxLength(50);
-                entity.Property(x => x.Partner).HasColumnName("Partner").HasMaxLength(50);
-                entity.Property(x => x.Date).HasColumnName("Date").HasColumnType("date");
-                entity.Property(x => x.PublishDate).HasColumnName("PublishDate").HasColumnType("date");
-                entity.Property(x => x.TradeNumber).HasColumnName("TradeNumber").HasMaxLength(50);
-                entity.Property(x => x.ChamberCommerce).HasColumnName("ChamberCommerce").HasMaxLength(50);
-                entity.Property(x => x.TaxOffice).HasColumnName("TaxOffice").HasMaxLength(20);
-                entity.Property(x => x.FoundingCapital).HasColumnName("FoundingCapital");
-                entity.Property(x => x.AvaibleCapital).HasColumnName("AvaibleCapital");
-                entity.Property(x => x.AvaibleCapital).HasColumnName("AvaibleCapital");
-                entity.Property(x => x.IsSME).HasColumnName("IsSME");
-                entity.Property(x => x.CRSNumber).HasColumnName("CRSNumber");
-
-                entity.Property(x => x.CreatedDate).HasColumnName("CreatedDate").HasColumnType("date");
-                entity.Property(x => x.CreatedUserName).HasColumnName("CreatedUserName");
-                entity.Property(x => x.ModifiedDate).HasColumnName("ModifiedDate").HasColumnType("date");
-                entity.Property(x => x.ModifedUserName).HasColumnName("ModifedUserName");
-            });
+            #region RdCenter Db Map
+            _ = new RdCenterContactMap(modelBuilder.Entity<RdCenterContactDto>());
+            _ = new RdCenterInfoMap(modelBuilder.Entity<RdCenterInfoDto>());
             #endregion
 
-            #region Business Intro
-            modelBuilder.Entity<BusinessIntroDto>(entity =>
-            {
-                entity.ToTable("BusinessIntros");
-                entity.HasIndex(x => x.Year).IsUnique();
-
-                entity.Property(x => x.Id).HasColumnName("Id");
-                entity.Property(x => x.Year).HasColumnName("Year").HasMaxLength(4);
-
-                entity.Property(x => x.CreatedDate).HasColumnName("CreatedDate").HasColumnType("date");
-                entity.Property(x => x.CreatedUserName).HasColumnName("CreatedUserName");
-                entity.Property(x => x.ModifiedDate).HasColumnName("ModifiedDate").HasColumnType("date");
-                entity.Property(x => x.ModifedUserName).HasColumnName("ModifedUserName");
-            });
+            #region RdCenterPerson Db Map
+            _ = new RdCenterPersonInfoMap(modelBuilder.Entity<RdCenterPersonInfoDto>());
+            _ = new RdCenterPersonRewardMap(modelBuilder.Entity<RdCenterPersonRewardDto>());
             #endregion
 
-            #region Business Group
-            modelBuilder.Entity<GroupInfoDto>(entity =>
-            {
-                entity.ToTable("GroupInfos");
-                entity.HasIndex(x => x.Year).IsUnique();
-
-                entity.Property(x => x.Id).HasColumnName("Id");
-                entity.Property(x => x.Year).HasColumnName("Year").HasMaxLength(4);
-
-                entity.Property(x => x.CompanyName).HasColumnName("CompanyName");
-                entity.Property(x => x.Address).HasColumnName("Address");
-                entity.Property(x => x.Origin).HasColumnName("Origin");
-                entity.Property(x => x.FoundingDate).HasColumnName("FoundingDate").HasColumnType("date");
-
-                entity.Property(x => x.CreatedDate).HasColumnName("CreatedDate").HasColumnType("date");
-                entity.Property(x => x.CreatedUserName).HasColumnName("CreatedUserName");
-                entity.Property(x => x.ModifiedDate).HasColumnName("ModifiedDate").HasColumnType("date");
-                entity.Property(x => x.ModifedUserName).HasColumnName("ModifedUserName");
-            });
+            #region RdCenterTech Db Map
+            _ = new RdCenterTechAcademicLibraryMap(modelBuilder.Entity<RdCenterTechAcademicLibraryDto>());
+            _ = new RdCenterTechAttendedEventMap(modelBuilder.Entity<RdCenterTechAttendedEventDto>());
+            _ = new RdCenterTechCollaborationMap(modelBuilder.Entity<RdCenterTechCollaborationDto>());
+            _ = new RdCenterTechCompletedProjectMap(modelBuilder.Entity<RdCenterTechCompletedProjectDto>());
+            _ = new RdCenterTechOngoingProjectMap(modelBuilder.Entity<RdCenterTechOngoingProjectDto>());
+            _ = new RdCenterTechSoftwareMap(modelBuilder.Entity<RdCenterTechSoftwareDto>());
             #endregion
 
-            #region Shareholders
-            modelBuilder.Entity<ShareholdersDto>(entity =>
-            {
-                entity.ToTable("Shareholders");
-                entity.HasIndex(x => x.Year).IsUnique();
-
-                entity.Property(x => x.Id).HasColumnName("Id");
-                entity.Property(x => x.Year).HasColumnName("Year").HasMaxLength(4);
-
-                entity.Property(x => x.CompanyName).HasColumnName("CompanyName");
-                entity.Property(x => x.Origin).HasColumnName("Origin").HasMaxLength(15);
-                entity.Property(x => x.Share).HasColumnName("Share");
-                entity.Property(x => x.ShareAmount).HasColumnName("ShareAmount");
-
-                entity.Property(x => x.CreatedDate).HasColumnName("CreatedDate").HasColumnType("date");
-                entity.Property(x => x.CreatedUserName).HasColumnName("CreatedUserName");
-                entity.Property(x => x.ModifiedDate).HasColumnName("ModifiedDate").HasColumnType("date");
-                entity.Property(x => x.ModifedUserName).HasColumnName("ModifedUserName");
-            });
-            #endregion
-
-            #region Personnel Distribution
-            modelBuilder.Entity<PersonnelDistributionDto>(entity =>
-            {
-                entity.ToTable("PersonnelDistributions");
-                entity.HasIndex(x => x.Year).IsUnique();
-
-                entity.Property(x => x.Id).HasColumnName("Id");
-                entity.Property(x => x.Year).HasColumnName("Year").HasMaxLength(4);
-
-                entity.Property(x => x.CompanyUnit).HasColumnName("CompanyUnit");
-                entity.Property(x => x.PostDoctoral).HasColumnName("PostDoctoral");
-                entity.Property(x => x.Doctoral).HasColumnName("Doctoral");
-                entity.Property(x => x.MasterDegree).HasColumnName("MasterDegree");
-                entity.Property(x => x.BachelorDegree).HasColumnName("BachelorDegree");
-                entity.Property(x => x.AssociateDegree).HasColumnName("AssociateDegree");
-                entity.Property(x => x.HighSchool).HasColumnName("HighSchool");
-                entity.Property(x => x.Total).HasColumnName("Total");
-
-                entity.Property(x => x.CreatedDate).HasColumnName("CreatedDate").HasColumnType("date");
-                entity.Property(x => x.CreatedUserName).HasColumnName("CreatedUserName");
-                entity.Property(x => x.ModifiedDate).HasColumnName("ModifiedDate").HasColumnType("date");
-                entity.Property(x => x.ModifedUserName).HasColumnName("ModifedUserName");
-            });
-            #endregion
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -4,6 +4,6 @@ namespace ArGeTesvikTool.Entities.Concrete.Business
 {
     public class BusinessIntroDto : AuditableEntity
     {
-        public string Intro { get; set; }
+        public string Text { get; set; }
     }
 }

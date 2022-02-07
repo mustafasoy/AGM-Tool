@@ -27,5 +27,10 @@ namespace ArGeTesvikTool.Business.Concrete.Business
         {
             _groupInfoDal.Delete(new GroupInfoDto { Id = id });
         }
+
+        public GroupInfoDto GetByYear(int year)
+        {
+            return _groupInfoDal.Get(x => x.Year == year);
+        }
     }
 }

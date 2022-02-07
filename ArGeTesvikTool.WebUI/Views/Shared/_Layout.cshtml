@@ -104,7 +104,8 @@
                             <a class="dropdown-toggle nav-link dropdown-user-link" href="javascript:void(0);" data-toggle="dropdown">
                                 <div class="user-nav d-sm-flex d-none">
                                     <span class="user-name">
-                                        PwC Test User
+                                        Hoşgeldin
+                                        (<b>@User.Identity.Name</b>)
                                     </span>
                                 </div>
                                 <span>
@@ -174,7 +175,7 @@
                     </a>
                     <ul class="menu-content">
                         <li active-when="/Business/Contact">
-                            <a asp-controller="Business" asp-action="Contact">
+                            <a asp-controller="Business" asp-action="Contact" asp-route-id="2022">
                                 <i class="bx bx-street-view"></i>
                                 <span class="menu-item text-truncate" data-i18n="Business Contact">
                                     İşletme Yetkilisi
@@ -213,8 +214,8 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/Business/Schema">
+                            <a asp-controller="Business" asp-action="Schema">
                                 <i class="bx bx-line-chart"></i>
                                 <span class="menu-title text-truncate" data-i18n="Business Schema">
                                     Organizasyon Şeması

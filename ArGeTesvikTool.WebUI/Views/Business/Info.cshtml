@@ -65,7 +65,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.PhoneNumber" type="tel" class="form-control" maxlength="10">
+                                        <input asp-for="BusinessInfo.PhoneNumber" type="number" maxlength="11" class="form-control" onkeydown="return event.keyCode !== 69">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="BusinessInfo.Date" type="text" class="form-control pickadate-translations" placeholder="dd-mm-yyy">
+                                            <input asp-for="BusinessInfo.Date" type="text" class="form-control single-daterange">
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>
@@ -103,7 +103,7 @@
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="BusinessInfo.PublishDate" type="text" class="form-control pickadate-translations" placeholder="dd-mm-yyy">
+                                            <input asp-for="BusinessInfo.PublishDate" type="text" class="form-control single-daterange">
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>
@@ -115,7 +115,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.TradeNumber" class="form-control">
+                                        <input asp-for="BusinessInfo.TradeNumber" type="number" maxlength="26" class="form-control" onkeydown="return event.keyCode !== 69">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -139,7 +139,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.RegistrationNo" class="form-control">
+                                        <input asp-for="BusinessInfo.RegistrationNo" type="number" maxlength="26" class="form-control" onkeydown="return event.keyCode !== 69">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -147,7 +147,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.FoundingCapital" class="form-control">
+                                        <input asp-for="BusinessInfo.FoundingCapital" type="number" class="form-control" onkeydown="return event.keyCode !== 69">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -155,7 +155,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.AvaibleCapital" class="form-control">
+                                        <input asp-for="BusinessInfo.AvaibleCapital" type="number" class="form-control" onkeydown="return event.keyCode !== 69">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -165,7 +165,9 @@
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group">
                                             <select asp-for="BusinessInfo.IsSME" asp-items="Html.GetEnumSelectList<Sme>()" class="form-control">
-                                                <option selected="selected" value="">Seçiniz</option>
+                                                <option selected="selected" value="">
+                                                    Seçiniz
+                                                </option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -175,10 +177,12 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.CRSNumber" type="number" class="form-control">
+                                        <input asp-for="BusinessInfo.CRSNumber" type="number" maxlength="16" class="form-control" onkeydown="return event.keyCode !== 69">
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
+                                        <button type="submit" class="btn btn-primary mr-1">
+                                            Kaydet
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -192,3 +196,9 @@
 <!-- END: Content-->
 <script src="~/frest/app-assets/js/core/libraries/jquery.min.js"></script>
 <script src="~/frest/app-assets/js/list-cities.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Cities").val('@ViewBag.City');
+        $("#Cities").change();
+    });
+</script>

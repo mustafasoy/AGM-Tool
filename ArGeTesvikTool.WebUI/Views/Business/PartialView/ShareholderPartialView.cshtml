@@ -1,0 +1,27 @@
+﻿@model ShareholderViewModel
+
+<h6 class="invoice-address">
+    Ortak Adı / Ünvan
+</h6>
+<input asp-for="NewShareholder.Id" hidden="hidden" />
+<div class="form-group">
+    <input asp-for="NewShareholder.CompanyName" class="form-control">
+</div>
+<h6 class="invoice-address">
+    Uyruğu
+</h6>
+<div class="form-group">
+    <input asp-for="NewShareholder.Origin" class="form-control">
+</div>
+<h6 class="invoice-address">
+    Pay(%)
+</h6>
+<div class="form-group">
+    <input asp-for="NewShareholder.Share" type="number" class="form-control">
+</div>
+<h6 class="invoice-address">
+    Pay Tutarı(TL)
+</h6>
+<div class="form-group">
+    <input asp-for="NewShareholder.ShareAmount" type="number" class="form-control">
+</div>

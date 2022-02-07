@@ -2,7 +2,7 @@
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenterPerson
 {
-    public class RdCenterRewardDto : AuditableEntity
+    public class RdCenterPersonRewardDto : AuditableEntity
     {
         public string Text { get; set; }
     }

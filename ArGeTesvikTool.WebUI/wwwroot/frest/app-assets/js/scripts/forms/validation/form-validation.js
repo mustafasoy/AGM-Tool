@@ -35,7 +35,7 @@ $(function () {
         jqForm.validate({
             rules: {
                 'Name': {
-                    required: true
+                    required: true,
                 },
                 'User.Name': {
                     required: true

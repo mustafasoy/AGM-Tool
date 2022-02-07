@@ -3,15 +3,11 @@ using ArGeTesvikTool.Business.ValidationRules.FluentValidation;
 using ArGeTesvikTool.Entities.Concrete;
 using ArGeTesvikTool.WebUI.Models;
 using ArGeTesvikTool.WebUI.Models.Admin;
-using FluentValidation.Results;
 using Mapster;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.WebUI.Controllers.Authentication
@@ -246,11 +242,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             }
 
             return listRole;
-        }
-
-        private static bool CheckValidatorError(ValidationResult validate)
-        {
-            return validate.Errors.Count > 0;
         }
     }
 }

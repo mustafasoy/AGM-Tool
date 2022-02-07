@@ -4,6 +4,6 @@ namespace ArGeTesvikTool.WebUI.Models.RdCenterPerson
 {
     public class RdCenterRewardViewModel
     {
-        public RdCenterRewardDto Reward { get; set; }
+        public RdCenterPersonRewardDto Reward { get; set; }
     }
 }

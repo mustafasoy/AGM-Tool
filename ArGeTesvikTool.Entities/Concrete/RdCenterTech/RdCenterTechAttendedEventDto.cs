@@ -3,7 +3,7 @@ using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
 {
-    public class RdCenterAttendedEventDto : AuditableEntity
+    public class RdCenterTechAttendedEventDto : AuditableEntity
     {
         public string Type { get; set; }
         public string AttendedEvent { get; set; }

@@ -23,6 +23,8 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfBusinessIntroDal>().As<IBusinessIntroDal>().SingleInstance();
             builder.RegisterType<GroupInfoManager>().As<IGroupInfoService>().SingleInstance();
             builder.RegisterType<EfGroupInfoDal>().As<IGroupInfoDal>().SingleInstance();
+            builder.RegisterType<ShareholderManager>().As<IShareholderService>().SingleInstance();
+            builder.RegisterType<EfShareholderDal>().As<IShareholderDal>().SingleInstance();
             #endregion
         }
     }

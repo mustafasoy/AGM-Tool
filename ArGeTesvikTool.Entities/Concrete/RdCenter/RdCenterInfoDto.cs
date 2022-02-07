@@ -8,9 +8,9 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenter
         public string Address { get; set; }
         public string Location { get; set; }
         public string City { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string Mail { get; set; }
-        public int RegistrationNo { get; set; }
+        public string RegistrationNo { get; set; }
         public int OfficeArea { get; set; }
         public int OtherArea { get; set; }
         public int TotalArea { get; set; }

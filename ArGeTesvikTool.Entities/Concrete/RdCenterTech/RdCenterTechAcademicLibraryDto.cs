@@ -2,8 +2,8 @@
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
 {
-    public class RdCenterPropertyDto : AuditableEntity
+    public class RdCenterTechAcademicLibraryDto : AuditableEntity
     {
-
+        public string Text { get; set; }
     }
 }

@@ -73,6 +73,7 @@ namespace ArGeTesvikTool.WebUI
             {
                 app.UseDeveloperExceptionPage();
             }
+
             // Brings information page on pages that do not return content.
             app.UseStatusCodePages();
             app.UseStaticFiles();

@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 {
@@ -22,6 +18,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         {
             return View();
         }
+
         public IActionResult AcademicLibrary()
         {
             return View();
