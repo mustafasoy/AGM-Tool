@@ -17,14 +17,16 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         private readonly IBusinessIntroService _introService;
         private readonly IGroupInfoService _groupInfoService;
         private readonly IShareholderService _shareholderService;
+        private readonly IPersonnelDistributionService _personnelService;
 
-        public BusinessController(IBusinessContactService contactService, IBusinessInfoService infoService, IBusinessIntroService introService, IGroupInfoService groupInfoService, IShareholderService shareholderService)
+        public BusinessController(IBusinessContactService contactService, IBusinessInfoService infoService, IBusinessIntroService introService, IGroupInfoService groupInfoService, IShareholderService shareholderService, IPersonnelDistributionService personnelService)
         {
             _contactService = contactService;
             _infoService = infoService;
             _introService = introService;
             _groupInfoService = groupInfoService;
             _shareholderService = shareholderService;
+            _personnelService = personnelService;
         }
 
         [HttpGet]
@@ -44,39 +46,36 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         [ValidateAntiForgeryToken]
         public IActionResult Contact(BusinessContactViewModel contactViewModel)
         {
-            if (ModelState.IsValid)
+            var validate = ValidatorTool.Validate(new BusinessContactValidator(), contactViewModel.BusinessContact);
+            if (validate.IsValid)
             {
-                var validate = ValidatorTool.Validate(new BusinessContactValidator(), contactViewModel.BusinessContact);
-                if (validate.IsValid)
+                //get data exist or not.
+                var contact = _contactService.GetByYear(contactViewModel.BusinessContact.Year);
+                if (contact == null)
                 {
-                    //get data exist or not.
-                    var contact = _contactService.GetByYear(contactViewModel.BusinessContact.Year);
-                    if (contact == null)
-                    {
-                        contactViewModel.BusinessContact.CreatedDate = DateTime.Now;
-                        contactViewModel.BusinessContact.CreatedUserName = User.Identity.Name;
+                    contactViewModel.BusinessContact.CreatedDate = DateTime.Now;
+                    contactViewModel.BusinessContact.CreatedUserName = User.Identity.Name;
 
-                        _contactService.Add(contactViewModel.BusinessContact);
+                    _contactService.Add(contactViewModel.BusinessContact);
 
-                        TempData["SuccessMessage"] = "Veriler eklendi...";
-                        return RedirectToAction("Index", "Home");
-                    }
-
-                    contactViewModel.BusinessContact.Id = contact.Id;
-                    contactViewModel.BusinessContact.Year = contact.Year;
-                    contactViewModel.BusinessContact.CreatedDate = contact.CreatedDate;
-                    contactViewModel.BusinessContact.CreatedUserName = contact.CreatedUserName;
-                    contactViewModel.BusinessContact.ModifiedDate = DateTime.Now;
-                    contactViewModel.BusinessContact.ModifedUserName = User.Identity.Name;
-
-                    _contactService.Update(contactViewModel.BusinessContact);
-
-                    TempData["SuccessMessage"] = "Veriler güncellendi...";
+                    AddSuccessMessage("İşletme yetkili bilgisi eklendi.");
                     return RedirectToAction("Index", "Home");
                 }
 
-                AddValidatorError(validate);
+                contactViewModel.BusinessContact.Id = contact.Id;
+                contactViewModel.BusinessContact.Year = contact.Year;
+                contactViewModel.BusinessContact.CreatedDate = contact.CreatedDate;
+                contactViewModel.BusinessContact.CreatedUserName = contact.CreatedUserName;
+                contactViewModel.BusinessContact.ModifiedDate = DateTime.Now;
+                contactViewModel.BusinessContact.ModifedUserName = User.Identity.Name;
+
+                _contactService.Update(contactViewModel.BusinessContact);
+
+                AddSuccessMessage("İşletme yetkili bilgisi güncellendi.");
+                return RedirectToAction("Index", "Home");
             }
+
+            AddValidatorError(validate);
 
             return View(contactViewModel);
         }
@@ -102,37 +101,35 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         [ValidateAntiForgeryToken]
         public IActionResult Info(BusinessInfoViewModel infoViewModel)
         {
-            if (ModelState.IsValid)
+            var validate = ValidatorTool.Validate(new BusinessInfoValidator(), infoViewModel.BusinessInfo);
+            if (validate.IsValid)
             {
-                var validate = ValidatorTool.Validate(new BusinessInfoValidator(), infoViewModel.BusinessInfo);
-                if (validate.IsValid)
+                var info = _infoService.GetByYear(infoViewModel.BusinessInfo.Year);
+                if (info == null)
                 {
-                    var info = _infoService.GetByYear(infoViewModel.BusinessInfo.Year);
-                    if (info == null)
-                    {
-                        infoViewModel.BusinessInfo.CreatedDate = DateTime.Now;
-                        infoViewModel.BusinessInfo.CreatedUserName = User.Identity.Name;
+                    infoViewModel.BusinessInfo.CreatedDate = DateTime.Now;
+                    infoViewModel.BusinessInfo.CreatedUserName = User.Identity.Name;
 
-                        _infoService.Add(infoViewModel.BusinessInfo);
+                    _infoService.Add(infoViewModel.BusinessInfo);
 
-                        TempData["SuccessMessage"] = "Veriler eklendi...";
-                        return RedirectToAction("Index", "Home");
-                    }
-
-                    infoViewModel.BusinessInfo.Id = info.Id;
-                    infoViewModel.BusinessInfo.Year = info.Year;
-                    infoViewModel.BusinessInfo.CreatedDate = info.CreatedDate;
-                    infoViewModel.BusinessInfo.CreatedUserName = info.CreatedUserName;
-                    infoViewModel.BusinessInfo.ModifiedDate = DateTime.Now;
-                    infoViewModel.BusinessInfo.ModifedUserName = User.Identity.Name;
-
-                    _infoService.Update(infoViewModel.BusinessInfo);
-                    TempData["SuccessMessage"] = "Veriler güncellendi...";
+                    AddSuccessMessage("İşletme bilgisi eklendi.");
                     return RedirectToAction("Index", "Home");
                 }
 
-                AddValidatorError(validate);
+                infoViewModel.BusinessInfo.Id = info.Id;
+                infoViewModel.BusinessInfo.Year = info.Year;
+                infoViewModel.BusinessInfo.CreatedDate = info.CreatedDate;
+                infoViewModel.BusinessInfo.CreatedUserName = info.CreatedUserName;
+                infoViewModel.BusinessInfo.ModifiedDate = DateTime.Now;
+                infoViewModel.BusinessInfo.ModifedUserName = User.Identity.Name;
+
+                _infoService.Update(infoViewModel.BusinessInfo);
+
+                AddSuccessMessage("İşletme bilgisi güncellendi.");
+                return RedirectToAction("Index", "Home");
             }
+
+            AddValidatorError(validate);
 
             return View(infoViewModel);
         }
@@ -153,33 +150,30 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         [ValidateAntiForgeryToken]
         public IActionResult Intro(BusinessIntroViewModel introViewModel)
         {
-            if (ModelState.IsValid)
+            var intro = _introService.GetByYear(introViewModel.BusinessIntro.Year);
+            if (intro == null)
             {
-                var intro = _introService.GetByYear(introViewModel.BusinessIntro.Year);
-                if (intro == null)
-                {
-                    introViewModel.BusinessIntro.CreatedDate = DateTime.Now;
-                    introViewModel.BusinessIntro.CreatedUserName = User.Identity.Name;
-                    _introService.Add(introViewModel.BusinessIntro);
+                introViewModel.BusinessIntro.CreatedDate = DateTime.Now;
+                introViewModel.BusinessIntro.CreatedUserName = User.Identity.Name;
+                _introService.Add(introViewModel.BusinessIntro);
 
-                    TempData["SuccessMessage"] = "Veriler eklendi...";
+                AddSuccessMessage("İşletme tanıtıcı bilgisi eklendi.");
 
-                    return RedirectToAction("Index", "Home");
-                }
-
-                introViewModel.BusinessIntro.Id = intro.Id;
-                introViewModel.BusinessIntro.Year = intro.Year;
-                introViewModel.BusinessIntro.CreatedDate = intro.CreatedDate;
-                introViewModel.BusinessIntro.CreatedUserName = intro.CreatedUserName;
-                introViewModel.BusinessIntro.ModifiedDate = DateTime.Now;
-                introViewModel.BusinessIntro.ModifedUserName = User.Identity.Name;
-
-                _introService.Update(introViewModel.BusinessIntro);
-                TempData["SuccessMessage"] = "Veriler güncellendi...";
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(introViewModel);
+            introViewModel.BusinessIntro.Id = intro.Id;
+            introViewModel.BusinessIntro.Year = intro.Year;
+            introViewModel.BusinessIntro.CreatedDate = intro.CreatedDate;
+            introViewModel.BusinessIntro.CreatedUserName = intro.CreatedUserName;
+            introViewModel.BusinessIntro.ModifiedDate = DateTime.Now;
+            introViewModel.BusinessIntro.ModifedUserName = User.Identity.Name;
+
+            _introService.Update(introViewModel.BusinessIntro);
+
+            AddSuccessMessage("İşletme tanıtıcı bilgisi güncellendi.");
+
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult GroupInfo(int id)
@@ -195,7 +189,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         [ValidateAntiForgeryToken]
         public IActionResult GroupInfo(GroupInfoViewModel groupInfoViewModel)
         {
-            if (ModelState.IsValid)
+            var validate = ValidatorTool.Validate(new BusinessGroupInfoValidator(), groupInfoViewModel.GroupInfo);
+            if (validate.IsValid)
             {
                 var groupInfo = _groupInfoService.GetByYear(groupInfoViewModel.GroupInfo.Year);
                 if (groupInfo == null)
@@ -204,7 +199,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                     groupInfoViewModel.GroupInfo.CreatedUserName = User.Identity.Name;
 
                     _groupInfoService.Add(groupInfoViewModel.GroupInfo);
-                    TempData["SuccessMessage"] = "Veriler eklendi...";
+
+                    AddSuccessMessage("Yeni grup bilgisi eklendi.");
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -216,22 +212,25 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                 groupInfoViewModel.GroupInfo.ModifedUserName = User.Identity.Name;
 
                 _groupInfoService.Update(groupInfoViewModel.GroupInfo);
-                TempData["SuccessMessage"] = "Veriler güncellendi...";
+
+                AddSuccessMessage("Grup bilgisi güncellendi.");
                 return RedirectToAction("Index", "Home");
 
             }
+
+            AddValidatorError(validate);
 
             return View(groupInfoViewModel);
         }
 
         #region Shareholder CRUD
-        public IActionResult Shareholder(int id)
+        public IActionResult Shareholder()
         {
             List<ShareholdersDto> shareholderList = _shareholderService.GetAll();
 
             ShareholderViewModel shareholderViewModel = new()
             {
-                Shareholder = shareholderList
+                ShareholderList = shareholderList
             };
 
             return View(shareholderViewModel);
@@ -258,7 +257,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                 NewShareholder = shareholder
             };
 
-            ViewBag.SuccessMessage = "Veri güncellendi...";
             return PartialView("PartialView/ShareholderPartialView", shareholderViewModel);
         }
 
@@ -266,73 +264,120 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         {
             _shareholderService.Delete(id);
 
-            return Redirect("Shareholder");
+            AddSuccessMessage("Ortaklık kaydı silindi.");
+
+            return RedirectToAction("Shareholder");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Shareholder(ShareholderViewModel shareholderViewModel)
         {
-            if (ModelState.IsValid)
+            var shareholder = _shareholderService.GetById(shareholderViewModel.NewShareholder.Id);
+            if (shareholder == null)
             {
-                var shareholder = _shareholderService.GetById(shareholderViewModel.NewShareholder.Id);
-                if (shareholder == null)
-                {
-                    shareholderViewModel.NewShareholder.CreatedDate = DateTime.Now;
-                    shareholderViewModel.NewShareholder.CreatedUserName = User.Identity.Name;
+                shareholderViewModel.NewShareholder.CreatedDate = DateTime.Now;
+                shareholderViewModel.NewShareholder.CreatedUserName = User.Identity.Name;
 
-                    _shareholderService.Add(shareholderViewModel.NewShareholder);
-                }
-                else
-                {
-                    shareholderViewModel.NewShareholder.Id = shareholder.Id;
-                    shareholderViewModel.NewShareholder.Year = shareholder.Year;
-                    shareholderViewModel.NewShareholder.CreatedDate = shareholder.CreatedDate;
-                    shareholderViewModel.NewShareholder.CreatedUserName = shareholder.CreatedUserName;
-                    shareholderViewModel.NewShareholder.ModifiedDate = DateTime.Now;
-                    shareholderViewModel.NewShareholder.ModifedUserName = User.Identity.Name;
+                _shareholderService.Add(shareholderViewModel.NewShareholder);
 
-                    _shareholderService.Update(shareholderViewModel.NewShareholder);
-                }
+                AddSuccessMessage("Yeni ortaklık kaydı eklendi.");
             }
+            else
+            {
+                shareholderViewModel.NewShareholder.Id = shareholder.Id;
+                shareholderViewModel.NewShareholder.Year = shareholder.Year;
+                shareholderViewModel.NewShareholder.CreatedDate = shareholder.CreatedDate;
+                shareholderViewModel.NewShareholder.CreatedUserName = shareholder.CreatedUserName;
+                shareholderViewModel.NewShareholder.ModifiedDate = DateTime.Now;
+                shareholderViewModel.NewShareholder.ModifedUserName = User.Identity.Name;
+
+                _shareholderService.Update(shareholderViewModel.NewShareholder);
+
+                AddSuccessMessage("Ortaklık kaydı güncellendi.");
+            }
+
             return Redirect("Shareholder");
-        } 
+        }
         #endregion
 
+        #region Personnel Distribution CRUD
         public IActionResult PersonnelDistribution()
         {
-            List<PersonnelDistributionDto> personnelDistribution = new();
-
-            personnelDistribution.Add(new PersonnelDistributionDto
-            {
-                CompanyUnit = "İdari",
-                PostDoctoral = 0,
-                Doctoral = 0,
-                MasterDegree = 69,
-                BachelorDegree = 525,
-                AssociateDegree = 210,
-                HighSchool = 310,
-                Total = 1114
-            });
-
-            personnelDistribution.Add(new PersonnelDistributionDto
-            {
-                CompanyUnit = "Mali",
-                PostDoctoral = 0,
-                Doctoral = 0,
-                MasterDegree = 8,
-                BachelorDegree = 52,
-                AssociateDegree = 9,
-                HighSchool = 6,
-                Total = 75
-            });
+            List<PersonnelDistributionDto> personnelDistribution = _personnelService.GetAll();
 
             PersonnelDistributionViewModel personnelDistributionViewModel = new()
             {
-                PersonnelDistribution = personnelDistribution
+                PersonnelDistributionList = personnelDistribution
             };
 
             return View(personnelDistributionViewModel);
         }
+
+        public IActionResult PersonnelCreate()
+        {
+            PersonnelDistributionDto personnel = new();
+
+            PersonnelDistributionViewModel personnelDistributionView = new()
+            {
+                NewPersonnel = personnel
+            };
+
+            return PartialView("PartialView/PersonnelPartialView", personnelDistributionView);
+        }
+
+        public IActionResult PersonnelUpdate(int id)
+        {
+            var personnel = _personnelService.GetById(id);
+
+            PersonnelDistributionViewModel personnelDistributionView = new()
+            {
+                NewPersonnel = personnel
+            };
+
+            return PartialView("PartialView/PersonnelPartialView", personnelDistributionView);
+        }
+
+        public IActionResult PersonnelDelete(int id)
+        {
+            _personnelService.Delete(id);
+
+            AddSuccessMessage("Personel kaydı silindi.");
+
+            return Redirect("PersonnelDistribution");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PersonnelDistribution(PersonnelDistributionViewModel distributionViewModel)
+        {
+            var shareholder = _personnelService.GetById(distributionViewModel.NewPersonnel.Id);
+            if (shareholder == null)
+            {
+                distributionViewModel.NewPersonnel.CreatedDate = DateTime.Now;
+                distributionViewModel.NewPersonnel.CreatedUserName = User.Identity.Name;
+
+                _personnelService.Add(distributionViewModel.NewPersonnel);
+
+                AddSuccessMessage("Yeni personel kaydı eklendi.");
+            }
+            else
+            {
+                distributionViewModel.NewPersonnel.Id = shareholder.Id;
+                distributionViewModel.NewPersonnel.Year = shareholder.Year;
+                distributionViewModel.NewPersonnel.CreatedDate = shareholder.CreatedDate;
+                distributionViewModel.NewPersonnel.CreatedUserName = shareholder.CreatedUserName;
+                distributionViewModel.NewPersonnel.ModifiedDate = DateTime.Now;
+                distributionViewModel.NewPersonnel.ModifedUserName = User.Identity.Name;
+
+                _personnelService.Update(distributionViewModel.NewPersonnel);
+
+                AddSuccessMessage("Personel kaydı güncellendi.");
+            }
+
+            return Redirect("PersonnelDistribution");
+        }
+        #endregion
 
         public IActionResult FinancialInfo()
         {

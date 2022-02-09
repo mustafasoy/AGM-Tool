@@ -8,11 +8,11 @@ namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation
         public LoginValidator()
         {
             RuleFor(x => x.Email)
-                .NotEmpty().WithMessage("Mail adresi giriniz!")
+                .NotEmpty().WithMessage("Mail adresi giriniz.")
                 .EmailAddress();
 
             RuleFor(x => x.Password)
-                .NotEmpty().WithMessage("Şifre giriniz!");
+                .NotEmpty().WithMessage("Şifre giriniz.");
         }
     }
 }

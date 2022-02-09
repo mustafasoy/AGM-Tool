@@ -6,7 +6,7 @@ namespace ArGeTesvikTool.Business.Concrete.Business
 {
     public class BusinessContactManager : IBusinessContactService
     {
-        private IBusinessContactDal _businessContactDal;
+        private readonly IBusinessContactDal _businessContactDal;
 
         public BusinessContactManager(IBusinessContactDal businessContactDal)
         {

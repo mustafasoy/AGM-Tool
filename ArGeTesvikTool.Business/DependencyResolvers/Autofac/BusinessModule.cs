@@ -1,8 +1,21 @@
 ﻿using ArGeTesvikTool.Business.Abstract;
 using ArGeTesvikTool.Business.Abstract.Business;
+using ArGeTesvikTool.Business.Abstract.RdCenter;
+using ArGeTesvikTool.Business.Abstract.RdCenterPerson;
+using ArGeTesvikTool.Business.Abstract.RdCenterTech;
 using ArGeTesvikTool.Business.Concrete.Business;
+using ArGeTesvikTool.Business.Concrete.RdCenter;
+using ArGeTesvikTool.Business.Concrete.RdCenterPerson;
+using ArGeTesvikTool.Business.Concrete.RdCenterTech;
 using ArGeTesvikTool.DataAccess.Abstract;
+using ArGeTesvikTool.DataAccess.Abstract.Business;
+using ArGeTesvikTool.DataAccess.Abstract.RdCenter;
+using ArGeTesvikTool.DataAccess.Abstract.RdCenterPerson;
+using ArGeTesvikTool.DataAccess.Abstract.RdCenterTech;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Business;
+using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenter;
+using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterPerson;
+using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterTech;
 using ArGeTesvikTool.WebUI.Helpers;
 using Autofac;
 
@@ -25,6 +38,31 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfGroupInfoDal>().As<IGroupInfoDal>().SingleInstance();
             builder.RegisterType<ShareholderManager>().As<IShareholderService>().SingleInstance();
             builder.RegisterType<EfShareholderDal>().As<IShareholderDal>().SingleInstance();
+            builder.RegisterType<PersonnelDistributionManager>().As<IPersonnelDistributionService>().SingleInstance();
+            builder.RegisterType<EfPersonnelDistributionDal>().As<IPersonnelDistributionDal>().SingleInstance();
+            #endregion
+
+            #region RdCenter
+            builder.RegisterType<RdCenterContactManager>().As<IRdCenterContactService>().SingleInstance();
+            builder.RegisterType<EfRdCenterContactDal>().As<IRdCenterContactInfoDal>().SingleInstance();
+            builder.RegisterType<RdCenterInfoManager>().As<IRdCenterInfoService>().SingleInstance();
+            builder.RegisterType<EfRdCenterInfoDal>().As<IRdCenterInfoDal>().SingleInstance();
+            #endregion
+
+            #region RdCenterPerson
+            builder.RegisterType<RdCenterPersonInfoManager>().As<IRdCenterPersonInfoService>().SingleInstance();
+            builder.RegisterType<EfRdCenterPersonInfoDal>().As<IRdCenterPersonInfoDal>().SingleInstance();
+            builder.RegisterType<RdCenterPersonRewardManager>().As<IRdCenterPersonRewardService>().SingleInstance();
+            builder.RegisterType<EfRdCenterPersonRewardDal>().As<IRdCenterPersonRewardDal>().SingleInstance();
+            #endregion
+
+            #region RdCenterTech
+            builder.RegisterType<RdCenterTechCollaborationManager>().As<IRdCenterTechCollaborationService>().SingleInstance();
+            builder.RegisterType<EfRdCenterTechCollaborationDal>().As<IRdCenterTechCollaborationDal>().SingleInstance();
+            builder.RegisterType<RdCenterTechAcademicLibraryManager>().As<IRdCenterTechAcademicLibraryService>().SingleInstance();
+            builder.RegisterType<EfRdCenterTechAcademicLibraryDal>().As<IRdCenterTechAcademicLibraryDal>().SingleInstance();
+            builder.RegisterType<RdCenterTechAttendedEventManager>().As<IRdCenterTechAttendedEventService>().SingleInstance();
+            builder.RegisterType<EfRdCenterTechAttendedEventDal>().As<IRdCenterTechAttendedEventDal>().SingleInstance();
             #endregion
         }
     }

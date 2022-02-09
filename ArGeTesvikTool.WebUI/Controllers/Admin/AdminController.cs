@@ -112,9 +112,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
                     await _signInManager.SignOutAsync();
                     await _signInManager.SignInAsync(identityUser, true);
 
-                    TempData["SuccessMessage"] = "Güncelleme işlemi tamamlandı...";
-
-
+                    AddSuccessMessage("Güncelleme işlemi tamamlandı.");
                     return RedirectToAction("ListUser");
                 }
             }

@@ -7,6 +7,12 @@ namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation.Business
     {
         public BusinessInfoValidator()
         {
+            RuleFor(x => x.CompanyName)
+                .NotEmpty().WithMessage("Şirket ünvanı giriniz.");
+
+            RuleFor(x => x.ActivityCode)
+                .NotEmpty().WithMessage("Faaliyet kodunu giriniz.");
+
             RuleFor(x => x.PhoneNumber.ToString())
                 .Must(x => x.Length < 12).WithMessage("Telefon numarası alanına 11 karakterden fazla girmeyin.");
 

@@ -37,7 +37,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <textarea asp-for="RdCenterInfo.Location" class="form-control" rows="2"></textarea>
+                                        <textarea asp-for="RdCenterInfo.Address" class="form-control" rows="2"></textarea>
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -65,7 +65,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterInfo.PhoneNumber" type="tel" class="form-control" maxlength="10">
+                                        <input asp-for="RdCenterInfo.PhoneNumber" type="number" maxlength="11" onkeydown="return event.keyCode !== 69" class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -81,7 +81,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterInfo.RegistrationNo" class="form-control">
+                                        <input asp-for="RdCenterInfo.RegistrationNo"  type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -89,7 +89,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterInfo.OfficeArea" class="form-control">
+                                        <input asp-for="RdCenterInfo.OfficeArea" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -97,7 +97,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterInfo.OtherArea" class="form-control">
+                                        <input asp-for="RdCenterInfo.OtherArea" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -105,7 +105,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterInfo.TotalArea" type="number" class="form-control">
+                                        <input asp-for="RdCenterInfo.TotalArea" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
@@ -122,3 +122,9 @@
 <!-- END: Content-->
 <script src="~/frest/app-assets/js/core/libraries/jquery.min.js"></script>
 <script src="~/frest/app-assets/js/list-cities.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Cities").val('@ViewBag.City');
+        $("#Cities").change();
+    });
+</script>

@@ -1,17 +1,12 @@
 ﻿using ArGeTesvikTool.Business.Abstract.Business;
 using ArGeTesvikTool.DataAccess.Abstract;
 using ArGeTesvikTool.Entities.Concrete.Business;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.Business.Concrete.Business
 {
     public class BusinessIntroManager : IBusinessIntroService
     {
-        private IBusinessIntroDal _businessIntroDal;
+        private readonly IBusinessIntroDal _businessIntroDal;
 
         public BusinessIntroManager(IBusinessIntroDal businessIntroDal)
         {

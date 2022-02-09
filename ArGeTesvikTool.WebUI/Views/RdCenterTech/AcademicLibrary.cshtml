@@ -1,0 +1,46 @@
+﻿@model RdCenterTechAcademicLibraryViewModel
+@{
+    ViewData["Title"] = "Bilimsel Kütüphaneler ve Veri Tabanları";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            Ar-Ge Merkezinin Üye Olduğu Ulusal / Uluslararası Bilimsel Kütüphaneler ve Veri Tabanları
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="AcademicLibrary" method="post" id="jquery-val-form">
+                            <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h6 class="invoice-address">
+                                            Açıklama
+                                        </h6>
+                                        <fieldset class="form-group">
+                                            <textarea asp-for="AcademicLibrary.Text" class="form-control" rows="15"></textarea>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

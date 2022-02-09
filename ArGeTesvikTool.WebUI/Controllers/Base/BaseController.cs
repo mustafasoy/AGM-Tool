@@ -1,8 +1,9 @@
-﻿using ArGeTesvikTool.Business.Utilities;
+﻿using ArGeTesvikTool.Core.Entities;
 using ArGeTesvikTool.WebUI.Models;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 {
@@ -13,7 +14,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         protected SignInManager<AppIdentityUser> _signInManager;
 
         protected AppIdentityUser GetCurrentUser => _userManager.FindByNameAsync(User.Identity.Name).Result;
-        
+
         public BaseController()
         {
 
@@ -45,6 +46,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         public bool CheckValidatorError(ValidationResult validate)
         {
             return validate.Errors.Count > 0;
+        }
+
+        public void AddSuccessMessage(string message)
+        {
+            TempData["SuccessMessage"] = message;
         }
     }
 }

@@ -23,9 +23,9 @@ namespace ArGeTesvikTool.Entities.Concrete.Business
         public Sme IsSME { get; set; }
         public string CRSNumber { get; set; }
     }
+
     public enum Sme
     {
         Hayır, Evet
     }
-
 }

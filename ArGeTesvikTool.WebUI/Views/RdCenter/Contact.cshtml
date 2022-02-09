@@ -29,20 +29,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterContact.IdentityNumber" class="form-control">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h6 class="invoice-address">
-                                            Doğum Tarihi
-                                        </h6>
-                                    </div>
-                                    <div class="col-md-8 form-group">
-                                        <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="RdCenterContact.Birthday" type="text" class="form-control single-daterange" placeholder="mm/dd/yyyy">
-                                            <div class="form-control-position">
-                                                <i class='bx bx-calendar'></i>
-                                            </div>
-                                        </fieldset>
+                                        <input asp-for="RdCenterContact.IdentityNumber" type="number" maxlength="11" onkeydown="return event.keyCode !== 69" class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -51,6 +38,19 @@
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <input asp-for="RdCenterContact.NameSurname" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            Doğum Tarihi
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <input asp-for="RdCenterContact.Birthday" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                            <div class="form-control-position">
+                                                <i class='bx bx-calendar'></i>
+                                            </div>
+                                        </fieldset>
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -66,7 +66,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterContact.PhoneNumber" type="tel" class="form-control" maxlength="10">
+                                        <input asp-for="RdCenterContact.PhoneNumber" type="number" maxlength="11" onkeydown="return event.keyCode !== 69" class="form-control">
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary mr-1">Kaydet</button>

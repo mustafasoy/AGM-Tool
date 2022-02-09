@@ -6,7 +6,7 @@ namespace ArGeTesvikTool.Business.Concrete.Business
 {
     public class GroupInfoManager : IGroupInfoService
     {
-        private IGroupInfoDal _groupInfoDal;
+        private readonly IGroupInfoDal _groupInfoDal;
 
         public GroupInfoManager(IGroupInfoDal groupInfoDal)
         {

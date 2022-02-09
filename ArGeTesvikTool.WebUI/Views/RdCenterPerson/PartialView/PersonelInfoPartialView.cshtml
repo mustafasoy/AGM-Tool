@@ -1,0 +1,79 @@
+﻿@model RdCenterPersonViewModel
+
+<input asp-for="NewPersonnelInfo.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Kimlik Numarası
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.IdentityNumber" type="number" maxlength="11" onkeydown="return event.keyCode !== 69" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    İsim Soyisim
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.NameSurname" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Uyruğu
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.Nationality" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Eğitim Durumu
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.EducationStatu" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Mezun Olduğu Okul
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.GraduateUniversity" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Mezun Olduğu Bölüm
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.UniversityDepartmant" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Mezun Olduğu Bölüm
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.UniversityDepartmant" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Görevi
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.PersonPosition" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Sgk Sicil No
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    İşe başladığı tarih
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.StartDate" type="date" id="datePicker" class="form-control">
+</div>
+
+<script>
+    $(document).ready(function () {
+        document.getElementById('datePicker').valueAsDate = new Date();
+    })
+</script>

@@ -1,0 +1,48 @@
+﻿@model RdCenterTechCollabrationViewModel
+
+<input asp-for="NewCollaboration.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    İşbiriliği yapılan
+</h6>
+<div class="form-group">
+    <input asp-for="NewCollaboration.Collaboration" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    İşbirliği yapılan kurum/kişi
+</h6>
+<div class="form-group">
+    <input asp-for="NewCollaboration.Partner" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Ülkesi
+</h6>
+
+<input asp-for="NewCollaboration.CountryCode" hidden="hidden" />
+
+<div class="form-group">
+    <fieldset class="form-group">
+        <select asp-for="NewCollaboration.CountryText" class="select2 form-control" aria-hidden="true" id="Countries">
+            <option selected="selected" value="">Seçiniz</option>
+        </select>
+    </fieldset>
+</div>
+
+<h6 class="invoice-address">
+    İşbirliği türü/şekli
+</h6>
+
+<div class="form-group">
+    <input asp-for="NewCollaboration.CollaborationType" class="form-control">
+</div>
+
+<script src="~/frest/app-assets/js/scripts/forms/select/form-select2.js"></script>
+<script src="~/frest/app-assets/js/list-countries.js"></script>
+<script>
+        $(document).ready(function () {
+            $("#Countries").val('@ViewBag.Country');
+            $("#Countries").change();
+        });
+</script>

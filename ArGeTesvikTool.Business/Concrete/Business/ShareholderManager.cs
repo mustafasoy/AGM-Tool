@@ -7,7 +7,7 @@ namespace ArGeTesvikTool.Business.Concrete.Business
 {
     public class ShareholderManager : IShareholderService
     {
-        private IShareholderDal _shareholderDal;
+        private readonly IShareholderDal _shareholderDal;
 
         public ShareholderManager(IShareholderDal shareholderDal)
         {

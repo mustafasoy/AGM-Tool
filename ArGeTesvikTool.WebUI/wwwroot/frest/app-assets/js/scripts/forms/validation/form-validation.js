@@ -66,7 +66,28 @@ $(function () {
                 'RoleText': {
                     required: true
                 },
-                'SelectCountry': {
+                'BusinessContact.IdentityNumber': {
+                    required: true
+                },
+                'BusinessContact.NameSurname': {
+                    required: true
+                },
+                'BusinessInfo.CompanyName': {
+                    required: true
+                },
+                'BusinessInfo.ActivityCode': {
+                    required: true
+                },
+                'GroupInfo.CompanyName': {
+                    required: true
+                },
+                'RdCenterContact.IdentityNumber': {
+                    required: true
+                },
+                'RdCenterContact.NameSurname': {
+                    required: true
+                },
+                'RdCenterInfo.CompanyName': {
                     required: true
                 },
                 customFile: {

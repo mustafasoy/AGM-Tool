@@ -1,0 +1,66 @@
+﻿@model PersonnelDistributionViewModel
+
+<input asp-for="NewPersonnel.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Birim
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnel.CompanyUnit" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Doktoro Üstü
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnel.PostDoctoral" class="form-control parameter">
+</div>
+
+<h6 class="invoice-address">
+    Doktora
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnel.Doctoral" type="number" onkeydown="return event.keyCode !== 69" class="form-control parameter">
+</div>
+
+<h6 class="invoice-address">
+    Yüksek Lisans
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnel.MasterDegree" type="number" onkeydown="return event.keyCode !== 69" class="form-control parameter">
+</div>
+
+<h6 class="invoice-address">
+    Lisans
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnel.BachelorDegree" type="number" onkeydown="return event.keyCode !== 69" class="form-control parameter">
+</div>
+
+<h6 class="invoice-address">
+    Lise ve Diğer
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnel.HighSchool" type="number" onkeydown="return event.keyCode !== 69" class="form-control parameter">
+</div>
+
+<h6 class="invoice-address">
+    Toplam
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnel.Total" type="number" onkeydown="return event.keyCode !== 69" class="form-control total" readonly="readonly">
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".parameter").on("input", function () {
+            var total = 0;
+            $(".parameter").each(function () {
+                if (!isNaN(parseInt($(this).val()))) {
+                    total += parseInt($(this).val());
+                }
+            });
+            $(".total").val(total);
+        });
+    })
+</script>

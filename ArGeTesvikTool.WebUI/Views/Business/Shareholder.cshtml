@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "İşletme Ortakları";
     int rowNumber = 0;
-
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -44,11 +43,10 @@
                                             <th>
                                                 Düzenle
                                             </th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model.Shareholder)
+                                        @foreach (var item in Model.ShareholderList)
                                         {
                                             rowNumber++;
                                             <tr>
@@ -72,11 +70,10 @@
                                                         <a href="#" onclick="Update(@item.Id)" class="mr-1">
                                                             <i class="bx bx-edit"></i>
                                                         </a>
-                                                        <a href="#" onclick="Delete(@item.Id)">
+                                                        <a asp-action="ShareholderDelete" asp-route-id="@item.Id" method="post">
                                                             <i class="bx bx-trash"></i>
                                                         </a>
                                                     </div>
-
                                                 </td>
                                             </tr>
                                         }
@@ -120,6 +117,17 @@
 <!-- END: Content-->
 <script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
+    $(document).ready(function () {
+        var message = "@(TempData["SuccessMessage"] as string)";
+        if (message != "") {
+            toastr['success'](message, {
+            showMethod: 'slideDown',
+            hideMethod: 'slideUp',
+            timeOut: 2000,
+        })
+        }
+    })
+
     $(function () {
         $("#jquery-val-form").validate({
             rules: {
@@ -135,9 +143,9 @@
                 'NewShareholder.ShareAmount': {
                     required: true,
                 },
-            },
-        });
-    });
+            }
+        })
+    })
 
     var Create = function () {
         $.ajax({
@@ -162,14 +170,14 @@
         })
     }
 
-    var Delete = function (id) {
-        $.ajax({
-            type: "POST",
-            url: "/Business/ShareholderDelete",
-            data: { id: id },
-            success: function (response) {
-                window.location.reload()
-            }
-        })
-    }
+    //var Delete = function (id) {
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Business/ShareholderDelete",
+    //        data: { id: id },
+    //        success: function (response) {
+    //            window.location.reload();
+    //        }
+    //    })
+    //}
 </script>

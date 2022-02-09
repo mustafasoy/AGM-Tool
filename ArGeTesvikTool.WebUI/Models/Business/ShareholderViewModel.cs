@@ -9,6 +9,6 @@ namespace ArGeTesvikTool.WebUI.Models.Business
     public class ShareholderViewModel
     {
         public ShareholdersDto NewShareholder { get; set; }
-        public List<ShareholdersDto> Shareholder { get; set; }
+        public List<ShareholdersDto> ShareholderList { get; set; }
     }
 }

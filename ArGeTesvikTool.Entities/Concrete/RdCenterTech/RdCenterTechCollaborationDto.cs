@@ -6,7 +6,8 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
     {
         public string Collaboration { get; set; }
         public string Partner { get; set; }
-        public string Country { get; set; }
+        public string CountryCode { get; set; }
+        public string CountryText { get; set; }
         public string CollaborationType { get; set; }
     }
 }

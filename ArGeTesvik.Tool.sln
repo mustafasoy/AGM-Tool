@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArGeTesvikTool.WebUI", "ArGeTesvikTool.WebUI\ArGeTesvikTool.WebUI.csproj", "{72DAFA61-B289-4B96-A467-AD8191D0D4F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArGeTesvikTool.WebUI", "ArGeTesvikTool.WebUI\ArGeTesvikTool.WebUI.csproj", "{72DAFA61-B289-4B96-A467-AD8191D0D4F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArGeTesvikTool.Business", "ArGeTesvikTool.Business\ArGeTesvikTool.Business.csproj", "{309A441E-E653-414F-B3B2-4D82BEE9937D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArGeTesvikTool.Business", "ArGeTesvikTool.Business\ArGeTesvikTool.Business.csproj", "{309A441E-E653-414F-B3B2-4D82BEE9937D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArGeTesvikTool.Core", "ArGeTesvikTool.Core\ArGeTesvikTool.Core.csproj", "{A705CF4D-E2F0-43D4-8DF7-B576078BFA4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArGeTesvikTool.Core", "ArGeTesvikTool.Core\ArGeTesvikTool.Core.csproj", "{A705CF4D-E2F0-43D4-8DF7-B576078BFA4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArGeTesvikTool.DataAccess", "ArGeTesvikTool.DataAccess\ArGeTesvikTool.DataAccess.csproj", "{C304B4AC-4DD5-4031-A1C9-A3AADB1001FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArGeTesvikTool.DataAccess", "ArGeTesvikTool.DataAccess\ArGeTesvikTool.DataAccess.csproj", "{C304B4AC-4DD5-4031-A1C9-A3AADB1001FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArGeTesvikTool.Entities", "ArGeTesvikTool.Entities\ArGeTesvikTool.Entities.csproj", "{67554153-C52A-4617-8B86-9D11626010B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArGeTesvikTool.Entities", "ArGeTesvikTool.Entities\ArGeTesvikTool.Entities.csproj", "{67554153-C52A-4617-8B86-9D11626010B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

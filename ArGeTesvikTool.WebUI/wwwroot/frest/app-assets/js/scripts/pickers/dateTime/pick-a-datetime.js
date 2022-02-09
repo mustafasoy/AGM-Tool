@@ -52,13 +52,22 @@
     // Month Select Picker
     $('.pickadate-months').pickadate({
         selectYears: false,
-        selectMonths: true
+        selectMonths: true,
+
     });
 
     // Month and Year Select Picker
     $('.pickadate-months-year').pickadate({
         selectYears: true,
-        selectMonths: true
+        selectMonths: true,
+        formatSubmit: 'dd/mm/yyyy',
+        monthsFull: ['Ocak', 'Şubat', 'Mart', 'Nisa', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+        monthsShort: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
+        weekdaysShort: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
+        format: 'dd-mm-yyyy',
+        today: 'bugün',
+        clear: 'temizle',
+        close: 'kapat'
     });
 
     // Short String Date Picker

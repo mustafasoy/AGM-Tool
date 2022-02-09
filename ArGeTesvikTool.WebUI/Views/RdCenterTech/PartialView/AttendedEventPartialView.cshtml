@@ -1,0 +1,50 @@
+﻿@model RdCenterTechAttendedEventViewModel
+
+<input asp-for="NewAttendedEvent.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Türü
+</h6>
+<div class="form-group">
+    <fieldset class="form-group">
+        <select asp-for="NewAttendedEvent.Type" asp-items="Html.GetEnumSelectList<Conference>()" class="form-control">
+            <option selected="selected" value="">
+                Seçiniz
+            </option>
+        </select>
+    </fieldset>
+</div>
+
+<h6 class="invoice-address">
+    Katılım sağlanan etkinlik
+</h6>
+<div class="form-group">
+    <input asp-for="NewAttendedEvent.AttendedEvent" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Yurt içi/Yurt dışı
+</h6>
+<div class="form-group">
+    <fieldset class="form-group">
+        <select asp-for="NewAttendedEvent.Type" asp-items="Html.GetEnumSelectList<ConferenceLocation>()" class="form-control">
+            <option selected="selected" value="">
+                Seçiniz
+            </option>
+        </select>
+    </fieldset>
+</div>
+
+<h6 class="invoice-address">
+    Katılım tarih aralığı
+</h6>
+<div class="form-group">
+    <input asp-for="NewAttendedEvent.AttendDate" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Kişi sayısı
+</h6>
+<div class="form-group">
+    <input asp-for="NewAttendedEvent.PersonNumber" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
+</div>
