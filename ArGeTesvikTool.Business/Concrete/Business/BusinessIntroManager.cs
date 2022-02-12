@@ -23,10 +23,6 @@ namespace ArGeTesvikTool.Business.Concrete.Business
             _businessIntroDal.Update(businessIntro);
         }
 
-        public void Delete(int id)
-        {
-            _businessIntroDal.Delete(new BusinessIntroDto { Id = id });
-        }
 
         public BusinessIntroDto GetByYear(int year)
         {

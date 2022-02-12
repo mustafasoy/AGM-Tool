@@ -2,7 +2,7 @@
 
 namespace ArGeTesvikTool.Entities.Concrete.Business
 {
-    public class FinancialInfoDto : AuditableEntity
+    public class BusinessFinancialInfoDto : AuditableEntity
     {
         public decimal NetSales { get; set; }
         public decimal TotalAsset { get; set; }

@@ -1,5 +1,7 @@
 ﻿using ArGeTesvikTool.Business.Abstract.RdCenterTech;
+using ArGeTesvikTool.Core.Data_Access.EntityFramework;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterTech;
+using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterTech;
@@ -14,12 +16,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         private readonly IRdCenterTechCollaborationService _collaborationService;
         private readonly IRdCenterTechAcademicLibraryService _academicLibraryService;
         private readonly IRdCenterTechAttendedEventService _attendedEventService;
+        private readonly IRdCenterTechSoftwareService _softwareService;
 
-        public RdCenterTechController(IRdCenterTechCollaborationService collaborationService, IRdCenterTechAcademicLibraryService academicLibraryService, IRdCenterTechAttendedEventService attendedEventService)
+        public RdCenterTechController(IRdCenterTechCollaborationService collaborationService, IRdCenterTechAcademicLibraryService academicLibraryService, IRdCenterTechAttendedEventService attendedEventService, IRdCenterTechSoftwareService softwareService)
         {
             _collaborationService = collaborationService;
             _academicLibraryService = academicLibraryService;
             _attendedEventService = attendedEventService;
+            _softwareService = softwareService;
         }
 
         public IActionResult CompletedProject()
@@ -111,9 +115,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
         #endregion
 
-        public IActionResult AcademicLibrary(int id)
+        public IActionResult AcademicLibrary(int year)
         {
-            var academicLibrary = _academicLibraryService.GetByYear(id);
+            var academicLibrary = _academicLibraryService.GetByYear(year);
 
             RdCenterTechAcademicLibraryViewModel academicLibraryViewModel = new()
             {
@@ -237,9 +241,82 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return View();
         }
 
+        #region Software CRUD
         public IActionResult Software()
         {
-            return View();
+            List<RdCenterTechSoftwareDto> softwareList = _softwareService.GetAll();
+
+            RdCenterTechSoftwareViewModel softwareViewModel = new()
+            {
+                SoftwareList = softwareList
+            };
+
+            return View(softwareViewModel);
         }
+
+        public IActionResult SoftwareCreate()
+        {
+            RdCenterTechSoftwareDto software = new();
+
+            RdCenterTechSoftwareViewModel softwareViewModel = new()
+            {
+                NewSoftware = software
+            };
+
+            return PartialView("PartialView/SoftwarePartialView", softwareViewModel);
+        }
+
+        public IActionResult SoftwareUpdate(int id)
+        {
+            var software = _softwareService.GetById(id);
+
+            RdCenterTechSoftwareViewModel softwareViewModel = new()
+            {
+                NewSoftware = software
+            };
+
+            return PartialView("PartialView/SoftwarePartialView", softwareViewModel);
+        }
+
+        public IActionResult SoftwareDelete(int id)
+        {
+            _softwareService.Delete(id);
+
+            AddSuccessMessage("Yazılım kaydı silindi.");
+
+            return RedirectToAction("Software");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Software(RdCenterTechSoftwareViewModel softwareViewModel)
+        {
+            var software = _softwareService.GetById(softwareViewModel.NewSoftware.Id);
+            if (software == null)
+            {
+                softwareViewModel.NewSoftware.CreatedDate = DateTime.Now;
+                softwareViewModel.NewSoftware.CreatedUserName = User.Identity.Name;
+
+                _softwareService.Add(softwareViewModel.NewSoftware);
+
+                AddSuccessMessage("Yeni yazılım kaydı eklendi.");
+            }
+            else
+            {
+                softwareViewModel.NewSoftware.Id = software.Id;
+                softwareViewModel.NewSoftware.Year = software.Year;
+                softwareViewModel.NewSoftware.CreatedDate = software.CreatedDate;
+                softwareViewModel.NewSoftware.CreatedUserName = software.CreatedUserName;
+                softwareViewModel.NewSoftware.ModifiedDate = DateTime.Now;
+                softwareViewModel.NewSoftware.ModifedUserName = User.Identity.Name;
+
+                _softwareService.Update(softwareViewModel.NewSoftware);
+
+                AddSuccessMessage("Yazılım kaydı güncelledi.");
+            }
+
+            return Redirect("Software");
+        }
+        #endregion
     }
 }

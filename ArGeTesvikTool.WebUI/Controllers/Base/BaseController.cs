@@ -3,7 +3,7 @@ using ArGeTesvikTool.WebUI.Models;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using System.IO;
 
 namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 {
@@ -51,6 +51,15 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         public void AddSuccessMessage(string message)
         {
             TempData["SuccessMessage"] = message;
+        }
+
+        public FileStreamResult DownloadFile(IFileEntity entity)
+        {
+            var content = new MemoryStream(entity.Content);
+            var contentType = entity.ContentType;
+            var fileName = entity.FileName;
+
+            return File(content, contentType, fileName);
         }
     }
 }

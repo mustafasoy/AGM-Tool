@@ -6,7 +6,6 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenterTech
     {
         void Add(RdCenterTechAcademicLibraryDto rdCenterTechAcademicLibrary);
         void Update(RdCenterTechAcademicLibraryDto rdCenterTechAcademicLibrary);
-        void Delete(int id);
         RdCenterTechAcademicLibraryDto GetByYear(int year);
     }
 }

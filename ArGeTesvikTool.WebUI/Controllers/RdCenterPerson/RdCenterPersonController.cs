@@ -99,9 +99,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
         #endregion
 
-        public IActionResult Reward(int id)
+        public IActionResult Reward(int year)
         {
-            var reward = _rewardService.GetByYear(id);
+            var reward = _rewardService.GetByYear(year);
 
             RdCenterRewardViewModel rewardViewModel = new()
             {

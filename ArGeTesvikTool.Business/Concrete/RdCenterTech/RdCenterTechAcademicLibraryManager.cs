@@ -1,7 +1,6 @@
 ﻿using ArGeTesvikTool.Business.Abstract.RdCenterTech;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterTech;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
-using System;
 
 namespace ArGeTesvikTool.Business.Concrete.RdCenterTech
 {
@@ -22,11 +21,6 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterTech
         public void Update(RdCenterTechAcademicLibraryDto rdCenterTechAcademicLibrary)
         {
             _academicLibraryDal.Update(rdCenterTechAcademicLibrary);
-        }
-
-        public void Delete(int id)
-        {
-            _academicLibraryDal.Delete(new RdCenterTechAcademicLibraryDto { Id = id });
         }
 
         public RdCenterTechAcademicLibraryDto GetByYear(int year)

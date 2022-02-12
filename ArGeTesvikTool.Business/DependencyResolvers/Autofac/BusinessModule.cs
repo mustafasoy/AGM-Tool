@@ -40,6 +40,12 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfShareholderDal>().As<IShareholderDal>().SingleInstance();
             builder.RegisterType<PersonnelDistributionManager>().As<IPersonnelDistributionService>().SingleInstance();
             builder.RegisterType<EfPersonnelDistributionDal>().As<IPersonnelDistributionDal>().SingleInstance();
+            builder.RegisterType<BusinessSchemaManager>().As<IBusinessSchemaService>().SingleInstance();
+            builder.RegisterType<EfBusinessSchemaDal>().As<IBusinessSchemaDal>().SingleInstance();
+            builder.RegisterType<StrategyManager>().As<IStrategyService>().SingleInstance();
+            builder.RegisterType<EfStrategyDal>().As<IStrategyDal>().SingleInstance();
+            builder.RegisterType<BusinessFinancialInfoManager>().As<IBusinessFinancialInfoService>().SingleInstance();
+            builder.RegisterType<EfBusinessFinancialInfoDal>().As<IBusinessFinancialInfoDal>().SingleInstance();
             #endregion
 
             #region RdCenter
@@ -47,6 +53,12 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterContactDal>().As<IRdCenterContactInfoDal>().SingleInstance();
             builder.RegisterType<RdCenterInfoManager>().As<IRdCenterInfoService>().SingleInstance();
             builder.RegisterType<EfRdCenterInfoDal>().As<IRdCenterInfoDal>().SingleInstance();
+            builder.RegisterType<RdCenterSchemaManager>().As<IRdCenterSchemaService>().SingleInstance();
+            builder.RegisterType<EfRdCenterSchemaDal>().As<IRdCenterSchemaDal>().SingleInstance();
+            builder.RegisterType<RdCenterAreaInfoManager>().As<IRdCenterAreaInfoService>().SingleInstance();
+            builder.RegisterType<EfRdCenterAreaInfoDal>().As<IRdCenterAreaInfoDal>().SingleInstance();
+            builder.RegisterType<RdCenterFinancialInfoManager>().As<IRdCenterFinancialInfoService>().SingleInstance();
+            builder.RegisterType<EfRdCenterFinancialInfoDal>().As<IRdCenterFinancialInfoDal>().SingleInstance();
             #endregion
 
             #region RdCenterPerson
@@ -63,6 +75,14 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterTechAcademicLibraryDal>().As<IRdCenterTechAcademicLibraryDal>().SingleInstance();
             builder.RegisterType<RdCenterTechAttendedEventManager>().As<IRdCenterTechAttendedEventService>().SingleInstance();
             builder.RegisterType<EfRdCenterTechAttendedEventDal>().As<IRdCenterTechAttendedEventDal>().SingleInstance();
+            builder.RegisterType<RdCenterTechSoftwareManager>().As<IRdCenterTechSoftwareService>().SingleInstance();
+            builder.RegisterType<EfRdCenterTechSoftwareDal>().As<IRdCenterTechSoftwareDal>().SingleInstance();
+            builder.RegisterType<RdCenterTechProjectManagementManager>().As<IRdCenterTechProjectManagementService>().SingleInstance();
+            builder.RegisterType<EfRdCenterTechProjectManagementDal>().As<IRdCenterTechProjectManagementDal>().SingleInstance();
+            builder.RegisterType<RdCenterTechIntellectualPropertyManager>().As<IRdCenterTechIntellectualPropertyService>().SingleInstance();
+            builder.RegisterType<EfRdCenterTechIntellectualPropertyDal>().As<IRdCenterTechIntellectualPropertyDal>().SingleInstance();
+            builder.RegisterType<RdCenterTechMentorInfoManager>().As<IRdCenterTechMentorInfoService>().SingleInstance();
+            builder.RegisterType<EfRdCenterTechMentorInfoDal>().As<IRdCenterTechMentorInfoDal>().SingleInstance();
             #endregion
         }
     }

@@ -30,9 +30,6 @@
                                                 Sıra No
                                             </th>
                                             <th>
-                                                Sıra No
-                                            </th>
-                                            <th>
                                                 Türü
                                             </th>
                                             <th>
@@ -77,10 +74,10 @@
                                                 </td>
                                                 <td>
                                                     <div class="invoice-action">
-                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1">
+                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
                                                             <i class="bx bx-edit"></i>
                                                         </a>
-                                                        <a asp-action="CollaborationDelete" asp-route-id="@item.Id" method="post">
+                                                        <a asp-action="CollaborationDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
                                                             <i class="bx bx-trash"></i>
                                                         </a>
                                                     </div>
@@ -94,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade text-left" id="addNewModal" tabindex="-1" role="dialog">
+                <div class="modal fade text-left" id="addNewModal" role="dialog">
                     <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -105,7 +102,7 @@
                                     <i class="bx bx-x"></i>
                                 </button>
                             </div>
-                            <form asp-action="AttendedEvet" method="post" id="jquery-val-form">
+                            <form asp-action="AttendedEvent" method="post" id="jquery-val-form">
                                 <div class="modal-body" id="modalBody">
                                 </div>
                                 <div class="modal-footer">

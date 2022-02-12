@@ -175,7 +175,7 @@
                     </a>
                     <ul class="menu-content">
                         <li active-when="/Business/Contact">
-                            <a asp-controller="Business" asp-action="Contact" asp-route-id="2022">
+                            <a asp-controller="Business" asp-action="Contact">
                                 <i class="bx bx-street-view"></i>
                                 <span class="menu-item text-truncate" data-i18n="Business Contact">
                                     İşletme Yetkilisi
@@ -215,7 +215,7 @@
                             </a>
                         </li>
                         <li active-when="/Business/Schema">
-                            <a asp-controller="Business" asp-action="Schema">
+                            <a asp-controller="Business" asp-action="Schema" asp-route-year="2022">
                                 <i class="bx bx-line-chart"></i>
                                 <span class="menu-title text-truncate" data-i18n="Business Schema">
                                     Organizasyon Şeması
@@ -230,8 +230,8 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li cactive-when="/Business/Strategy">
+                            <a asp-controller="Business" asp-action="Strategy">
                                 <i class="bx bx-doughnut-chart"></i>
                                 <span class="menu-item text-truncate" data-i18n="RD Strategy">
                                     Ar-Ge Stratejileri
@@ -529,5 +529,8 @@
     <script src="~/frest/app-assets/js/scripts/extensions/toastr.js"></script>
     <script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
     <!-- END: Page JS-->
+    <!-- BEGIN: Custom JS-->
+    <script src="~/frest/app-assets/js/tooltip.js"></script>
+    <!-- END: Cıstom JS-->
 </body>
 </html>

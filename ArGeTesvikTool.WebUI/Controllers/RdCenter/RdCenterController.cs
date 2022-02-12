@@ -2,10 +2,14 @@
 using ArGeTesvikTool.Business.Utilities;
 using ArGeTesvikTool.Business.ValidationRules.FluentValidation.Business;
 using ArGeTesvikTool.Business.ValidationRules.FluentValidation.RdCenter;
+using ArGeTesvikTool.Entities.Concrete.RdCenter;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenter;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
 {
@@ -13,15 +17,20 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
     {
         private readonly IRdCenterContactService _contactService;
         private readonly IRdCenterInfoService _infoService;
-        public RdCenterController(IRdCenterContactService contactService, IRdCenterInfoService infoService)
+        private readonly IRdCenterSchemaService _schemaService;
+        private readonly IRdCenterAreaInfoService _areaInfoService;
+
+        public RdCenterController(IRdCenterContactService contactService, IRdCenterInfoService infoService, IRdCenterSchemaService schemaService, IRdCenterAreaInfoService areaInfoService)
         {
             _contactService = contactService;
             _infoService = infoService;
+            _schemaService = schemaService;
+            _areaInfoService = areaInfoService;
         }
 
-        public IActionResult Contact(int id)
+        public IActionResult Contact(int year)
         {
-            var contact = _contactService.GetByYear(id);
+            var contact = _contactService.GetByYear(year);
 
             RdCenterContactViewModel contactViewModel = new()
             {
@@ -71,9 +80,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
             return View(contactViewModel);
         }
 
-        public IActionResult Info(int id)
+        public IActionResult Info(int year)
         {
-            var info = _infoService.GetByYear(id);
+            var info = _infoService.GetByYear(year);
 
             if (info != null)
                 ViewBag.City = info.City;
@@ -124,9 +133,144 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
             return View(infoViewModel);
         }
 
-        public IActionResult Schema()
+        #region Schema
+        public IActionResult Schema(int year)
         {
-            return View();
+            var schemaList = _schemaService.GetAllByYear(year);
+
+            RdCenterSchemaViewModel schemaViewModel = new()
+            {
+                SchemaList = schemaList
+            };
+
+            return View(schemaViewModel);
         }
+
+        public IActionResult SchemaDelete(int id)
+        {
+            _schemaService.Delete(id);
+
+            AddSuccessMessage("ArGe merkezi organizasyon şeması silindi.");
+
+            return RedirectToAction("Schema");
+        }
+
+        public IActionResult SchemaDownload(int id)
+        {
+            var schema = _schemaService.GetById(id);
+
+            return DownloadFile(schema);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Schema(RdCenterSchemaViewModel schemaViewModel, List<IFormFile> FormFile)
+        {
+            RdCenterSchemaDto centerSchema = new();
+            foreach (var item in FormFile)
+            {
+                if (item.Length > 0)
+                {
+                    using var stream = new MemoryStream();
+                    item.CopyToAsync(stream).Wait();
+                    centerSchema.FileName = item.FileName;
+                    centerSchema.Content = stream.ToArray();
+                    centerSchema.ContentType = item.ContentType;
+                }
+            }
+
+            var schemaList = _schemaService.GetAllByYear(2022);
+            foreach (var item in schemaList)
+            {
+                if (item.FileName == centerSchema.FileName)
+                {
+                    ModelState.AddModelError("FormFile", "Dosya mevcut. Farklı dosya seçiniz");
+
+                    schemaViewModel.SchemaList = schemaList;
+
+                    return View(schemaViewModel);
+                }
+            }
+
+            centerSchema.CreatedDate = DateTime.Now;
+            centerSchema.CreatedUserName = User.Identity.Name;
+
+            _schemaService.Add(centerSchema);
+
+            AddSuccessMessage("ArGe merkezi organizasyon şeması eklendi.");
+
+            return RedirectToAction("Schema");
+        }
+        #endregion
+
+        #region AreaInfo
+        public IActionResult AreaInfo(int year)
+        {
+            var areaInfoList = _areaInfoService.GetAllByYear(year);
+
+            RdCenterAreaInfoViewModel areaInfoViewModel = new()
+            {
+                AreaInfoList = areaInfoList
+            };
+
+            return View(areaInfoViewModel);
+        }
+
+        public IActionResult AreaInfoDelete(int id)
+        {
+            _areaInfoService.Delete(id);
+
+            AddSuccessMessage("ArGe merkezi fiziki alan bilgisi silindi.");
+
+            return RedirectToAction("AreaInfo");
+        }
+
+        public IActionResult AreaInfoDownload(int id)
+        {
+            var areaInfo = _areaInfoService.GetById(id);
+
+            return DownloadFile(areaInfo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AreaInfo(RdCenterAreaInfoViewModel areaInfoViewModel, List<IFormFile> FormFile)
+        {
+            RdCenterAreaInfoDto areaInfo = new();
+            foreach (var item in FormFile)
+            {
+                if (item.Length > 0)
+                {
+                    using var stream = new MemoryStream();
+                    item.CopyToAsync(stream).Wait();
+                    areaInfo.FileName = item.FileName;
+                    areaInfo.Content = stream.ToArray();
+                    areaInfo.ContentType = item.ContentType;
+                }
+            }
+
+            var areaInfoList = _areaInfoService.GetAllByYear(2022);
+            foreach (var item in areaInfoList)
+            {
+                if (item.FileName == areaInfo.FileName)
+                {
+                    ModelState.AddModelError("FormFile", "Dosya mevcut. Farklı dosya seçiniz");
+
+                    areaInfoViewModel.AreaInfoList = areaInfoList;
+
+                    return View(areaInfoList);
+                }
+            }
+
+            areaInfo.CreatedDate = DateTime.Now;
+            areaInfo.CreatedUserName = User.Identity.Name;
+
+            _areaInfoService.Add(areaInfo);
+
+            AddSuccessMessage("ArGe merkezi fiziki alan bilgisi eklendi.");
+
+            return RedirectToAction("AreaInfo");
+        }
+        #endregion
     }
 }

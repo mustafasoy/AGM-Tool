@@ -52,9 +52,10 @@
                                             İl
                                         </h6>
                                     </div>
+                                    <input asp-for="BusinessInfo.CityCode" type="hidden" class="form-control">
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group">
-                                            <select asp-for="BusinessInfo.City" class="select2 form-control select2-hidden-accessible" aria-hidden="true" id="Cities">
+                                            <select asp-for="BusinessInfo.CityText" class="select2 form-control select2-hidden-accessible" aria-hidden="true" id="Cities">
                                                 <option selected="selected" value="">Seçiniz</option>
                                             </select>
                                         </fieldset>
@@ -164,13 +165,11 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <fieldset class="form-group">
-                                            <select asp-for="BusinessInfo.IsSME" asp-items="Html.GetEnumSelectList<Sme>()" class="form-control">
-                                                <option selected="selected" value="">
-                                                    Seçiniz
-                                                </option>
-                                            </select>
-                                        </fieldset>
+                                        <select asp-for="BusinessInfo.IsSME" asp-items="Html.GetEnumSelectList<Sme>()" class="form-control">
+                                            <option selected="selected" value="">
+                                                Seçiniz
+                                            </option>
+                                        </select>
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">

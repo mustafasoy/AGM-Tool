@@ -4,9 +4,11 @@ using ArGeTesvikTool.Business.ValidationRules.FluentValidation.Business;
 using ArGeTesvikTool.Entities.Concrete.Business;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.Business;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ArGeTesvikTool.WebUI.Controllers.Business
 {
@@ -18,8 +20,10 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         private readonly IGroupInfoService _groupInfoService;
         private readonly IShareholderService _shareholderService;
         private readonly IPersonnelDistributionService _personnelService;
+        private readonly IBusinessSchemaService _schemaService;
+        private readonly IStrategyService _strategyService;
 
-        public BusinessController(IBusinessContactService contactService, IBusinessInfoService infoService, IBusinessIntroService introService, IGroupInfoService groupInfoService, IShareholderService shareholderService, IPersonnelDistributionService personnelService)
+        public BusinessController(IBusinessContactService contactService, IBusinessInfoService infoService, IBusinessIntroService introService, IGroupInfoService groupInfoService, IShareholderService shareholderService, IPersonnelDistributionService personnelService, IBusinessSchemaService schemaService, IStrategyService strategyService)
         {
             _contactService = contactService;
             _infoService = infoService;
@@ -27,12 +31,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             _groupInfoService = groupInfoService;
             _shareholderService = shareholderService;
             _personnelService = personnelService;
+            _schemaService = schemaService;
+            _strategyService = strategyService;
         }
 
-        [HttpGet]
-        public IActionResult Contact(int id)
+        //[HttpGet]
+        public IActionResult Contact(int year)
         {
-            var contact = _contactService.GetByYear(id);
+            var contact = _contactService.GetByYear(year);
 
             BusinessContactViewModel contactViewModel = new()
             {
@@ -80,14 +86,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return View(contactViewModel);
         }
 
-        public IActionResult Info(int id)
+        public IActionResult Info(int year)
         {
-            var info = _infoService.GetByYear(id);
+            var info = _infoService.GetByYear(year);
 
-            if (info != null)
-            {
-                ViewBag.City = info.City;
-            }
+            ViewBag.City = info != null
+                ? info.CityCode
+                : string.Empty;
 
             BusinessInfoViewModel infoViewModel = new()
             {
@@ -134,9 +139,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return View(infoViewModel);
         }
 
-        public IActionResult Intro(int id)
+        public IActionResult Intro(int year)
         {
-            var intro = _introService.GetByYear(id);
+            var intro = _introService.GetByYear(year);
 
             BusinessIntroViewModel introViewModel = new()
             {
@@ -176,9 +181,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult GroupInfo(int id)
+        public IActionResult GroupInfo(int year)
         {
-            var groupInfo = _groupInfoService.GetByYear(id);
+            var groupInfo = _groupInfoService.GetByYear(year);
             GroupInfoViewModel groupViewModel = new()
             {
                 GroupInfo = groupInfo
@@ -419,9 +424,126 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return View();
         }
 
-        public IActionResult Schema()
+        #region Schema Operation
+        public IActionResult Schema(int year)
         {
-            return View();
+            var schemaList = _schemaService.GetAllByYear(year);
+
+            BusinessSchemaViewModel schemaViewModel = new()
+            {
+                SchemaList = schemaList
+            };
+
+            return View(schemaViewModel);
+        }
+
+        public IActionResult SchemaDelete(int id)
+        {
+            _schemaService.Delete(id);
+
+            AddSuccessMessage("İşletme organizasyon şeması silindi.");
+
+            return RedirectToAction("Schema");
+        }
+
+        public IActionResult SchemaDownload(int id)
+        {
+            var schema = _schemaService.GetById(id);
+
+            return DownloadFile(schema);
+
+            //AddSuccessMessage("İşletme organizasyon şeması silindi.");
+
+            //return RedirectToAction("Schema");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Schema(BusinessSchemaViewModel schemaViewModel, List<IFormFile> FormFile)
+        {
+            if (ModelState.IsValid)
+            {
+                BusinessSchemaDto businessSchema = new();
+                foreach (var item in FormFile)
+                {
+                    if (item.Length > 0)
+                    {
+                        using var stream = new MemoryStream();
+                        item.CopyToAsync(stream).Wait();
+                        businessSchema.FileName = item.FileName;
+                        businessSchema.Content = stream.ToArray();
+                        businessSchema.ContentType = item.ContentType;
+                    }
+                }
+
+                var schema = _schemaService.GetAllByYear(2022);
+                foreach (var item in schema)
+                {
+                    if (item.FileName == businessSchema.FileName)
+                    {
+                        ModelState.AddModelError("FormFile", "Dosya mevcut. Farklı dosya seçiniz");
+
+                        schemaViewModel.SchemaList = schema;
+
+                        return View(schemaViewModel);
+                    }
+                }
+
+                businessSchema.CreatedDate = DateTime.Now;
+                businessSchema.CreatedUserName = User.Identity.Name;
+
+                _schemaService.Add(businessSchema);
+
+                AddSuccessMessage("İşletme organizasyon şeması eklendi.");
+
+                return RedirectToAction("Schema");
+            }
+
+            return View(schemaViewModel);
+        }
+        #endregion
+
+        public IActionResult Strategy(int year)
+        {
+            var strategy = _strategyService.GetByYear(year);
+
+
+            StrategyViewModel strategyViewModel = new()
+            {
+                Strategy = strategy
+            };
+
+            return View(strategyViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Strategy(StrategyViewModel strategyViewModel)
+        {
+            var strategy = _strategyService.GetByYear(strategyViewModel.Strategy.Year);
+            if (strategy == null)
+            {
+                strategyViewModel.Strategy.CreatedDate = DateTime.Now;
+                strategyViewModel.Strategy.CreatedUserName = User.Identity.Name;
+                _strategyService.Add(strategyViewModel.Strategy);
+
+                AddSuccessMessage("İşletme strateji bilgisi eklendi.");
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            strategyViewModel.Strategy.Id = strategy.Id;
+            strategyViewModel.Strategy.Year = strategy.Year;
+            strategyViewModel.Strategy.CreatedDate = strategy.CreatedDate;
+            strategyViewModel.Strategy.CreatedUserName = strategy.CreatedUserName;
+            strategyViewModel.Strategy.ModifiedDate = DateTime.Now;
+            strategyViewModel.Strategy.ModifedUserName = User.Identity.Name;
+
+            _strategyService.Update(strategyViewModel.Strategy);
+
+            AddSuccessMessage("İşletme strateji bilgisi güncellendi.");
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

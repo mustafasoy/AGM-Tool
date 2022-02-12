@@ -23,11 +23,6 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterPerson
             _personRewardDal.Update(rdCenterPersoReward);
         }
 
-        public void Delete(int id)
-        {
-            _personRewardDal.Delete(new RdCenterPersonRewardDto { Id = id });
-        }
-
         public RdCenterPersonRewardDto GetByYear(int year)
         {
             return _personRewardDal.Get(x => x.Year == year);

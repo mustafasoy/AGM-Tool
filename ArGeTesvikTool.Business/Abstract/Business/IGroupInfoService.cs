@@ -6,7 +6,6 @@ namespace ArGeTesvikTool.Business.Abstract.Business
     {
         void Add(GroupInfoDto groupInfo);
         void Update(GroupInfoDto groupInfo);
-        void Delete(int id);
         GroupInfoDto GetByYear(int year);
     }
 }

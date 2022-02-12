@@ -23,11 +23,6 @@ namespace ArGeTesvikTool.Business.Concrete.Business
             _groupInfoDal.Update(groupInfo);
         }
 
-        public void Delete(int id)
-        {
-            _groupInfoDal.Delete(new GroupInfoDto { Id = id });
-        }
-
         public GroupInfoDto GetByYear(int year)
         {
             return _groupInfoDal.Get(x => x.Year == year);

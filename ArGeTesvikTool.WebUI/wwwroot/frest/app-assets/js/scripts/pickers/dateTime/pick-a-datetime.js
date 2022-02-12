@@ -253,7 +253,34 @@
     // Show Dropdowns
     $('.showdropdowns').daterangepicker({
         showDropdowns: true,
-        drops: "up"
+        drops: "up",
+        locale: {
+            applyLabel: 'Seç',
+            cancelLabel: 'İptal',
+            daysOfWeek: [
+                'Pzt',
+                'Sal',
+                'Çar',
+                'Per',
+                'Cum',
+                'Cmt',
+                'Paz'
+            ],
+            monthNames: [
+                'Ocak',
+                'Şubat',
+                'Mart',
+                'Nisan',
+                'Mayıs',
+                'Haziran',
+                'Temmuz',
+                'Ağustos',
+                'Eylül',
+                'Ekim',
+                'Kasım',
+                'Aralık'
+            ]
+        }
     });
 
     // Show Week Numbers

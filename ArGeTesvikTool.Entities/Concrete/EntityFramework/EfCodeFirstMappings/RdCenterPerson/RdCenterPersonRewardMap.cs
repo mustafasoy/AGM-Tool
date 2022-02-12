@@ -21,6 +21,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasMaxLength(4);
 
             entity.Property(x => x.Text)
+                .IsRequired()
                 .HasColumnName("Text");
 
             entity.Property(x => x.CreatedDate)

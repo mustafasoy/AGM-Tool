@@ -63,7 +63,6 @@ namespace ArGeTesvikTool.WebUI
 
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddControllersWithViews().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,7 +83,7 @@ namespace ArGeTesvikTool.WebUI
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
-            routeBuilder.MapRoute("Default", "{controller=Authentication}/{action=Login}/{id?}");
+            routeBuilder.MapRoute("Default", "{controller=Authentication}/{action=Login}/{year?}");
         }
     }
 }

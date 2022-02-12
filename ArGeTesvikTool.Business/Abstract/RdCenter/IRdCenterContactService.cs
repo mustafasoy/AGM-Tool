@@ -6,7 +6,6 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenter
     {
         void Add(RdCenterContactDto rdCenterContact);
         void Update(RdCenterContactDto rdCenterContact);
-        void Delete(int id);
         RdCenterContactDto GetByYear(int year);
     }
 }

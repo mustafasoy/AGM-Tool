@@ -8,7 +8,8 @@ namespace ArGeTesvikTool.Entities.Concrete.Business
         public string CompanyName { get; set; }
         public string ActivityCode { get; set; }
         public string Adress { get; set; }
-        public string City { get; set; }
+        public string CityCode { get; set; }
+        public string CityText { get; set; }
         public string PhoneNumber { get; set; }
         public string Mail { get; set; }
         public string Partner { get; set; }

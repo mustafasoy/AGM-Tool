@@ -1,0 +1,17 @@
+﻿@model RdCenterTechSoftwareViewModel
+
+<input asp-for="NewSoftware.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Cihaz/Yazılım Adı
+</h6>
+<div class="form-group">
+    <input asp-for="NewSoftware.SoftwareName" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Adet
+</h6>
+<div class="form-group">
+    <input asp-for="NewSoftware.CopyNumber" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
+</div>

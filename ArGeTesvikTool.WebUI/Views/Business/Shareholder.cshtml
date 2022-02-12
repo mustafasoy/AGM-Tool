@@ -67,10 +67,10 @@
                                                 </td>
                                                 <td>
                                                     <div class="invoice-action">
-                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1">
+                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
                                                             <i class="bx bx-edit"></i>
                                                         </a>
-                                                        <a asp-action="ShareholderDelete" asp-route-id="@item.Id" method="post">
+                                                        <a asp-action="ShareholderDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
                                                             <i class="bx bx-trash"></i>
                                                         </a>
                                                     </div>

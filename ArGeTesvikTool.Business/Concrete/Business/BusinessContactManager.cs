@@ -23,11 +23,6 @@ namespace ArGeTesvikTool.Business.Concrete.Business
             _businessContactDal.Update(businessContact);
         }
 
-        public void Delete(int id)
-        {
-            _businessContactDal.Delete(new BusinessContactDto { Id = id });
-        }
-
         public BusinessContactDto GetByYear(int year)
         {
             return _businessContactDal.Get(x => x.Year == year);

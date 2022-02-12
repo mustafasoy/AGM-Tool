@@ -75,10 +75,16 @@ $(function () {
                 'BusinessInfo.CompanyName': {
                     required: true
                 },
+                'BusinessIntro.Text': {
+                    required: true
+                },
                 'BusinessInfo.ActivityCode': {
                     required: true
                 },
                 'GroupInfo.CompanyName': {
+                    required: true
+                },
+                'Strategy.Text': {
                     required: true
                 },
                 'RdCenterContact.IdentityNumber': {
@@ -90,7 +96,7 @@ $(function () {
                 'RdCenterInfo.CompanyName': {
                     required: true
                 },
-                customFile: {
+                FormFile: {
                     required: true
                 },
                 validationRadiojq: {

@@ -1,0 +1,46 @@
+﻿@model StrategyViewModel
+@{
+    ViewData["Title"] = "İşletme Strateji Bilgileri";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            İşletme Strateji Bilgileri
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="Strategy" method="post" id="jquery-val-form">
+                            <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h6 class="invoice-address">
+                                            İşletme Strateji Bilgi
+                                        </h6>
+                                        <fieldset class="form-group">
+                                            <textarea asp-for="Strategy.Text" class="form-control" rows="15"></textarea>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

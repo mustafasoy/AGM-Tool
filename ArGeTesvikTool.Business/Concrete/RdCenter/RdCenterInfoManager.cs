@@ -22,11 +22,6 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenter
             _centerInfoDal.Update(rdCenterInfo);
         }
 
-        public void Delete(int id)
-        {
-            _centerInfoDal.Delete(new RdCenterInfoDto { Id = id });
-        }
-
         public RdCenterInfoDto GetByYear(int year)
         {
             return _centerInfoDal.Get(x => x.Year == year);
