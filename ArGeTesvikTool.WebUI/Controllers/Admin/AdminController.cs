@@ -56,7 +56,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
                 Name = getUserRole,
             };
 
-            List<RoleDto> listRole = new() { };
+            List<RoleDto> listRole = new();
             listRole.Add(userRole);
             foreach (var item in identityRole)
             {

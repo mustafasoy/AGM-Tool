@@ -1,5 +1,4 @@
 ﻿@model RdCenterTechAttendedEventViewModel
-
 @{
     ViewData["Title"] = "Katılım Sağlanan Kongre, Konferans";
     int rowNumber = 0;
@@ -45,7 +44,7 @@
                                                 Kişi Sayısı
                                             </th>
                                             <th>
-                                                Düzenle
+                                                İşlemler
                                             </th>
                                         </tr>
                                     </thead>
@@ -67,7 +66,7 @@
                                                     @Html.DisplayFor(modelItem => item.Location)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.AttendDate)
+                                                    @Html.Raw(item.AttendDate.ToString("dd/MM/yyyy"))
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.PersonNumber)

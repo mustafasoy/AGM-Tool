@@ -1,5 +1,4 @@
 ﻿@model RdCenterTechSoftwareViewModel
-
 @{
     ViewData["Title"] = "Cihaz ve Yazılım Liste";
     int rowNumber = 0;
@@ -42,7 +41,7 @@
                                                 Kayıt Oluşturan
                                             </th>
                                             <th>
-                                                Düzenle
+                                                İşlemler
                                             </th>
                                         </tr>
                                     </thead>
@@ -71,7 +70,7 @@
                                                         <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
                                                             <i class="bx bx-edit"></i>
                                                         </a>
-                                                        <a asp-action="CollaborationDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                        <a asp-action="SoftwareDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
                                                             <i class="bx bx-trash"></i>
                                                         </a>
                                                     </div>
@@ -156,7 +155,7 @@
     var Update = function (id) {
         $.ajax({
             type: "POST",
-            url: "/RdCenterTech/SoftwareCreate",
+            url: "/RdCenterTech/SoftwareUpdate",
             data: { id: id },
             success: function (response) {
                 $('#modalBody').html(response);

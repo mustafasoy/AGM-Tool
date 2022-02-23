@@ -1,0 +1,98 @@
+﻿@model RdCenterTechIntellectualPropertyViewModel
+
+<input asp-for="NewProperty.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Proje
+</h6>
+<div class="form-group">
+    <select asp-for="NewProperty.ProjectName" class="form-control" id="projectName">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
+</div>
+
+<h6 class="invoice-address">
+    Mülkiyet türü
+</h6>
+<div class="form-group">
+    <select asp-for="NewProperty.ProperyType" asp-items="Html.GetEnumSelectList<ProperyType>()" class="form-control" id="propertyType">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
+</div>
+
+<h6 class="invoice-address">
+    Buluş adı
+</h6>
+<div class="form-group">
+    <input asp-for="NewProperty.InventionType" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Ulusal/Uluslararası
+</h6>
+<div class="form-group">
+    <select asp-for="NewProperty.International" asp-items="Html.GetEnumSelectList<International>()" class="form-control" id="international">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
+</div>
+
+<h6 class="invoice-address">
+    Geliştirme yeri
+</h6>
+<div class="form-group">
+    <select asp-for="NewProperty.DevelopmentPlace" asp-items="Html.GetEnumSelectList<DevelopmentPlace>()" class="form-control" id="developmentPlace">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
+</div>
+
+<h6 class="invoice-address">
+    Durum
+</h6>
+<div class="form-group">
+    <select asp-for="NewProperty.Statu" asp-items="Html.GetEnumSelectList<Statu>()" class="form-control" id="statu">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
+</div>
+
+<h6 class="invoice-address">
+    Başvuru tarihi
+</h6>
+<fieldset class="form-group position-relative has-icon-left">
+    <input asp-for="NewProperty.ApplicationDate" type="text" class="form-control showdropdowns" placeholder="Tarih seçin">
+    <div class="form-control-position">
+        <i class='bx bx-calendar'></i>
+    </div>
+</fieldset>
+
+<script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#projectName").val('');
+        $("#projectName").change();
+
+        $("#propertyType").val('');
+        $("#propertyType").change();
+
+        $("#inventionType").val('');
+        $("#inventionType").change();
+
+        $("#international").val('');
+        $("#international").change();
+
+        $("#developmentPlace").val('');
+        $("#developmentPlace").change();
+
+        $("#statu").val('');
+        $("#statu").change();
+    });
+</script>

@@ -4,11 +4,8 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
 {
     public class RdCenterTechMentorInfoDto : AuditableEntity
     {
-        public string ProjectCode { get; set; }
-        public string ProjectName { get; set; }
-        public decimal EquityAmount { get; set; }
-        public decimal SupportAmount { get; set; }
-        public string ProgramName { get; set; }
-        public string InternationalProgName { get; set; }
+        public string MentorFirmName { get; set; }
+        public string MentorSupport { get; set; }
+        public string MentorOutput { get; set; }
     }
 }

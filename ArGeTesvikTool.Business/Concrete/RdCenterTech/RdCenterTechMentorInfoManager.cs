@@ -34,9 +34,9 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterTech
             return _rdCenterTechMentorInfo.Get(x => x.Id == id);
         }
 
-        public List<RdCenterTechMentorInfoDto> GetAll()
+        public List<RdCenterTechMentorInfoDto> GetAllByYear(int year)
         {
-            return _rdCenterTechMentorInfo.GetList();
+            return _rdCenterTechMentorInfo.GetList(x => x.Year == year);
         }
     }
 }

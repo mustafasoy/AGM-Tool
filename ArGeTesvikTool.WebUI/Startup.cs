@@ -1,5 +1,4 @@
 using ArGeTesvikTool.Business.ValidationRules.CustomValidation;
-using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using ArGeTesvikTool.WebUI.Models;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -71,10 +70,15 @@ namespace ArGeTesvikTool.WebUI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                // Brings information page on pages that do not return content.
+                app.UseStatusCodePages();
             }
 
-            // Brings information page on pages that do not return content.
-            app.UseStatusCodePages();
+            if (!env.IsDevelopment())
+            {
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            }
+
             app.UseStaticFiles();
             // Middleware used for microsoft identity
             app.UseAuthentication();

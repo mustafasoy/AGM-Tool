@@ -16,85 +16,80 @@
                         Finansal Bilgi Ekle
                     </a>
                 </div>
-                <div class="table-responsive">
-                    <table class="table invoice-data-table dt-responsive nowrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th>
-                                    2020
-                                </th>
-                                <th>
-                                    2019
-                                </th>
-                                <th>
-                                    2018
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>Net Satışlar (TL)</td>
-                                <td>2.600.738.439,13</td>
-                                <td>2.431.014.296,00</td>
-                                <td>2.554.737.348,29</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>Toplam Bilanço (Aktifler Toplamı) (TL)</td>
-                                <td>1.449.095.850,78</td>
-                                <td>1.312.279.957.00</td>
-                                <td>1.1276.254.816,31</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>Kısa Vadeli Borçlar (TL)</td>
-                                <td>966.355.366,26</td>
-                                <td>1.172.028.096,00</td>
-                                <td>1.045.338.288,17</td>
-                            </tr>
-                            @*@foreach (var item in Model.FinancialInfo)
-        {
-            <tr>
-                <td></td>
-                <td></td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NetSales)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalAsset)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SortTermLoan)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LongTermLoan)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DomesticSales)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExportSales)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GrossSales)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RDExpenditure)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AcquisitionTurnover)
-                </td>
-            </tr>
-        }*@
-                        </tbody>
-                    </table>
+                <div class="users-list-table">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- datatable start -->
+                            <div class="table-responsive">
+                                <table id="users-list-datatable" class="table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                            </th>
+                                            <th>
+                                                2021
+                                            </th>
+                                            <th>
+                                                2022
+                                            </th>
+                                            <th>
+                                                2019
+                                            </th>
+                                            <th>
+                                                İşlemler
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.FinancialInfoList)
+                                        {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NetSales)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TotalAsset)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SortTermLoan)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.LongTermLoan)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DomesticSales)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ExportSales)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.GrossSales)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RDExpenditure)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AcquisitionTurnover)
+                                            </td>
+                                            <td>
+                                                <div class="invoice-action">
+                                                    <a onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                        <i class="bx bx-edit"></i>
+                                                    </a>
+                                                    <a asp-action="PersonnelDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                        <i class="bx bx-trash"></i>
+                                                    </a>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- datatable ends -->
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>

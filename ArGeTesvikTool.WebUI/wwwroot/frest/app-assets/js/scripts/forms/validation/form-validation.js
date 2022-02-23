@@ -53,12 +53,16 @@ $(function () {
                     required: true,
                     email: true
                 },
+                'User.Email': {
+                    required: true,
+                    email: true
+                },
                 'Password': {
-                    required: true
+                    required: true,
                 },
                 'ConfirmPassword': {
                     required: true,
-                    equalTo: '#Password'
+                    equalTo: '#Password',
                 },
                 'RoleName': {
                     required: true

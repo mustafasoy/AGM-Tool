@@ -9,6 +9,6 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenterTech
         void Update(RdCenterTechMentorInfoDto rdCenterTechMentor);
         void Delete(int id);
         RdCenterTechMentorInfoDto GetById(int id);
-        List<RdCenterTechMentorInfoDto> GetAll();
+        List<RdCenterTechMentorInfoDto> GetAllByYear(int year);
     }
 }

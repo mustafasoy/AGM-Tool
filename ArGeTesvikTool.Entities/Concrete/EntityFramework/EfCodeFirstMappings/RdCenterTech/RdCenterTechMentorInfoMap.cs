@@ -1,11 +1,6 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech
 {
@@ -22,27 +17,16 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("Year")
                 .HasMaxLength(4);
 
-            entity.Property(x => x.ProjectCode)
-                .HasColumnName("ProjectCode")
-                .HasMaxLength(20);
+            entity.Property(x => x.MentorFirmName)
+                .HasColumnName("MentorFirmName")
+                .HasMaxLength(256)
+                .IsRequired();
 
-            entity.Property(x => x.ProjectName)
-                .HasColumnName("ProjectName")
-                .HasMaxLength(256);
+            entity.Property(x => x.MentorSupport)
+                .HasColumnName("MentorSupport");
 
-            entity.Property(x => x.EquityAmount)
-                .HasColumnName("EquityAmount");
-
-            entity.Property(x => x.SupportAmount)
-                .HasColumnName("SupportAmount");
-
-            entity.Property(x => x.ProgramName)
-                .HasColumnName("ProgramName")
-                .HasMaxLength(256);
-
-            entity.Property(x => x.InternationalProgName)
-                .HasColumnName("InternationalProgName")
-                .HasMaxLength(256);
+            entity.Property(x => x.MentorOutput)
+                .HasColumnName("MentorOutput");
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

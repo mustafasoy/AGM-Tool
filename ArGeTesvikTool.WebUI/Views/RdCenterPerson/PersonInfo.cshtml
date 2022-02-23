@@ -25,7 +25,7 @@
                                 <table id="users-list-datatable" class="table" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>
+                                            <th hidden="hidden">
                                                 Sıra No
                                             </th>
                                             <th>
@@ -58,7 +58,7 @@
                                                 İşe Başladığı Tarihi
                                             </th>
                                             <th>
-                                                Düzenle
+                                                İşlemler
                                             </th>
                                         </tr>
                                     </thead>
@@ -67,7 +67,7 @@
                                         {
                                             rowNumber++;
                                             <tr>
-                                                <td>
+                                                <td hidden="hidden">
                                                     @rowNumber
                                                 </td>
                                                 <td>
@@ -95,7 +95,7 @@
                                                     @Html.DisplayFor(modelItem => item.RegistrationNo)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                                    @Html.Raw(item.StartDate.ToString("dd/MM/yyyy"))
                                                 </td>
                                                 <td>
                                                     <div class="invoice-action">

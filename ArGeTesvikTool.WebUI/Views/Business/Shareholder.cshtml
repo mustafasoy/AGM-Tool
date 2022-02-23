@@ -41,7 +41,7 @@
                                                 Pay Tutarı(₺)
                                             </th>
                                             <th>
-                                                Düzenle
+                                                İşlemler
                                             </th>
                                         </tr>
                                     </thead>
@@ -67,7 +67,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="invoice-action">
-                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                        <a onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
                                                             <i class="bx bx-edit"></i>
                                                         </a>
                                                         <a asp-action="ShareholderDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">

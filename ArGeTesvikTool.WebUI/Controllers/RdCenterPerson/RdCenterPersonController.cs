@@ -1,5 +1,4 @@
 ﻿using ArGeTesvikTool.Business.Abstract.RdCenterPerson;
-using ArGeTesvikTool.Core.Entities;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterPerson;
@@ -7,6 +6,7 @@ using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
 {
@@ -22,9 +22,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         #region Person Info CRUD
-        public IActionResult PersonInfo()
+        public IActionResult PersonInfo(int year)
         {
-            List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAll();
+            List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAllByYear(year);
 
             RdCenterPersonViewModel personInfoViewModel = new()
             {
@@ -95,7 +95,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
                 AddSuccessMessage("Personel kaydı güncellendi.");
             }
 
-            return Redirect("PersonInfo");
+            return RedirectToAction("PersonInfo", new { year = 2022 });
         }
         #endregion
 
@@ -142,6 +142,54 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             return RedirectToAction("Index", "Home");
 
 
+        }
+
+        public IActionResult StaffInfo(int year)
+        {
+            var personInfoList = _infoService.GetAllByYear(year);
+
+            var staffInfoList = personInfoList
+                .GroupBy(x => x.PersonPosition)
+                .Select(s => new RdCenterPersonStaffInfoDto
+                {
+                    PersonPosition = s.Key,
+                    EducationStatu = s.FirstOrDefault().EducationStatu,
+                    PersonNumber = s.Count()
+                })
+                .ToList();
+
+            List<RdCenterPersonStaffInfoDto> staffInfoListView = new();
+
+            foreach (var item in staffInfoList)
+            {
+                RdCenterPersonStaffInfoDto line = item.Adapt<RdCenterPersonStaffInfoDto>();
+                staffInfoListView.Add(line);
+            }
+
+            RdCenterPersonStaffInfoViewModel staffInfoViewModel = new()
+            {
+                StaffInfoList = staffInfoListView
+            };
+
+            return View(staffInfoListView);
+        }
+
+        public IActionResult SupportedProgram(int year)
+        {
+            var personInfoList = _infoService.GetAllByYear(year);
+
+            List<RdCenterPersonInfoDto> supportedProgramList = personInfoList.Where(x => (x.EducationStatu.Contains("Lisans") || x.EducationStatu.Contains("Yüksek Lisans") ||
+                                                                                          x.EducationStatu.Contains("Doktora")) &&
+                                                                                         (x.UniversityDepartmant.Contains("Fizik") || x.UniversityDepartmant.Contains("Kimya") ||
+                                                                                          x.UniversityDepartmant.Contains("Biyoloji") || x.UniversityDepartmant.Contains("Matematik")))
+                                                                             .ToList();
+
+            RdCenterPersonViewModel supportedProgramViewModel = new()
+            {
+                PersonInfoList = supportedProgramList
+            };
+
+            return View(supportedProgramViewModel);
         }
     }
 }

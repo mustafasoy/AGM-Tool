@@ -17,7 +17,8 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("Id");
 
             entity.Property(x => x.Year)
-                .HasColumnName("Year").HasMaxLength(4);
+                .HasColumnName("Year")
+                .HasMaxLength(4);
 
             entity.Property(x => x.CompanyName)
                 .IsRequired()

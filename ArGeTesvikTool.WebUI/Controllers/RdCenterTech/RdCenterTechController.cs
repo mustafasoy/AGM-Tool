@@ -1,7 +1,4 @@
 ﻿using ArGeTesvikTool.Business.Abstract.RdCenterTech;
-using ArGeTesvikTool.Core.Data_Access.EntityFramework;
-using ArGeTesvikTool.DataAccess.Abstract.RdCenterTech;
-using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterTech;
@@ -17,13 +14,17 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         private readonly IRdCenterTechAcademicLibraryService _academicLibraryService;
         private readonly IRdCenterTechAttendedEventService _attendedEventService;
         private readonly IRdCenterTechSoftwareService _softwareService;
+        private readonly IRdCenterTechMentorInfoService _mentorInfoService;
+        private readonly IRdCenterTechIntellectualPropertyService _propertyService;
 
-        public RdCenterTechController(IRdCenterTechCollaborationService collaborationService, IRdCenterTechAcademicLibraryService academicLibraryService, IRdCenterTechAttendedEventService attendedEventService, IRdCenterTechSoftwareService softwareService)
+        public RdCenterTechController(IRdCenterTechCollaborationService collaborationService, IRdCenterTechAcademicLibraryService academicLibraryService, IRdCenterTechAttendedEventService attendedEventService, IRdCenterTechSoftwareService softwareService, IRdCenterTechMentorInfoService mentorInfoService, IRdCenterTechIntellectualPropertyService propertyService)
         {
             _collaborationService = collaborationService;
             _academicLibraryService = academicLibraryService;
             _attendedEventService = attendedEventService;
             _softwareService = softwareService;
+            _mentorInfoService = mentorInfoService;
+            _propertyService = propertyService;
         }
 
         public IActionResult CompletedProject()
@@ -316,6 +317,162 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             }
 
             return Redirect("Software");
+        }
+        #endregion
+
+        #region Mentor Info CRUD
+        public IActionResult MentorInfo(int year)
+        {
+            List<RdCenterTechMentorInfoDto> mentorInfoList = _mentorInfoService.GetAllByYear(year);
+
+            RdCenterTechMentorInfoViewModel mentorInfoViewModel = new()
+            {
+                MentorInfoList = mentorInfoList
+            };
+
+            return View(mentorInfoViewModel);
+        }
+
+        public IActionResult MentorInfoCreate()
+        {
+            RdCenterTechMentorInfoDto mentorInfo = new();
+
+            RdCenterTechMentorInfoViewModel mentorInfoViewModel = new()
+            {
+                NewMentorInfo = mentorInfo
+            };
+
+            return PartialView("PartialView/MentorInfoPartialView", mentorInfoViewModel);
+        }
+
+        public IActionResult MentorInfoUpdate(int id)
+        {
+            var mentorInfo = _mentorInfoService.GetById(id);
+
+            RdCenterTechMentorInfoViewModel mentorInfoViewModel = new()
+            {
+                NewMentorInfo = mentorInfo
+            };
+
+            return PartialView("PartialView/MentorInfoPartialView", mentorInfoViewModel);
+        }
+
+        public IActionResult MentorInfoDelete(int id)
+        {
+            _mentorInfoService.Delete(id);
+
+            AddSuccessMessage("Mentörülük kaydı silindi.");
+
+            return RedirectToAction("MentorInfo", new { year = 2022 });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult MentorInfo(RdCenterTechMentorInfoViewModel mentorInfoViewModel)
+        {
+            var mentorInfo = _mentorInfoService.GetById(mentorInfoViewModel.NewMentorInfo.Id);
+            if (mentorInfo == null)
+            {
+                mentorInfoViewModel.NewMentorInfo.CreatedDate = DateTime.Now;
+                mentorInfoViewModel.NewMentorInfo.CreatedUserName = User.Identity.Name;
+
+                _mentorInfoService.Add(mentorInfoViewModel.NewMentorInfo);
+
+                AddSuccessMessage("Mentörlük kaydı eklendi.");
+            }
+            else
+            {
+                mentorInfoViewModel.NewMentorInfo.Id = mentorInfo.Id;
+                mentorInfoViewModel.NewMentorInfo.Year = mentorInfo.Year;
+                mentorInfoViewModel.NewMentorInfo.CreatedDate = mentorInfo.CreatedDate;
+                mentorInfoViewModel.NewMentorInfo.CreatedUserName = mentorInfo.CreatedUserName;
+                mentorInfoViewModel.NewMentorInfo.ModifiedDate = DateTime.Now;
+                mentorInfoViewModel.NewMentorInfo.ModifedUserName = User.Identity.Name;
+
+                _mentorInfoService.Update(mentorInfoViewModel.NewMentorInfo);
+
+                AddSuccessMessage("Mentörlük kaydı güncellendi.");
+            }
+
+            return RedirectToAction("MentorInfo", new { year = 2022 });
+        }
+        #endregion
+
+        #region Intellectual Property CRUD
+        public IActionResult IntellectualProperty()
+        {
+            List<RdCenterTechIntellectualPropertyDto> propertyInfoList = _propertyService.GetAll();
+
+            RdCenterTechIntellectualPropertyViewModel propertyInfoViewModel = new()
+            {
+                PropertyList = propertyInfoList
+            };
+
+            return View(propertyInfoViewModel);
+        }
+
+        public IActionResult IntellectualPropertyCreate()
+        {
+            RdCenterTechIntellectualPropertyDto propertyInfo = new();
+
+            RdCenterTechIntellectualPropertyViewModel propertyInfoViewModel = new()
+            {
+                NewProperty = propertyInfo
+            };
+
+            return PartialView("PartialView/IntellectualPropertyPartialView", propertyInfoViewModel);
+        }
+
+        public IActionResult IntellectualPropertyUpdate(int id)
+        {
+            var propertyInfo = _propertyService.GetById(id);
+
+            RdCenterTechIntellectualPropertyViewModel propertyInfoViewModel = new()
+            {
+                NewProperty = propertyInfo
+            };
+
+            return PartialView("PartialView/IntellectualPropertyPartialView", propertyInfoViewModel);
+        }
+
+        public IActionResult IntellectualPropertyDelete(int id)
+        {
+            _propertyService.Delete(id);
+
+            AddSuccessMessage("Fikri ve Sinai mülkiyet kaydı silindi.");
+
+            return RedirectToAction("MentorInfo", new { year = 2022 });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult IntellectualProperty(RdCenterTechIntellectualPropertyViewModel propertyInfoViewModel)
+        {
+            var propertyInfo = _propertyService.GetById(propertyInfoViewModel.NewProperty.Id);
+            if (propertyInfo == null)
+            {
+                propertyInfoViewModel.NewProperty.CreatedDate = DateTime.Now;
+                propertyInfoViewModel.NewProperty.CreatedUserName = User.Identity.Name;
+
+                _propertyService.Add(propertyInfoViewModel.NewProperty);
+
+                AddSuccessMessage("Fikri ve Sinai mülkiyet kaydı eklendi.");
+            }
+            else
+            {
+                propertyInfoViewModel.NewProperty.Id = propertyInfo.Id;
+                propertyInfoViewModel.NewProperty.Year = propertyInfo.Year;
+                propertyInfoViewModel.NewProperty.CreatedDate = propertyInfo.CreatedDate;
+                propertyInfoViewModel.NewProperty.CreatedUserName = propertyInfo.CreatedUserName;
+                propertyInfoViewModel.NewProperty.ModifiedDate = DateTime.Now;
+                propertyInfoViewModel.NewProperty.ModifedUserName = User.Identity.Name;
+
+                _propertyService.Update(propertyInfoViewModel.NewProperty);
+
+                AddSuccessMessage("Fikri ve Sinai mülkiyet kaydı güncellendi.");
+            }
+
+            return RedirectToAction("IntellectualProperty");
         }
         #endregion
     }

@@ -9,6 +9,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
         public BusinessInfoMap(EntityTypeBuilder<BusinessInfoDto> entity)
         {
             entity.ToTable("BusinessInfos");
+
             entity.HasIndex(x => x.Year)
                 .IsUnique();
 

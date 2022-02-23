@@ -1,0 +1,24 @@
+﻿@model RdCenterTechMentorInfoViewModel
+
+<input asp-for="NewMentorInfo.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Mentörlük yapılacak firma adı
+</h6>
+<div class="form-group">
+    <input asp-for="NewMentorInfo.MentorFirmName" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Yapılacak destek
+</h6>
+<div class="form-group">
+    <input asp-for="NewMentorInfo.MentorSupport" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Çıktı
+</h6>
+<div class="form-group">
+    <input asp-for="NewMentorInfo.MentorOutput" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
+</div>

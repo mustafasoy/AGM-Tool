@@ -16,30 +16,35 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
             entity.Property(x => x.Year)
                 .HasColumnName("Year").HasMaxLength(4);
 
-            entity.Property(x => x.CompanyUnit)
-                .HasColumnName("CompanyUnit")
-                .HasMaxLength(256);
+            entity.Property(x => x.ProjectName)
+                .HasColumnName("ProjectName")
+                .HasMaxLength(256)
+                .IsRequired();
 
-            entity.Property(x => x.PostDoctoral)
-                .HasColumnName("PostDoctoral");
+            entity.Property(x => x.ProperyType)
+                .HasColumnName("ProperyType")
+                .HasMaxLength(20)
+                .IsRequired();
 
-            entity.Property(x => x.Doctoral)
-                .HasColumnName("Doctoral");
+            entity.Property(x => x.InventionType)
+                .HasColumnName("InventionType")
+                .IsRequired();
 
-            entity.Property(x => x.MasterDegree)
-                .HasColumnName("MasterDegree");
+            entity.Property(x => x.International)
+                .HasColumnName("International")
+                .HasMaxLength(20);
 
-            entity.Property(x => x.BachelorDegree)
-                .HasColumnName("BachelorDegree");
+            entity.Property(x => x.DevelopmentPlace)
+                .HasColumnName("DevelopmentPlace")
+                .HasMaxLength(30);
 
-            entity.Property(x => x.AssociateDegree)
-                .HasColumnName("AssociateDegree");
+            entity.Property(x => x.Statu)
+                .HasColumnName("Statu")
+                .HasMaxLength(20);
 
-            entity.Property(x => x.HighSchool)
-                .HasColumnName("HighSchool");
-
-            entity.Property(x => x.Total)
-                .HasColumnName("Total");
+            entity.Property(x => x.ApplicationDate)
+                .HasColumnName("ApplicationDate")
+                .HasColumnType("date");
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

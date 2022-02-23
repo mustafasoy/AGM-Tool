@@ -1,0 +1,38 @@
+﻿@model RdCenterPerformanceProjectViewModel
+
+<input asp-for="NewProjectInfo.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Proje
+</h6>
+<div class="form-group">
+    <input asp-for="NewProjectInfo.ProjectName" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Proje Sonucu Ticarileşen Ürün Adı
+</h6>
+<div class="form-group">
+    <input asp-for="NewProjectInfo.CommercialProductName" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    İthal İkame Bir Ürün
+</h6>
+<div class="form-group">
+    <input asp-for="NewProjectInfo.IsImportProduct" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Ticarileşen Ürüne İlişkin Açıklama
+</h6>
+<div class="form-group">
+    <textarea asp-for="NewProjectInfo.Explanation" class="form-control" rows="5"></textarea>
+</div>
+
+<h6 class="invoice-address">
+    Proje Sonucu Ticarileşen Üründen Elde Edilen Toplam Gelir (TL)
+</h6>
+<div class="form-group">
+    <input asp-for="NewProjectInfo.Amount" class="form-control">
+</div>

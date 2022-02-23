@@ -9,6 +9,6 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenterPerson
         void Update(RdCenterPersonInfoDto rdCenterPersoInfo);
         void Delete(int id);
         RdCenterPersonInfoDto GetById(int id);
-        List<RdCenterPersonInfoDto> GetAll();
+        List<RdCenterPersonInfoDto> GetAllByYear(int year);
     }
 }

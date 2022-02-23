@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <title>Sayfa Bulanamadı</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/frest/app-assets/images/ico/favicon.ico">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/vendors/css/vendors.min.css">
+    <!-- END: Vendor CSS-->
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/themes/semi-dark-layout.css">
+    <!-- END: Theme CSS-->
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="~/frest/app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <!-- END: Page CSS-->
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="~/frest/assets/css/style.css">
+    <!-- END: Custom CSS-->
+</head>
+<!-- END: Head-->
+<!-- BEGIN: Body-->
+<body class="vertical-layout vertical-menu-modern 1-column  navbar-sticky footer-static bg-full-screen-image  blank-page" data-open="click" data-menu="vertical-menu-modern" data-col="1-column">
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="content-wrapper">
+            <div class="content-header row"></div>
+            <div class="content-body">
+                <!-- error 404 -->
+                <section class="row flexbox-container">
+                    <div class="col-xl-6 col-md-7 col-9">
+                        <div class="card bg-transparent shadow-none">
+                            <div class="card-body text-center bg-transparent">
+                                <h1 class="error-title">
+                                    Safya Bulunamadı :(
+                                </h1>
+                                <p class="pb-3">
+                                    aradığınız sayfayı bulamadık
+                                </p>
+                                <img class="img-fluid" src="~/frest/app-assets/images/pages/404.png" alt="404 error logo">
+                                <a asp-controller="Home" asp-action="Index" class="btn btn-primary round glow mt-3">
+                                    Anasayfaya Dön
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- error 404 end -->
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+</body>
+<!-- END: Body-->
+</html>

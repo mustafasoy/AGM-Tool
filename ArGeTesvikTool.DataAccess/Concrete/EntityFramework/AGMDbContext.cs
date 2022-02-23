@@ -3,9 +3,11 @@ using ArGeTesvikTool.Entities.Concrete.Business;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Business;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenter;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerformance;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerson;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech;
 using ArGeTesvikTool.Entities.Concrete.RdCenter;
+using ArGeTesvikTool.Entities.Concrete.RdCenterPerformance;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,7 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=TR996928-1809;Initial Catalog=AGMDb;Integrated Security=True;MultipleActiveResultSets=True;");
+            //optionsBuilder.UseSqlServer(@"Data Source=tr-ankapptwv005;Initial Catalog=AGMDb;Integrated Security=True;MultipleActiveResultSets=True;");
         }
 
         #region Business Db Map
@@ -53,6 +56,11 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         public DbSet<RdCenterTechSoftwareDto> RdCenterTechSoftwares { get; set; }
         public DbSet<RdCenterTechProjectManagementDto> RdCenterTechProjectManagements { get; set; }
         public DbSet<RdCenterTechMentorInfoDto> RdCenterTechMentorInfos { get; set; }
+        public DbSet<RdCenterTechIntellectualPropertyDto> RdCenterTechIntellectualProperties { get; set; }
+        #endregion
+
+        #region RdCenterPerformance Db Map
+        public DbSet<RdCenterPerformanceProjectDto> RdCenterPerformanceProjects { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -91,8 +99,13 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
             _ = new RdCenterTechSoftwareMap(modelBuilder.Entity<RdCenterTechSoftwareDto>());
             _ = new RdCenterTechProjectManagementMap(modelBuilder.Entity<RdCenterTechProjectManagementDto>());
             _ = new RdCenterTechMentorInfoMap(modelBuilder.Entity<RdCenterTechMentorInfoDto>());
+            _ = new RdCenterTechIntellectualPropertyMap(modelBuilder.Entity<RdCenterTechIntellectualPropertyDto>());
             #endregion
 
+            #region RdCenterPerformance Db Map
+            _ = new RdCenterPerformanceProjectMap(modelBuilder.Entity<RdCenterPerformanceProjectDto>());
+            #endregion
+            
             base.OnModelCreating(modelBuilder);
         }
     }
