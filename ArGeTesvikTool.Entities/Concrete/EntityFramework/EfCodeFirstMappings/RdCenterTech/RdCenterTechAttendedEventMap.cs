@@ -1,6 +1,7 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech
 {
@@ -19,7 +20,8 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.Type)
                 .HasColumnName("Text")
-                .HasMaxLength(256);
+                .HasMaxLength(20)
+                .HasConversion(x => x.ToString(), x => (ConferenceType)Enum.Parse(typeof(ConferenceType), x));
             
             entity.Property(x => x.AttendedEvent)
                 .HasColumnName("AttendedEvent")
@@ -27,7 +29,8 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
             
             entity.Property(x => x.Location)
                 .HasColumnName("Location")
-                .HasMaxLength(50);
+                .HasMaxLength(10)
+                .HasConversion(x => x.ToString(), x => (ConferenceLocation)Enum.Parse(typeof(ConferenceLocation), x));
 
             entity.Property(x => x.AttendDate)
                 .HasColumnName("AttendDate")

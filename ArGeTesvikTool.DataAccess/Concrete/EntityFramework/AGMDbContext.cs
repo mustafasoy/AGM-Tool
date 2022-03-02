@@ -19,7 +19,7 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=TR996928-1809;Initial Catalog=AGMDb;Integrated Security=True;MultipleActiveResultSets=True;");
-            //optionsBuilder.UseSqlServer(@"Data Source=tr-ankapptwv005;Initial Catalog=AGMDb;Integrated Security=True;MultipleActiveResultSets=True;");
+            //optionsBuilder.UseSqlServer(@"Data Source=tr-ankapptwv005;Initial Catalog=AGMDb;persist security info=True;user id=SGK_TESVIK;password=Taxtech12;MultipleActiveResultSets=True");
         }
 
         #region Business Db Map
@@ -40,6 +40,9 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         public DbSet<RdCenterSchemaDto> RdCenterSchemas { get; set; }
         public DbSet<RdCenterAreaInfoDto> RdCenterAreaInfos { get; set; }
         public DbSet<RdCenterFinancialInfoDto> RdCenterFinancialInfos { get; set; }
+        public DbSet<RdCenterPhysicalAreaDto> RdPhysicalAreas { get; set; }
+        public DbSet<RdCenterAmountDto> RdCenterAmounts { get; set; }
+        public DbSet<RdCenterDiscountDto> RdCenterDiscounts { get; set; }
         #endregion
 
         #region RdCenterPerson Db Map
@@ -83,6 +86,9 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
             _ = new RdCenterSchemaMap(modelBuilder.Entity<RdCenterSchemaDto>());
             _ = new RdCenterAreaInfoMap(modelBuilder.Entity<RdCenterAreaInfoDto>());
             _ = new RdCenterFinancialInfoMap(modelBuilder.Entity<RdCenterFinancialInfoDto>());
+            _ = new RdCenterPhysicalAreaMap(modelBuilder.Entity<RdCenterPhysicalAreaDto>());
+            _ = new RdCenterAmountMap(modelBuilder.Entity<RdCenterAmountDto>());
+            _ = new RdCenterDiscountMap(modelBuilder.Entity<RdCenterDiscountDto>());
             #endregion
 
             #region RdCenterPerson Db Map
@@ -105,7 +111,7 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
             #region RdCenterPerformance Db Map
             _ = new RdCenterPerformanceProjectMap(modelBuilder.Entity<RdCenterPerformanceProjectDto>());
             #endregion
-            
+
             base.OnModelCreating(modelBuilder);
         }
     }

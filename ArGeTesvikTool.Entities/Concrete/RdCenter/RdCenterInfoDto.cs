@@ -1,9 +1,11 @@
 ﻿using ArGeTesvikTool.Core.Entities;
+using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenter
 {
     public class RdCenterInfoDto : AuditableEntity
     {
+        public DateTime DocReceiptDate { get; set; }
         public string CompanyName { get; set; }
         public string Address { get; set; }
         public string Location { get; set; }

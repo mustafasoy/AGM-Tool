@@ -1,6 +1,7 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerson
 {
@@ -18,12 +19,10 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasMaxLength(4);
 
             entity.Property(x => x.IdentityNumber)
-                .IsRequired()
                 .HasColumnName("IdentityNumber")
                 .HasMaxLength(11);
 
             entity.Property(x => x.NameSurname)
-                .IsRequired()
                 .HasColumnName("NameSurname")
                 .HasMaxLength(256);
 
@@ -45,7 +44,8 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.PersonPosition)
                 .HasColumnName("PersonPosition")
-                .HasMaxLength(256);
+                .HasMaxLength(20)
+                .HasConversion(x => x.ToString(), x => (PersonPosition)Enum.Parse(typeof(PersonPosition), x));
 
             entity.Property(x => x.RegistrationNo)
                 .HasColumnName("RegistrationNo")

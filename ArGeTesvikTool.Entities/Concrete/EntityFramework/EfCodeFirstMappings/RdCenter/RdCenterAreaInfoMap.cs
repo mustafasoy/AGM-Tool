@@ -18,7 +18,6 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasMaxLength(4);
 
             entity.Property(x => x.FileName)
-                .IsRequired()
                 .HasColumnName("FileName")
                 .HasMaxLength(256);
 

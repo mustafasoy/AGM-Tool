@@ -1,0 +1,61 @@
+﻿@model RdCenterTechOngoingProjectViewModel
+
+<input asp-for="NewProject.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Proje Durumu
+</h6>
+<div class="form-group">
+    <select asp-for="NewProject.ProjectStatu" asp-items="Html.GetEnumSelectList<ProjectStatu>()" class="form-control" id="projectStatu">
+        <option value="">Seçiniz</option>
+    </select>
+</div>
+
+<h6 class="invoice-address">
+    Proje Kodu
+</h6>
+<div class="form-group">
+    <input asp-for="NewProject.ProjectCode" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Proje Adı
+</h6>
+<div class="form-group">
+    <input asp-for="NewProject.ProjectName" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Özkaynakla Karşılanan Tutar
+</h6>
+<div class="form-group">
+    <input asp-for="NewProject.EquityAmount" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Destek Tutarı
+</h6>
+<div class="form-group">
+    <input asp-for="NewProject.SupportAmount" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Ulusal Destek Programının Adı
+</h6>
+<div class="form-group">
+    <input asp-for="NewProject.ProgramName" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Uluslararası Destek Programının Adı
+</h6>
+<div class="form-group">
+    <input asp-for="NewProject.InternationalProgName" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Toplam Proje Bütçesi
+</h6>
+<div class="form-group">
+    <input asp-for="NewProject.TotalProjectBudget" class="form-control">
+</div>

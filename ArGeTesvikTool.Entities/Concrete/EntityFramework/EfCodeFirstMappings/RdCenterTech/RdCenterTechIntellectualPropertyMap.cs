@@ -1,6 +1,7 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech
 {
@@ -14,33 +15,35 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("Id");
 
             entity.Property(x => x.Year)
-                .HasColumnName("Year").HasMaxLength(4);
+                .HasColumnName("Year")
+                .HasMaxLength(4);
 
             entity.Property(x => x.ProjectName)
                 .HasColumnName("ProjectName")
-                .HasMaxLength(256)
-                .IsRequired();
+                .HasMaxLength(256);
 
             entity.Property(x => x.ProperyType)
                 .HasColumnName("ProperyType")
                 .HasMaxLength(20)
-                .IsRequired();
+                .HasConversion(x => x.ToString(), x => (ProperyType)Enum.Parse(typeof(ProperyType), x));
 
             entity.Property(x => x.InventionType)
-                .HasColumnName("InventionType")
-                .IsRequired();
+                .HasColumnName("InventionType");
 
             entity.Property(x => x.International)
                 .HasColumnName("International")
-                .HasMaxLength(20);
+                .HasMaxLength(20)
+                .HasConversion(x => x.ToString(), x => (International)Enum.Parse(typeof(International), x));
 
             entity.Property(x => x.DevelopmentPlace)
                 .HasColumnName("DevelopmentPlace")
-                .HasMaxLength(30);
+                .HasMaxLength(30)
+                .HasConversion(x => x.ToString(), x => (DevelopmentPlace)Enum.Parse(typeof(DevelopmentPlace), x));
 
             entity.Property(x => x.Statu)
                 .HasColumnName("Statu")
-                .HasMaxLength(20);
+                .HasMaxLength(20)
+                .HasConversion(x => x.ToString(), x => (Statu)Enum.Parse(typeof(Statu), x));
 
             entity.Property(x => x.ApplicationDate)
                 .HasColumnName("ApplicationDate")

@@ -359,13 +359,10 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("FileName");
 
                     b.Property<string>("ModifedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("ModifedUserName");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("date")
-                        .HasColumnName("ModifiedDate");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Year")
                         .HasMaxLength(4)
@@ -602,6 +599,81 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                     b.ToTable("BusinessStrategies");
                 });
 
+            modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenter.RdCenterAmountDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("AnnualTotal")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("AnnualTotal");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("date")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<string>("CreatedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("CreatedUserName");
+
+                    b.Property<decimal>("CustomTaxException")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("CustomTaxException");
+
+                    b.Property<decimal>("IncentiveAmount")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("IncentiveAmount");
+
+                    b.Property<string>("ModifedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("ModifedUserName");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("date")
+                        .HasColumnName("ModifiedDate");
+
+                    b.Property<decimal>("PremiumSupport")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("PremiumSupport");
+
+                    b.Property<decimal>("RatioTurnover")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("RatioTurnover");
+
+                    b.Property<decimal>("StampTaxException")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("StampTaxException");
+
+                    b.Property<decimal>("TaxExemption")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("TaxExemption");
+
+                    b.Property<decimal>("TotalExpenditure")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("TotalExpenditure");
+
+                    b.Property<decimal>("WithholdingIncentive")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("WithholdingIncentive");
+
+                    b.Property<int>("Year")
+                        .HasMaxLength(4)
+                        .HasColumnType("int")
+                        .HasColumnName("Year");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Year")
+                        .IsUnique();
+
+                    b.ToTable("RdCenterAmounts");
+                });
+
             modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenter.RdCenterAreaInfoDto", b =>
                 {
                     b.Property<int>("Id")
@@ -718,6 +790,85 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                     b.ToTable("RdCenterContacts");
                 });
 
+            modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenter.RdCenterDiscountDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("CashSupport")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("CashSupport");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("date")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<string>("CreatedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("CreatedUserName");
+
+                    b.Property<decimal>("DepreciationAmount")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("DepreciationAmount");
+
+                    b.Property<decimal>("DesignExpense")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("DesignExpense");
+
+                    b.Property<decimal>("ExternalBenefit")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("ExternalBenefit");
+
+                    b.Property<decimal>("GeneralExpense")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("GeneralExpense");
+
+                    b.Property<decimal>("MaterialExpense")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("MaterialExpense");
+
+                    b.Property<string>("ModifedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("ModifedUserName");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("date")
+                        .HasColumnName("ModifiedDate");
+
+                    b.Property<decimal>("PersonelExpense")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("PersonelExpense");
+
+                    b.Property<decimal>("TaxExemption")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("TaxExemption");
+
+                    b.Property<decimal>("TaxFee")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("TaxFee");
+
+                    b.Property<decimal>("TotalExpenditure")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("TotalExpenditure");
+
+                    b.Property<int>("Year")
+                        .HasMaxLength(4)
+                        .HasColumnType("int")
+                        .HasColumnName("Year");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Year")
+                        .IsUnique();
+
+                    b.ToTable("RdCenterDiscounts");
+                });
+
             modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenter.RdCenterFinancialInfoDto", b =>
                 {
                     b.Property<int>("Id")
@@ -826,6 +977,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("CreatedUserName");
 
+                    b.Property<DateTime>("DocReceiptDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Location")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
@@ -880,6 +1034,54 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                     b.ToTable("RdCenterInfos");
                 });
 
+            modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenter.RdCenterPhysicalAreaDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("Content")
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnName("Content");
+
+                    b.Property<string>("ContentType")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("FileExtension");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("date")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<string>("CreatedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("CreatedUserName");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("FileName");
+
+                    b.Property<string>("ModifedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Year")
+                        .HasMaxLength(4)
+                        .HasColumnType("int")
+                        .HasColumnName("Year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RdCenterPhysicalAreas");
+                });
+
             modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenter.RdCenterSchemaDto", b =>
                 {
                     b.Property<int>("Id")
@@ -913,13 +1115,10 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("FileName");
 
                     b.Property<string>("ModifedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("ModifedUserName");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("date")
-                        .HasColumnName("ModifiedDate");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Year")
                         .HasMaxLength(4)
@@ -1043,9 +1242,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Location");
 
-                    b.Property<string>("PersonPosition")
+                    b.Property<int>("PersonPosition")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("int")
                         .HasColumnName("PersonPosition");
 
                     b.Property<string>("RegistrationNo")
@@ -1288,15 +1487,6 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("date")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<string>("CreatedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("CreatedUserName");
-
                     b.Property<decimal>("EquityAmount")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("EquityAmount");
@@ -1305,15 +1495,6 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("InternationalProgName");
-
-                    b.Property<string>("ModifedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("ModifedUserName");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("date")
-                        .HasColumnName("ModifiedDate");
 
                     b.Property<string>("ProgramName")
                         .HasMaxLength(256)
@@ -1519,6 +1700,12 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("ProjectName");
 
+                    b.Property<string>("ProjectStatu")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("ProjectStatu");
+
                     b.Property<decimal>("SupportAmount")
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("SupportAmount");
@@ -1570,13 +1757,10 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("FileName");
 
                     b.Property<string>("ModifedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("ModifedUserName");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("date")
-                        .HasColumnName("ModifiedDate");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Year")
                         .HasMaxLength(4)

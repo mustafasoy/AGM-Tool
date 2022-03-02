@@ -18,12 +18,10 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasMaxLength(4);
 
             entity.Property(x => x.ProjectName)
-                .IsRequired()
                 .HasColumnName("ProjectName")
                 .HasMaxLength(256);
 
             entity.Property(x => x.CommercialProductName)
-                .IsRequired()
                 .HasColumnName("CommercialProductName");
 
             entity.Property(x => x.IsImportProduct)

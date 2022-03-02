@@ -19,8 +19,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.MentorFirmName)
                 .HasColumnName("MentorFirmName")
-                .HasMaxLength(256)
-                .IsRequired();
+                .HasMaxLength(256);
 
             entity.Property(x => x.MentorSupport)
                 .HasColumnName("MentorSupport");

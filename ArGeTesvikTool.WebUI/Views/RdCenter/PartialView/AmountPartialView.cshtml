@@ -1,0 +1,73 @@
+﻿@model RdCenterAmountViewModel
+
+<input asp-for="NewAmountInfo.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Faaliyet Dönemi
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.Year" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Ar-Ge/Tasarım İndirimi Kapsamında Yararlanılan / Yararlanılacak Kurumlar Vergisi İstisnası
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.TaxExemption" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Ar-Ge ve Tasarım İndirimine Tabi Harcamalar Toplamı
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.WithholdingIncentive" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Sağlanan Nakit Destekler
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.PremiumSupport" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Ar-Ge ve/veya Tasarım Harcaması
+</h6>
+<div class="form-group">
+    <textarea asp-for="NewAmountInfo.StampTaxException" class="form-control" rows="5"></textarea>
+</div>
+
+<h6 class="invoice-address">
+    Vergi, Resim ve Harçlar
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.CustomTaxException" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Genel Giderler
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.IncentiveAmount" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Net Personel Giderleri Toplamı
+</h6>
+<div class="form-group">
+    <textarea asp-for="NewAmountInfo.TotalExpenditure" class="form-control" rows="5"></textarea>
+</div>
+
+<h6 class="invoice-address">
+    Amortisman Tutarı
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.AnnualTotal" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    İlk Madde ve Malzeme Giderleri
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.RatioTurnover" class="form-control">
+</div>

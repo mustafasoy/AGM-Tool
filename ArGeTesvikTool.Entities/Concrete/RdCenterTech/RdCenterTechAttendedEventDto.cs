@@ -15,14 +15,16 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
 
     public enum ConferenceType
     {
-        Konferans, Kongre, Sempozyum
+        Konferans = 1,
+        Kongre = 2,
+        Sempozyum = 3
     }
 
     public enum ConferenceLocation
     {
-        [Display(Name ="Yurt içi")]
-        Yurtiçi,
+        [Display(Name = "Yurt içi")]
+        Yurtici = 1,
         [Display(Name = "Yurt dışı")]
-        Yurtdışı
+        Yurtdisi = 2
     }
 }

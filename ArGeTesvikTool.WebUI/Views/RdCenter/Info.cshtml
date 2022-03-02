@@ -25,6 +25,14 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
+                                            Belge Alım Tarihi
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <input asp-for="RdCenterInfo.DocReceiptDate" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
                                             İşletme Ünvan
                                         </h6>
                                     </div>
@@ -81,7 +89,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterInfo.RegistrationNo"  type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control">
+                                        <input asp-for="RdCenterInfo.RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">

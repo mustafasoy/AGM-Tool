@@ -131,10 +131,10 @@
     $(function () {
         $("#jquery-val-form").validate({
             rules: {
-                'NewSofware.SoftwareName': {
+                'NewProject.ProjectCode': {
                     required: true,
                 },
-                'NewSofware.CopyNumber': {
+                'NewProject.ProjectName': {
                     required: true,
                 },
             }
@@ -144,7 +144,7 @@
     var Create = function () {
         $.ajax({
             type: "POST",
-            url: "/RdCenterTech/SoftwareCreate",
+            url: "/RdCenterTech/ProjectCreate",
             success: function (response) {
                 $('#modalBody').html(response);
                 $('#addNewModal').modal('show');
@@ -155,7 +155,7 @@
     var Update = function (id) {
         $.ajax({
             type: "POST",
-            url: "/RdCenterTech/SoftwareUpdate",
+            url: "/RdCenterTech/ProjectUpdate",
             data: { id: id },
             success: function (response) {
                 $('#modalBody').html(response);

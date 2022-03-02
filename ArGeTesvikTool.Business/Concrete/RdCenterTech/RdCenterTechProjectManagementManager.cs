@@ -1,11 +1,7 @@
 ﻿using ArGeTesvikTool.Business.Abstract.RdCenterTech;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterTech;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.Business.Concrete.RdCenterTech
 {

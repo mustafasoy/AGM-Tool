@@ -152,7 +152,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
                 .GroupBy(x => x.PersonPosition)
                 .Select(s => new RdCenterPersonStaffInfoDto
                 {
-                    PersonPosition = s.Key,
+                    PersonPosition = s.Key.ToString(),
                     EducationStatu = s.FirstOrDefault().EducationStatu,
                     PersonNumber = s.Count()
                 })

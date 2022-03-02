@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Text.Json.Serialization;
 
 namespace ArGeTesvikTool.WebUI
 {
@@ -60,8 +61,17 @@ namespace ArGeTesvikTool.WebUI
                 options.SlidingExpiration = true;
             });
 
-            services.AddMvc(option => option.EnableEndpointRouting = false);
-            services.AddControllersWithViews().AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services
+                .AddMvc(option => option.EnableEndpointRouting = false);
+                //.AddJsonOptions(opts =>
+                //{
+                //    var enumConverter = new JsonStringEnumConverter();
+                //    opts.JsonSerializerOptions.Converters.Add(enumConverter);
+                //});
+
+            services
+                .AddControllersWithViews()
+                .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

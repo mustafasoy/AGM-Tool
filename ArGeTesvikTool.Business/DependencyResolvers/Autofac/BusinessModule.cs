@@ -59,6 +59,12 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterAreaInfoDal>().As<IRdCenterAreaInfoDal>().SingleInstance();
             builder.RegisterType<RdCenterFinancialInfoManager>().As<IRdCenterFinancialInfoService>().SingleInstance();
             builder.RegisterType<EfRdCenterFinancialInfoDal>().As<IRdCenterFinancialInfoDal>().SingleInstance();
+            builder.RegisterType<RdCenterPhysicalAreaManager>().As<IRdCenterPhysicalAreaService>().SingleInstance();
+            builder.RegisterType<EfRdCenterPhysicalAreaDal>().As<IRdCenterPhysicalAreaDal>().SingleInstance();
+            builder.RegisterType<RdCenterAmountManager>().As<IRdCenterAmountService>().SingleInstance();
+            builder.RegisterType<EfRdCenterAmountDal>().As<IRdCenterAmountDal>().SingleInstance();
+            builder.RegisterType<RdCenterDiscountManager>().As<IRdCenterDiscountService>().SingleInstance();
+            builder.RegisterType<EfRdCenterDiscountDal>().As<IRdCenterDiscountDal>().SingleInstance();
             #endregion
 
             #region RdCenterPerson
@@ -79,6 +85,8 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterTechSoftwareDal>().As<IRdCenterTechSoftwareDal>().SingleInstance();
             builder.RegisterType<RdCenterTechProjectManagementManager>().As<IRdCenterTechProjectManagementService>().SingleInstance();
             builder.RegisterType<EfRdCenterTechProjectManagementDal>().As<IRdCenterTechProjectManagementDal>().SingleInstance();
+            builder.RegisterType<RdCenterTechProjectManager>().As<IRdCenterTechProjectService>().SingleInstance();
+            builder.RegisterType<EfRdCenterTechProjectDal>().As<IRdCenterTechProjectDal>().SingleInstance();
             builder.RegisterType<RdCenterTechIntellectualPropertyManager>().As<IRdCenterTechIntellectualPropertyService>().SingleInstance();
             builder.RegisterType<EfRdCenterTechIntellectualPropertyDal>().As<IRdCenterTechIntellectualPropertyDal>().SingleInstance();
             builder.RegisterType<RdCenterTechMentorInfoManager>().As<IRdCenterTechMentorInfoService>().SingleInstance();

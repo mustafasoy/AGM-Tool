@@ -17,36 +17,36 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
 
     public enum ProperyType
     {
-        Patent,
-        Tasarım,
-        Marka,
+        Patent = 1,
+        Tasarım = 2,
+        Marka = 3,
         [Display(Name = "Yayın, Makale, Bildiri")]
-        YayınMakaleBildiri,
+        YayınMakaleBildiri = 4,
         [Display(Name = "Faydalı Model")]
-        FaydalıModel,
+        FaydaliModel = 5,
         [Display(Name = "Endüstriyel Tasarım")]
-        EndüstriyelTasarım,
-        Yazılım,
-        Triadik
+        EndüstriyelTasarim = 6,
+        Yazılım = 7,
+        Triadik = 8
     }
 
     public enum International
     {
-        Ulusal,
-        Uluslararası,
+        Ulusal = 1,
+        Uluslararası = 2,
     }
 
     public enum DevelopmentPlace
     {
         [Display(Name = "Ar-Ge/Tasarım merkezi bünyesinde")]
-        ArGeTasarım,
+        ArGeTasarım = 1,
         [Display(Name = "İşletme bünyesinde")]
-        Isletme
+        Isletme = 2
     }
 
     public enum Statu
     {
-        Başvuru,
-        Tescil,
+        Başvuru = 1,
+        Tescil = 2,
     }
 }

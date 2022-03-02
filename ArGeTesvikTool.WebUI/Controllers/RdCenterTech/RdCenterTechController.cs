@@ -16,8 +16,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         private readonly IRdCenterTechSoftwareService _softwareService;
         private readonly IRdCenterTechMentorInfoService _mentorInfoService;
         private readonly IRdCenterTechIntellectualPropertyService _propertyService;
+        private readonly IRdCenterTechProjectService _projectService;
 
-        public RdCenterTechController(IRdCenterTechCollaborationService collaborationService, IRdCenterTechAcademicLibraryService academicLibraryService, IRdCenterTechAttendedEventService attendedEventService, IRdCenterTechSoftwareService softwareService, IRdCenterTechMentorInfoService mentorInfoService, IRdCenterTechIntellectualPropertyService propertyService)
+        public RdCenterTechController(IRdCenterTechCollaborationService collaborationService, IRdCenterTechAcademicLibraryService academicLibraryService, IRdCenterTechAttendedEventService attendedEventService, IRdCenterTechSoftwareService softwareService, IRdCenterTechMentorInfoService mentorInfoService, IRdCenterTechIntellectualPropertyService propertyService, IRdCenterTechProjectService projectService)
         {
             _collaborationService = collaborationService;
             _academicLibraryService = academicLibraryService;
@@ -25,6 +26,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             _softwareService = softwareService;
             _mentorInfoService = mentorInfoService;
             _propertyService = propertyService;
+            _projectService = projectService;
         }
 
         public IActionResult CompletedProject()
@@ -32,10 +34,83 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return View();
         }
 
-        public IActionResult OngoingProject()
+        #region Project CRUD
+        public IActionResult OngoingProject(int year)
         {
-            return View();
+            List<RdCenterTechOngoingProjectDto> projectList = _projectService.GetAllByYear(year);
+
+            RdCenterTechOngoingProjectViewModel projectViewModel = new()
+            {
+                ProjectList = projectList
+            };
+
+            return View(projectViewModel);
         }
+
+        public IActionResult ProjectCreate()
+        {
+            RdCenterTechOngoingProjectDto project = new();
+
+            RdCenterTechOngoingProjectViewModel projectViewModel = new()
+            {
+                NewProject = project
+            };
+
+            return PartialView("PartialView/ProjectPartialView", projectViewModel);
+        }
+
+        public IActionResult ProjectUpdate(int id)
+        {
+            var project = _projectService.GetById(id);
+
+            RdCenterTechOngoingProjectViewModel projectViewModel = new()
+            {
+                NewProject = project
+            };
+
+            return PartialView("PartialView/ProjectPartialView", projectViewModel);
+        }
+
+        public IActionResult ProjectDelete(int id)
+        {
+            _projectService.Delete(id);
+
+            AddSuccessMessage("Proje kaydı silindi.");
+
+            return RedirectToAction("OngoingProject");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult OngoingProject(RdCenterTechOngoingProjectViewModel projectViewModel)
+        {
+            var project = _projectService.GetById(projectViewModel.NewProject.Id);
+            if (project == null)
+            {
+                projectViewModel.NewProject.CreatedDate = DateTime.Now;
+                projectViewModel.NewProject.CreatedUserName = User.Identity.Name;
+
+                _projectService.Add(projectViewModel.NewProject);
+
+                AddSuccessMessage("Yeni proje kaydı eklendi.");
+            }
+            else
+            {
+                projectViewModel.NewProject.Id = project.Id;
+                projectViewModel.NewProject.Year = project.Year;
+                projectViewModel.NewProject.CreatedDate = project.CreatedDate;
+                projectViewModel.NewProject.CreatedUserName = project.CreatedUserName;
+                projectViewModel.NewProject.ModifiedDate = DateTime.Now;
+                projectViewModel.NewProject.ModifedUserName = User.Identity.Name;
+
+                _projectService.Update(projectViewModel.NewProject);
+
+                AddSuccessMessage("Proje kaydı güncelledi.");
+            }
+
+            return Redirect("OngoingProject");
+        }
+        #endregion
 
         #region Collaboration CRUD
         public IActionResult Collaboration()

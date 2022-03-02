@@ -41,22 +41,6 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.TotalProjectBudget)
                 .HasColumnName("TotalProjectBudget");
-
-            entity.Property(x => x.CreatedDate)
-                .HasColumnName("CreatedDate")
-                .HasColumnType("date");
-
-            entity.Property(x => x.CreatedUserName)
-                .HasColumnName("CreatedUserName")
-                .HasMaxLength(256);
-
-            entity.Property(x => x.ModifiedDate)
-                .HasColumnName("ModifiedDate")
-                .HasColumnType("date");
-
-            entity.Property(x => x.ModifedUserName)
-                .HasColumnName("ModifedUserName")
-                .HasMaxLength(256);
         }
     }
 }

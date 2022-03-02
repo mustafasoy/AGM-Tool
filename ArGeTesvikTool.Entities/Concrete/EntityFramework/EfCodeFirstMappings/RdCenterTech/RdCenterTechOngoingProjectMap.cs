@@ -1,11 +1,8 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech
 {
@@ -46,6 +43,11 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.TotalProjectBudget)
                 .HasColumnName("TotalProjectBudget");
+
+            entity.Property(x => x.ProjectStatu)
+                .HasColumnName("ProjectStatu")
+                .HasMaxLength(20)
+                .HasConversion(x => x.ToString(), x => (ProjectStatu)Enum.Parse(typeof(ProjectStatu), x));
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

@@ -2,8 +2,10 @@
 
 namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
 {
-    public class RdCenterTechCompletedProjectDto : AuditableEntity
+    public class RdCenterTechCompletedProjectDto
     {
+        public int Id { get; set; }
+        public int Year { get; set; }
         public string ProjectCode { get; set; }
         public string ProjectName { get; set; }
         public decimal EquityAmount { get; set; }

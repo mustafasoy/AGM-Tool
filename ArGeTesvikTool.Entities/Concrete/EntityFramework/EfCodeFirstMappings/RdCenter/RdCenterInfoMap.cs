@@ -20,8 +20,11 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("Year")
                 .HasMaxLength(4);
 
+            entity.Property(x => x.CreatedDate)
+                .HasColumnName("DocReceiptDate")
+                .HasColumnType("date");
+
             entity.Property(x => x.CompanyName)
-                .IsRequired()
                 .HasColumnName("CompanyName")
                 .HasMaxLength(256);
 

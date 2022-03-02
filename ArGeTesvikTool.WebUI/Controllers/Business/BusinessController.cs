@@ -55,6 +55,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             var validate = ValidatorTool.Validate(new BusinessContactValidator(), contactViewModel.BusinessContact);
             if (validate.IsValid)
             {
+                //verify identity number
+                bool checkIdentity = VerifyIdentityNumber(contactViewModel.BusinessContact.IdentityNumber);
+                if (!checkIdentity)
+                {
+                    ModelState.AddModelError("BusinessContact.IdentityNumber", "Kimlik numarasını kontrol ediniz.");
+                    return View(contactViewModel);
+                }
+
                 //get data exist or not.
                 var contact = _contactService.GetByYear(contactViewModel.BusinessContact.Year);
                 if (contact == null)

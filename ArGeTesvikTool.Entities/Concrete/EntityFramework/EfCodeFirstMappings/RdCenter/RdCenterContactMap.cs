@@ -21,12 +21,10 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasMaxLength(4);
 
             entity.Property(x => x.IdentityNumber)
-                .IsRequired()
                 .HasColumnName("IdentityNumber")
                 .HasMaxLength(11);
 
             entity.Property(x => x.NameSurname)
-                .IsRequired()
                 .HasColumnName("NameSurname")
                 .HasMaxLength(256);
 

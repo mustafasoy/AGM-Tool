@@ -1,6 +1,7 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.Business;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
 {
@@ -21,12 +22,10 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
                 .HasMaxLength(4);
 
             entity.Property(x => x.CompanyName)
-                .IsRequired()
                 .HasColumnName("CompanyName")
                 .HasMaxLength(256);
             
             entity.Property(x => x.ActivityCode)
-                .IsRequired()
                 .HasColumnName("ActivityCode")
                 .HasMaxLength(256);
             
@@ -88,7 +87,9 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
                 .HasColumnName("AvaibleCapital");
 
             entity.Property(x => x.IsSME)
-                .HasColumnName("IsSME");
+                .HasColumnName("IsSME")
+                .HasMaxLength(5)
+                .HasConversion(x => x.ToString(), x => (Sme)Enum.Parse(typeof(Sme), x));
 
             entity.Property(x => x.CRSNumber)
                 .HasColumnName("CRSNumber")

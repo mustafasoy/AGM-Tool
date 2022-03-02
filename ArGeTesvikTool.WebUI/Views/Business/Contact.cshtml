@@ -30,7 +30,8 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessContact.IdentityNumber" type="number" maxlength="11"  onkeydown="return event.keyCode !== 69" class="form-control">
+                                        <input asp-for="BusinessContact.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control">
+                                        <span asp-validation-for="BusinessContact.IdentityNumber" class="error"></span>
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -54,7 +55,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessContact.PhoneNumber" type="number" maxlength="11"  onkeydown="return event.keyCode !== 69" class="form-control">
+                                        <input asp-for="BusinessContact.PhoneNumber" type="number" rangelength="[10,11]" onkeydown="return event.keyCode !== 69" class="form-control">
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
@@ -69,3 +70,4 @@
     </div>
 </div>
 <!-- END: Content-->
+<script src="~/frest/app-assets/js/jquery.validate.tcno.js"></script>

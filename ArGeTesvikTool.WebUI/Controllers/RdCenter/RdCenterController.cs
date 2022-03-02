@@ -19,13 +19,19 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         private readonly IRdCenterInfoService _infoService;
         private readonly IRdCenterSchemaService _schemaService;
         private readonly IRdCenterAreaInfoService _areaInfoService;
+        private readonly IRdCenterPhysicalAreaService _physicalAreaService;
+        private readonly IRdCenterAmountService _amountService;
+        private readonly IRdCenterDiscountService _discountService;
 
-        public RdCenterController(IRdCenterContactService contactService, IRdCenterInfoService infoService, IRdCenterSchemaService schemaService, IRdCenterAreaInfoService areaInfoService)
+        public RdCenterController(IRdCenterContactService contactService, IRdCenterInfoService infoService, IRdCenterSchemaService schemaService, IRdCenterAreaInfoService areaInfoService, IRdCenterPhysicalAreaService physicalAreaService, IRdCenterAmountService amountService, IRdCenterDiscountService discountService)
         {
             _contactService = contactService;
             _infoService = infoService;
             _schemaService = schemaService;
             _areaInfoService = areaInfoService;
+            _physicalAreaService = physicalAreaService;
+            _amountService = amountService;
+            _discountService = discountService;
         }
 
         public IActionResult Contact(int year)
@@ -133,7 +139,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
             return View(infoViewModel);
         }
 
-        #region Schema
+        #region Schema CRUD
         public IActionResult Schema(int year)
         {
             var schemaList = _schemaService.GetAllByYear(year);
@@ -203,7 +209,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
         #endregion
 
-        #region AreaInfo
+        #region AreaInfo CRUD
         public IActionResult AreaInfo(int year)
         {
             var areaInfoList = _areaInfoService.GetAllByYear(year);
@@ -270,6 +276,208 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
             AddSuccessMessage("ArGe merkezi fiziki alan bilgisi eklendi.");
 
             return RedirectToAction("AreaInfo");
+        }
+        #endregion
+
+        #region PhysicalArea CRUD
+        public IActionResult PhysicalArea(int year)
+        {
+            var physicalAreaList = _physicalAreaService.GetAllByYear(year);
+
+            RdCenterPhysicalAreaViewModel physicalAreaViewModel = new()
+            {
+                PhysicalAreaList = physicalAreaList
+            };
+
+            return View(physicalAreaViewModel);
+        }
+
+        public IActionResult PhysicalAreaDelete(int id)
+        {
+            _physicalAreaService.Delete(id);
+
+            AddSuccessMessage("Fiziki alan bilgisi silindi.");
+
+            return RedirectToAction("PhysicalArea");
+        }
+
+        public IActionResult PhysicalAreaDownload(int id)
+        {
+            var physicalArea = _physicalAreaService.GetById(id);
+
+            return DownloadFile(physicalArea);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PhysicalArea(RdCenterPhysicalAreaViewModel physicalAreaViewModel, List<IFormFile> FormFile)
+        {
+            RdCenterPhysicalAreaDto physicalArea = new();
+            foreach (var item in FormFile)
+            {
+                if (item.Length > 0)
+                {
+                    using var stream = new MemoryStream();
+                    item.CopyToAsync(stream).Wait();
+                    physicalArea.FileName = item.FileName;
+                    physicalArea.Content = stream.ToArray();
+                    physicalArea.ContentType = item.ContentType;
+                }
+            }
+
+            var physicalAreaList = _physicalAreaService.GetAllByYear(2022);
+            foreach (var item in physicalAreaList)
+            {
+                if (item.FileName == physicalArea.FileName)
+                {
+                    ModelState.AddModelError("FormFile", "Dosya mevcut. Farklı dosya seçiniz.");
+
+                    physicalAreaViewModel.PhysicalAreaList = physicalAreaList;
+
+                    return View(physicalAreaViewModel);
+                }
+            }
+
+            physicalArea.CreatedDate = DateTime.Now;
+            physicalArea.CreatedUserName = User.Identity.Name;
+
+            _physicalAreaService.Add(physicalArea);
+
+            AddSuccessMessage("Fiziki alan bilgisi eklendi.");
+
+            return RedirectToAction("PhysicalArea");
+        }
+        #endregion
+
+        #region Amount CRUD
+        public IActionResult Amount()
+        {
+            RdCenterAmountDto amount = new();
+
+            RdCenterAmountViewModel amountViewModel = new()
+            {
+                NewAmountInfo = amount
+            };
+
+            return PartialView("PartialView/AmountPartialView", amountViewModel);
+        }
+
+        public IActionResult AmountUpdate(int id)
+        {
+            var amount = _amountService.GetById(id);
+
+            RdCenterAmountViewModel amountViewModel = new()
+            {
+                NewAmountInfo = amount
+            };
+
+            return PartialView("PartialView/AmountPartialView", amountViewModel);
+        }
+
+        public IActionResult AmountDelete(int id)
+        {
+            _amountService.Delete(id);
+
+            AddSuccessMessage("Ar-Ge ve yenilik harcamalarının kapsamı bilgisi silindi.");
+
+            return RedirectToAction("Amount");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Amount(RdCenterAmountViewModel amountViewModel)
+        {
+            var amount = _amountService.GetById(amountViewModel.NewAmountInfo.Id);
+            if (amount == null)
+            {
+                amountViewModel.NewAmountInfo.CreatedDate = DateTime.Now;
+                amountViewModel.NewAmountInfo.CreatedUserName = User.Identity.Name;
+
+                _amountService.Add(amountViewModel.NewAmountInfo);
+
+                AddSuccessMessage("Ar-Ge ve yenilik harcamalarının kapsamı bilgisi eklendi.");
+            }
+            else
+            {
+                amountViewModel.NewAmountInfo.Id = amount.Id;
+                amountViewModel.NewAmountInfo.Year = amount.Year;
+                amountViewModel.NewAmountInfo.CreatedDate = amount.CreatedDate;
+                amountViewModel.NewAmountInfo.CreatedUserName = amount.CreatedUserName;
+                amountViewModel.NewAmountInfo.ModifiedDate = DateTime.Now;
+                amountViewModel.NewAmountInfo.ModifedUserName = User.Identity.Name;
+
+                _amountService.Update(amountViewModel.NewAmountInfo);
+
+                AddSuccessMessage("Ar-Ge ve yenilik harcamalarının kapsamı bilgisi güncellendi.");
+            }
+
+            return Redirect("Amount");
+        }
+        #endregion
+
+        #region Discount CRUD
+        public IActionResult Discount()
+        {
+            RdCenterDiscountDto discount = new();
+
+            RdCenterDiscountViewModel discountViewModel = new()
+            {
+                NewDiscountInfo = discount
+            };
+
+            return PartialView("PartialView/DiscountPartialView", discountViewModel);
+        }
+
+        public IActionResult DiscountUpdate(int id)
+        {
+            var discount = _discountService.GetById(id);
+
+            RdCenterDiscountViewModel discountViewModel = new()
+            {
+                NewDiscountInfo = discount
+            };
+
+            return PartialView("PartialView/DiscountPartialView", discountViewModel);
+        }
+
+        public IActionResult DiscountDelete(int id)
+        {
+            _discountService.Delete(id);
+
+            AddSuccessMessage("5746 sayılı kanun kapsamında yararlanılan tutar bilgileri silindi.");
+
+            return RedirectToAction("Amount");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Discount(RdCenterDiscountViewModel discountViewModel)
+        {
+            var discount = _discountService.GetById(discountViewModel.NewDiscountInfo.Id);
+            if (discount == null)
+            {
+                discountViewModel.NewDiscountInfo.CreatedDate = DateTime.Now;
+                discountViewModel.NewDiscountInfo.CreatedUserName = User.Identity.Name;
+
+                _discountService.Add(discountViewModel.NewDiscountInfo);
+
+                AddSuccessMessage("5746 sayılı kanun kapsamında yararlanılan tutar bilgileri eklendi.");
+            }
+            else
+            {
+                discountViewModel.NewDiscountInfo.Id = discount.Id;
+                discountViewModel.NewDiscountInfo.Year = discount.Year;
+                discountViewModel.NewDiscountInfo.CreatedDate = discount.CreatedDate;
+                discountViewModel.NewDiscountInfo.CreatedUserName = discount.CreatedUserName;
+                discountViewModel.NewDiscountInfo.ModifiedDate = DateTime.Now;
+                discountViewModel.NewDiscountInfo.ModifedUserName = User.Identity.Name;
+
+                _discountService.Update(discountViewModel.NewDiscountInfo);
+
+                AddSuccessMessage("5746 sayılı kanun kapsamında yararlanılan tutar bilgileri güncellendi.");
+            }
+
+            return Redirect("Discount");
         }
         #endregion
     }

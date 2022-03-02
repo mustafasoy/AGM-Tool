@@ -230,7 +230,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li cactive-when="/Business/Strategy">
+                        <li active-when="/Business/Strategy">
                             <a asp-controller="Business" asp-action="Strategy" asp-route-year="2022">
                                 <i class="bx bx-doughnut-chart"></i>
                                 <span class="menu-item text-truncate" data-i18n="RD Strategy">
@@ -281,21 +281,39 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenter/PhysicalArea">
+                            <a asp-controller="RdCenter" asp-action="PhysicalArea" asp-route-year="2022">
                                 <i class="bx bxs-component"></i>
-                                <span class="menu-item text-truncate" data-i18n="RD Material">
+                                <span class="menu-item text-truncate" data-i18n="RD Physical Area">
                                     AGM Fiziki Alan Bilgi
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li class="has-sub is-shown">
+                            <a class="d-flex align-items-center" href="#">
                                 <i class="bx bx-credit-card"></i>
                                 <span class="menu-item text-truncate" data-i18n="RD Financal">
                                     Mali ve Finansal Bilgileri
                                 </span>
                             </a>
+                            <ul class="menu-content" style="">
+                                <li active-when="/RdCenter/RdDiscount">
+                                    <a asp-controller="RdCenter" asp-action="RdDiscount" asp-route-year="2022">
+                                        <i class="bxs bxs-discount"></i>
+                                        <span class="menu-item text-truncate" data-i18n="Rd Discount">
+                                            Ar-Ge İndirimine Konu Olan
+                                        </span>
+                                    </a>
+                                </li>
+                                <li active-when="/RdCenter/RdAmount">
+                                    <a asp-controller="RdCenter" asp-action="RdAmount" asp-route-year="2022">
+                                        <i class="bx bx-detail"></i>
+                                        <span class="menu-item text-truncate" data-i18n="Rd Amount">
+                                            5746 Sayılı Kanun Kapsamında
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>
@@ -332,8 +350,8 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#">
+                        <li active-when="/RdCenterPerson/OutsideTime">
+                            <a asp-controller="RdCenterPerson" asp-action="OutsideTime" asp-route-year="2022">
                                 <i class="bx bx-timer"></i>
                                 <span class="menu-title text-truncate" data-i18n="Outside Time">
                                     Dışarıda Geçirilen Süre
@@ -359,6 +377,14 @@
                         </span>
                     </a>
                     <ul class="menu-content">
+                        <li active-when="/RdCenterTech/OngoingProject">
+                            <a asp-controller="RdCenterTech" asp-action="OngoingProject" asp-route-year="2022">
+                                <i class="bx bx-rotate-right"></i>
+                                <span class="menu-item text-truncate" data-i18n="Ongoing Project">
+                                    Devam Eden Projeler
+                                </span>
+                            </a>
+                        </li>
                         <li active-when="/RdCenterTech/CompletedProject">
                             <a asp-controller="RdCenterTech" asp-action="CompletedProject" asp-route-year="2022">
                                 <i class="bx bx-check-circle"></i>
@@ -367,11 +393,11 @@
                                 </span>
                             </a>
                         </li>
-                        <li active-when="/RdCenterTech/OngoingProject">
-                            <a asp-controller="RdCenterTech" asp-action="OngoingProject" asp-route-year="2022">
-                                <i class="bx bx-minus-circle"></i>
-                                <span class="menu-item text-truncate" data-i18n="Ongoing Project">
-                                    Devam Eden Projeler
+                        <li active-when="/RdCenterTech/CanceledProject">
+                            <a asp-controller="RdCenterTech" asp-action="CanceledProject" asp-route-year="2022">
+                                <i class="bx bx-x-circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Canceled Project">
+                                    İptal Edilen Projeler
                                 </span>
                             </a>
                         </li>
@@ -416,7 +442,7 @@
                             </a>
                         </li>
                         <li active-when="/RdCenterTech/MentorInfo">
-                            <a  asp-controller="RdCenterTech" asp-action="MentorInfo" asp-route-year="2022">
+                            <a asp-controller="RdCenterTech" asp-action="MentorInfo" asp-route-year="2022">
                                 <i class="bx bx-user-voice"></i>
                                 <span class="menu-item text-truncate" data-i18n="Mentor Info">
                                     Mentörlük Bilgileri

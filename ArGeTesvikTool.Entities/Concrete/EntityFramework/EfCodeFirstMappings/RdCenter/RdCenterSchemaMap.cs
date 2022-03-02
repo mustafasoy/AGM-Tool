@@ -18,7 +18,6 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasMaxLength(4);
 
             entity.Property(x => x.FileName)
-                .IsRequired()
                 .HasColumnName("FileName")
                 .HasMaxLength(256);
 
@@ -35,14 +34,6 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.CreatedUserName)
                 .HasColumnName("CreatedUserName")
-                .HasMaxLength(256);
-
-            entity.Property(x => x.ModifiedDate)
-                .HasColumnName("ModifiedDate")
-                .HasColumnType("date");
-
-            entity.Property(x => x.ModifedUserName)
-                .HasColumnName("ModifedUserName")
                 .HasMaxLength(256);
         }
     }
