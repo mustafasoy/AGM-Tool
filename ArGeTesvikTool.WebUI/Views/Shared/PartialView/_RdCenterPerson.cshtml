@@ -1,0 +1,50 @@
+﻿<li class="nav-item has-sub">
+    <a href="#">
+        <i class="bx bx-id-card"></i>
+        <span class="menu-title text-truncate" data-i18n="Personel Info">
+            AGM Personel Bilgileri
+        </span>
+    </a>
+    <ul class="menu-content">
+        <li active-when="/RdCenterPerson/PersonInfo">
+            <a asp-controller="RdCenterPerson" asp-action="PersonInfo" asp-route-year="2022">
+                <i class="bx bx-user-plus"></i>
+                <span class="menu-item text-truncate" data-i18n="Working Staff Info">
+                    Çalışan Personel Bilgileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterPerson/StaffInfo">
+            <a asp-controller="RdCenterPerson" asp-action="StaffInfo" asp-route-year="2022">
+                <i class="bx bx-user-pin"></i>
+                <span class="menu-item text-truncate" data-i18n="Staff Info">
+                    AGM Personel Bilgileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterPerson/Reward">
+            <a asp-controller="RdCenterPerson" asp-action="Reward" asp-route-year="2022">
+                <i class="bx bx-chart"></i>
+                <span class="menu-title text-truncate" data-i18n="Reward System">
+                    Perf.Değ./Ödül Sistemi
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterPerson/TimeAway">
+            <a asp-controller="RdCenterPerson" asp-action="TimeAway" asp-route-year="2022">
+                <i class="bx bx-timer"></i>
+                <span class="menu-title text-truncate" data-i18n="Time Away">
+                    Dışarıda Geçirilen Süre
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterPerson/SupportedProgram">
+            <a asp-controller="RdCenterPerson" asp-action="SupportedProgram" asp-route-year="2022">
+                <i class="bx bx-git-compare"></i>
+                <span class="menu-title text-truncate" data-i18n="Supported Program">
+                    Desteklenecek Program
+                </span>
+            </a>
+        </li>
+    </ul>
+</li>

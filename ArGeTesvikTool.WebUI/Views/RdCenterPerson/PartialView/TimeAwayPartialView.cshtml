@@ -1,0 +1,49 @@
+﻿@model RdCenterPersonTimeAwayViewModel
+
+<input asp-for="NewTimeInfo.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    T.C. Kimlik No / Yabancı Kimlik No
+</h6>
+<div class="form-group">
+    <input asp-for="NewTimeInfo.IdentityNumber" type="number" maxlength="11" onkeydown="return event.keyCode !== 69" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    İlişkili Proje Kodu
+</h6>
+<div class="form-group">
+    <input asp-for="NewTimeInfo.ProjectCode" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Faaliyet Türü
+</h6>
+<div class="form-group">
+    <input asp-for="NewTimeInfo.ActivityType" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Yıl
+</h6>
+<div class="form-group">
+    <input asp-for="NewTimeInfo.Month" type="number" maxlength="4" onkeydown="return event.keyCode !== 69" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Ay
+</h6>
+<div class="form-group">
+    <select asp-for="NewTimeInfo.Month" asp-items="Html.GetEnumSelectList<Month>()" class="form-control">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
+</div>
+
+<h6 class="invoice-address">
+    Aylık Dışarıda Geçirilen Süre (saat)
+</h6>
+<div class="form-group">
+    <input asp-for="NewTimeInfo.MonthlyTimeAway" class="form-control">
+</div>

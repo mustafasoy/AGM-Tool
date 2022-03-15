@@ -99,7 +99,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Member
                     passwordInfoChangeViewModel.User = user.Adapt<UserDto>();
                     foreach (var item in result.Errors)
                     {
-                        ModelState.AddModelError("Password.OldPassword", item.Description);
+                        if (item.Description.Contains("Eski"))
+                        {
+                            ModelState.AddModelError("Password.OldPassword", item.Description);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("Password.NewPassword", item.Description);
+                        }
                     }
                 }
             }

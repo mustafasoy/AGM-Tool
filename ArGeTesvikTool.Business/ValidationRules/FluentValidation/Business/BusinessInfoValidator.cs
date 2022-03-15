@@ -14,16 +14,24 @@ namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation.Business
                 .NotEmpty().WithMessage("Faaliyet kodunu giriniz.");
 
             RuleFor(x => x.PhoneNumber.ToString())
-                .Must(x => x.Length < 12).WithMessage("Telefon numarası alanına 11 karakterden fazla girmeyin.");
+                .MaximumLength(10)
+                .When(x => !string.IsNullOrEmpty(x.PhoneNumber))
+                .WithMessage("Telefon numarası alanına 11 karakterden fazla girmeyin.");
 
             RuleFor(x => x.TradeNumber.ToString())
-                .Must(x => x.Length < 26).WithMessage("Sanayi/Ticaret sicil numarası alanına 26 karakterden fazla girmeyin.");
+                .MaximumLength(26)
+                .When(x => !string.IsNullOrEmpty(x.TradeNumber))
+                .WithMessage("Sanayi/Ticaret sicil numarası alanına 26 karakterden fazla girmeyin.");
             
             RuleFor(x => x.RegistrationNo.ToString())
-                .Must(x => x.Length < 26).WithMessage("SGK işyeri sicil numarası alanına 26 karakterden fazla girmeyin.");
+                .MaximumLength(26)
+                .When(x => !string.IsNullOrEmpty(x.RegistrationNo))
+                .WithMessage("SGK işyeri sicil numarası alanına 26 karakterden fazla girmeyin.");
 
             RuleFor(x => x.CRSNumber.ToString())
-                .Must(x => x.Length < 16).WithMessage("Mersis numarası alanına 16 karakterden fazla girmeyin.");
+                .MaximumLength(16)
+                .When(x => !string.IsNullOrEmpty(x.CRSNumber))
+                .WithMessage("Mersis numarası alanına 16 karakterden fazla girmeyin.");
         }
     }
 }

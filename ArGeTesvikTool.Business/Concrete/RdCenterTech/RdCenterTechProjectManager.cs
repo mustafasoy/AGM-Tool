@@ -8,36 +8,37 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterTech
 {
     public class RdCenterTechProjectManager : IRdCenterTechProjectService
     {
-        private readonly IRdCenterTechProjectDal _rdCenterTechOngoingProject;
+        private readonly IRdCenterTechProjectDal _rdCenterTechProject;
 
-        public RdCenterTechProjectManager(IRdCenterTechProjectDal rdCenterTechOngoingProject)
+        public RdCenterTechProjectManager(IRdCenterTechProjectDal rdCenterTechProject)
         {
-            _rdCenterTechOngoingProject = rdCenterTechOngoingProject;
+            _rdCenterTechProject = rdCenterTechProject;
         }
 
-        public void Add(RdCenterTechOngoingProjectDto rdCenterTechOngoingProject)
+        public void Add(RdCenterTechProjectDto rdCenterTechProject)
         {
-            _rdCenterTechOngoingProject.Add(rdCenterTechOngoingProject);
+            _rdCenterTechProject.Add(rdCenterTechProject);
         }
 
-        public void Update(RdCenterTechOngoingProjectDto rdCenterTechOngoingProject)
+        public void Update(RdCenterTechProjectDto rdCenterTechProject)
         {
-            _rdCenterTechOngoingProject.Update(rdCenterTechOngoingProject);
+            _rdCenterTechProject.Update(rdCenterTechProject);
         }
 
         public void Delete(int id)
         {
-            _rdCenterTechOngoingProject.Delete(new RdCenterTechOngoingProjectDto { Id = id });
+            _rdCenterTechProject.Delete(new RdCenterTechProjectDto { Id = id });
         }
 
-        public RdCenterTechOngoingProjectDto GetById(int id)
+        public RdCenterTechProjectDto GetById(int id)
         {
-            return _rdCenterTechOngoingProject.Get(x => x.Id == id);
+            return _rdCenterTechProject.Get(x => x.Id == id);
         }
 
-        public List<RdCenterTechOngoingProjectDto> GetAllByYear(int year)
+        public List<RdCenterTechProjectDto> GetAllByYearStatu(int year, string projectStatus)
         {
-            return _rdCenterTechOngoingProject.GetList(x => x.Year == year && x.ProjectStatu == ProjectStatu.Iptal);
+            return _rdCenterTechProject.GetList(x => x.Year == year &&
+                                                     x.ProjectStatu == ProjectStatu.Iptal);
         }
     }
 }

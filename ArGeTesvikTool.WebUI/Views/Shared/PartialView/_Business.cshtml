@@ -1,0 +1,82 @@
+﻿<li class="nav-item has-sub">
+    <a href="#">
+        <i class="bx bx-bulb"></i>
+        <span class="menu-title text-truncate" data-i18n="Business General Info">
+            İşletme Genel Bilgileri
+        </span>
+    </a>
+    <ul class="menu-content">
+        <li active-when="/Business/Contact">
+            <a asp-controller="Business" asp-action="Contact" asp-route-year="2022">
+                <i class="bx bx-street-view"></i>
+                <span class="menu-item text-truncate" data-i18n="Business Contact">
+                    İşletme Yetkilisi
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/Info">
+            <a asp-controller="Business" asp-action="Info" asp-route-year="2022">
+                <i class="bx bx-sitemap"></i>
+                <span class="menu-title text-truncate" data-i18n="Business Info">
+                    İşletme Bilgileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/Intro">
+            <a asp-controller="Business" asp-action="Intro" asp-route-year="2022">
+                <i class="bx bx-info-circle"></i>
+                <span class="menu-title text-truncate" data-i18n="Business Intro">
+                    İşletme Tanıtıcı Bilgileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/GroupInfo">
+            <a asp-controller="Business" asp-action="GroupInfo" asp-route-year="2022">
+                <i class="bx bx-shape-circle"></i>
+                <span class="menu-title text-truncate" data-i18n="Group Info">
+                    Bağlı Olduğu Holding
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/Shareholder">
+            <a asp-controller="Business" asp-action="Shareholder" asp-route-year="2022">
+                <i class="bx bx-user-plus"></i>
+                <span class="menu-title text-truncate" data-i18n="Shareholders">
+                    İşletme Ortakları
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/Schema">
+            <a asp-controller="Business" asp-action="Schema" asp-route-year="2022">
+                <i class="bx bx-line-chart"></i>
+                <span class="menu-title text-truncate" data-i18n="Business Schema">
+                    Organizasyon Şeması
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/PersonnelDistribution">
+            <a asp-controller="Business" asp-action="PersonnelDistribution" asp-route-year="2022">
+                <i class="bx bxs-group"></i>
+                <span class="menu-item text-truncate" data-i18n="Personnel Distribution">
+                    Personel Dağılımı
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/Strategy">
+            <a asp-controller="Business" asp-action="Strategy" asp-route-year="2022">
+                <i class="bx bx-doughnut-chart"></i>
+                <span class="menu-item text-truncate" data-i18n="RD Strategy">
+                    Ar-Ge Stratejileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/FinancialInfo">
+            <a asp-controller="Business" asp-action="FinancialInfo" asp-route-year="2022">
+                <i class="bx bx-wallet"></i>
+                <span class="menu-title text-truncate" data-i18n="Business Financial Info">
+                    Mali ve Finanslar Bilgi
+                </span>
+            </a>
+        </li>
+    </ul>
+</li>

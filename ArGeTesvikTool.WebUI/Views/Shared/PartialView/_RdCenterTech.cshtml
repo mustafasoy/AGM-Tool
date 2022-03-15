@@ -1,0 +1,90 @@
+﻿<li class="nav-item">
+    <a href="#">
+        <i class="bx bx-cog"></i>
+        <span class="menu-item text-truncate" data-i18n="Performance Info">
+            AGM Teknik Bilgileri
+        </span>
+    </a>
+    <ul class="menu-content">
+        <li active-when="/RdCenterTech/OngoingProject">
+            <a asp-controller="RdCenterTech" asp-action="OngoingProject" asp-route-year="2022">
+                <i class="bx bx-rotate-right"></i>
+                <span class="menu-item text-truncate" data-i18n="Ongoing Project">
+                    Devam Eden Projeler
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/CompletedProject">
+            <a asp-controller="RdCenterTech" asp-action="CompletedProject" asp-route-year="2022">
+                <i class="bx bx-check-circle"></i>
+                <span class="menu-item text-truncate" data-i18n="Completed Project">
+                    Tamamlanan Projeler
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/CanceledProject">
+            <a asp-controller="RdCenterTech" asp-action="CanceledProject" asp-route-year="2022">
+                <i class="bx bx-x-circle"></i>
+                <span class="menu-item text-truncate" data-i18n="Canceled Project">
+                    İptal Edilen Projeler
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/ProjectManagement">
+            <a asp-controller="RdCenterTech" asp-action="ProjectManagement" asp-route-year="2022">
+                <i class="bx bx-category-alt"></i>
+                <span class="menu-item text-truncate" data-i18n="Project Management">
+                    Proje Yönetim Süreci
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/Collaboration">
+            <a asp-controller="RdCenterTech" asp-action="Collaboration" asp-route-year="2022">
+                <i class="bx bx-compass"></i>
+                <span class="menu-item text-truncate" data-i18n="International Collaboration">
+                    Uluslararası İşbirlikleri
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/AcademicLibrary">
+            <a asp-controller="RdCenterTech" asp-action="AcademicLibrary" asp-route-year="2022">
+                <i class="bx bx-data"></i>
+                <span class="menu-item text-truncate" data-i18n="Academic Library">
+                    Kütüphane/Veri Tabanı
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/AttendedEvent">
+            <a asp-controller="RdCenterTech" asp-action="AttendedEvent" asp-route-year="2022">
+                <i class="bx bx-book-bookmark"></i>
+                <span class="menu-item text-truncate" data-i18n="Attended Event">
+                    Katılınan Etkinlik/Eğitim
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/Property">
+            <a asp-controller="RdCenterTech" asp-action="Property" asp-route-year="2022">
+                <i class="bx bx-copyright"></i>
+                <span class="menu-item text-truncate" data-i18n="Intellectual Property">
+                    Fikri/Sınai Mülkiyet Hak.
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/MentorInfo">
+            <a asp-controller="RdCenterTech" asp-action="MentorInfo" asp-route-year="2022">
+                <i class="bx bx-user-voice"></i>
+                <span class="menu-item text-truncate" data-i18n="Mentor Info">
+                    Mentörlük Bilgileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/Software">
+            <a asp-controller="RdCenterTech" asp-action="Software" asp-route-year="2022">
+                <i class="bx bx-file"></i>
+                <span class="menu-item text-truncate" data-i18n="Software Info">
+                    Ekipman ve Yazılım Liste
+                </span>
+            </a>
+        </li>
+    </ul>
+</li>

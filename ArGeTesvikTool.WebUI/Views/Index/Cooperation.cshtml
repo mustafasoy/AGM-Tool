@@ -1,0 +1,80 @@
+﻿@model CooperationViewModel
+@{
+    ViewBag.Title = "İşbirliği ve Etkileşime Dair Bilgiler";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            İşbirliği ve Etkileşime Dair Bilgiler
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="EmploymentInfo" method="get">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezinde Yürütülen (Devam Eden+Başlayan+Tamamlanan) Toplam Proje Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CooperationInfo.TotalProjectNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Ar-Ge Merkezinde Yürütülen (Devam Eden+Başlayan+Tamamlanan) Kamu Destekli Üniversite-Sanayi İşbirliği Projelerinin Dönemsel Harcaması (TL)
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CooperationInfo.PeriodicExpenditure" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Ar-Ge Merkezinde Faaliyet Yılında Kamu Desteği Olmayan Ancak Üniversite-Sanayi İşbirliği Kapsamında Yürütülen Devam Eden+Başlayan+Tamamlanan) Projelerin Dönemsel (Faaliyet Yılı) Harcaması
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CooperationInfo.PublicPeriodicExpenditure" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Ar-Ge Merkezinde Yürütülen (Devam Eden+Başlayan+Tamamlanan) Firmalar Arası Ar-Ge İşbirliği Olan Projelerin Dönemsel (Faaliyet Yılı) Harcaması (TL)
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CooperationInfo.ProjectPeriodicExpenditure" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-between pt-1" style="font-size:inherit">
+                                    <div class="d-flex align-items-center"></div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="ml-25">
+                                            Bilgileri düzeltmek için
+                                            <a onclick="window.location='@Url.Action( "RdCenterTech", "OngoingProject")'">
+                                                AGM Personel Bilgileri
+                                            </a>
+                                            sayfasına gidiniz.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

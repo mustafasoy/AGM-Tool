@@ -9,6 +9,6 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenter
         void Update(RdCenterAmountDto rdCenterAmount);
         void Delete(int id);
         RdCenterAmountDto GetById(int id);
-        List<RdCenterAmountDto> GetListByYear(int year);
+        List<RdCenterAmountDto> GetAllByYear(int year);
     }
 }

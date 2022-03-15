@@ -21,12 +21,10 @@ namespace ArGeTesvikTool.Entities.Concrete
                 .HasMaxLength(4);
 
             entity.Property(x => x.IdentityNumber)
-                .IsRequired()
                 .HasColumnName("IdentityNumber")
                 .HasMaxLength(11);
 
             entity.Property(x => x.NameSurname)
-                .IsRequired()
                 .HasColumnName("NameSurname")
                 .HasMaxLength(256);
 
@@ -36,7 +34,7 @@ namespace ArGeTesvikTool.Entities.Concrete
 
             entity.Property(x => x.PhoneNumber)
                 .HasColumnName("PhoneNumber")
-                .HasMaxLength(11);
+                .HasMaxLength(14);
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

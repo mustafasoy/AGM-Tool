@@ -1,0 +1,110 @@
+﻿@model RdCenterTechProjectViewModel
+@{
+    ViewBag.Title = "İptal Edilen Proje Liste";
+    int rowNumber = 0;
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <h4 class="text-primary">
+                İptal Edilen Projeler Listesi
+            </h4>
+            <br />
+            <section class="invoice-list-wrapper">
+                <div class="users-list-table">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- datatable start -->
+                            <div class="table-responsive">
+                                <table id="users-list-datatable" class="table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Sıra No
+                                            </th>
+                                            <th>
+                                                Proje Kodu
+                                            </th>
+                                            <th>
+                                                Proje Adı
+                                            </th>
+                                            <th>
+                                                Özkaynakla
+                                                <br />
+                                                Karşılanan Tutar
+                                            </th>
+                                            <th>
+                                                Destek Tutar
+                                            </th>
+                                            <th>
+                                                Ulusal Destek
+                                                <br />
+                                                Programının Adı
+                                            </th>
+                                            <th>
+                                                Ulusalarası Destek
+                                                <br />
+                                                Programının Adı
+                                            </th>
+                                            <th>
+                                                Toplam Proje Bütçesi
+                                            </th>
+                                            <th>
+                                                İşlemler
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ProjectList)
+                                        {
+                                            rowNumber++;
+                                            <tr>
+                                                <td>
+                                                    @rowNumber
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ProjectCode)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ProjectName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.EquityAmount)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.SupportAmount)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.NatSupportProgram)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.IntSupportProgram)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TotalProjectIncome)
+                                                </td>
+                                                <td>
+                                                    <div class="invoice-action">
+                                                        <a asp-action="ProjectView" asp-route-id="@item.Id" class="mr-1" data-toggle="tooltip" title="Satırı görüntüle">
+                                                            <i class="bx bx-file-find"></i>
+                                                        </a>
+                                                        @*<a asp-action="ProjectDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                                <i class="bx bx-trash"></i>
+                                                            </a>*@
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- datatable ends -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

@@ -4,7 +4,7 @@ using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 
 namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterTech
 {
-    public class EfRdCenterTechProjectDal : EfEntityRepositoryBase<RdCenterTechOngoingProjectDto, AGMDbContext>, IRdCenterTechProjectDal
+    public class EfRdCenterTechProjectDal : EfEntityRepositoryBase<RdCenterTechProjectDto, AGMDbContext>, IRdCenterTechProjectDal
     {
     }
 }

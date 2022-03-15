@@ -15,7 +15,7 @@ namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation.Business
                 .NotEmpty().WithMessage("İsim soyisim giriniz.");
 
             RuleFor(x => x.PhoneNumber.ToString())
-                .InclusiveBetween("10", "11").WithMessage("Telefon numarası 10 ile 11 hane arasında olmalıdır");
+                .MaximumLength(14).WithMessage("Telefon numarası uzunluğu 14 karakterden fazla girmeyin.");
         }
     }
 }

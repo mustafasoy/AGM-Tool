@@ -1,0 +1,178 @@
+﻿@model RdCenterPersonTimeAwayViewModel
+@{
+    ViewBag.Title = "Dışarıda Geçirilen Sürelere İlişkin Bilgiler";
+    int rowNumber = 0;
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <h4 class="text-primary">
+                Dışarıda Geçirilen Sürelere İlişkin Bilgiler
+            </h4>
+            <br />
+            <section class="invoice-list-wrapper">
+                <div class="invoice-create-btn mb-1">
+                    <a class="btn btn-primary invoice-create" onclick="Create()">
+                        Yeni Süre Ekle
+                    </a>
+                </div>
+                <div class="users-list-table">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- datatable start -->
+                            <div class="table-responsive">
+                                <table id="users-list-datatable" class="table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th hidden="hidden">
+                                                Sıra No
+                                            </th>
+                                            <th>
+                                                T.C / Yabancı Kimlik No
+                                            </th>
+                                            <th>
+                                                İlişkili Proje Kodu
+                                            </th>
+                                            <th>
+                                                Faaliyet Türü
+                                            </th>
+                                            <th>
+                                                Yıl
+                                            </th>
+                                            <th>
+                                                Ay
+                                            </th>
+                                            <th>
+                                                Aylık Dışarıda Geçirilen Süre (saat)
+                                            </th>
+                                            <th>
+                                                İşlemler
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.TimeAwayList)
+                                        {
+                                            rowNumber++;
+                                            <tr>
+                                                <td hidden="hidden">
+                                                    @rowNumber
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.IdentityNumber)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ProjectCode)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ActivityType)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Year)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Month)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MonthlyTimeAway)
+                                                </td>
+                                                <td>
+                                                    <div class="invoice-action">
+                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                            <i class="bx bx-edit"></i>
+                                                        </a>
+                                                        <a asp-action="TimeAwayDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                            <i class="bx bx-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- datatable ends -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">
+                                    Yeni Personel Ekle
+                                </h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form asp-action="PersonInfo" method="post" id="jquery-val-form">
+                                <div class="modal-body" id="modalBody">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                                        Kapat
+                                    </button>
+                                    <button type="submit" class="btn btn-primary ml-1">
+                                        Kaydet
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var message = "@(TempData["SuccessMessage"] as string)";
+        if (message != "") {
+            toastr['success'](message, {
+            showMethod: 'slideDown',
+            hideMethod: 'slideUp',
+            timeOut: 2000,
+        })
+        }
+    })
+
+    $(function () {
+        $("#jquery-val-form").validate({
+            rules: {
+                'NewTimeAwayInfo.IdentityNumber': {
+                    required: true,
+                },
+                'NewTimeAwayInfo.ProjectCode': {
+                    required: true,
+                },
+            }
+        })
+    })
+
+    var Create = function () {
+        $.ajax({
+            type: "POST",
+            url: "/RdCenterPerson/TimeAwayCreate",
+            success: function (response) {
+                $('#modalBody').html(response);
+                $('#addNewModal').modal('show');
+            }
+        })
+    }
+
+    var Update = function (id) {
+        $.ajax({
+            type: "POST",
+            url: "/RdCenterPerson/TimeAwayUpdate",
+            data: { id: id },
+            success: function (response) {
+                $('#modalBody').html(response);
+                $('#addNewModal').modal('show');
+            }
+        })
+    }
+</script>

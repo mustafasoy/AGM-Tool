@@ -1,0 +1,71 @@
+﻿@model CommercializationViewModel
+@{
+    ViewBag.Title = "Ticarileşmeye Dair Bilgiler";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            Ticarileşmeye Dair Bilgiler
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="EmploymentInfo" method="get">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılı Toplam Ciro Miktarı (TL)
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CommercializationInfo.TotalTurnoverAmount" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Geliştirilen (son 3 yıl içinde) yeni ürünlerden elde edilen Toplam Yurtiçi Satış Geliri (TL)
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CommercializationInfo.DomesticSalesRevenue" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Geliştirilen (son 3 yıl içinde) yeni ürünlerden elde edilen Toplam Yurtdışı Satış Geliri (TL)
+
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CommercializationInfo.OverseasSalesRevenue" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-between pt-1" style="font-size:inherit">
+                                    <div class="d-flex align-items-center"></div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="ml-25">
+                                            Bilgileri düzeltmek için
+                                            <a onclick="window.location='@Url.Action( "Index", "NewData")'">
+                                                AGM Personel Bilgileri
+                                            </a>
+                                            sayfasına gidiniz.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

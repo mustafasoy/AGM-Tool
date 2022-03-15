@@ -6,7 +6,7 @@
     Türü
 </h6>
 <div class="form-group">
-    <select asp-for="NewAttendedEvent.Type" asp-items="Html.GetEnumSelectList<ConferenceType>()" class="form-control" id="conferenceType">
+    <select asp-for="NewAttendedEvent.Type" asp-items="Html.GetEnumSelectList<ConferenceType>()" class="form-control">
         <option value="">
             Seçiniz
         </option>
@@ -24,7 +24,7 @@
     Yurt içi/Yurt dışı
 </h6>
 <div class="form-group">
-    <select asp-for="NewAttendedEvent.Location" asp-items="Html.GetEnumSelectList<ConferenceLocation>()" class="form-control" id="conferenceLocation">
+    <select asp-for="NewAttendedEvent.Location" asp-items="Html.GetEnumSelectList<ConferenceLocation>()" class="form-control">
         <option value="">
             Seçiniz
         </option>
@@ -56,12 +56,3 @@
 <script src="~/frest/app-assets/vendors/js/extensions/moment.min.js"></script>
 <script src="~/frest/app-assets/vendors/js/pickers/daterange/daterangepicker.js"></script>*@
 <script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#conferenceType").val('');
-        $("#conferenceType").change();
-
-        $("#conferenceLocation").val('');
-        $("#conferenceLocation").change();
-    });
-</script>

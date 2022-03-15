@@ -432,7 +432,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return View();
         }
 
-        #region Schema Operation
+        #region Schema CRUD
         public IActionResult Schema(int year)
         {
             var schemaList = _schemaService.GetAllByYear(year);

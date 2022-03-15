@@ -1,0 +1,170 @@
+﻿@model PropertyCompetenceViewModel
+@{
+    ViewBag.Title = "Fikri Mülkiyet Yetkinliğine Dair Bilgiler";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            Fikri Mülkiyet Yetkinliğine Dair Bilgiler
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="PropertyCompetence" method="get">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Tescil Edilmiş Uluslararası Patent Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.RegIntPatentNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Tescil Edilmiş Ulusal Patent Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.RegNationalPatentNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Başvuru Yapılan Uluslararası Patent Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.ApplyIntPatentNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Başvuru Yapılan Ulusal Patent Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.ApplyNationalPatentNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Tescil Edilmiş Faydalı Model Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.RegIntModelNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Tescil Edilmiş Yazılım Tescil Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.RegSoftwareNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Tescil Edilmiş Triadik Patent Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.TriadicPatentNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Ulusal Yayın Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.NationalIssueNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Uluslararası Yayın Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.IntIssueNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Yurt İçinde Katılım Gösterilen (Ar-Ge İle İlgili) Fuar, Konferans vb. Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.DomesticExpoNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Yurt Dışında Katılım Gösterilen (Ar-Ge İle İlgili) Fuar, Konferans vb. Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.OverseasExpoNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Bir Önceki Faaliyet Yılında Yurt İçinde Katılım Gösterilen (Ar-Ge İle İlgili) Fuar, Konferans vb. Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.PreYearDomesticExpoNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Bir Önceki Faaliyet Yılında Yurt Dışında Katılım Gösterilen (Ar-Ge İle İlgili) Fuar, Konferans vb. Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="PropertyCompetence.PreYearOverseasExpoNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-between pt-1" style="font-size:inherit">
+                                    <div class="d-flex align-items-center"></div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="ml-25">
+                                            Bilgileri düzeltmek için
+                                            <a asp-controller="RdCenterTech" asp-action="AttendedEvent">
+                                                AGM Teknik Bilgileri
+                                            </a>
+                                            sayfasına gidiniz.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

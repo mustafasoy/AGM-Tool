@@ -1,6 +1,6 @@
 ﻿@model BusinessInfoViewModel
 @{
-    ViewData["Title"] = "İşletme Bilgileri";
+    ViewBag.Title = "İşletme Bilgileri";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -55,7 +55,7 @@
                                     <input asp-for="BusinessInfo.CityCode" type="hidden" class="form-control">
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group">
-                                            <select asp-for="BusinessInfo.CityText" class="select2 form-control select2-hidden-accessible" aria-hidden="true" id="Cities">
+                                            <select asp-for="BusinessInfo.CityText" id="city" class="select2 form-control select2-hidden-accessible">
                                                 <option selected="selected" value="">Seçiniz</option>
                                             </select>
                                         </fieldset>
@@ -66,7 +66,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.PhoneNumber" type="number" maxlength="11" onkeydown="return event.keyCode !== 69" class="form-control">
+                                        <input asp-for="BusinessInfo.PhoneNumber" type="text" id="phone" maxlength="14" class="form-control" placeholder="(532) 123-4567">
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -96,7 +96,6 @@
                                                 <i class='bx bx-calendar'></i>
                                             </div>
                                         </fieldset>
-
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -195,10 +194,12 @@
 </div>
 <!-- END: Content-->
 <script src="~/frest/app-assets/js/core/libraries/jquery.min.js"></script>
-<script src="~/frest/app-assets/js/list-cities.js"></script>
+<script src="~/frest/app-assets/js/phone-mask.js"></script>
+<script src="~/frest/app-assets/js/list-city.js"></script>
+
 <script>
     $(document).ready(function () {
-        $("#Cities").val('@ViewBag.City');
-        $("#Cities").change();
+        $("#city").val('@ViewBag.City');
+        $("#city").change();
     });
 </script>

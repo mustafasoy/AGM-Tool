@@ -2,12 +2,12 @@
 
 <input asp-for="NewDiscountInfo.Id" hidden="hidden" />
 
-<h6 class="invoice-address">
+@*<h6 class="invoice-address">
     Faaliyet Dönemi
 </h6>
 <div class="form-group">
     <input asp-for="NewDiscountInfo.Year" class="form-control">
-</div>
+</div>*@
 
 <h6 class="invoice-address">
     Ar-Ge ve Tasarım İndirimi Kapsamında Yararlanılan / Yaralanılacak Kurumları Vergisi İstisnası
@@ -34,7 +34,7 @@
     Damga Vergisi İstisnası
 </h6>
 <div class="form-group">
-    <textarea asp-for="NewDiscountInfo.GeneralExpense" class="form-control" rows="5"></textarea>
+    <input asp-for="NewDiscountInfo.GeneralExpense" class="form-control">
 </div>
 
 <h6 class="invoice-address">
@@ -55,7 +55,7 @@
     Ar-Ge İndirimine Tabi Harcamalar Toplamı
 </h6>
 <div class="form-group">
-    <textarea asp-for="NewDiscountInfo.DesignExpense" class="form-control" rows="5"></textarea>
+    <input asp-for="NewDiscountInfo.DesignExpense" class="form-control">
 </div>
 
 <h6 class="invoice-address">

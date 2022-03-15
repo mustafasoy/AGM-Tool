@@ -17,8 +17,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         private readonly IRdCenterTechMentorInfoService _mentorInfoService;
         private readonly IRdCenterTechIntellectualPropertyService _propertyService;
         private readonly IRdCenterTechProjectService _projectService;
+        private readonly IRdCenterTechProjectManagementService _projectManagementService;
 
-        public RdCenterTechController(IRdCenterTechCollaborationService collaborationService, IRdCenterTechAcademicLibraryService academicLibraryService, IRdCenterTechAttendedEventService attendedEventService, IRdCenterTechSoftwareService softwareService, IRdCenterTechMentorInfoService mentorInfoService, IRdCenterTechIntellectualPropertyService propertyService, IRdCenterTechProjectService projectService)
+        public RdCenterTechController(IRdCenterTechCollaborationService collaborationService, IRdCenterTechAcademicLibraryService academicLibraryService, IRdCenterTechAttendedEventService attendedEventService, IRdCenterTechSoftwareService softwareService, IRdCenterTechMentorInfoService mentorInfoService, IRdCenterTechIntellectualPropertyService propertyService, IRdCenterTechProjectService projectService, IRdCenterTechProjectManagementService projectManagementService)
         {
             _collaborationService = collaborationService;
             _academicLibraryService = academicLibraryService;
@@ -27,19 +28,15 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             _mentorInfoService = mentorInfoService;
             _propertyService = propertyService;
             _projectService = projectService;
-        }
-
-        public IActionResult CompletedProject()
-        {
-            return View();
+            _projectManagementService = projectManagementService;
         }
 
         #region Project CRUD
         public IActionResult OngoingProject(int year)
         {
-            List<RdCenterTechOngoingProjectDto> projectList = _projectService.GetAllByYear(year);
+            List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(year, ProjectStatu.Devam.ToString());
 
-            RdCenterTechOngoingProjectViewModel projectViewModel = new()
+            RdCenterTechProjectViewModel projectViewModel = new()
             {
                 ProjectList = projectList
             };
@@ -47,28 +44,28 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return View(projectViewModel);
         }
 
-        public IActionResult ProjectCreate()
-        {
-            RdCenterTechOngoingProjectDto project = new();
-
-            RdCenterTechOngoingProjectViewModel projectViewModel = new()
-            {
-                NewProject = project
-            };
-
-            return PartialView("PartialView/ProjectPartialView", projectViewModel);
-        }
-
-        public IActionResult ProjectUpdate(int id)
+        public IActionResult ProjectModify(int id)
         {
             var project = _projectService.GetById(id);
 
-            RdCenterTechOngoingProjectViewModel projectViewModel = new()
+            RdCenterTechProjectViewModel projectViewModel = new()
             {
                 NewProject = project
             };
 
-            return PartialView("PartialView/ProjectPartialView", projectViewModel);
+            return View(projectViewModel);
+        }
+
+        public IActionResult ProjectView(int id)
+        {
+            var project = _projectService.GetById(id);
+
+            RdCenterTechProjectViewModel projectViewModel = new()
+            {
+                NewProject = project
+            };
+
+            return View(projectViewModel);
         }
 
         public IActionResult ProjectDelete(int id)
@@ -82,7 +79,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult OngoingProject(RdCenterTechOngoingProjectViewModel projectViewModel)
+        public IActionResult ProjectModify(RdCenterTechProjectViewModel projectViewModel)
         {
             var project = _projectService.GetById(projectViewModel.NewProject.Id);
             if (project == null)
@@ -108,7 +105,31 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
                 AddSuccessMessage("Proje kaydı güncelledi.");
             }
 
-            return Redirect("OngoingProject");
+            return RedirectToAction("OngoingProject", new { year = 2022 });
+        }
+
+        public IActionResult CompletedProject(int year)
+        {
+            List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(year, ProjectStatu.Tamam.ToString());
+
+            RdCenterTechProjectViewModel projectViewModel = new()
+            {
+                ProjectList = projectList
+            };
+
+            return View(projectViewModel);
+        }
+
+        public IActionResult CanceledProject(int year)
+        {
+            List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(year, ProjectStatu.Iptal.ToString());
+
+            RdCenterTechProjectViewModel projectViewModel = new()
+            {
+                ProjectList = projectList
+            };
+
+            return View(projectViewModel);
         }
         #endregion
 
@@ -188,6 +209,20 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             }
 
             return Redirect("Collaboration");
+        }
+        #endregion
+
+        #region Project Management CRUD
+        public IActionResult ProjectManagement(int year)
+        {
+            var projectManagementList = _projectManagementService.GetAllByYear(year);
+
+            RdCenterTechProjectManagementViewModel projectManagementViewModel = new()
+            {
+                ProjectManagementList = projectManagementList
+            };
+
+            return View(projectManagementViewModel);
         }
         #endregion
 

@@ -350,13 +350,25 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         #endregion
 
         #region Amount CRUD
-        public IActionResult Amount()
+        public IActionResult Amount(int year)
         {
-            RdCenterAmountDto amount = new();
+            List<RdCenterAmountDto> amountList = _amountService.GetAllByYear(year);
 
             RdCenterAmountViewModel amountViewModel = new()
             {
-                NewAmountInfo = amount
+                AmountList = amountList
+            };
+
+            return View(amountViewModel);
+        }
+
+        public IActionResult AmountCreate()
+        {
+            RdCenterAmountDto amountInfo = new();
+
+            RdCenterAmountViewModel amountViewModel = new()
+            {
+                NewAmountInfo = amountInfo
             };
 
             return PartialView("PartialView/AmountPartialView", amountViewModel);
@@ -416,7 +428,19 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         #endregion
 
         #region Discount CRUD
-        public IActionResult Discount()
+        public IActionResult Discount(int year)
+        {
+            List<RdCenterDiscountDto> discountList = _discountService.GetAllByYear(year);
+
+            RdCenterDiscountViewModel discountViewModel = new()
+            {
+                DiscountList = discountList
+            };
+
+            return View(discountViewModel);
+        }
+
+        public IActionResult DiscountCreate()
         {
             RdCenterDiscountDto discount = new();
 

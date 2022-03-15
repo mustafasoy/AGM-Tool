@@ -1,0 +1,150 @@
+﻿@model EmploymentViewModel
+@{
+    ViewBag.Title = "Ar-Ge Merkezi Personeli İstihdamına Dair Bilgiler";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            Ar-Ge Merkezi Personeli İstihdamına Dair Bilgiler
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="EmploymentInfo" method="get">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezinde Çalışan Doktora Mezunu Araştırmacı Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="EmploymentInfo.GraduateDoctoralNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezinde Çalışan Yüksek Lisans Mezunu Araştırmacı Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="EmploymentInfo.GraduateMasterDegreeNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezinde Çalışan ve Halen Doktora Yapmakta Olan Araştırmacı Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="EmploymentInfo.CurrentDoctoralNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezinde Çalışan Temel Bilimler Mezunu Ar-Ge Personeli Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="EmploymentInfo.GraduateBasicScienceNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezinde Yeni İstihdam Edilen Toplam Ar-Ge Personeli Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="EmploymentInfo.GraduateBasicScienceNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezinde Çalışan Teknisyen Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="EmploymentInfo.TechnicianNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezinde Yeni İstihdam Edilen Toplam Ar-Ge Personeli Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="EmploymentInfo.NewPersonTotalNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezinde Çalışan Toplam Araştırmacı Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="EmploymentInfo.TotalResearcherNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında En az Yüksek Lisans Eğitimi Almış 25 Yaş ve üzeri Kadın Ar-Ge Merkezi Çalışan Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="EmploymentInfo.WomenPersonNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet yYlı İçerisinde Ar-Ge Merkezinde Çalıştırılan Stajyer Sayısı (Lise Düzeyi Dahil)
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="EmploymentInfo.WomenPersonNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezinde Çalışan ve En Az 2 Yıl Yurtdışında Kaldıktan Sonra Son 2 yıl İçinde Yurtdışından Gelen Araştırmacı Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="EmploymentInfo.WomenPersonNumber" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-between pt-1" style="font-size:inherit">
+                                    <div class="d-flex align-items-center"></div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="ml-25">
+                                            Bilgileri düzeltmek için
+                                            <a onclick="window.location='@Url.Action( "RdCenterPerson", "PersonInfo")'">
+                                                AGM Personel Bilgileri
+                                            </a>
+                                            sayfasına gidiniz.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

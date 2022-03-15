@@ -43,7 +43,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
 
             entity.Property(x => x.PhoneNumber)
                 .HasColumnName("PhoneNumber")
-                .HasMaxLength(11);
+                .HasMaxLength(14);
 
             entity.Property(x => x.Mail)
                 .HasColumnName("Mail")

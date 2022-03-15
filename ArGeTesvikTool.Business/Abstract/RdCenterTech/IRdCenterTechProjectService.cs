@@ -5,10 +5,10 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenterTech
 {
     public interface IRdCenterTechProjectService
     {
-        void Add(RdCenterTechOngoingProjectDto rdCenterTechOngoingProject);
-        void Update(RdCenterTechOngoingProjectDto rdCenterTechOngoingProject);
+        void Add(RdCenterTechProjectDto rdCenterTechProject);
+        void Update(RdCenterTechProjectDto rdCenterTechProject);
         void Delete(int id);
-        RdCenterTechOngoingProjectDto GetById(int id);
-        List<RdCenterTechOngoingProjectDto> GetAllByYear(int year);
+        RdCenterTechProjectDto GetById(int id);
+        List<RdCenterTechProjectDto> GetAllByYearStatu(int year, string projectStatu);
     }
 }

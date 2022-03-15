@@ -1,18 +1,25 @@
 ﻿using ArGeTesvikTool.Business.Abstract;
 using ArGeTesvikTool.Business.Abstract.Business;
+using ArGeTesvikTool.Business.Abstract.Home;
+using ArGeTesvikTool.Business.Abstract.Index;
 using ArGeTesvikTool.Business.Abstract.RdCenter;
 using ArGeTesvikTool.Business.Abstract.RdCenterPerson;
 using ArGeTesvikTool.Business.Abstract.RdCenterTech;
 using ArGeTesvikTool.Business.Concrete.Business;
+using ArGeTesvikTool.Business.Concrete.Home;
+using ArGeTesvikTool.Business.Concrete.Index;
 using ArGeTesvikTool.Business.Concrete.RdCenter;
 using ArGeTesvikTool.Business.Concrete.RdCenterPerson;
 using ArGeTesvikTool.Business.Concrete.RdCenterTech;
 using ArGeTesvikTool.DataAccess.Abstract;
 using ArGeTesvikTool.DataAccess.Abstract.Business;
+using ArGeTesvikTool.DataAccess.Abstract.Index;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenter;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterPerson;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterTech;
+using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Business;
+using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Index;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenter;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterPerson;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterTech;
@@ -26,6 +33,16 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<PasswordSendMail>().As<IMailService>().SingleInstance();
+
+            #region Home
+            builder.RegisterType<FiscalYearManager>().As<IFiscalYearService>().SingleInstance();
+            builder.RegisterType<EfFiscalYearDal>().As<IFiscalYearDal>().SingleInstance();
+            #endregion
+
+            #region Index
+            builder.RegisterType<NewDataManager>().As<INewDataService>().SingleInstance();
+            builder.RegisterType<EfNewDataDal>().As<INewDataDal>().SingleInstance();
+            #endregion
 
             #region Business
             builder.RegisterType<BusinessContactManager>().As<IBusinessContactService>().SingleInstance();
@@ -72,6 +89,8 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterPersonInfoDal>().As<IRdCenterPersonInfoDal>().SingleInstance();
             builder.RegisterType<RdCenterPersonRewardManager>().As<IRdCenterPersonRewardService>().SingleInstance();
             builder.RegisterType<EfRdCenterPersonRewardDal>().As<IRdCenterPersonRewardDal>().SingleInstance();
+            builder.RegisterType<RdCenterPersonTimeAwayManager>().As<IRdCenterPersonTimeAwayService>().SingleInstance();
+            builder.RegisterType<EfRdCenterPersonTimeAwayDal>().As<IRdCenterPersonTimeAwayDal>().SingleInstance();
             #endregion
 
             #region RdCenterTech

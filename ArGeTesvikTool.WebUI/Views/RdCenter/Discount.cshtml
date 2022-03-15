@@ -1,6 +1,7 @@
 ﻿@model ArGeTesvikTool.WebUI.Models.RdCenter.RdCenterDiscountViewModel
 @{
-    ViewData["Title"] = "5746 Sayılı Kanun Kapsamında Yararlanılan İndirim, İstisna, Muafiyet vb. Teşvik Tutarı";
+    ViewBag.Title = "5746 Sayılı Kanun Kapsamında Yararlanılan İndirim, İstisna, Muafiyet vb. Teşvik Tutarı";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -53,6 +54,9 @@
                                             </th>
                                             <th>
                                                 Toplam Harcamanın Ciroya Oranı
+                                            </th>
+                                            <th>
+                                                İşlemler
                                             </th>
                                         </tr>
                                     </thead>
@@ -156,11 +160,10 @@
         }
     })
 
-    $(function () {
     var Create = function () {
         $.ajax({
             type: "POST",
-            url: "/RdCenterPerson/DiscountCreate",
+            url: "/RdCenter/DiscountCreate",
             success: function (response) {
                 $('#modalBody').html(response);
                 $('#addNewModal').modal('show');
@@ -171,7 +174,7 @@
     var Update = function (id) {
         $.ajax({
             type: "POST",
-            url: "/RdCenterPerson/DiscountUpdate",
+            url: "/RdCenter/DiscountUpdate",
             data: { id: id },
             success: function (response) {
                 $('#modalBody').html(response);

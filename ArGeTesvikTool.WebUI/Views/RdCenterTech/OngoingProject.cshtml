@@ -1,6 +1,6 @@
-﻿@model RdCenterTechOngoingProjectViewModel
+﻿@model RdCenterTechProjectViewModel
 @{
-    ViewData["Title"] = "Devam Eden Proje Liste";
+    ViewBag.Title = "Devam Eden Proje Liste";
     int rowNumber = 0;
 }
 <!-- BEGIN: Content-->
@@ -13,7 +13,7 @@
             <br />
             <section class="invoice-list-wrapper">
                 <div class="invoice-create-btn mb-1">
-                    <a class="btn btn-primary invoice-create" onclick="Create()">
+                    <a asp-action="ProjectModify" class="btn btn-primary invoice-create">
                         Yeni Proje Ekle
                     </a>
                 </div>
@@ -56,7 +56,7 @@
                                                 Toplam Proje Bütçesi
                                             </th>
                                             <th>
-                                                Düzenle
+                                                İşlemler
                                             </th>
                                         </tr>
                                     </thead>
@@ -81,20 +81,20 @@
                                                     @Html.DisplayFor(modelItem => item.SupportAmount)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.ProgramName)
+                                                    @Html.DisplayFor(modelItem => item.NatSupportProgram)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.InternationalProgName)
+                                                    @Html.DisplayFor(modelItem => item.IntSupportProgram)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.TotalProjectBudget)
+                                                    @Html.DisplayFor(modelItem => item.TotalProjectIncome)
                                                 </td>
                                                 <td>
                                                     <div class="invoice-action">
-                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                        <a asp-action="ProjectModify" asp-route-id="@item.Id" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
                                                             <i class="bx bx-edit"></i>
                                                         </a>
-                                                        <a asp-action="ProjectDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                        <a asp-action="ProjectDelete" asp-route-id="@item.Id" data-toggle="tooltip" title="Satırı sil">
                                                             <i class="bx bx-trash"></i>
                                                         </a>
                                                     </div>
@@ -152,39 +152,26 @@
         }
     })
 
-    $(function () {
-        $("#jquery-val-form").validate({
-            rules: {
-                'NewSofware.SoftwareName': {
-                    required: true,
-                },
-                'NewSofware.CopyNumber': {
-                    required: true,
-                },
-            }
-        })
-    })
+    //var Create = function () {
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/RdCenterTech/ProjectCreate",
+    //        success: function (response) {
+    //            $('#modalBody').html(response);
+    //            $('#addNewModal').modal('show');
+    //        }
+    //    })
+    //}
 
-    var Create = function () {
-        $.ajax({
-            type: "POST",
-            url: "/RdCenterTech/ProjectCreate",
-            success: function (response) {
-                $('#modalBody').html(response);
-                $('#addNewModal').modal('show');
-            }
-        })
-    }
-
-    var Update = function (id) {
-        $.ajax({
-            type: "POST",
-            url: "/RdCenterTech/ProjectUpdate",
-            data: { id: id },
-            success: function (response) {
-                $('#modalBody').html(response);
-                $('#addNewModal').modal('show');
-            }
-        })
-    }
+    //var Update = function (id) {
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/RdCenterTech/ProjectUpdate",
+    //        data: { id: id },
+    //        success: function (response) {
+    //            $('#modalBody').html(response);
+    //            $('#addNewModal').modal('show');
+    //        }
+    //    })
+    //}
 </script>

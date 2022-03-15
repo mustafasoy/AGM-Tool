@@ -1,0 +1,70 @@
+﻿@model SpendingIntensityViewModel
+@{
+    ViewBag.Title = "Ar-Ge Merkezi Harcama Yoğunluğuna Dair Bilgiler";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            Ar-Ge Merkezi Harcama Yoğunluğuna Dair Bilgiler
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="SpendingIntensity" method="get">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezinin Toplam Ar-Ge Harcaması (TL) (5746 Sayılı Kanun Kapsamında Ar-Ge Merkezi İçinde Yürütülen Projeler Bünyesinde)
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="SpendingIntensityInfo.CashSupport" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Bir Önceki Yılda Ar-Ge Merkezinin Toplam Ar-Ge Harcaması (TL) (5746 Sayılı Kanun Kapsamında Ar-Ge Merkezi İçinde Yürütülen Projeler Bünyesinde)
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="SpendingIntensityInfo.PreviousYearCashSupport" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address justify-text">
+                                            Faaliyet Yılında Ar-Ge Merkezi İçinde Yürütülen Projeler Bazında Toplam Muafiyet Miktarı (TL) (5746 Sayılı Kanun Kapsamında)
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="SpendingIntensityInfo.DesignExpense" class="form-control" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-between pt-1" style="font-size:inherit">
+                                    <div class="d-flex align-items-center"></div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="ml-25">
+                                            Bilgileri düzeltmek için
+                                            <a asp-controller="RdCenter" asp-action="Discount">
+                                                AGM Genel Bilgileri
+                                            </a>
+                                            sayfasına gidiniz.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

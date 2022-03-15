@@ -14,11 +14,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
     {
         private readonly IRdCenterPersonInfoService _infoService;
         private readonly IRdCenterPersonRewardService _rewardService;
+        private readonly IRdCenterPersonTimeAwayService _timeAwayService;
 
-        public RdCenterPersonController(IRdCenterPersonInfoService infoService, IRdCenterPersonRewardService rewardService)
+        public RdCenterPersonController(IRdCenterPersonInfoService infoService, IRdCenterPersonRewardService rewardService, IRdCenterPersonTimeAwayService timeAwayService)
         {
             _infoService = infoService;
             _rewardService = rewardService;
+            _timeAwayService = timeAwayService;
         }
 
         #region Person Info CRUD
@@ -140,9 +142,85 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             AddSuccessMessage("Performans değerlendirme bilgisi güncellendi.");
 
             return RedirectToAction("Index", "Home");
-
-
         }
+
+        #region TimeAway CRUD
+        public IActionResult TimeAway(int year)
+        {
+            List<RdCenterPersonTimeAwayDto> timeAwayList = _timeAwayService.GetAllByYear(year);
+
+            RdCenterPersonTimeAwayViewModel timeAwayViewModel = new()
+            {
+                TimeAwayList = timeAwayList
+            };
+
+            return View(timeAwayViewModel);
+        }
+
+        public IActionResult TimeAwayCreate()
+        {
+            RdCenterPersonTimeAwayDto timeAwayInfo = new();
+
+            RdCenterPersonTimeAwayViewModel timeAwayViewModel = new()
+            {
+                NewTimeInfo = timeAwayInfo
+            };
+
+            return PartialView("PartialView/TimeAwayPartialView", timeAwayViewModel);
+        }
+
+        public IActionResult TimeAwayUpdate(int id)
+        {
+            var timeAwayInfo = _timeAwayService.GetById(id);
+
+            RdCenterPersonTimeAwayViewModel timeAwayViewModel = new()
+            {
+                NewTimeInfo = timeAwayInfo
+            };
+
+            return PartialView("PartialView/TimeAwayPartialView", timeAwayInfo);
+        }
+
+        public IActionResult TimeAwayDelete(int id)
+        {
+            _timeAwayService.Delete(id);
+
+            AddSuccessMessage("Dışarıda geçen zaman bilgisi silindi.");
+
+            return RedirectToAction("TimeAway");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult TimeAway(RdCenterPersonTimeAwayViewModel timeAwayViewModel)
+        {
+            var timeAway = _timeAwayService.GetById(timeAwayViewModel.NewTimeInfo.Id);
+            if (timeAway == null)
+            {
+                timeAwayViewModel.NewTimeInfo.CreatedDate = DateTime.Now;
+                timeAwayViewModel.NewTimeInfo.CreatedUserName = User.Identity.Name;
+
+                _timeAwayService.Add(timeAwayViewModel.NewTimeInfo);
+
+                AddSuccessMessage("Dışarıda geçen zaman bilgisi eklendi.");
+
+                return RedirectToAction("TimeAway");
+            }
+
+            timeAwayViewModel.NewTimeInfo.Id = timeAway.Id;
+            timeAwayViewModel.NewTimeInfo.Year = timeAway.Year;
+            timeAwayViewModel.NewTimeInfo.CreatedDate = timeAway.CreatedDate;
+            timeAwayViewModel.NewTimeInfo.CreatedUserName = timeAway.CreatedUserName;
+            timeAwayViewModel.NewTimeInfo.ModifiedDate = DateTime.Now;
+            timeAwayViewModel.NewTimeInfo.ModifedUserName = User.Identity.Name;
+
+            _timeAwayService.Update(timeAwayViewModel.NewTimeInfo);
+
+            AddSuccessMessage("Dışarıda geçen zaman bilgisi güncellendi.");
+
+            return RedirectToAction("TimeAway");
+        } 
+        #endregion
 
         public IActionResult StaffInfo(int year)
         {

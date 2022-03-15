@@ -34,7 +34,7 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenter
             return _discount.Get(x => x.Id == id);
         }
 
-        public List<RdCenterDiscountDto> GetListByYear(int year)
+        public List<RdCenterDiscountDto> GetAllByYear(int year)
         {
             return _discount.GetList(x => x.Year == year);
         }

@@ -2,10 +2,12 @@
 using ArGeTesvikTool.Entities.Concrete.Business;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Business;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Index;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenter;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerformance;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerson;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech;
+using ArGeTesvikTool.Entities.Concrete.Index;
 using ArGeTesvikTool.Entities.Concrete.RdCenter;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerformance;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
@@ -21,6 +23,14 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
             optionsBuilder.UseSqlServer(@"Data Source=TR996928-1809;Initial Catalog=AGMDb;Integrated Security=True;MultipleActiveResultSets=True;");
             //optionsBuilder.UseSqlServer(@"Data Source=tr-ankapptwv005;Initial Catalog=AGMDb;persist security info=True;user id=SGK_TESVIK;password=Taxtech12;MultipleActiveResultSets=True");
         }
+
+        #region Home Db Map
+        public DbSet<FiscalYearDto> FiscalYears { get; set; }
+        #endregion
+
+        #region Index Db Map
+        public DbSet<NewDataDto> NewDatas { get; set; }
+        #endregion
 
         #region Business Db Map
         public DbSet<BusinessContactDto> BusinessContracts { get; set; }
@@ -48,14 +58,14 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         #region RdCenterPerson Db Map
         public DbSet<RdCenterPersonInfoDto> RdCenterPersonInfos { get; set; }
         public DbSet<RdCenterPersonRewardDto> RdCenterPersonRewards { get; set; }
+        public DbSet<RdCenterPersonTimeAwayDto> RdCenterPersonTimeAways { get; set; }
         #endregion
 
         #region RdCenterTech Db Map
         public DbSet<RdCenterTechAcademicLibraryDto> RdCenterTechAcademicLibraries { get; set; }
         public DbSet<RdCenterTechAttendedEventDto> RdCenterTechAttendedEvents { get; set; }
         public DbSet<RdCenterTechCollaborationDto> RdCenterTechCollaborations { get; set; }
-        public DbSet<RdCenterTechOngoingProjectDto> RdCenterTechCompletedProjects { get; set; }
-        public DbSet<RdCenterTechOngoingProjectDto> RdCenterTechOngoingProjects { get; set; }
+        public DbSet<RdCenterTechProjectDto> RdCenterTechOngoingProjects { get; set; }
         public DbSet<RdCenterTechSoftwareDto> RdCenterTechSoftwares { get; set; }
         public DbSet<RdCenterTechProjectManagementDto> RdCenterTechProjectManagements { get; set; }
         public DbSet<RdCenterTechMentorInfoDto> RdCenterTechMentorInfos { get; set; }
@@ -68,6 +78,14 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Home Db Map
+            _ = new FiscalYearMap(modelBuilder.Entity<FiscalYearDto>());
+            #endregion
+
+            #region Index Db Map
+            _ = new NewDataMap(modelBuilder.Entity<NewDataDto>());
+            #endregion
+
             #region Business Db Map
             _ = new BusinessContactMap(modelBuilder.Entity<BusinessContactDto>());
             _ = new BusinessInfoMap(modelBuilder.Entity<BusinessInfoDto>());
@@ -94,14 +112,14 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
             #region RdCenterPerson Db Map
             _ = new RdCenterPersonInfoMap(modelBuilder.Entity<RdCenterPersonInfoDto>());
             _ = new RdCenterPersonRewardMap(modelBuilder.Entity<RdCenterPersonRewardDto>());
+            _ = new RdCenterPersonTimeAwayMap(modelBuilder.Entity<RdCenterPersonTimeAwayDto>());
             #endregion
 
             #region RdCenterTech Db Map
             _ = new RdCenterTechAcademicLibraryMap(modelBuilder.Entity<RdCenterTechAcademicLibraryDto>());
             _ = new RdCenterTechAttendedEventMap(modelBuilder.Entity<RdCenterTechAttendedEventDto>());
             _ = new RdCenterTechCollaborationMap(modelBuilder.Entity<RdCenterTechCollaborationDto>());
-            _ = new RdCenterTechCompletedProjectMap(modelBuilder.Entity<RdCenterTechCompletedProjectDto>());
-            _ = new RdCenterTechOngoingProjectMap(modelBuilder.Entity<RdCenterTechOngoingProjectDto>());
+            _ = new RdCenterTechProjectMap(modelBuilder.Entity<RdCenterTechProjectDto>());
             _ = new RdCenterTechSoftwareMap(modelBuilder.Entity<RdCenterTechSoftwareDto>());
             _ = new RdCenterTechProjectManagementMap(modelBuilder.Entity<RdCenterTechProjectManagementDto>());
             _ = new RdCenterTechMentorInfoMap(modelBuilder.Entity<RdCenterTechMentorInfoDto>());

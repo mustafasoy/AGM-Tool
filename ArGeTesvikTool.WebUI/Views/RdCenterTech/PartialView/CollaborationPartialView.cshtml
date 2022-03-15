@@ -24,7 +24,7 @@
 
 <div class="form-group">
     <fieldset class="form-group">
-        <select asp-for="NewCollaboration.CountryText" class="select2 form-control" aria-hidden="true" id="Countries">
+        <select asp-for="NewCollaboration.CountryText" id="country" class="select2 form-control">
             <option selected="selected" value="">Seçiniz</option>
         </select>
     </fieldset>
@@ -39,10 +39,10 @@
 </div>
 
 <script src="~/frest/app-assets/js/scripts/forms/select/form-select2.js"></script>
-<script src="~/frest/app-assets/js/list-countries.js"></script>
+<script src="~/frest/app-assets/js/list-country.js"></script>
 <script>
         $(document).ready(function () {
-            $("#Countries").val('@ViewBag.Country');
-            $("#Countries").change();
+            $("#country").val('@ViewBag.Country');
+            $("#country").change();
         });
 </script>

@@ -1,6 +1,6 @@
 ﻿@model RdCenterInfoViewModel
 @{
-    ViewData["Title"] = "Ar-Ge Merkezi Bilgieri";
+    ViewBag.Title = "Ar-Ge Merkezi Bilgieri";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group">
-                                            <select asp-for="RdCenterInfo.City" class="select2 form-control select2-hidden-accessible" aria-hidden="true" id="Cities">
+                                            <select asp-for="RdCenterInfo.City" id="city" class="select2 form-control select2-hidden-accessible">
                                                 <option selected="selected" value="">Seçiniz</option>
                                             </select>
                                         </fieldset>
@@ -129,10 +129,10 @@
 </div>
 <!-- END: Content-->
 <script src="~/frest/app-assets/js/core/libraries/jquery.min.js"></script>
-<script src="~/frest/app-assets/js/list-cities.js"></script>
+<script src="~/frest/app-assets/js/list-city.js"></script>
 <script>
     $(document).ready(function () {
-        $("#Cities").val('@ViewBag.City');
-        $("#Cities").change();
+        $("#city").val('@ViewBag.City');
+        $("#city").change();
     });
 </script>

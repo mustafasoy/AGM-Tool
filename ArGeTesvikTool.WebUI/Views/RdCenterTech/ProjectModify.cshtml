@@ -1,0 +1,248 @@
+﻿@model RdCenterTechProjectViewModel
+@{
+    ViewData["Title"] = "Projeleri Düzenle";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            Proje Bilgilerini Düzenle
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="ProjectModify" method="post" id="jquery-val-form">
+                            <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="form-body">
+                                <div class="row">
+                                    <input asp-for="NewProject.Id" hidden="hidden" />
+                                    <h6 class="invoice-address">
+                                        Proje Durumu
+                                    </h6>
+                                    <div class="form-group">
+                                        <select asp-for="NewProject.ProjectStatu" asp-items="Html.GetEnumSelectList<ProjectStatu>()" class="form-control">
+                                            <option value="">Seçiniz</option>
+                                        </select>
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Proje Kodu
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.ProjectCode" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Proje Adı
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.ProjectName" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            Proje Başlama Tarihi
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <input asp-for="NewProject.ProjectStartDate" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                            <div class="form-control-position">
+                                                <i class='bx bx-calendar'></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            Proje Bitiş Tarihi
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-8 form-group">
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <input asp-for="NewProject.ProjectEndDate" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                            <div class="form-control-position">
+                                                <i class='bx bx-calendar'></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Projede Görev Alan Personel Sayısı
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.PersonNumber" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Proje Süresi (Adam Ay)
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.ProjectDuration" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            Proje Adam-Ay Tablosu ve İş Planı
+                                        </h6>
+                                    </div>
+                                    <div class="col-8">
+                                        <fieldset class="form-group">
+                                            <div class="custom-file">
+                                                <input asp-for="ProjectFile" type="file" class="custom-file-input">
+                                                <label class="custom-file-label">Dosya seçin</label>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Ulusal Destek Programı
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.NatSupportProgram" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Ulusalarası Destek Programı
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.IntSupportProgram" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Toplam Proje Bütçesi (TL)
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.TotalProjectIncome" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Öz Kaynaklarca Karşılanan Tutar (TL)
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.EquityAmount" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Ulusal /Uluslararası Destek Tutarı (TL)
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.SupportAmount" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Siparişe Dayalı Ar-Ge
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.OrderBase" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Hizmet Alım Konusu
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.ServiceProcurementSubject" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Hizmet Alım Yurtiçi / Yurtdışı
+                                    </h6>
+                                    <div class="form-group">
+                                        <select asp-for="NewProject.ServiceProcurement" asp-items="Html.GetEnumSelectList<ServiceProcurement>()" class="form-control">
+                                            <option value="">Seçiniz</option>
+                                        </select>
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Toplam Hizmet Alım Tutarı (TL)
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.ServiceProcurementAmount" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Yurtiçi Hizmet Alım Tutarı (TL)
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.NatServiceProcurementAmount" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Yurtdışı Hizmet Alım Tutarı (TL)
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.IntServiceProcurementAmount" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Yurtdışı Hizmet Alım Tutarı (TL)
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.IntServiceProcurementAmount" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            Proje Bütçesi Detay Çalışması
+                                        </h6>
+                                    </div>
+                                    <div class="col-8">
+                                        <fieldset class="form-group">
+                                            <div class="custom-file">
+                                                <input asp-for="IncomeFile" type="file" class="custom-file-input">
+                                                <label class="custom-file-label">Dosya seçin</label>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Proje Konusu
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.ProjectSubject" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Proje Özeti
+                                    </h6>
+                                    <div class="form-group">
+                                        <input asp-for="NewProject.ProjectSummary" class="form-control">
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Proje Konusunu Belirleyen İhtiyaçlar
+                                    </h6>
+                                    <div class="form-group">
+                                        <textarea asp-for="NewProject.ProjectRequirement" class="form-control" rows="3" />
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Proje Kapsamında Yapılacak Faaliyetler
+                                    </h6>
+                                    <div class="form-group">
+                                        <textarea asp-for="NewProject.ProjectActivity" class="form-control" rows="3" />
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Projenin Yenilikçi Yönü ve Ar-Ge Niteliği
+                                    </h6>
+                                    <div class="form-group">
+                                        <textarea asp-for="NewProject.ProjectInnovative" class="form-control" rows="3" />
+                                    </div>
+                                    <h6 class="invoice-address">
+                                        Projenin Beklenen Çıktıları ve Faydaları
+                                    </h6>
+                                    <div class="form-group">
+                                        <textarea asp-for="NewProject.ProjectOutput" class="form-control" rows="3" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="invoice-address">
+                                            Proje Ek Dokümanları
+                                        </h6>
+                                    </div>
+                                    <div class="col-8">
+                                        <fieldset class="form-group">
+                                            <div class="custom-file">
+                                                <input asp-for="IncomeFile" type="file" class="custom-file-input">
+                                                <label class="custom-file-label">Dosya seçin</label>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary mr-1">
+                                            Kaydet
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

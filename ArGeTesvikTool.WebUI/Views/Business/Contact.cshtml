@@ -1,7 +1,6 @@
 ﻿@model BusinessContactViewModel
-
 @{
-    ViewData["Title"] = "İşletme Yetkilileri";
+    ViewBag.Title = "İşletme Yetkilileri";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -55,7 +54,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessContact.PhoneNumber" type="number" rangelength="[10,11]" onkeydown="return event.keyCode !== 69" class="form-control">
+                                        <input asp-for="BusinessContact.PhoneNumber" type="text" id="phone" maxlength="14" class="form-control" placeholder="(532) 123-4567">
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
@@ -70,4 +69,4 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/js/jquery.validate.tcno.js"></script>
+<script src="~/frest/app-assets/js/phone-mask.js"></script>

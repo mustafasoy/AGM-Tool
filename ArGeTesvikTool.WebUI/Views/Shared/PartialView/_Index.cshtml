@@ -1,0 +1,74 @@
+﻿<li class="nav-item">
+    <a href="#">
+        <i class="bx bx-line-chart"></i>
+        <span class="menu-item text-truncate" data-i18n="Index Data">
+            Endesk Verileri
+        </span>
+    </a>
+    <ul class="menu-content">
+        <li active-when="/Index/NewData">
+            <a asp-controller="Index" asp-action="NewData" asp-route-year="2022">
+                <i class="bx bx-customize"></i>
+                <span class="menu-item text-truncate" data-i18n="New Data">
+                    Endeks Bilgileri Ekle
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/Employment">
+            <a asp-controller="Index" asp-action="Employment" asp-route-year="2022">
+                <i class="bx bx-id-card"></i>
+                <span class="menu-item text-truncate" data-i18n="Employment Info">
+                    İstihdama Daire Bilgiler
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/SpendingIntensity">
+            <a asp-controller="Index" asp-action="SpendingIntensity" asp-route-year="2022">
+                <i class="bx bx-bar-chart"></i>
+                <span class="menu-item text-truncate" data-i18n="Spending Intensity">
+                    Harcama Yoğunluğuna Dair Bilgier
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/ProjectCapacity">
+            <a asp-controller="Index" asp-action="ProjectCapacity" asp-route-year="2022">
+                <i class="bx bx-line-chart"></i>
+                <span class="menu-item text-truncate" data-i18n="Project Capacity">
+                    Proje Kapasitelerine Dair Bilgiler
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/Cooperation">
+            <a asp-controller="Index" asp-action="Cooperation" asp-route-year="2022">
+                <i class="bx bx-sitemap"></i>
+                <span class="menu-item text-truncate" data-i18n="Cooperation Info">
+                    İşbirliği ve Etkileşime Dair Bilgiler
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/Commercialization">
+            <a asp-controller="Index" asp-action="Commercialization" asp-route-year="2022">
+                <i class="bx bx-buildings"></i>
+                <span class="menu-item text-truncate" data-i18n="Commercialization Info">
+                    Ticarileşmeye Dair Bilgiler
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/PropertyCompetence">
+            <a asp-controller="Index" asp-action="PropertyCompetence" asp-route-year="2022">
+                <i class="bx bx-lock-open-alt"></i>
+                <span class="menu-item text-truncate" data-i18n="Property Competence">
+                    Fikri Mülkiyet Yetkinliğine Dair Bilgiler
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/Other">
+            <a asp-controller="Index" asp-action="Other" asp-route-year="2022">
+                <i class="bx bx-data"></i>
+                <span class="menu-item text-truncate" data-i18n="Other Info">
+                    Diğer Bilgier
+                </span>
+            </a>
+        </li>
+    </ul>
+</li>
