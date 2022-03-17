@@ -170,10 +170,10 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Schema(RdCenterSchemaViewModel schemaViewModel, List<IFormFile> FormFile)
+        public IActionResult Schema(RdCenterSchemaViewModel schemaViewModel, List<IFormFile> formFile)
         {
             RdCenterSchemaDto centerSchema = new();
-            foreach (var item in FormFile)
+            foreach (var item in formFile)
             {
                 if (item.Length > 0)
                 {
@@ -240,10 +240,10 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AreaInfo(RdCenterAreaInfoViewModel areaInfoViewModel, List<IFormFile> FormFile)
+        public IActionResult AreaInfo(RdCenterAreaInfoViewModel areaInfoViewModel, List<IFormFile> formFile)
         {
             RdCenterAreaInfoDto areaInfo = new();
-            foreach (var item in FormFile)
+            foreach (var item in formFile)
             {
                 if (item.Length > 0)
                 {
@@ -310,10 +310,10 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PhysicalArea(RdCenterPhysicalAreaViewModel physicalAreaViewModel, List<IFormFile> FormFile)
+        public IActionResult PhysicalArea(RdCenterPhysicalAreaViewModel physicalAreaViewModel, List<IFormFile> formFile)
         {
             RdCenterPhysicalAreaDto physicalArea = new();
-            foreach (var item in FormFile)
+            foreach (var item in formFile)
             {
                 if (item.Length > 0)
                 {

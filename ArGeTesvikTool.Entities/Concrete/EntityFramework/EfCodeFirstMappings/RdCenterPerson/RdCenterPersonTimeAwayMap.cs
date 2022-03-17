@@ -8,7 +8,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
     {
         public RdCenterPersonTimeAwayMap(EntityTypeBuilder<RdCenterPersonTimeAwayDto> entity)
         {
-            entity.ToTable("RdCenterPersonOutsideTimes");
+            entity.ToTable("RdCenterPersonTimeAways");
 
             entity.Property(x => x.Id)
                 .HasColumnName("Id");

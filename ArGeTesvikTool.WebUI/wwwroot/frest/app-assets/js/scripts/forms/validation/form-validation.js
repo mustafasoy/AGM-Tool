@@ -100,6 +100,15 @@ $(function () {
                 'RdCenterInfo.CompanyName': {
                     required: true
                 },
+                'NewProject.ProjectStatu': {
+                    required: true
+                },
+                'NewProject.ProjectCode': {
+                    required: true
+                },
+                'NewProject.ProjectName': {
+                    required: true
+                },
                 FormFile: {
                     required: true
                 },

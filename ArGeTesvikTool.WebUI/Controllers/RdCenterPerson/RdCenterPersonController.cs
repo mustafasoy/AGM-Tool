@@ -2,22 +2,29 @@
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterPerson;
+using ExcelDataReader;
 using Mapster;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
 {
     public class RdCenterPersonController : BaseController
     {
+        private IWebHostEnvironment _hostEnvironment;
         private readonly IRdCenterPersonInfoService _infoService;
         private readonly IRdCenterPersonRewardService _rewardService;
         private readonly IRdCenterPersonTimeAwayService _timeAwayService;
 
-        public RdCenterPersonController(IRdCenterPersonInfoService infoService, IRdCenterPersonRewardService rewardService, IRdCenterPersonTimeAwayService timeAwayService)
+        public RdCenterPersonController(IWebHostEnvironment environment, IRdCenterPersonInfoService infoService, IRdCenterPersonRewardService rewardService, IRdCenterPersonTimeAwayService timeAwayService)
         {
+            _hostEnvironment = environment;
             _infoService = infoService;
             _rewardService = rewardService;
             _timeAwayService = timeAwayService;
@@ -178,7 +185,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
                 NewTimeInfo = timeAwayInfo
             };
 
-            return PartialView("PartialView/TimeAwayPartialView", timeAwayInfo);
+            return PartialView("PartialView/TimeAwayPartialView", timeAwayViewModel);
         }
 
         public IActionResult TimeAwayDelete(int id)
@@ -188,6 +195,36 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             AddSuccessMessage("Dışarıda geçen zaman bilgisi silindi.");
 
             return RedirectToAction("TimeAway");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ImportExcel(IFormFile formFile)
+        {
+            string fileName = Path.Combine(_hostEnvironment.WebRootPath, "files", formFile.FileName);
+            using (FileStream fileStream = System.IO.File.Create(fileName))
+            {
+                formFile.CopyTo(fileStream);
+                fileStream.Flush();
+            }
+            List<RdCenterPersonTimeAwayDto> timeAwayList = GetExcelList(fileName);
+
+            _timeAwayService.AddList(timeAwayList);
+
+            return RedirectToAction("TimeAway");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ExportExcel()
+        {
+            //build the file path.
+            string path = Path.Combine(_hostEnvironment.WebRootPath, "file-template", "Dışarıda_Geçirilen_Süre_Bildirimi.xlsx");
+            string fileName = Path.GetFileName(path);
+            //read the file data into byte array.
+            byte[] bytes = System.IO.File.ReadAllBytes(path);
+            //send the file to download.
+            return File(bytes, "application/octet-stream", fileName);
         }
 
         [HttpPost]
@@ -219,7 +256,47 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             AddSuccessMessage("Dışarıda geçen zaman bilgisi güncellendi.");
 
             return RedirectToAction("TimeAway");
-        } 
+        }
+
+        private List<RdCenterPersonTimeAwayDto> GetExcelList(string fileName)
+        {
+            List<RdCenterPersonTimeAwayDto> timeAwayList = new();
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            using (FileStream stream = System.IO.File.Open(fileName, FileMode.Open, FileAccess.Read))
+            {
+                using var reader = ExcelReaderFactory.CreateReader(stream);
+                var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
+                {
+                    ConfigureDataTable = _ => new ExcelDataTableConfiguration()
+                    {
+                        UseHeaderRow = true
+                    }
+                });
+
+                if (dataSet.Tables.Count > 0)
+                {
+                    var rowData = dataSet.Tables[0];
+
+                    for (int i = 0; i < rowData.Rows.Count; i++)
+                    {
+                        timeAwayList.Add(new RdCenterPersonTimeAwayDto
+                        {
+                            IdentityNumber = rowData.Rows[i][0].ToString(),
+                            ProjectCode = rowData.Rows[i][1].ToString(),
+                            ActivityType = (ActivityType)Convert.ToInt32(rowData.Rows[i][2].ToString()),
+                            Year = Convert.ToInt32(rowData.Rows[i][3].ToString()),
+                            Month = (Month)Convert.ToInt32(rowData.Rows[i][4].ToString()),
+                            MonthlyTimeAway = Convert.ToDecimal(rowData.Rows[i][5].ToString()),
+                            CreatedDate = DateTime.Now.Date,
+                            CreatedUserName = User.Identity.Name
+                        });
+                    }
+                }
+            }
+
+            return timeAwayList;
+        }
         #endregion
 
         public IActionResult StaffInfo(int year)

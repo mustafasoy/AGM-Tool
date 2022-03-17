@@ -26,7 +26,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.ContentType)
                 .HasColumnName("FileExtension")
-                .HasMaxLength(20);
+                .HasMaxLength(256);
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

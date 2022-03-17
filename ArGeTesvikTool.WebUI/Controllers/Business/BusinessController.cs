@@ -6,6 +6,7 @@ using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.Business;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,8 +23,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         private readonly IPersonnelDistributionService _personnelService;
         private readonly IBusinessSchemaService _schemaService;
         private readonly IStrategyService _strategyService;
+        private readonly IBusinessFinancialInfoService _financialService;
 
-        public BusinessController(IBusinessContactService contactService, IBusinessInfoService infoService, IBusinessIntroService introService, IGroupInfoService groupInfoService, IShareholderService shareholderService, IPersonnelDistributionService personnelService, IBusinessSchemaService schemaService, IStrategyService strategyService)
+        public BusinessController(IBusinessContactService contactService, IBusinessInfoService infoService, IBusinessIntroService introService, IGroupInfoService groupInfoService, IShareholderService shareholderService, IPersonnelDistributionService personnelService, IBusinessSchemaService schemaService, IStrategyService strategyService, IBusinessFinancialInfoService financialService)
         {
             _contactService = contactService;
             _infoService = infoService;
@@ -33,9 +35,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             _personnelService = personnelService;
             _schemaService = schemaService;
             _strategyService = strategyService;
+            _financialService = financialService;
         }
 
-        //[HttpGet]
         public IActionResult Contact(int year)
         {
             var contact = _contactService.GetByYear(year);
@@ -392,45 +394,83 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
         #endregion
 
+        #region Financial CRUD
         public IActionResult FinancialInfo()
         {
-            //List<FinancialInfoDto> financialInfo = new();
+            List<BusinessFinancialInfoDto> financialInfo = _financialService.GetAll();
 
-            //financialInfo.Add(new FinancialInfoDto
-            //{
-            //    NetSales = 2600,
-            //    TotalAsset = 1449,
-            //    SortTermLoan = 966,
-            //    LongTermLoan = 403,
-            //    DomesticSales = 2618,
-            //    ExportSales = 380,
-            //    GrossSales = 2618,
-            //    RDExpenditure = 12746,
-            //    AcquisitionTurnover = 434
-            //});
+            FinancialInfoViewModel financialInfoViewModel = new()
+            {
+                FinancialInfoList = financialInfo
+            };
 
-            //financialInfo.Add(new FinancialInfoDto
-            //{
-            //    NetSales = 2600,
-            //    TotalAsset = 1449,
-            //    SortTermLoan = 966,
-            //    LongTermLoan = 403,
-            //    DomesticSales = 2618,
-            //    ExportSales = 380,
-            //    GrossSales = 2618,
-            //    RDExpenditure = 12746,
-            //    AcquisitionTurnover = 434
-            //});
-
-            //FinancialInfoViewModel financialInfoViewModel = new()
-            //{
-            //    FinancialInfo = financialInfo
-            //};
-
-            //return View(financialInfoViewModel);
-
-            return View();
+            return View(financialInfoViewModel);
         }
+
+        public IActionResult FinancialCreate()
+        {
+            BusinessFinancialInfoDto financialInfo = new();
+
+            FinancialInfoViewModel financialInfoViewModel = new()
+            {
+                NewFinancialInfo = financialInfo
+            };
+
+            return PartialView("PartialView/FinancialPartialView", financialInfoViewModel);
+        }
+
+        public IActionResult FinancialUpdate(int id)
+        {
+            var financialInfo = _financialService.GetById(id);
+
+            FinancialInfoViewModel financialInfoViewModel = new()
+            {
+                NewFinancialInfo = financialInfo
+            };
+
+            return PartialView("PartialView/FinancialPartialView", financialInfoViewModel);
+        }
+
+        public IActionResult FinancialDelete(int id)
+        {
+            _financialService.Delete(id);
+
+            AddSuccessMessage("Finansal bilgi kaydı silindi.");
+
+            return Redirect("FinancialInfo");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult FinancialInfo(FinancialInfoViewModel financialInfoViewModel)
+        {
+            var financialInfo = _financialService.GetById(financialInfoViewModel.NewFinancialInfo.Id);
+            if (financialInfo == null)
+            {
+                financialInfoViewModel.NewFinancialInfo.CreatedDate = DateTime.Now;
+                financialInfoViewModel.NewFinancialInfo.CreatedUserName = User.Identity.Name;
+
+                _financialService.Add(financialInfoViewModel.NewFinancialInfo);
+
+                AddSuccessMessage("Yeni finansal bilgi kaydı eklendi.");
+            }
+            else
+            {
+                financialInfoViewModel.NewFinancialInfo.Id = financialInfo.Id;
+                financialInfoViewModel.NewFinancialInfo.Year = financialInfo.Year;
+                financialInfoViewModel.NewFinancialInfo.CreatedDate = financialInfo.CreatedDate;
+                financialInfoViewModel.NewFinancialInfo.CreatedUserName = financialInfo.CreatedUserName;
+                financialInfoViewModel.NewFinancialInfo.ModifiedDate = DateTime.Now;
+                financialInfoViewModel.NewFinancialInfo.ModifedUserName = User.Identity.Name;
+
+               _financialService.Update(financialInfoViewModel.NewFinancialInfo);
+
+                AddSuccessMessage("Finansal bilgi kaydı güncellendi.");
+            }
+
+            return Redirect("FinancialInfo");
+        }
+        #endregion
 
         #region Schema CRUD
         public IActionResult Schema(int year)
@@ -467,12 +507,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Schema(BusinessSchemaViewModel schemaViewModel, List<IFormFile> FormFile)
+        public IActionResult Schema(BusinessSchemaViewModel schemaViewModel, List<IFormFile> formFile)
         {
             if (ModelState.IsValid)
             {
                 BusinessSchemaDto businessSchema = new();
-                foreach (var item in FormFile)
+                foreach (var item in formFile)
                 {
                     if (item.Length > 0)
                     {

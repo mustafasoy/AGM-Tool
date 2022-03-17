@@ -4,14 +4,16 @@ using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArGeTesvikTool.DataAccess.Migrations
 {
     [DbContext(typeof(AGMDbContext))]
-    partial class AGMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220315115310_newtable")]
+    partial class newtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -335,8 +337,8 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Content");
 
                     b.Property<string>("ContentType")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("FileExtension");
 
                     b.Property<DateTime>("CreatedDate")
@@ -786,8 +788,8 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Content");
 
                     b.Property<string>("ContentType")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("FileExtension");
 
                     b.Property<DateTime>("CreatedDate")
@@ -1142,8 +1144,8 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Content");
 
                     b.Property<string>("ContentType")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("FileExtension");
 
                     b.Property<DateTime>("CreatedDate")
@@ -1189,8 +1191,8 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Content");
 
                     b.Property<string>("ContentType")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("FileExtension");
 
                     b.Property<DateTime>("CreatedDate")
@@ -1461,7 +1463,7 @@ namespace ArGeTesvikTool.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RdCenterPersonTimeAways");
+                    b.ToTable("RdCenterPersonOutsideTimes");
                 });
 
             modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenterTech.RdCenterTechAcademicLibraryDto", b =>
@@ -1920,7 +1922,7 @@ namespace ArGeTesvikTool.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RdCenterTechProjects");
+                    b.ToTable("RdCenterTechOngoingProjects");
                 });
 
             modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenterTech.RdCenterTechProjectManagementDto", b =>

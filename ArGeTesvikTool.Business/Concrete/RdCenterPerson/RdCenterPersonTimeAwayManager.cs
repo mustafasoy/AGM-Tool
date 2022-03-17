@@ -19,6 +19,11 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterPerson
             _rdCenterPersonTimeAway.Add(rdCenterPersoTimeAway);
         }
 
+        public void AddList(List<RdCenterPersonTimeAwayDto> rdCenterPersoTimeAwayList)
+        {
+            _rdCenterPersonTimeAway.AddList(rdCenterPersoTimeAwayList);
+        }
+
         public void Update(RdCenterPersonTimeAwayDto rdCenterPersoTimeAway)
         {
             _rdCenterPersonTimeAway.Update(rdCenterPersoTimeAway);

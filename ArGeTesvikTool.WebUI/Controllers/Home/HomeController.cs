@@ -1,7 +1,11 @@
 ﻿using ArGeTesvikTool.Business.Abstract.Home;
 using ArGeTesvikTool.Entities.Concrete;
+using ArGeTesvikTool.WebUI.Models.Home;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,20 +25,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Home
         {
             List<FiscalYearDto> fiscalYear = _fiscalYearService.GetYearList();
 
-            List<int> yearList = fiscalYear.OrderByDescending(x => x.Year)
-                                           .Select(s => s.Year)
-                                           .ToList();
+            fiscalYear = fiscalYear.OrderByDescending(x => x.Year).ToList();
 
-            TempData["FiscalYear"] = yearList;
-            //ViewBag.FiscalYear = yearList;
+            FiscalYearViewModel fiscalYearViewModel = new()
+            {
+                YearList = fiscalYear
+            };
 
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult GetYear(string year)
-        {
-            return View();
+            return View(fiscalYearViewModel);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using ArGeTesvikTool.Business.Abstract.RdCenterTech;
+using ArGeTesvikTool.Business.Utilities;
+using ArGeTesvikTool.Business.ValidationRules.FluentValidation.RdCenterTech;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterTech;
@@ -44,18 +46,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return View(projectViewModel);
         }
 
-        public IActionResult ProjectModify(int id)
-        {
-            var project = _projectService.GetById(id);
-
-            RdCenterTechProjectViewModel projectViewModel = new()
-            {
-                NewProject = project
-            };
-
-            return View(projectViewModel);
-        }
-
         public IActionResult ProjectView(int id)
         {
             var project = _projectService.GetById(id);
@@ -77,35 +67,57 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return RedirectToAction("OngoingProject");
         }
 
+        public IActionResult ProjectModify(int id)
+        {
+            var project = _projectService.GetById(id);
+
+            RdCenterTechProjectViewModel projectViewModel = new()
+            {
+                NewProject = project
+            };
+
+            return View(projectViewModel);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ProjectModify(RdCenterTechProjectViewModel projectViewModel)
         {
-            var project = _projectService.GetById(projectViewModel.NewProject.Id);
-            if (project == null)
+            var validate = ValidatorTool.Validate(new RdCenterTechProjectValidator(), projectViewModel.NewProject);
+            if (validate.IsValid)
             {
-                projectViewModel.NewProject.CreatedDate = DateTime.Now;
-                projectViewModel.NewProject.CreatedUserName = User.Identity.Name;
 
-                _projectService.Add(projectViewModel.NewProject);
 
-                AddSuccessMessage("Yeni proje kaydı eklendi.");
+                var project = _projectService.GetById(projectViewModel.NewProject.Id);
+                if (project == null)
+                {
+                    projectViewModel.NewProject.CreatedDate = DateTime.Now;
+                    projectViewModel.NewProject.CreatedUserName = User.Identity.Name;
+
+                    _projectService.Add(projectViewModel.NewProject);
+
+                    AddSuccessMessage("Yeni proje kaydı eklendi.");
+                }
+                else
+                {
+                    projectViewModel.NewProject.Id = project.Id;
+                    projectViewModel.NewProject.Year = project.Year;
+                    projectViewModel.NewProject.CreatedDate = project.CreatedDate;
+                    projectViewModel.NewProject.CreatedUserName = project.CreatedUserName;
+                    projectViewModel.NewProject.ModifiedDate = DateTime.Now;
+                    projectViewModel.NewProject.ModifedUserName = User.Identity.Name;
+
+                    _projectService.Update(projectViewModel.NewProject);
+
+                    AddSuccessMessage("Proje kaydı güncelledi.");
+                }
+
+                return RedirectToAction("OngoingProject", new { year = 2022 });
             }
-            else
-            {
-                projectViewModel.NewProject.Id = project.Id;
-                projectViewModel.NewProject.Year = project.Year;
-                projectViewModel.NewProject.CreatedDate = project.CreatedDate;
-                projectViewModel.NewProject.CreatedUserName = project.CreatedUserName;
-                projectViewModel.NewProject.ModifiedDate = DateTime.Now;
-                projectViewModel.NewProject.ModifedUserName = User.Identity.Name;
 
-                _projectService.Update(projectViewModel.NewProject);
+            AddValidatorError(validate);
 
-                AddSuccessMessage("Proje kaydı güncelledi.");
-            }
-
-            return RedirectToAction("OngoingProject", new { year = 2022 });
+            return View(projectViewModel);
         }
 
         public IActionResult CompletedProject(int year)

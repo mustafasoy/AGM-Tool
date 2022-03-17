@@ -5,6 +5,7 @@ namespace ArGeTesvikTool.WebUI.Models.Business
 {
     public class FinancialInfoViewModel
     {
+        public BusinessFinancialInfoDto NewFinancialInfo { get; set; }
         public List<BusinessFinancialInfoDto> FinancialInfoList { get; set; }
     }
 }

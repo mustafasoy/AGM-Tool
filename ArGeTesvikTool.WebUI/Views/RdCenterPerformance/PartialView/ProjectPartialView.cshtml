@@ -19,8 +19,11 @@
 <h6 class="invoice-address">
     İthal İkame Bir Ürün
 </h6>
-<div class="form-group">
-    <input asp-for="NewProjectInfo.IsImportProduct" class="form-control">
+<div class="form-group checkbox">
+    <input asp-for="NewProjectInfo.IsImportProduct" type="checkbox" class="form-group checkbox-input" id="importProduct">
+    <label for="importProduct">
+        İthal ikame bir ürün ise seçiniz.
+    </label>
 </div>
 
 <h6 class="invoice-address">

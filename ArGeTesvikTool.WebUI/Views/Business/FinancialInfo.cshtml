@@ -1,6 +1,6 @@
 ﻿@model FinancialInfoViewModel
 @{
-    ViewBag.Title = "Mali/Finansal Bilgi";
+    ViewBag.Title = "Mali ve Finansal Bilgi";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -12,7 +12,7 @@
             <br />
             <section class="invoice-list-wrapper">
                 <div class="invoice-create-btn mb-1">
-                    <a asp-action="" class="btn btn-primary invoice-create" role="button" aria-pressed="true">
+                    <a class="btn btn-primary invoice-create" onclick="Create()">
                         Finansal Bilgi Ekle
                     </a>
                 </div>
@@ -25,15 +25,34 @@
                                     <thead>
                                         <tr>
                                             <th>
+                                                Yıl
                                             </th>
                                             <th>
-                                                2021
+                                                Net Satışlar (TL)
                                             </th>
                                             <th>
-                                                2022
+                                                Toplam Bilanço (Aktifler Toplamı) (TL)
                                             </th>
                                             <th>
-                                                2019
+                                                Kısa Vadeli Borçlar (TL)
+                                            </th>
+                                            <th>
+                                                Uzun Vadeli Borçlar (TL)
+                                            </th>
+                                            <th>
+                                                Yurt İçi Satışlar (TL)
+                                            </th>
+                                            <th>
+                                                Yurt Dışı Satışlar (TL)
+                                            </th>
+                                            <th>
+                                                Toplam Ciro (Brüt Satışlar) (TL)
+                                            </th>
+                                            <th>
+                                                Ar-Ge Harcaması (TL)
+                                            </th>
+                                            <th>
+                                                Ar-Ge Sonucu Ortaya Çıkan Yeni Ürünlerden Elde Edilen Ciro (TL)
                                             </th>
                                             <th>
                                                 İşlemler
@@ -43,46 +62,45 @@
                                     <tbody>
                                         @foreach (var item in Model.FinancialInfoList)
                                         {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.NetSales)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TotalAsset)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.SortTermLoan)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.LongTermLoan)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.DomesticSales)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ExportSales)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.GrossSales)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.RDExpenditure)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.AcquisitionTurnover)
-                                            </td>
-                                            <td>
-                                                <div class="invoice-action">
-                                                    <a onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
-                                                        <i class="bx bx-edit"></i>
-                                                    </a>
-                                                    <a asp-action="PersonnelDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
-                                                        <i class="bx bx-trash"></i>
-                                                    </a>
-                                                </div>
-
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.NetSales)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TotalAsset)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.SortTermLoan)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.LongTermLoan)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.DomesticSales)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ExportSales)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.GrossSales)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.RDExpenditure)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.AcquisitionTurnover)
+                                                </td>
+                                                <td>
+                                                    <div class="invoice-action">
+                                                        <a onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                            <i class="bx bx-edit"></i>
+                                                        </a>
+                                                        <a asp-action="FinancialDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                            <i class="bx bx-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
                                 </table>
@@ -91,8 +109,59 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal fade text-left" id="addNewModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">
+                                    Yeni Finansal Bilgi Ekle
+                                </h3>
+                                <button type="button" class="close rounded-pill" data-dismiss="modal" aria-label="Kapat">
+                                    <i class="bx bx-x"></i>
+                                </button>
+                            </div>
+                            <form asp-action="FinancialInfo" method="post" id="jquery-val-form">
+                                <div class="modal-body" id="modalBody">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                                        Kapat
+                                    </button>
+                                    <button type="submit" class="btn btn-primary ml-1">
+                                        Kaydet
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </div>
 </div>
 <!-- END: Content-->
+<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
+<script>
+    var Create = function () {
+        $.ajax({
+            type: "POST",
+            url: "/Business/FinancialCreate",
+            success: function (response) {
+                $('#modalBody').html(response);
+                $('#addNewModal').modal('show');
+            }
+        })
+    }
+
+    var Update = function (id) {
+        $.ajax({
+            type: "POST",
+            url: "/Business/FinancialCreate",
+            data: { id: id },
+            success: function (response) {
+                $('#modalBody').html(response);
+                $('#addNewModal').modal('show');
+            }
+        })
+    }
+</script>

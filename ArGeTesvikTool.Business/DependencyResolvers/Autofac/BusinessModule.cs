@@ -3,24 +3,28 @@ using ArGeTesvikTool.Business.Abstract.Business;
 using ArGeTesvikTool.Business.Abstract.Home;
 using ArGeTesvikTool.Business.Abstract.Index;
 using ArGeTesvikTool.Business.Abstract.RdCenter;
+using ArGeTesvikTool.Business.Abstract.RdCenterPerformance;
 using ArGeTesvikTool.Business.Abstract.RdCenterPerson;
 using ArGeTesvikTool.Business.Abstract.RdCenterTech;
 using ArGeTesvikTool.Business.Concrete.Business;
 using ArGeTesvikTool.Business.Concrete.Home;
 using ArGeTesvikTool.Business.Concrete.Index;
 using ArGeTesvikTool.Business.Concrete.RdCenter;
+using ArGeTesvikTool.Business.Concrete.RdCenterPerformance;
 using ArGeTesvikTool.Business.Concrete.RdCenterPerson;
 using ArGeTesvikTool.Business.Concrete.RdCenterTech;
 using ArGeTesvikTool.DataAccess.Abstract;
 using ArGeTesvikTool.DataAccess.Abstract.Business;
 using ArGeTesvikTool.DataAccess.Abstract.Index;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenter;
+using ArGeTesvikTool.DataAccess.Abstract.RdCenterPerformance;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterPerson;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterTech;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Business;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Index;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenter;
+using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterPerformance;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterPerson;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterTech;
 using ArGeTesvikTool.WebUI.Helpers;
@@ -110,6 +114,11 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterTechIntellectualPropertyDal>().As<IRdCenterTechIntellectualPropertyDal>().SingleInstance();
             builder.RegisterType<RdCenterTechMentorInfoManager>().As<IRdCenterTechMentorInfoService>().SingleInstance();
             builder.RegisterType<EfRdCenterTechMentorInfoDal>().As<IRdCenterTechMentorInfoDal>().SingleInstance();
+            #endregion
+
+            #region RdCenterPerformance
+            builder.RegisterType<RdCenterPerformanceProjectManager>().As<IRdCenterPerformanceProjectService>().SingleInstance();
+            builder.RegisterType<EfRdCenterPerformanceProjectDal>().As<IRdCenterPerformanceProjectDal>().SingleInstance();
             #endregion
         }
     }

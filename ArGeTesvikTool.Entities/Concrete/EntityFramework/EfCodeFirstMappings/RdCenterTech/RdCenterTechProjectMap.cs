@@ -9,7 +9,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
     {
         public RdCenterTechProjectMap(EntityTypeBuilder<RdCenterTechProjectDto> entity)
         {
-            entity.ToTable("RdCenterTechOngoingProjects");
+            entity.ToTable("RdCenterTechProjects");
 
             entity.Property(x => x.Id)
                 .HasColumnName("Id");

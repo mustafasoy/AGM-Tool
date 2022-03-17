@@ -31,21 +31,19 @@
                 </div>
                 <ul class="nav navbar-nav float-right">
                     <li class="dropdown dropdown-language nav-item">
-                        <a class="dropdown-toggle nav-link" id="dropdown-flag" data-toggle="dropdown">
+                        <a class="dropdown-toggle nav-link">
                             <i class="ficon bx bx-calendar mr-50"></i>
-                            <span class="selected-language" id="year">
-                                @DateTime.Now.Year
-                            </span>
+                            <span class="selected-language" id="year"></span>
                         </a>
-                        <div class="dropdown-menu" id="yearList">
-                            @*@foreach (var item in (List<int>)TempData["FiscalYear"])
-                                {
-                                    <a class="dropdown-item">
-                                        <i class="ficon bx bx-calendar mr-50"></i>
-                                        @item
-                                    </a>
-                                }*@
-                        </div>
+                        @*<div class="dropdown-menu" id="yearList">
+                                @foreach (var item in (List<int>)TempData["FiscalYear"])
+                                    {
+                                        <a class="dropdown-item">
+                                            <i class="ficon bx bx-calendar mr-50"></i>
+                                            @item
+                                        </a>
+                                    }
+                            </div>*@
                     </li>
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link nav-link-expand">
@@ -107,3 +105,9 @@
     </div>
 </nav>
 <!-- END: Header-->
+<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#year').text(sessionStorage.getItem('year'))
+    });
+</script>

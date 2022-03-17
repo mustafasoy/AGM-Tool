@@ -7,18 +7,53 @@
 <div class="app-content content">
     <div class="content-wrapper">
         <div class="content-body">
-            <h4 class="text-primary">
-                Dışarıda Geçirilen Sürelere İlişkin Bilgiler
-            </h4>
-            <br />
             <section class="invoice-list-wrapper">
+                <div class="row match-height">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-primary">
+                                    Dışarıda Geçirilen Sürelere İlişkin Bilgiler
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <hr />
+                                <form asp-action="ImportExcel" method="post" enctype="multipart/form-data" id="fileUpload">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h6 class="invoice-address">
+                                                    Dışarıda Geçirilen Sürelere İlişkin Bilgiler
+                                                </h6>
+                                            </div>
+                                            <div class="col-8">
+                                                <fieldset class="form-group">
+                                                    <div class="custom-file">
+                                                        <input asp-for="FormFile" type="file" accept=".xls,.xlsx" class="custom-file-input">
+                                                        <label class="custom-file-label">Dosya seçin</label>
+                                                        <span asp-validation-for="FormFile" class="error"></span>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="invoice-create-btn mb-1">
                     <a class="btn btn-primary invoice-create" onclick="Create()">
-                        Yeni Süre Ekle
+                        Yeni Bilgi Ekle
                     </a>
                 </div>
                 <div class="users-list-table">
                     <div class="card">
+                        <div class="card-header">
+                        </div>
                         <div class="card-body">
                             <!-- datatable start -->
                             <div class="table-responsive">
@@ -101,13 +136,13 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h3 class="modal-title">
-                                    Yeni Personel Ekle
+                                    Yeni Bilgi Ekle
                                 </h3>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form asp-action="PersonInfo" method="post" id="jquery-val-form">
+                            <form asp-action="TimeAway" method="post" id="jquery-val-form">
                                 <div class="modal-body" id="modalBody">
                                 </div>
                                 <div class="modal-footer">
@@ -141,12 +176,20 @@
     })
 
     $(function () {
-        $("#jquery-val-form").validate({
+        $("#fileUpload").validate({
             rules: {
-                'NewTimeAwayInfo.IdentityNumber': {
+                'FormFile': {
                     required: true,
                 },
-                'NewTimeAwayInfo.ProjectCode': {
+            }
+        })
+
+        $("#jquery-val-form").validate({
+            rules: {
+                //'NewTimeInfo.IdentityNumber': {
+                //    required: true,
+                //},
+                'NewTimeInfo.ProjectCode': {
                     required: true,
                 },
             }

@@ -1,41 +1,42 @@
-﻿@{
+﻿@model FiscalYearViewModel
+@{
     ViewBag.Title = "AGM Teşvik Modül";
 }
 <div class="text-center">
     <img src="~/frest/app-assets/images/background/borusan.png" />
 </div>
 <!-- BEGIN: Content-->
-<!--<div class="app-content content">
+<div class="app-content content">
     <div class="content-overlay"></div>
     <div class="content-wrapper">
-        <div class="content-body">-->
-<!-- Basic Modals start -->
-<!--<section id="basic-modals">
-    <div class="row">
-        <div class="col-md-6 col-12">
-            <div class="card">-->
-<!--Basic Modal -->
-<!--<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-scrollable">
+        <div class="content-body">
+            <!-- Basic Modals start -->
+            <section id="basic-modals">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <!--Basic Modal -->
+                            <div class="modal fade text-left" id="default" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h3 class="modal-title" id="myModalLabel1">Yıl seçiniz</h3>
-                                            <button type="button" class="close rounded-pill" data-dismiss="modal" aria-label="Close">
-                                                <i class="bx bx-x"></i>
-                                            </button>
+                                            <h3 class="modal-title">Yıl seçiniz</h3>
+                                            @*<button type="button" class="close rounded-pill" data-dismiss="modal" aria-label="Close">
+                                                    <i class="bx bx-x"></i>
+                                                </button>*@
                                         </div>
                                         <div class="modal-body">
                                             <fieldset class="form-group">
-                                                <select class="form-control" id="basicSelect">
-                                                    <option>2019</option>
-                                                    <option>2020</option>
-                                                    <option>2021</option>
-                                                    <option>2022</option>
+                                                <select class="form-control" id="fiscalYear">
+                                                    @foreach (var item in Model.YearList)
+                                                    {
+                                                        <option>@item.Year</option>
+                                                    }
                                                 </select>
                                             </fieldset>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary ml-1" data-dismiss="modal">
+                                            <button type="button" class="btn btn-primary ml-1" data-dismiss="modal" onclick="selectOnChange()">
                                                 <i class="bx bx-check d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Seç</span>
                                             </button>
@@ -50,24 +51,30 @@
             </section>
         </div>
     </div>
-</div>-->
+</div>
 <!-- END: Content-->
-@*<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function () {
-            $('#default').modal('show');
-        });
-    </script>*@
+
 <script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
+        if (sessionStorage.getItem('default') !== 'true') {
+            $('#default').modal('show');
+            sessionStorage.setItem('default', 'true');
+        };
+
         var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
             toastr['success'](message, {
             showMethod: 'slideDown',
             hideMethod: 'slideUp',
-            timeOut: 2000,
-        })
-    };
-});
+                timeOut: 2000,
+            })
+        };
+    });
+
+    function selectOnChange() {
+        var valueSelected = $("#fiscalYear option:selected").text();
+        sessionStorage.setItem('year', valueSelected);
+        location.reload();
+    }
 </script>

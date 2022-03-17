@@ -7164,10 +7164,6 @@ button.bg-dark:focus {
     justify-content: space-around !important;
 }
 
-.justify-text {
-    text-align: justify;
-}
-
 .align-items-start {
     align-items: flex-start !important;
 }

@@ -65,7 +65,7 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         public DbSet<RdCenterTechAcademicLibraryDto> RdCenterTechAcademicLibraries { get; set; }
         public DbSet<RdCenterTechAttendedEventDto> RdCenterTechAttendedEvents { get; set; }
         public DbSet<RdCenterTechCollaborationDto> RdCenterTechCollaborations { get; set; }
-        public DbSet<RdCenterTechProjectDto> RdCenterTechOngoingProjects { get; set; }
+        public DbSet<RdCenterTechProjectDto> RdCenterTechProjects { get; set; }
         public DbSet<RdCenterTechSoftwareDto> RdCenterTechSoftwares { get; set; }
         public DbSet<RdCenterTechProjectManagementDto> RdCenterTechProjectManagements { get; set; }
         public DbSet<RdCenterTechMentorInfoDto> RdCenterTechMentorInfos { get; set; }

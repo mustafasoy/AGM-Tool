@@ -4,14 +4,16 @@ using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArGeTesvikTool.DataAccess.Migrations
 {
     [DbContext(typeof(AGMDbContext))]
-    partial class AGMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220316132946_fileupload_fix")]
+    partial class fileupload_fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

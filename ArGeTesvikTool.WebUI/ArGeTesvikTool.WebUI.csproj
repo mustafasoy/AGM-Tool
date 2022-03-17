@@ -16,8 +16,11 @@
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="Mapster" Version="7.2.0" />
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+    <PackageReference Include="Mapster" Version="7.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.13">
@@ -25,12 +28,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ArGeTesvikTool.Business\ArGeTesvikTool.Business.csproj" />
     <ProjectReference Include="..\ArGeTesvikTool.Core\ArGeTesvikTool.Core.csproj" />
     <ProjectReference Include="..\ArGeTesvikTool.Entities\ArGeTesvikTool.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
 </Project>

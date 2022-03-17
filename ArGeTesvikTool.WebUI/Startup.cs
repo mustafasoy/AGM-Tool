@@ -63,13 +63,15 @@ namespace ArGeTesvikTool.WebUI
 
             services
                 .AddMvc(option => option.EnableEndpointRouting = false);
-                //.AddJsonOptions(opts =>
-                //{
-                //    var enumConverter = new JsonStringEnumConverter();
-                //    opts.JsonSerializerOptions.Converters.Add(enumConverter);
-                //});
+            //.AddJsonOptions(opts =>
+            //{
+            //    var enumConverter = new JsonStringEnumConverter();
+            //    opts.JsonSerializerOptions.Converters.Add(enumConverter);
+            //});
 
             services
+                //.AddSession()
+                //.AddDistributedMemoryCache()
                 .AddControllersWithViews()
                 .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
@@ -85,11 +87,10 @@ namespace ArGeTesvikTool.WebUI
             }
 
             if (!env.IsDevelopment())
-            {
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
-            }
-
+            
             app.UseStaticFiles();
+            //app.UseSession();
             // Middleware used for microsoft identity
             app.UseAuthentication();
             app.UseMvc(ConfigureRoutes);//app.UseMvcWithDefaultRoute();

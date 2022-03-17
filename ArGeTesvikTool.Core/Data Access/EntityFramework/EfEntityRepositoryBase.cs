@@ -18,6 +18,13 @@ namespace ArGeTesvikTool.Core.Data_Access.EntityFramework
             context.SaveChanges();
         }
 
+        public void AddList(List<TEntity> entity)
+        {
+            using TContext context = new();
+            context.AddRange(entity);
+            context.SaveChanges();
+        }
+
         public void Update(TEntity entity)
         {
             using TContext context = new();

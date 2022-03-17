@@ -4,14 +4,16 @@ using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArGeTesvikTool.DataAccess.Migrations
 {
     [DbContext(typeof(AGMDbContext))]
-    partial class AGMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220316151155_timeaway_fix")]
+    partial class timeaway_fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1417,6 +1419,15 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ActivityType");
 
+                    b.Property<byte[]>("Content")
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnName("Content");
+
+                    b.Property<string>("ContentType")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("FileExtension");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("date")
                         .HasColumnName("CreatedDate");
@@ -1425,6 +1436,11 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("CreatedUserName");
+
+                    b.Property<string>("FileName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("FileName");
 
                     b.Property<string>("IdentityNumber")
                         .HasMaxLength(11)

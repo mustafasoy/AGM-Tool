@@ -1,0 +1,66 @@
+﻿@model FinancialInfoViewModel
+
+<input asp-for="NewFinancialInfo.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Net Satışlar (TL)
+</h6>
+<div class="form-group">
+    <input asp-for="NewFinancialInfo.NetSales" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Toplam Bilanço (Aktifler Toplamı) (TL)
+</h6>
+<div class="form-group">
+    <input asp-for="NewFinancialInfo.TotalAsset" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Kısa Vadeli Borçlar (TL)
+</h6>
+<div class="form-group">
+    <input asp-for="NewFinancialInfo.SortTermLoan" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Uzun Vadeli Borçlar (TL)
+</h6>
+<div class="form-group">
+    <input asp-for="NewFinancialInfo.LongTermLoan" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Yurt İçi Satışlar (TL)
+</h6>
+<div class="form-group">
+    <input asp-for="NewFinancialInfo.DomesticSales" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Yurt Dışı Satışlar (TL)
+</h6>
+<div class="form-group">
+    <input asp-for="NewFinancialInfo.ExportSales" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Toplam Ciro (Brüt Satışlar) (TL)
+</h6>
+<div class="form-group">
+    <input asp-for="NewFinancialInfo.GrossSales" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Ar-Ge Harcaması (TL)
+</h6>
+<div class="form-group">
+    <input asp-for="NewFinancialInfo.RDExpenditure" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Ar-Ge Sonucu Ortaya Çıkan Yeni Ürünlerden Elde Edilen Ciro (TL)
+</h6>
+<div class="form-group">
+    <input asp-for="NewFinancialInfo.AcquisitionTurnover" class="form-control">
+</div>

@@ -6,7 +6,8 @@
     T.C. Kimlik No / Yabancı Kimlik No
 </h6>
 <div class="form-group">
-    <input asp-for="NewTimeInfo.IdentityNumber" type="number" maxlength="11" onkeydown="return event.keyCode !== 69" class="form-control">
+    <input asp-for="NewTimeInfo.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control">
+    <span asp-validation-for="NewTimeInfo.IdentityNumber" class="error"></span>
 </div>
 
 <h6 class="invoice-address">
@@ -20,14 +21,18 @@
     Faaliyet Türü
 </h6>
 <div class="form-group">
-    <input asp-for="NewTimeInfo.ActivityType" class="form-control">
+    <select asp-for="NewTimeInfo.ActivityType" asp-items="Html.GetEnumSelectList<ActivityType>()" class="form-control">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
 </div>
 
 <h6 class="invoice-address">
     Yıl
 </h6>
 <div class="form-group">
-    <input asp-for="NewTimeInfo.Month" type="number" maxlength="4" onkeydown="return event.keyCode !== 69" class="form-control">
+    <input asp-for="NewTimeInfo.Year" type="number" maxlength="4" onkeydown="return event.keyCode !== 69" class="form-control">
 </div>
 
 <h6 class="invoice-address">

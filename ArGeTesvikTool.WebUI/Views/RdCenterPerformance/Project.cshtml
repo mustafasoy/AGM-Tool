@@ -91,7 +91,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form asp-action="Proje" method="post" id="jquery-val-form">
+                            <form asp-action="Project" method="post" id="jquery-val-form">
                                 <div class="modal-body" id="modalBody">
                                 </div>
                                 <div class="modal-footer">
@@ -140,7 +140,7 @@
     var Create = function () {
         $.ajax({
             type: "POST",
-            url: "/RdCenterPerson/ProjeCreate",
+            url: "/RdCenterPerformance/ProjectCreate",
             success: function (response) {
                 $('#modalBody').html(response);
                 $('#addNewModal').modal('show');
@@ -151,7 +151,7 @@
     var Update = function (id) {
         $.ajax({
             type: "POST",
-            url: "/RdCenterPerson/ProjeUpdate",
+            url: "/RdCenterPerformance/ProjectCreate",
             data: { id: id },
             success: function (response) {
                 $('#modalBody').html(response);
