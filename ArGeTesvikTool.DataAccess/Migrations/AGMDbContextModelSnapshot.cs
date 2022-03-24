@@ -16,7 +16,7 @@ namespace ArGeTesvikTool.DataAccess.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.13")
+                .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.Business.BusinessContactDto", b =>
@@ -444,8 +444,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("BachelorDegree");
 
                     b.Property<string>("CompanyUnit")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("CompanyUnit");
 
                     b.Property<DateTime>("CreatedDate")
@@ -695,7 +696,48 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                     b.HasIndex("Year")
                         .IsUnique();
 
-                    b.ToTable("NewDatas");
+                    b.ToTable("IndexNewDatas");
+                });
+
+            modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.Pacs.PersonelAttendanceDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EventTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("EventTime");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("PersonnelNumber")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("PersonnelNumber");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Surname");
+
+                    b.Property<int>("TerminalId")
+                        .HasColumnType("int")
+                        .HasColumnName("TerminalId");
+
+                    b.Property<string>("TerminalName")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TerminalName");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PersonnelAttendances");
                 });
 
             modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenter.RdCenterAmountDto", b =>
@@ -1053,10 +1095,15 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("Address");
 
-                    b.Property<string>("City")
+                    b.Property<string>("CityCode")
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)")
+                        .HasColumnName("CityCode");
+
+                    b.Property<string>("CityText")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("City");
+                        .HasColumnName("CityText");
 
                     b.Property<string>("CompanyName")
                         .HasMaxLength(256)
@@ -1103,8 +1150,8 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("OtherArea");
 
                     b.Property<string>("PhoneNumber")
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)")
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)")
                         .HasColumnName("PhoneNumber");
 
                     b.Property<string>("RegistrationNo")
@@ -1298,8 +1345,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("CreatedUserName");
 
                     b.Property<string>("EducationStatu")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)")
                         .HasColumnName("EducationStatu");
 
                     b.Property<string>("GraduateUniversity")
@@ -1577,6 +1625,7 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Collaboration")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("Collaboration");
@@ -1936,8 +1985,8 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Content");
 
                     b.Property<string>("ContentType")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
                         .HasColumnName("FileExtension");
 
                     b.Property<DateTime>("CreatedDate")

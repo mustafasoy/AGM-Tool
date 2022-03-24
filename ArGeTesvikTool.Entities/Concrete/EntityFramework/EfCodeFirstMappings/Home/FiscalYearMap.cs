@@ -1,5 +1,4 @@
-﻿using ArGeTesvikTool.Core.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings

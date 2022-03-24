@@ -1,0 +1,428 @@
+﻿<!-- business info-->
+<li class="nav-item has-sub">
+    <a href="#">
+        <i class="bx bx-bulb"></i>
+        <span class="menu-title text-truncate" data-i18n="Business General Info">
+            İşletme Genel Bilgileri
+        </span>
+    </a>
+    <ul class="menu-content">
+        <li active-when="/Business/Contact">
+            <a asp-controller="Business" asp-action="Contact" asp-route-year="2022">
+                <i class="bx bx-street-view"></i>
+                <span class="menu-item text-truncate" data-i18n="Business Contact">
+                    İşletme Yetkilisi
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/Info">
+            <a asp-controller="Business" asp-action="Info" asp-route-year="2022">
+                <i class="bx bx-sitemap"></i>
+                <span class="menu-title text-truncate" data-i18n="Business Info">
+                    İşletme Bilgileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/Intro">
+            <a asp-controller="Business" asp-action="Intro" asp-route-year="2022">
+                <i class="bx bx-info-circle"></i>
+                <span class="menu-title text-truncate" data-i18n="Business Intro">
+                    İşletme Tanıtıcı Bilgileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/GroupInfo">
+            <a asp-controller="Business" asp-action="GroupInfo" asp-route-year="2022">
+                <i class="bx bx-shape-circle"></i>
+                <span class="menu-title text-truncate" data-i18n="Group Info">
+                    Bağlı Olduğu Holding
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/Shareholder">
+            <a asp-controller="Business" asp-action="Shareholder" asp-route-year="2022">
+                <i class="bx bx-user-plus"></i>
+                <span class="menu-title text-truncate" data-i18n="Shareholders">
+                    İşletme Ortakları
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/Schema">
+            <a asp-controller="Business" asp-action="Schema" asp-route-year="2022">
+                <i class="bx bx-line-chart"></i>
+                <span class="menu-title text-truncate" data-i18n="Business Schema">
+                    Organizasyon Şeması
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/PersonnelDistribution">
+            <a asp-controller="Business" asp-action="PersonnelDistribution" asp-route-year="2022">
+                <i class="bx bxs-group"></i>
+                <span class="menu-item text-truncate" data-i18n="Personnel Distribution">
+                    Personel Dağılımı
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/Strategy">
+            <a asp-controller="Business" asp-action="Strategy" asp-route-year="2022">
+                <i class="bx bx-doughnut-chart"></i>
+                <span class="menu-item text-truncate" data-i18n="RD Strategy">
+                    Ar-Ge Stratejileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/Business/FinancialInfo">
+            <a asp-controller="Business" asp-action="FinancialInfo" asp-route-year="2022">
+                <i class="bx bx-wallet"></i>
+                <span class="menu-title text-truncate" data-i18n="Business Financial Info">
+                    Mali ve Finanslar Bilgi
+                </span>
+            </a>
+        </li>
+    </ul>
+</li>
+<!-- business info end-->
+<!-- rd center info-->
+<li class="nav-item has-sub">
+    <a href="#">
+        <i class="bx bx-buildings"></i>
+        <span class="menu-title text-truncate" data-i18n="RD General Info">
+            AGM Genel Bilgileri
+        </span>
+    </a>
+    <ul class="menu-content">
+        <li active-when="/RdCenter/Contact">
+            <a asp-controller="RdCenter" asp-action="Contact" asp-route-year="2022">
+                <i class="bx bx-task"></i>
+                <span class="menu-title text-truncate" data-i18n="RD Contact">
+                    AGM Yetkilisi
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenter/Info">
+            <a asp-controller="RdCenter" asp-action="Info" asp-route-year="2022">
+                <i class="bx bx-info-circle"></i>
+                <span class="menu-item text-truncate" data-i18n="RD Info">
+                    AGM Bilgileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenter/Schema">
+            <a asp-controller="RdCenter" asp-action="Schema" asp-route-year="2022">
+                <i class="bx bx-git-repo-forked"></i>
+                <span class="menu-item text-truncate" data-i18n="RD Setup Schema">
+                    Organizasyon Şeması
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenter/PhysicalArea">
+            <a asp-controller="RdCenter" asp-action="PhysicalArea" asp-route-year="2022">
+                <i class="bx bxs-component"></i>
+                <span class="menu-item text-truncate" data-i18n="RD Physical Area">
+                    AGM Fiziki Alan Bilgi
+                </span>
+            </a>
+        </li>
+        <li class="has-sub is-shown">
+            <a class="d-flex align-items-center" href="#">
+                <i class="bx bx-credit-card"></i>
+                <span class="menu-item text-truncate" data-i18n="RD Financal">
+                    Mali ve Finansal Bilgileri
+                </span>
+            </a>
+            <ul class="menu-content" style="">
+                <li active-when="/RdCenter/Discount">
+                    <a asp-controller="RdCenter" asp-action="Discount" asp-route-year="2022">
+                        <i class="bx bx-receipt"></i>
+                        <span class="menu-item text-truncate" data-i18n="Rd Discount">
+                            Ar-Ge İndirimine Konu Olan
+                        </span>
+                    </a>
+                </li>
+                <li active-when="/RdCenter/Amount">
+                    <a asp-controller="RdCenter" asp-action="Amount" asp-route-year="2022">
+                        <i class="bx bx-detail"></i>
+                        <span class="menu-item text-truncate" data-i18n="Rd Amount">
+                            5746 Sayılı Kanun Kapsamında
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li active-when="/RdCenter/ProjectFinancalInfo">
+            <a asp-controller="RdCenter" asp-action="ProjectFinancalInfo" asp-route-year="2022">
+                <i class="bx bxl-stripe"></i>
+                <span class="menu-item text-truncate" data-i18n="RD Physical Area">
+                    Proje Bazında Finansal Bilgi
+                </span>
+            </a>
+        </li>
+    </ul>
+</li>
+<!-- rd center info end-->
+<!-- rd center person-->
+<li class="nav-item has-sub">
+    <a href="#">
+        <i class="bx bx-id-card"></i>
+        <span class="menu-title text-truncate" data-i18n="Personel Info">
+            AGM Personel Bilgileri
+        </span>
+    </a>
+    <ul class="menu-content">
+        <li active-when="/RdCenterPerson/PersonInfo">
+            <a asp-controller="RdCenterPerson" asp-action="PersonInfo" asp-route-year="2022">
+                <i class="bx bx-user-plus"></i>
+                <span class="menu-item text-truncate" data-i18n="Working Staff Info">
+                    Çalışan Personel Bilgileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterPerson/StaffInfo">
+            <a asp-controller="RdCenterPerson" asp-action="StaffInfo" asp-route-year="2022">
+                <i class="bx bx-user-pin"></i>
+                <span class="menu-item text-truncate" data-i18n="Staff Info">
+                    AGM Personel Bilgileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterPerson/Reward">
+            <a asp-controller="RdCenterPerson" asp-action="Reward" asp-route-year="2022">
+                <i class="bx bx-chart"></i>
+                <span class="menu-title text-truncate" data-i18n="Reward System">
+                    Perf.Değ./Ödül Sistemi
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterPerson/TimeAway">
+            <a asp-controller="RdCenterPerson" asp-action="TimeAway" asp-route-year="2022">
+                <i class="bx bx-timer"></i>
+                <span class="menu-title text-truncate" data-i18n="Time Away">
+                    Dışarıda Geçirilen Süre
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterPerson/SupportedProgram">
+            <a asp-controller="RdCenterPerson" asp-action="SupportedProgram" asp-route-year="2022">
+                <i class="bx bx-git-compare"></i>
+                <span class="menu-title text-truncate" data-i18n="Supported Program">
+                    Desteklenecek Program
+                </span>
+            </a>
+        </li>
+    </ul>
+</li>
+<!-- rd center person end-->
+<!-- rd center tech-->
+<li class="nav-item">
+    <a href="#">
+        <i class="bx bx-cog"></i>
+        <span class="menu-item text-truncate" data-i18n="Performance Info">
+            AGM Teknik Bilgileri
+        </span>
+    </a>
+    <ul class="menu-content">
+        <li active-when="/RdCenterTech/OngoingProject">
+            <a asp-controller="RdCenterTech" asp-action="OngoingProject" asp-route-year="2022">
+                <i class="bx bx-rotate-right"></i>
+                <span class="menu-item text-truncate" data-i18n="Ongoing Project">
+                    Devam Eden Projeler
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/CompletedProject">
+            <a asp-controller="RdCenterTech" asp-action="CompletedProject" asp-route-year="2022">
+                <i class="bx bx-check-circle"></i>
+                <span class="menu-item text-truncate" data-i18n="Completed Project">
+                    Tamamlanan Projeler
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/CanceledProject">
+            <a asp-controller="RdCenterTech" asp-action="CanceledProject" asp-route-year="2022">
+                <i class="bx bx-x-circle"></i>
+                <span class="menu-item text-truncate" data-i18n="Canceled Project">
+                    İptal Edilen Projeler
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/ProjectManagement">
+            <a asp-controller="RdCenterTech" asp-action="ProjectManagement" asp-route-year="2022">
+                <i class="bx bx-category-alt"></i>
+                <span class="menu-item text-truncate" data-i18n="Project Management">
+                    Proje Yönetim Süreci
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/Collaboration">
+            <a asp-controller="RdCenterTech" asp-action="Collaboration" asp-route-year="2022">
+                <i class="bx bx-compass"></i>
+                <span class="menu-item text-truncate" data-i18n="International Collaboration">
+                    Uluslararası İşbirlikleri
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/AcademicLibrary">
+            <a asp-controller="RdCenterTech" asp-action="AcademicLibrary" asp-route-year="2022">
+                <i class="bx bx-data"></i>
+                <span class="menu-item text-truncate" data-i18n="Academic Library">
+                    Kütüphane/Veri Tabanı
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/AttendedEvent">
+            <a asp-controller="RdCenterTech" asp-action="AttendedEvent" asp-route-year="2022">
+                <i class="bx bx-book-bookmark"></i>
+                <span class="menu-item text-truncate" data-i18n="Attended Event">
+                    Katılınan Etkinlik/Eğitim
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/Property">
+            <a asp-controller="RdCenterTech" asp-action="Property" asp-route-year="2022">
+                <i class="bx bx-copyright"></i>
+                <span class="menu-item text-truncate" data-i18n="Intellectual Property">
+                    Fikri/Sınai Mülkiyet Hak.
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/MentorInfo">
+            <a asp-controller="RdCenterTech" asp-action="MentorInfo" asp-route-year="2022">
+                <i class="bx bx-user-voice"></i>
+                <span class="menu-item text-truncate" data-i18n="Mentor Info">
+                    Mentörlük Bilgileri
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterTech/Software">
+            <a asp-controller="RdCenterTech" asp-action="Software" asp-route-year="2022">
+                <i class="bx bx-file"></i>
+                <span class="menu-item text-truncate" data-i18n="Software Info">
+                    Ekipman ve Yazılım Liste
+                </span>
+            </a>
+        </li>
+    </ul>
+</li>
+<!-- rd center tech end-->
+<!-- rd center performance-->
+<li class="nav-item">
+    <a href="#">
+        <i class="bx bx-bar-chart-alt"></i>
+        <span class="menu-item text-truncate" data-i18n="Performance Info">
+            AGM Performan Takip
+        </span>
+    </a>
+    <ul class="menu-content">
+        <li class="nav-item">
+            <a href="#">
+                <i class="bx bx-spreadsheet"></i>
+                <span class="menu-item text-truncate" data-i18n="Taken Decision">
+                    Değer. Top. Alınan Karar
+                </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#">
+                <i class="bx bx-stats"></i>
+                <span class="menu-item text-truncate" data-i18n="Performance Criteria">
+                    AGM Performans Kriteri
+                </span>
+            </a>
+        </li>
+        <li active-when="/RdCenterPerformanceController/Project">
+            <a asp-controller="RdCenterPerformance" asp-action="Project" asp-route-year="2022">
+                <i class="bx bx-bar-chart-square"></i>
+                <span class="menu-item text-truncate" data-i18n="Commercial Project">
+                    Ticari Proje Rapor
+                </span>
+            </a>
+        </li>
+    </ul>
+</li>
+<!-- rd center performance end-->
+<!-- index-->
+<li class="nav-item">
+    <a href="#">
+        <i class="bx bx-chart"></i>
+        <span class="menu-item text-truncate" data-i18n="Index Data">
+            Endesk Verileri
+        </span>
+    </a>
+    <ul class="menu-content">
+        <li active-when="/Index/NewData">
+            <a asp-controller="Index" asp-action="NewData" asp-route-year="2022">
+                <i class="bx bx-customize"></i>
+                <span class="menu-item text-truncate" data-i18n="New Data">
+                    Endeks Bilgileri Ekle
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/Employment">
+            <a asp-controller="Index" asp-action="Employment" asp-route-year="2022">
+                <i class="bx bx-id-card"></i>
+                <span class="menu-item text-truncate" data-i18n="Employment Info">
+                    İstihdama Daire Bilgiler
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/SpendingIntensity">
+            <a asp-controller="Index" asp-action="SpendingIntensity" asp-route-year="2022">
+                <i class="bx bx-bar-chart"></i>
+                <span class="menu-item text-truncate" data-i18n="Spending Intensity">
+                    Harcama Yoğ. Dair Bilgier
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/ProjectCapacity">
+            <a asp-controller="Index" asp-action="ProjectCapacity" asp-route-year="2022">
+                <i class="bx bx-line-chart"></i>
+                <span class="menu-item text-truncate" data-i18n="Project Capacity">
+                    Proje Kap. Dair Bilgiler
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/Cooperation">
+            <a asp-controller="Index" asp-action="Cooperation" asp-route-year="2022">
+                <i class="bx bx-sitemap"></i>
+                <span class="menu-item text-truncate" data-i18n="Cooperation Info">
+                    İşbirliği ve Etk. Dair Bilgiler
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/Commercialization">
+            <a asp-controller="Index" asp-action="Commercialization" asp-route-year="2022">
+                <i class="bx bx-buildings"></i>
+                <span class="menu-item text-truncate" data-i18n="Commercialization Info">
+                    Tic. Dair Bilgiler
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/PropertyCompetence">
+            <a asp-controller="Index" asp-action="PropertyCompetence" asp-route-year="2022">
+                <i class="bx bx-lock-open-alt"></i>
+                <span class="menu-item text-truncate" data-i18n="Property Competence">
+                    Fikri Mülkiyet Yet. Dair Bilgiler
+                </span>
+            </a>
+        </li>
+        <li active-when="/Index/Other">
+            <a asp-controller="Index" asp-action="Other" asp-route-year="2022">
+                <i class="bx bx-data"></i>
+                <span class="menu-item text-truncate" data-i18n="Other Info">
+                    Diğer Bilgier
+                </span>
+            </a>
+        </li>
+    </ul>
+</li>
+<!-- index end-->
+<!-- result/output-->
+<li class="nav-item">
+    <a href="#">
+        <i class="bx bx-printer"></i>
+        <span class="menu-title text-truncate" data-i18n="Output">
+            Sonuç/Rapor/Çıktı
+        </span>
+    </a>
+</li>
+<!-- result/output end-->

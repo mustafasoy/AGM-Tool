@@ -77,7 +77,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult PersonInfo(RdCenterPersonViewModel personViewModel)
         {
             var personInfo = _infoService.GetById(personViewModel.NewPersonnelInfo.Id);
@@ -121,7 +120,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Reward(RdCenterRewardViewModel rewardViewModel)
         {
             var reward = _rewardService.GetByYear(rewardViewModel.Reward.Year);
@@ -198,7 +196,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult ImportExcel(IFormFile formFile)
         {
             string fileName = Path.Combine(_hostEnvironment.WebRootPath, "files", formFile.FileName);
@@ -215,7 +212,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult ExportExcel()
         {
             //build the file path.
@@ -228,7 +224,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult TimeAway(RdCenterPersonTimeAwayViewModel timeAwayViewModel)
         {
             var timeAway = _timeAwayService.GetById(timeAwayViewModel.NewTimeInfo.Id);
@@ -308,7 +303,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
                 .Select(s => new RdCenterPersonStaffInfoDto
                 {
                     PersonPosition = s.Key.ToString(),
-                    EducationStatu = s.FirstOrDefault().EducationStatu,
+                    EducationStatu = s.FirstOrDefault().EducationStatu.ToString(),
                     PersonNumber = s.Count()
                 })
                 .ToList();
@@ -332,12 +327,23 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         public IActionResult SupportedProgram(int year)
         {
             var personInfoList = _infoService.GetAllByYear(year);
-
-            List<RdCenterPersonInfoDto> supportedProgramList = personInfoList.Where(x => (x.EducationStatu.Contains("Lisans") || x.EducationStatu.Contains("Yüksek Lisans") ||
-                                                                                          x.EducationStatu.Contains("Doktora")) &&
-                                                                                         (x.UniversityDepartmant.Contains("Fizik") || x.UniversityDepartmant.Contains("Kimya") ||
-                                                                                          x.UniversityDepartmant.Contains("Biyoloji") || x.UniversityDepartmant.Contains("Matematik")))
-                                                                             .ToList();
+            List<RdCenterPersonInfoDto> supportedProgramList = personInfoList.Where(x => new[]
+                                                                                              {
+                                                                                                EducationStatu.Lisans,
+                                                                                                EducationStatu.YuksekLisans,
+                                                                                                EducationStatu.Doktora
+                                                                                               }
+                                                                                               .Contains(x.EducationStatu)
+                                                                                               &&
+                                                                                              new[]
+                                                                                              {
+                                                                                                "Fizik",
+                                                                                                "Kimya",
+                                                                                                "Biyoloji",
+                                                                                                "Matematik"
+                                                                                               }
+                                                                                               .Contains(x.UniversityDepartmant))
+                                                                               .ToList();
 
             RdCenterPersonViewModel supportedProgramViewModel = new()
             {

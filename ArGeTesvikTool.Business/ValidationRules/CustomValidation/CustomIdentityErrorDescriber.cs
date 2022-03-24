@@ -38,6 +38,11 @@ namespace ArGeTesvikTool.Business.ValidationRules.CustomValidation
         {
             return new IdentityError() { Code = "PasswordMismatch", Description = "Eski şifreniz hatalı." };
         }
+
+        public override IdentityError PasswordRequiresUpper()
+        {
+            return new IdentityError() { Code = "PasswordRequiresUpper", Description = "Şifreniz en az bir büyük harf ('A'-'Z') içermelidir." };
+        }
         #endregion
     }
 }

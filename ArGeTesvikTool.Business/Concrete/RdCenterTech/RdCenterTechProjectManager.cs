@@ -38,7 +38,7 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterTech
         public List<RdCenterTechProjectDto> GetAllByYearStatu(int year, string projectStatus)
         {
             return _rdCenterTechProject.GetList(x => x.Year == year &&
-                                                     x.ProjectStatu == ProjectStatu.Iptal);
+                                                     x.ProjectStatu == (ProjectStatu)Enum.Parse(typeof(ProjectStatu), projectStatus));
         }
     }
 }

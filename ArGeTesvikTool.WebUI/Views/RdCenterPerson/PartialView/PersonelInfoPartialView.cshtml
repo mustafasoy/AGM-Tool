@@ -27,7 +27,11 @@
     Eğitim Durumu
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.EducationStatu" class="form-control">
+    <select asp-for="NewPersonnelInfo.EducationStatu" asp-items="Html.GetEnumSelectList<EducationStatu>()" class="form-control">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
 </div>
 
 <h6 class="invoice-address">
@@ -48,7 +52,11 @@
     Görevi
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.PersonPosition" class="form-control">
+    <select asp-for="NewPersonnelInfo.PersonPosition" asp-items="Html.GetEnumSelectList<PersonPosition>()" class="form-control">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
 </div>
 
 <h6 class="invoice-address">

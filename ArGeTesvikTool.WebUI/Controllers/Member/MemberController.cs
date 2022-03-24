@@ -39,7 +39,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Member
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditViewModel userInfoChangeViewModel)
         {
             if (CheckUserInfo(userInfoChangeViewModel.User))
@@ -74,7 +73,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Member
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPassword(EditViewModel passwordInfoChangeViewModel)
         {
             var currentUser = GetCurrentUser;

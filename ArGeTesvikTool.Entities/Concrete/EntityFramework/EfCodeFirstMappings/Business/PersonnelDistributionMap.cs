@@ -1,6 +1,7 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.Business;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
 {
@@ -14,12 +15,14 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
                 .HasColumnName("Id");
 
             entity.Property(x => x.Year)
-                .HasColumnName("Year").HasMaxLength(4);
+                .HasColumnName("Year")
+                .HasMaxLength(4);
 
             entity.Property(x => x.CompanyUnit)
                 .HasColumnName("CompanyUnit")
-                .HasMaxLength(256);
-            
+                .HasMaxLength(20)
+                .HasConversion(x => x.ToString(), x => (CompanyUnit)Enum.Parse(typeof(CompanyUnit), x));
+
             entity.Property(x => x.PostDoctoral)
                 .HasColumnName("PostDoctoral");
             

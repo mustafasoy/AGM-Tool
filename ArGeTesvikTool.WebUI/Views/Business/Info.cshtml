@@ -52,11 +52,13 @@
                                             İl
                                         </h6>
                                     </div>
-                                    <input asp-for="BusinessInfo.CityCode" type="hidden" class="form-control">
+                                    <input asp-for="BusinessInfo.CityText" type="hidden" class="form-control" />
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group">
-                                            <select asp-for="BusinessInfo.CityText" id="city" class="select2 form-control select2-hidden-accessible">
-                                                <option selected="selected" value="">Seçiniz</option>
+                                            <select asp-for="BusinessInfo.CityCode" id="city" class="select2 form-control select2-hidden-accessible">
+                                                <option selected="selected" value="">
+                                                    Seçiniz
+                                                </option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -91,7 +93,7 @@
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="BusinessInfo.Date" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                            <input asp-for="BusinessInfo.Date" type="text" asp-format="{0:dd-MM-yyyy}" class="form-control pickadate-months-year" placeholder="Tarih seçin">
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>
@@ -104,7 +106,7 @@
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="BusinessInfo.PublishDate" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                            <input asp-for="BusinessInfo.PublishDate" type="text" asp-format="{0:dd-MM-yyyy}" class="form-control pickadate-months-year" placeholder="Tarih seçin">
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>
@@ -196,10 +198,13 @@
 <script src="~/frest/app-assets/js/core/libraries/jquery.min.js"></script>
 <script src="~/frest/app-assets/js/phone-mask.js"></script>
 <script src="~/frest/app-assets/js/list-city.js"></script>
-
 <script>
     $(document).ready(function () {
         $("#city").val('@ViewBag.City');
         $("#city").change();
+
+        $("#city").on("change", function () {
+            $('input[name="BusinessInfo.CityText"]').val($("#city option:selected").text());
+        })
     });
 </script>

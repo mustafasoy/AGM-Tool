@@ -3,16 +3,21 @@ using ArGeTesvikTool.Entities.Concrete.Business;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Business;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Index;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Pacs;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenter;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerformance;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerson;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech;
 using ArGeTesvikTool.Entities.Concrete.Index;
+using ArGeTesvikTool.Entities.Concrete.Pacs;
 using ArGeTesvikTool.Entities.Concrete.RdCenter;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerformance;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using System.Reflection;
 
 namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
 {
@@ -20,12 +25,23 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=TR996928-1809;Initial Catalog=AGMDb;Integrated Security=True;MultipleActiveResultSets=True;");
-            //optionsBuilder.UseSqlServer(@"Data Source=tr-ankapptwv005;Initial Catalog=AGMDb;persist security info=True;user id=SGK_TESVIK;password=Taxtech12;MultipleActiveResultSets=True");
+            var settingPath = Path.GetFullPath(Path.Combine(@"../ArGeTesvikTool.WebUI/appsettings.json"));
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location))
+                .AddJsonFile(settingPath);
+
+            var configuration = builder.Build();
+
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DbConnection"));
         }
 
         #region Home Db Map
         public DbSet<FiscalYearDto> FiscalYears { get; set; }
+        #endregion
+
+        #region Pacs
+        public DbSet<PersonelAttendanceDto> PersonelAttendances { get; set; }
         #endregion
 
         #region Index Db Map
@@ -80,6 +96,10 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         {
             #region Home Db Map
             _ = new FiscalYearMap(modelBuilder.Entity<FiscalYearDto>());
+            #endregion
+
+            #region Pacs
+            _ = new PersonelAttendanceMap(modelBuilder.Entity<PersonelAttendanceDto>());
             #endregion
 
             #region Index Db Map

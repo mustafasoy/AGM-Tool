@@ -4,15 +4,16 @@ using ArGeTesvikTool.Business.ValidationRules.FluentValidation.Business;
 using ArGeTesvikTool.Entities.Concrete.Business;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.Business;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace ArGeTesvikTool.WebUI.Controllers.Business
 {
+    [Authorize]
     public class BusinessController : BaseController
     {
         private readonly IBusinessContactService _contactService;
@@ -51,7 +52,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Contact(BusinessContactViewModel contactViewModel)
         {
             var validate = ValidatorTool.Validate(new BusinessContactValidator(), contactViewModel.BusinessContact);
@@ -113,7 +113,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Info(BusinessInfoViewModel infoViewModel)
         {
             var validate = ValidatorTool.Validate(new BusinessInfoValidator(), infoViewModel.BusinessInfo);
@@ -162,7 +161,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Intro(BusinessIntroViewModel introViewModel)
         {
             var intro = _introService.GetByYear(introViewModel.BusinessIntro.Year);
@@ -201,7 +199,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult GroupInfo(GroupInfoViewModel groupInfoViewModel)
         {
             var validate = ValidatorTool.Validate(new BusinessGroupInfoValidator(), groupInfoViewModel.GroupInfo);
@@ -285,7 +282,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Shareholder(ShareholderViewModel shareholderViewModel)
         {
             var shareholder = _shareholderService.GetById(shareholderViewModel.NewShareholder.Id);
@@ -329,6 +325,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return View(personnelDistributionViewModel);
         }
 
+        [IgnoreAntiforgeryToken]
         public IActionResult PersonnelCreate()
         {
             PersonnelDistributionDto personnel = new();
@@ -363,7 +360,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult PersonnelDistribution(PersonnelDistributionViewModel distributionViewModel)
         {
             var shareholder = _personnelService.GetById(distributionViewModel.NewPersonnel.Id);
@@ -441,7 +437,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult FinancialInfo(FinancialInfoViewModel financialInfoViewModel)
         {
             var financialInfo = _financialService.GetById(financialInfoViewModel.NewFinancialInfo.Id);
@@ -506,7 +501,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Schema(BusinessSchemaViewModel schemaViewModel, List<IFormFile> formFile)
         {
             if (ModelState.IsValid)
@@ -565,7 +559,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Strategy(StrategyViewModel strategyViewModel)
         {
             var strategy = _strategyService.GetByYear(strategyViewModel.Strategy.Year);

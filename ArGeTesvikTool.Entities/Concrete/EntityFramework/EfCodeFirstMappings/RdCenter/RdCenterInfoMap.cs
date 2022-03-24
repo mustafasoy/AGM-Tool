@@ -36,13 +36,17 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("Location")
                 .HasMaxLength(256);
 
-            entity.Property(x => x.City)
-                .HasColumnName("City")
+            entity.Property(x => x.CityCode)
+                .HasColumnName("CityCode")
+                .HasMaxLength(2);
+
+            entity.Property(x => x.CityText)
+                .HasColumnName("CityText")
                 .HasMaxLength(50);
 
             entity.Property(x => x.PhoneNumber)
                 .HasColumnName("PhoneNumber")
-                .HasMaxLength(11);
+                .HasMaxLength(14);
 
             entity.Property(x => x.Mail)
                 .HasColumnName("Mail")

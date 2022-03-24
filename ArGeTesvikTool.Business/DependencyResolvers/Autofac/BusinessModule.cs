@@ -36,7 +36,7 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<PasswordSendMail>().As<IMailService>().SingleInstance();
+            builder.RegisterType<MailManager>().As<IMailService>().SingleInstance();
 
             #region Home
             builder.RegisterType<FiscalYearManager>().As<IFiscalYearService>().SingleInstance();

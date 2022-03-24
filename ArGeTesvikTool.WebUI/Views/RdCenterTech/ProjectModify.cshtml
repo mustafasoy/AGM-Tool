@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="NewProject.ProjectStartDate" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                            <input asp-for="NewProject.ProjectStartDate" asp-format="{0:dd-MM-yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="NewProject.ProjectEndDate" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                            <input asp-for="NewProject.ProjectEndDate" asp-format="{0:dd-MM-yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>

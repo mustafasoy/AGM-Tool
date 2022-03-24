@@ -126,12 +126,8 @@
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
-            toastr['success'](message, {
-            showMethod: 'slideDown',
-            hideMethod: 'slideUp',
-            timeOut: 2000,
-        })
-        }
+            showMessage(message);
+        };
     })
 
     $(function () {
@@ -149,7 +145,7 @@
 
     var Create = function () {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/RdCenterTech/AttendedEventCreate",
             success: function (response) {
                 $('#modalBody').html(response);
@@ -160,7 +156,7 @@
 
     var Update = function (id) {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/RdCenterTech/AttendedEventCreate",
             data: { id: id },
             success: function (response) {

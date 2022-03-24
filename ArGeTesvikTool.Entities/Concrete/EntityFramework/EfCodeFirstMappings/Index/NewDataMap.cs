@@ -8,7 +8,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.I
     {
         public NewDataMap(EntityTypeBuilder<NewDataDto> entity)
         {
-            entity.ToTable("NewDatas");
+            entity.ToTable("IndexNewDatas");
 
             entity.HasIndex(x => x.Year)
                 .IsUnique();

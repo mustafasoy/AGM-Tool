@@ -2,10 +2,7 @@
 using ArGeTesvikTool.Entities.Concrete;
 using ArGeTesvikTool.WebUI.Models.Home;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

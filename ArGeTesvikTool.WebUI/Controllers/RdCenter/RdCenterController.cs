@@ -47,7 +47,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Contact(RdCenterContactViewModel contactViewModel)
         {
             var validate = ValidatorTool.Validate(new RdCenterContactValidator(), contactViewModel.RdCenterContact);
@@ -90,8 +89,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         {
             var info = _infoService.GetByYear(year);
 
-            if (info != null)
-                ViewBag.City = info.City;
+            ViewBag.City = info != null
+                ? info.CityCode
+                : string.Empty;
 
             RdCenterInfoViewModel infoViewModel = new()
             {
@@ -102,7 +102,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Info(RdCenterInfoViewModel infoViewModel)
         {
             var validate = ValidatorTool.Validate(new RdCenterInfoValidator(), infoViewModel.RdCenterInfo);
@@ -169,7 +168,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Schema(RdCenterSchemaViewModel schemaViewModel, List<IFormFile> formFile)
         {
             RdCenterSchemaDto centerSchema = new();
@@ -239,7 +237,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult AreaInfo(RdCenterAreaInfoViewModel areaInfoViewModel, List<IFormFile> formFile)
         {
             RdCenterAreaInfoDto areaInfo = new();
@@ -309,7 +306,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult PhysicalArea(RdCenterPhysicalAreaViewModel physicalAreaViewModel, List<IFormFile> formFile)
         {
             RdCenterPhysicalAreaDto physicalArea = new();
@@ -396,7 +392,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Amount(RdCenterAmountViewModel amountViewModel)
         {
             var amount = _amountService.GetById(amountViewModel.NewAmountInfo.Id);
@@ -474,7 +469,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Discount(RdCenterDiscountViewModel discountViewModel)
         {
             var discount = _discountService.GetById(discountViewModel.NewDiscountInfo.Id);

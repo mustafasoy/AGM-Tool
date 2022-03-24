@@ -79,7 +79,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUser(UserViewModel userViewModel)
         {
             var validate = ValidatorTool.Validate(new UserInfoChangeValidator(), userViewModel.User);
@@ -125,7 +124,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateRole(RoleDto roleViewModel)
         {
             var validate = ValidatorTool.Validate(new RoleCreateValidator(), roleViewModel);
@@ -173,7 +171,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RoleDelete(RoleDto roleViewModel)
         {
             var validate = ValidatorTool.Validate(new RoleCreateValidator(), roleViewModel);
@@ -195,7 +192,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RoleUpdate(RoleDto roleViewModel)
         {
             var validate = ValidatorTool.Validate(new RoleCreateValidator(), roleViewModel);

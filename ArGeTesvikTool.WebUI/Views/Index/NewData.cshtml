@@ -23,70 +23,92 @@
                             </div>
                             <div class="form-body">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-7">
                                         <h6 class="invoice-address text-justify">
                                             Faaliyet Yılı İçinde Ar-Ge Merkezinin Kabul Edilen AB ve Uluslararası Destekli Proje Sayısı
                                         </h6>
                                     </div>
-                                    <div class="col-md-8 form-group">
-                                        <input asp-for="NewData.InternationalProjectNumber" class="form-control">
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="NewData.InternationalProjectNumber" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-7">
                                         <h6 class="invoice-address text-justify">
                                             Faaliyet Yılı İçinde Ar-Ge Merkezinin Kabul Edilen Ulusal Destekli Proje Sayısı
                                         </h6>
                                     </div>
-                                    <div class="col-md-8 form-group text-justify">
-                                        <input asp-for="NewData.NationalProjectNumber" class="form-control">
+                                    <div class="col-md-2 form-group text-justify">
+                                        <input asp-for="NewData.NationalProjectNumber" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-7">
                                         <h6 class="invoice-address text-justify">
                                             Ar-Ge Merkezinde Yürütülen (Devam Eden+Başlayan+Tamamlanan) Kamu Destekli Üniversite-Sanayi İşbirliği Projelerinin Dönemsel Harcaması (TL)
                                         </h6>
                                     </div>
-                                    <div class="col-md-8 form-group">
+                                    <div class="col-md-2 form-group">
                                         <input asp-for="NewData.PeriodicExpenditure" class="form-control">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-7">
                                         <h6 class="invoice-address text-justify">
                                             Ar-Ge Merkezinde Faaliyet Yılında Kamu Desteği Olmayan Ancak Üniversite-Sanayi İşbirliği Kapsamında Yürütülen Devam Eden+Başlayan+Tamamlanan) Projelerin Dönemsel (Faaliyet Yılı) Harcaması
                                         </h6>
                                     </div>
-                                    <div class="col-md-8 form-group text-justify">
+                                    <div class="col-md-2 form-group text-justify">
                                         <input asp-for="NewData.PublicPeriodicExpenditure" class="form-control">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-7">
                                         <h6 class="invoice-address text-justify">
                                             Geliştirilen (son 3 yıl içinde) yeni ürünlerden elde edilen Toplam Yurtiçi Satış Geliri (TL)
                                         </h6>
                                     </div>
-                                    <div class="col-md-8 form-group">
+                                    <div class="col-md-2 form-group">
                                         <input asp-for="NewData.DomesticSalesRevenue" class="form-control">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-7">
                                         <h6 class="invoice-address text-justify">
                                             Geliştirilen (son 3 yıl içinde) yeni ürünlerden elde edilen Toplam Yurtdışı Satış Geliri (TL)
                                         </h6>
                                     </div>
-                                    <div class="col-md-8 form-group">
+                                    <div class="col-md-2 form-group">
                                         <input asp-for="NewData.OverseasSalesRevenue" class="form-control">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-7">
                                         <h6 class="invoice-address text-justify">
                                             İşletmenin, Ar-Ge Merkezini kapsayan bir ISO 14001 belgesi var mı?
                                         </h6>
                                     </div>
-                                    <div class="col-md-8 form-group">
-                                        <input asp-for="NewData.IsIso14001" class="form-control">
+                                    <div class="col-md-2 form-group">
+                                        <div class="form-group checkbox">
+                                            <input asp-for="NewData.IsIso14001" class="form-group checkbox-input" id="iso14001">
+                                            <label for="iso14001"></label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-7">
                                         <h6 class="invoice-address text-justify">
                                             İşletmenin, Ar-Ge Merkezini kapsayan bir ISO 9001 belgesi var mı?
                                         </h6>
                                     </div>
-                                    <div class="col-md-8 form-group">
-                                        <input asp-for="NewData.IsIso9001" class="form-control">
+                                    <div class="col-md-2 form-group">
+                                        <div class="form-group checkbox">
+                                            <input asp-for="NewData.IsIso9001" class="form-group checkbox-input" id="isIso9001">
+                                            <label for="isIso9001"></label>
+                                        </div>
                                     </div>
+                                    <div class="col-md-3"></div>
+
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary mr-1">
                                             Kaydet

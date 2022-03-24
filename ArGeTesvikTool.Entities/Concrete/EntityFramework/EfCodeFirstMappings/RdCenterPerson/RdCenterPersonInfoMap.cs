@@ -32,7 +32,8 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.EducationStatu)
                 .HasColumnName("EducationStatu")
-                .HasMaxLength(256);
+                .HasMaxLength(25)
+                .HasConversion(x => x.ToString(), x => (EducationStatu)Enum.Parse(typeof(EducationStatu), x));
 
             entity.Property(x => x.GraduateUniversity)
                 .HasColumnName("GraduateUniversity")

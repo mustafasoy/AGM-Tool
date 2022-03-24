@@ -44,7 +44,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Index
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult NewData(NewDataViewModel newDataViewModel)
         {
             var newData = _newDataService.GetByYear(newDataViewModel.NewData.Year);
@@ -78,13 +77,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.Index
 
             EmploymentDto employmentData = new()
             {
-                GraduateDoctoralNumber = personInfoList.Where(x => x.EducationStatu == "Doktora").Count(),
-                GraduateMasterDegreeNumber = personInfoList.Where(x => x.EducationStatu == "Yüksek Lisans").Count(),
-                GraduateBachelorDegreeNumber = personInfoList.Where(x => x.EducationStatu == "Lisans").Count(),
-                CurrentDoctoralNumber = personInfoList.Where(x => x.EducationStatu == "Doktora(Öğrenci)").Count(),
-                CurrentMasterDegreeNumber = personInfoList.Where(x => x.EducationStatu == "Yüksek Lisans(Öğrenci)").Count(),
+                GraduateDoctoralNumber = personInfoList.Where(x => x.EducationStatu == EducationStatu.Doktora).Count(),
+                GraduateMasterDegreeNumber = personInfoList.Where(x => x.EducationStatu == EducationStatu.YuksekLisans).Count(),
+                GraduateBachelorDegreeNumber = personInfoList.Where(x => x.EducationStatu == EducationStatu.Lisans).Count(),
+                CurrentDoctoralNumber = personInfoList.Where(x => x.EducationStatu == EducationStatu.DoktoraOgrenci).Count(),
+                CurrentMasterDegreeNumber = personInfoList.Where(x => x.EducationStatu == EducationStatu.YuksekLisansOgrenci).Count(),
                 //GraduateBasicScienceNumber = personInfoList.Where(x => x.EducationStatu == "Yüksek Lisans(Öğrenci)").Count(),
-                TechnicianNumber = personInfoList.Where(x => x.EducationStatu == "Teknisyen").Count(),
+                //TechnicianNumber = personInfoList.Where(x => x.EducationStatu == "Teknisyen").Count(),
                 //TotalResearcherNumber = personInfoList.Where(x => x.EducationStatu == "Teknisyen").Count(),
                 TotalResearcherNumber = personInfoList.Count,
             };

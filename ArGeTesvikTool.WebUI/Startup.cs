@@ -1,17 +1,18 @@
 using ArGeTesvikTool.Business.ValidationRules.CustomValidation;
+using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using ArGeTesvikTool.WebUI.Models;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Text.Json.Serialization;
 
 namespace ArGeTesvikTool.WebUI
 {
@@ -37,6 +38,8 @@ namespace ArGeTesvikTool.WebUI
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 3;
             })
                 .AddPasswordValidator<PasswordValidator>()
                 .AddErrorDescriber<CustomIdentityErrorDescriber>()
@@ -45,10 +48,10 @@ namespace ArGeTesvikTool.WebUI
 
             CookieBuilder cookieBuilder = new()
             {
-                Name = "AGMIdentity",
+                Name = "AgmIdentity",
                 HttpOnly = false,
                 SameSite = SameSiteMode.Lax,
-                SecurePolicy = CookieSecurePolicy.SameAsRequest
+                SecurePolicy = CookieSecurePolicy.SameAsRequest,
             };
 
             services.ConfigureApplicationCookie(options =>
@@ -62,12 +65,17 @@ namespace ArGeTesvikTool.WebUI
             });
 
             services
-                .AddMvc(option => option.EnableEndpointRouting = false);
-            //.AddJsonOptions(opts =>
-            //{
-            //    var enumConverter = new JsonStringEnumConverter();
-            //    opts.JsonSerializerOptions.Converters.Add(enumConverter);
-            //});
+                .AddMvc(option =>
+                {
+                    option.EnableEndpointRouting = false;
+                    option.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+
+                });
+              //.AddJsonOptions(opts =>
+              //{
+              //    var enumConverter = new JsonStringEnumConverter();
+              //    opts.JsonSerializerOptions.Converters.Add(enumConverter);
+              //});
 
             services
                 //.AddSession()
@@ -88,7 +96,7 @@ namespace ArGeTesvikTool.WebUI
 
             if (!env.IsDevelopment())
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
-            
+
             app.UseStaticFiles();
             //app.UseSession();
             // Middleware used for microsoft identity

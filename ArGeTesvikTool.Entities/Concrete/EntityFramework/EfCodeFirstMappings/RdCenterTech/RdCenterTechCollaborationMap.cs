@@ -1,6 +1,7 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech
 {
@@ -19,7 +20,8 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.Collaboration)
                 .HasColumnName("Collaboration")
-                .HasMaxLength(256);
+                .HasMaxLength(256)
+                .HasConversion(x => x.ToString(), x => (Collaboration)Enum.Parse(typeof(Collaboration), x));
             
             entity.Property(x => x.Partner)
                 .HasColumnName("Partner")

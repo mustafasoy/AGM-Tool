@@ -6,7 +6,11 @@
     Birim
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnel.CompanyUnit" class="form-control">
+    <select asp-for="NewPersonnel.CompanyUnit" asp-items="Html.GetEnumSelectList<CompanyUnit>()" class="form-control">
+        <option selected="selected" value="">
+            Seçiniz
+        </option>
+    </select>
 </div>
 
 <h6 class="invoice-address">

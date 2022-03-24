@@ -1,10 +1,10 @@
-﻿using ArGeTesvikTool.Business.Concrete;
+﻿using ArGeTesvikTool.Entities.Concrete.Mail;
+using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.Business.Abstract
 {
     public interface IMailService
     {
-        void CreateMail(MailConfigurationDto mailConfiguration, string link, string email);
-        void SendMail();
+        Task SendMailAsync(MailMessage message);
     }
 }

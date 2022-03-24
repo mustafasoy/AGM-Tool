@@ -15,6 +15,20 @@
                                 <h4 class="text-primary">
                                     Dışarıda Geçirilen Sürelere İlişkin Bilgiler
                                 </h4>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0 d-flex align-items-center">
+                                        <li class="ml-2">
+                                            <form asp-action="ExportExcel" method="post">
+                                                <button type="submit" class="btn btn-outline-primary btn-sm mr-1 mb-1">
+                                                    <i class="bx bx-cloud-download"></i>
+                                                    <span class="align-middle ml-25">
+                                                        Excel formatını indiriniz
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <hr />
@@ -167,12 +181,8 @@
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
-            toastr['success'](message, {
-            showMethod: 'slideDown',
-            hideMethod: 'slideUp',
-            timeOut: 2000,
-        })
-        }
+            showMessage(message);
+        };
     })
 
     $(function () {
@@ -186,9 +196,6 @@
 
         $("#jquery-val-form").validate({
             rules: {
-                //'NewTimeInfo.IdentityNumber': {
-                //    required: true,
-                //},
                 'NewTimeInfo.ProjectCode': {
                     required: true,
                 },
@@ -198,7 +205,7 @@
 
     var Create = function () {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/RdCenterPerson/TimeAwayCreate",
             success: function (response) {
                 $('#modalBody').html(response);
@@ -209,7 +216,7 @@
 
     var Update = function (id) {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/RdCenterPerson/TimeAwayUpdate",
             data: { id: id },
             success: function (response) {

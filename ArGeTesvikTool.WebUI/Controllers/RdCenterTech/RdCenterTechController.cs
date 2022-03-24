@@ -4,9 +4,11 @@ using ArGeTesvikTool.Business.ValidationRules.FluentValidation.RdCenterTech;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterTech;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 {
@@ -80,7 +82,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult ProjectModify(RdCenterTechProjectViewModel projectViewModel)
         {
             var validate = ValidatorTool.Validate(new RdCenterTechProjectValidator(), projectViewModel.NewProject);
@@ -157,6 +158,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 
             return View(collaborationViewModel);
         }
+
         public IActionResult CollaborationCreate()
         {
             RdCenterTechCollaborationDto collaboration = new();
@@ -193,7 +195,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Collaboration(RdCenterTechCollabrationViewModel collaborationViewModel)
         {
             var collaboration = _collaborationService.GetById(collaborationViewModel.NewCollaboration.Id);
@@ -236,6 +237,66 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 
             return View(projectManagementViewModel);
         }
+
+        public IActionResult ProjectManagementDelete(int id)
+        {
+            _projectManagementService.Delete(id);
+
+            AddSuccessMessage("Proje yönetim şeması silindi.");
+
+            return RedirectToAction("ProjectManagement");
+        }
+
+        public IActionResult ProjectManagementDownload(int id)
+        {
+            var projectManagement = _projectManagementService.GetById(id);
+
+            return DownloadFile(projectManagement);
+        }
+
+        [HttpPost]
+        public IActionResult ProjectManagement(RdCenterTechProjectManagementViewModel projectManagementViewModel, List<IFormFile> formFile)
+        {
+            if (ModelState.IsValid)
+            {
+                RdCenterTechProjectManagementDto projectManagement = new();
+                foreach (var item in formFile)
+                {
+                    if (item.Length > 0)
+                    {
+                        using var stream = new MemoryStream();
+                        item.CopyToAsync(stream).Wait();
+                        projectManagement.FileName = item.FileName;
+                        projectManagement.Content = stream.ToArray();
+                        projectManagement.ContentType = item.ContentType;
+                    }
+                }
+
+                var projectList = _projectManagementService.GetAllByYear(2022);
+                foreach (var item in projectList)
+                {
+                    if (item.FileName == projectManagement.FileName)
+                    {
+                        ModelState.AddModelError("FormFile", "Dosya mevcut. Farklı dosya seçiniz");
+
+                        projectManagementViewModel.ProjectManagementList = projectList;
+
+                        return View(projectManagementViewModel);
+                    }
+                }
+
+                projectManagement.CreatedDate = DateTime.Now;
+                projectManagement.CreatedUserName = User.Identity.Name;
+
+                _projectManagementService.Add(projectManagement);
+
+                AddSuccessMessage("Proje yönetim şeması eklendi.");
+
+                return RedirectToAction("ProjectManagement");
+            }
+
+            return View(projectManagementViewModel);
+        }
         #endregion
 
         public IActionResult AcademicLibrary(int year)
@@ -251,7 +312,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult AcademicLibrary(RdCenterTechAcademicLibraryViewModel academicLibraryViewModel)
         {
             var contact = _academicLibraryService.GetByYear(academicLibraryViewModel.AcademicLibrary.Year);
@@ -328,7 +388,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult AttendedEvent(RdCenterTechAttendedEventViewModel attendedEventViewModel)
         {
             var attendedEvent = _attendedEventService.GetById(attendedEventViewModel.NewAttendedEvent.Id);
@@ -411,7 +470,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Software(RdCenterTechSoftwareViewModel softwareViewModel)
         {
             var software = _softwareService.GetById(softwareViewModel.NewSoftware.Id);
@@ -489,7 +547,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult MentorInfo(RdCenterTechMentorInfoViewModel mentorInfoViewModel)
         {
             var mentorInfo = _mentorInfoService.GetById(mentorInfoViewModel.NewMentorInfo.Id);
@@ -567,7 +624,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult IntellectualProperty(RdCenterTechIntellectualPropertyViewModel propertyInfoViewModel)
         {
             var propertyInfo = _propertyService.GetById(propertyInfoViewModel.NewProperty.Id);

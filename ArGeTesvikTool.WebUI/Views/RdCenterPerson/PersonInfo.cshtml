@@ -152,13 +152,9 @@
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
-            toastr['success'](message, {
-            showMethod: 'slideDown',
-            hideMethod: 'slideUp',
-            timeOut: 2000,
-        })
-        }
-    })
+            showMessage(message);
+        };
+    });
 
     $(function () {
         $("#jquery-val-form").validate({
@@ -171,11 +167,11 @@
                 },
             }
         })
-    })
+    });
 
     var Create = function () {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/RdCenterPerson/PersonInfoCreate",
             success: function (response) {
                 $('#modalBody').html(response);
@@ -186,7 +182,7 @@
 
     var Update = function (id) {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/RdCenterPerson/PersonInfoUpdate",
             data: { id: id },
             success: function (response) {

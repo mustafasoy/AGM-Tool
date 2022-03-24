@@ -9,7 +9,7 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterPerson
         public string IdentityNumber { get; set; }
         public string NameSurname { get; set; }
         public string Nationality { get; set; }
-        public string EducationStatu { get; set; }
+        public EducationStatu EducationStatu { get; set; }
         public string GraduateUniversity { get; set; }
         public string UniversityDepartmant { get; set; }
         public PersonPosition PersonPosition { get; set; }
@@ -27,5 +27,25 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterPerson
         DestekPersonel = 3,
         [Display(Name = "Stajyer")]
         Stajyer = 4
+    }
+
+    public enum EducationStatu
+    {
+        [Display(Name = "Ön Lisans(Öğrenci)")]
+        OnLisansOgrenci = 1,
+        [Display(Name = "Ön Lisans")]
+        OnLisans = 2,
+        [Display(Name = "Lisans(Öğrenci)")]
+        LisansOgrenci = 3,
+        [Display(Name = "Lisans")]
+        Lisans = 4,
+        [Display(Name = "Yüksek Lisans(Öğrenci)")]
+        YuksekLisansOgrenci = 5,
+        [Display(Name = "Yüksek Lisans")]
+        YuksekLisans = 6,
+        [Display(Name = "Doktora(Öğrenci)")]
+        DoktoraOgrenci = 7,
+        [Display(Name = "Doktora")]
+        Doktora = 8,
     }
 }

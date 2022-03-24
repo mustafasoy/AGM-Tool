@@ -3,37 +3,40 @@
 <input asp-for="NewCollaboration.Id" hidden="hidden" />
 
 <h6 class="invoice-address">
-    İşbiriliği yapılan
+    İşbiriliği tipi
 </h6>
 <div class="form-group">
-    <input asp-for="NewCollaboration.Collaboration" class="form-control">
+    <select asp-for="NewCollaboration.Collaboration" asp-items="Html.GetEnumSelectList<Collaboration>()" class="form-control">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
 </div>
 
 <h6 class="invoice-address">
-    İşbirliği yapılan kurum/kişi
+    Kurum/Kişi adı
 </h6>
 <div class="form-group">
     <input asp-for="NewCollaboration.Partner" class="form-control">
 </div>
 
 <h6 class="invoice-address">
-    Ülkesi
+    Ülke
 </h6>
-
-<input asp-for="NewCollaboration.CountryCode" hidden="hidden" />
-
+<input asp-for="NewCollaboration.CountryText" type="hidden" class="form-control" />
 <div class="form-group">
     <fieldset class="form-group">
-        <select asp-for="NewCollaboration.CountryText" id="country" class="select2 form-control">
-            <option selected="selected" value="">Seçiniz</option>
+        <select asp-for="NewCollaboration.CountryCode" id="country" class="select2 form-control select2-hidden-accessible">
+            <option selected="selected" value="">
+                Seçiniz
+            </option>
         </select>
     </fieldset>
 </div>
 
 <h6 class="invoice-address">
-    İşbirliği türü/şekli
+    İşbirliği türü
 </h6>
-
 <div class="form-group">
     <input asp-for="NewCollaboration.CollaborationType" class="form-control">
 </div>
@@ -41,8 +44,12 @@
 <script src="~/frest/app-assets/js/scripts/forms/select/form-select2.js"></script>
 <script src="~/frest/app-assets/js/list-country.js"></script>
 <script>
-        $(document).ready(function () {
-            $("#country").val('@ViewBag.Country');
-            $("#country").change();
-        });
+    $(document).ready(function () {
+        $("#country").val('@ViewBag.Country');
+        $("#country").change()
+
+        $("#country").on("change", function () {
+            $('input[name="NewCollaboration.CountryText"]').val($("#country option:selected").text());
+        })
+    });
 </script>

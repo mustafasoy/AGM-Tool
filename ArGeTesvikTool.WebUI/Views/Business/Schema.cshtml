@@ -118,11 +118,7 @@
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
-            toastr['success'](message, {
-            showMethod: 'slideDown',
-            hideMethod: 'slideUp',
-            timeOut: 2000,
-            })
+            showMessage(message);
         };
-});
+    });
 </script>

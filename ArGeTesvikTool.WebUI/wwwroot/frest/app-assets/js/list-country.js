@@ -250,7 +250,7 @@
 ]
 $(document).ready(function () {
     $.each(data, function (index, value) {
-        $("#county").append($("<option>", {
+        $("#country").append($("<option>", {
             value: value.value,
             text: value.label
         }));

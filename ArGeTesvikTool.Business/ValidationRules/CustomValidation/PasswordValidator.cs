@@ -15,7 +15,7 @@ namespace ArGeTesvikTool.Business.ValidationRules.CustomValidation
                 identityError.Add(new IdentityError()
                 {
                     Code = "PasswordContainsUserName",
-                    Description = "Şifre kullanıcı adı içermemeli!"
+                    Description = "Şifre kullanıcı adı içermemelidir."
                 });
             }
 

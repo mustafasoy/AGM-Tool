@@ -29,16 +29,16 @@
                                                 Sıra No
                                             </th>
                                             <th>
-                                                İşbirliği Yapılan
+                                                İşbirliği Tipi
                                             </th>
                                             <th>
-                                                İşbirliği Yapılan Kurum/Kişi
+                                                Kurum/Kişi Adı
                                             </th>
                                             <th>
-                                                Ülkesi
+                                                Ülke
                                             </th>
                                             <th>
-                                                İşbirliği Türü/Şekli
+                                                İşbirliği Türü
                                             </th>
                                             <th>
                                                 İşlemler
@@ -120,12 +120,8 @@
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
-            toastr['success'](message, {
-            showMethod: 'slideDown',
-            hideMethod: 'slideUp',
-            timeOut: 2000,
-        })
-        }
+            showMessage(message);
+        };
     })
 
     $(function () {
@@ -140,7 +136,7 @@
 
     var Create = function () {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/RdCenterTech/CollaborationCreate",
             success: function (response) {
                 $('#modalBody').html(response);
@@ -151,7 +147,7 @@
 
     var Update = function (id) {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/RdCenterTech/CollaborationUpdate",
             data: { id: id },
             success: function (response) {

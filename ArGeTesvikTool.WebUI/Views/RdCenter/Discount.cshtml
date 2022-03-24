@@ -152,28 +152,24 @@
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
-            toastr['success'](message, {
-            showMethod: 'slideDown',
-            hideMethod: 'slideUp',
-            timeOut: 2000,
-        })
-        }
+            showMessage(message);
+        };
     })
 
     var Create = function () {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/RdCenter/DiscountCreate",
             success: function (response) {
                 $('#modalBody').html(response);
                 $('#addNewModal').modal('show');
             }
         })
-    }
+    };
 
     var Update = function (id) {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/RdCenter/DiscountUpdate",
             data: { id: id },
             success: function (response) {

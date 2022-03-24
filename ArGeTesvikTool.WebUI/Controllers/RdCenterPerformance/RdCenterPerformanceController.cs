@@ -64,7 +64,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerformance
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult PersonInfo(RdCenterPerformanceProjectViewModel projectViewModel)
         {
             var project = _projectService.GetById(projectViewModel.NewProjectInfo.Id);
