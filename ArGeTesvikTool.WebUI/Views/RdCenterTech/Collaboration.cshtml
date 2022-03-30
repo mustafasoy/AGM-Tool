@@ -108,6 +108,7 @@
                                 </div>
                             </form>
                         </div>
+                        <a href="C:\Users\TR996928\Documents\Visual Studio 2019\Projects\ArGeTesvik.Tool\ArGeTesvikTool.WebUI\Views\RdCenterTech\Collaboration.cshtml">C:\Users\TR996928\Documents\Visual Studio 2019\Projects\ArGeTesvik.Tool\ArGeTesvikTool.WebUI\Views\RdCenterTech\Collaboration.cshtml</a>
                     </div>
                 </div>
             </section>
@@ -115,14 +116,13 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
             showMessage(message);
         };
-    })
+    });
 
     $(function () {
         $("#jquery-val-form").validate({
@@ -132,7 +132,7 @@
                 },
             }
         })
-    })
+    });
 
     var Create = function () {
         $.ajax({
@@ -143,7 +143,7 @@
                 $('#addNewModal').modal('show');
             }
         })
-    }
+    };
 
     var Update = function (id) {
         $.ajax({

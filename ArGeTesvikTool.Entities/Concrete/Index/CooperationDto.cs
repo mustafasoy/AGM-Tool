@@ -3,8 +3,8 @@
     public class CooperationDto
     {
         public int TotalProjectNumber { get; set; }
-        public decimal PeriodicExpenditure { get; set; }
-        public decimal PublicPeriodicExpenditure { get; set; }
-        public decimal ProjectPeriodicExpenditure { get; set; }
+        public string PeriodicExpenditure { get; set; }
+        public string PublicPeriodicExpenditure { get; set; }
+        public string ProjectPeriodicExpenditure { get; set; }
     }
 }

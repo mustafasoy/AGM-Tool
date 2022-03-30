@@ -3,7 +3,6 @@ using ArGeTesvikTool.WebUI.Models;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.IO;
 
 namespace ArGeTesvikTool.WebUI.Controllers.Authentication

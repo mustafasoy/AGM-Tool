@@ -6,7 +6,7 @@
     T.C. Kimlik No / Yabancı Kimlik No
 </h6>
 <div class="form-group">
-    <input asp-for="NewTimeInfo.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control">
+    <input asp-for="NewTimeInfo.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control" />
     <span asp-validation-for="NewTimeInfo.IdentityNumber" class="error"></span>
 </div>
 
@@ -14,7 +14,7 @@
     İlişkili Proje Kodu
 </h6>
 <div class="form-group">
-    <input asp-for="NewTimeInfo.ProjectCode" class="form-control">
+    <input asp-for="NewTimeInfo.ProjectCode" class="form-control" />
 </div>
 
 <h6 class="invoice-address">
@@ -32,7 +32,7 @@
     Yıl
 </h6>
 <div class="form-group">
-    <input asp-for="NewTimeInfo.Year" type="number" maxlength="4" onkeydown="return event.keyCode !== 69" class="form-control">
+    <input asp-for="NewTimeInfo.Year" type="number" maxlength="4" onkeydown="return event.keyCode !== 69" class="form-control" />
 </div>
 
 <h6 class="invoice-address">
@@ -50,5 +50,5 @@
     Aylık Dışarıda Geçirilen Süre (saat)
 </h6>
 <div class="form-group">
-    <input asp-for="NewTimeInfo.MonthlyTimeAway" class="form-control">
+    <input asp-for="NewTimeInfo.MonthlyTimeAway" class="form-control" />
 </div>

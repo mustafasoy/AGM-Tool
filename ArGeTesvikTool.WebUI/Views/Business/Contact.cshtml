@@ -29,7 +29,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessContact.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control">
+                                        <input asp-for="BusinessContact.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control" />
                                         <span asp-validation-for="BusinessContact.IdentityNumber" class="error"></span>
                                     </div>
                                     <div class="col-md-4">
@@ -38,7 +38,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessContact.NameSurname" class="form-control">
+                                        <input asp-for="BusinessContact.NameSurname" class="form-control" />
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -46,7 +46,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessContact.Mail" type="email" class="form-control">
+                                        <input asp-for="BusinessContact.Mail" type="email" class="form-control" placeholder="mail@mail.com" />
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">

@@ -59,7 +59,14 @@
                                                     @Html.DisplayFor(modelItem => item.CommercialProductName)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.IsImportProduct)
+                                                    @if (item.IsImportProduct)
+                                                    {
+                                                        @:Evet
+                                                    }
+                                                    else
+                                                    {
+                                                        @:Hayır
+                                                    }
                                                 </td>
                                                 <td>
                                                     <div class="invoice-action">
@@ -111,7 +118,6 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
@@ -147,7 +153,7 @@
     var Update = function (id) {
         $.ajax({
             type: "GET",
-            url: "/RdCenterPerformance/ProjectCreate",
+            url: "/RdCenterPerformance/ProjectUpdate",
             data: { id: id },
             success: function (response) {
                 $('#modalBody').html(response);

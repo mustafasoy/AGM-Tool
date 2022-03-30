@@ -192,6 +192,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         public IActionResult GroupInfo(int year)
         {
             var groupInfo = _groupInfoService.GetByYear(year);
+
+            ViewBag.Country = groupInfo != null
+                ? groupInfo.CountryCode
+                : string.Empty;
+
             GroupInfoViewModel groupViewModel = new()
             {
                 GroupInfo = groupInfo
@@ -263,6 +268,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         public IActionResult ShareholderUpdate(int id)
         {
             var shareholder = _shareholderService.GetById(id);
+
+            ViewBag.Country = shareholder.CountryCode;
 
             ShareholderViewModel shareholderViewModel = new()
             {

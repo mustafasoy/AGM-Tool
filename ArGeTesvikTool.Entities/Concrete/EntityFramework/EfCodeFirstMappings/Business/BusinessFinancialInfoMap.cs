@@ -10,9 +10,6 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.B
         {
             entity.ToTable("BusinessFinancialInfos");
 
-            entity.HasIndex(x => x.Year)
-                .IsUnique();
-
             entity.Property(x => x.Id)
                 .HasColumnName("Id");
 
@@ -21,31 +18,40 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.B
                 .HasMaxLength(4);
 
             entity.Property(x => x.NetSales)
-                .HasColumnName("NetSales");
+                .HasColumnName("NetSales")
+                .HasMaxLength(20);
 
             entity.Property(x => x.TotalAsset)
-                .HasColumnName("TotalAsset");
+                .HasColumnName("TotalAsset")
+                .HasMaxLength(20);
 
             entity.Property(x => x.SortTermLoan)
-                .HasColumnName("SortTermLoan");
+                .HasColumnName("SortTermLoan")
+                .HasMaxLength(20);
 
             entity.Property(x => x.LongTermLoan)
-                .HasColumnName("LongTermLoan");
+                .HasColumnName("LongTermLoan")
+                .HasMaxLength(20);
 
             entity.Property(x => x.DomesticSales)
-                .HasColumnName("DomesticSales");
+                .HasColumnName("DomesticSales")
+                .HasMaxLength(20);
 
             entity.Property(x => x.ExportSales)
-                .HasColumnName("ExportSales");
+                .HasColumnName("ExportSales")
+                .HasMaxLength(20);
 
             entity.Property(x => x.GrossSales)
-                .HasColumnName("GrossSales");
+                .HasColumnName("GrossSales")
+                .HasMaxLength(20);
 
             entity.Property(x => x.RDExpenditure)
-                .HasColumnName("RDExpenditure");
+                .HasColumnName("RDExpenditure")
+                .HasMaxLength(20);
 
             entity.Property(x => x.AcquisitionTurnover)
-                .HasColumnName("AcquisitionTurnover");
+                .HasColumnName("AcquisitionTurnover")
+                .HasMaxLength(20);
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

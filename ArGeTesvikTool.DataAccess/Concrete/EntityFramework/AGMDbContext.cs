@@ -3,14 +3,14 @@ using ArGeTesvikTool.Entities.Concrete.Business;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Business;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Index;
-using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Pacs;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenter;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterCal;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerformance;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerson;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech;
 using ArGeTesvikTool.Entities.Concrete.Index;
-using ArGeTesvikTool.Entities.Concrete.Pacs;
 using ArGeTesvikTool.Entities.Concrete.RdCenter;
+using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerformance;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
@@ -40,10 +40,6 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         public DbSet<FiscalYearDto> FiscalYears { get; set; }
         #endregion
 
-        #region Pacs
-        public DbSet<PersonelAttendanceDto> PersonelAttendances { get; set; }
-        #endregion
-
         #region Index Db Map
         public DbSet<NewDataDto> NewDatas { get; set; }
         #endregion
@@ -69,6 +65,14 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         public DbSet<RdCenterPhysicalAreaDto> RdPhysicalAreas { get; set; }
         public DbSet<RdCenterAmountDto> RdCenterAmounts { get; set; }
         public DbSet<RdCenterDiscountDto> RdCenterDiscounts { get; set; }
+        #endregion
+
+        #region RdCenterCal Db Map
+        public DbSet<RdCenterCalPersAttendanceDto> PersonelAttendances { get; set; }
+        public DbSet<RdCenterCalPersonnelInfoDto> RdCenterCalPersonnelInfos { get; set; }
+        public DbSet<RdCenterCalProjectInfoDto> RdCenterCalProjectInfos { get; set; }
+        public DbSet<RdCenterCalTimeAwayDto> RdCenterCalTimeAways { get; set; }
+        public DbSet<RdCenterCalPersAssingDto> RdCenterPersAssings { get; set; }
         #endregion
 
         #region RdCenterPerson Db Map
@@ -98,10 +102,6 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
             _ = new FiscalYearMap(modelBuilder.Entity<FiscalYearDto>());
             #endregion
 
-            #region Pacs
-            _ = new PersonelAttendanceMap(modelBuilder.Entity<PersonelAttendanceDto>());
-            #endregion
-
             #region Index Db Map
             _ = new NewDataMap(modelBuilder.Entity<NewDataDto>());
             #endregion
@@ -127,6 +127,14 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
             _ = new RdCenterPhysicalAreaMap(modelBuilder.Entity<RdCenterPhysicalAreaDto>());
             _ = new RdCenterAmountMap(modelBuilder.Entity<RdCenterAmountDto>());
             _ = new RdCenterDiscountMap(modelBuilder.Entity<RdCenterDiscountDto>());
+            #endregion
+
+            #region RdCenterCal Db Map
+            _ = new RdCenterCalPersAttendanceMap(modelBuilder.Entity<RdCenterCalPersAttendanceDto>());
+            _ = new RdCenterCalPersonnelInfoMap(modelBuilder.Entity<RdCenterCalPersonnelInfoDto>());
+            _ = new RdCenterCalProjectInfoMap(modelBuilder.Entity<RdCenterCalProjectInfoDto>());
+            _ = new RdCenterCalTimeAwayMap(modelBuilder.Entity<RdCenterCalTimeAwayDto>());
+            _ = new RdCenterCalPersAssingMap(modelBuilder.Entity<RdCenterCalPersAssingDto>());
             #endregion
 
             #region RdCenterPerson Db Map

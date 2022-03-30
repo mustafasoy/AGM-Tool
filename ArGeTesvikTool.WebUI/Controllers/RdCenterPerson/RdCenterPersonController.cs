@@ -59,6 +59,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         {
             var personInfo = _infoService.GetById(id);
 
+            ViewBag.Country = personInfo.CountryCode;
+
             RdCenterPersonViewModel personViewModel = new()
             {
                 NewPersonnelInfo = personInfo
@@ -206,7 +208,15 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             }
             List<RdCenterPersonTimeAwayDto> timeAwayList = GetExcelList(fileName);
 
-            _timeAwayService.AddList(timeAwayList);
+            if (timeAwayList.Count > 0)
+            {
+                _timeAwayService.AddList(timeAwayList);
+            }
+
+            if (timeAwayList.Count == 0)
+            {
+                TempData["ExcelError"] = "Excel dosya degerlerinde hata bulundu. Exceli kontrol ediniz.";
+            }
 
             return RedirectToAction("TimeAway");
         }
@@ -217,8 +227,10 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             //build the file path.
             string path = Path.Combine(_hostEnvironment.WebRootPath, "file-template", "Dışarıda_Geçirilen_Süre_Bildirimi.xlsx");
             string fileName = Path.GetFileName(path);
+
             //read the file data into byte array.
             byte[] bytes = System.IO.File.ReadAllBytes(path);
+
             //send the file to download.
             return File(bytes, "application/octet-stream", fileName);
         }
@@ -275,17 +287,24 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
 
                     for (int i = 0; i < rowData.Rows.Count; i++)
                     {
-                        timeAwayList.Add(new RdCenterPersonTimeAwayDto
+                        try
                         {
-                            IdentityNumber = rowData.Rows[i][0].ToString(),
-                            ProjectCode = rowData.Rows[i][1].ToString(),
-                            ActivityType = (ActivityType)Convert.ToInt32(rowData.Rows[i][2].ToString()),
-                            Year = Convert.ToInt32(rowData.Rows[i][3].ToString()),
-                            Month = (Month)Convert.ToInt32(rowData.Rows[i][4].ToString()),
-                            MonthlyTimeAway = Convert.ToDecimal(rowData.Rows[i][5].ToString()),
-                            CreatedDate = DateTime.Now.Date,
-                            CreatedUserName = User.Identity.Name
-                        });
+                            timeAwayList.Add(new RdCenterPersonTimeAwayDto
+                            {
+                                IdentityNumber = rowData.Rows[i][0].ToString(),
+                                ProjectCode = rowData.Rows[i][1].ToString(),
+                                ActivityType = (ActivityType)Convert.ToInt32(rowData.Rows[i][2].ToString()),
+                                Year = Convert.ToInt32(rowData.Rows[i][3].ToString()),
+                                Month = (Month)Convert.ToInt32(rowData.Rows[i][4].ToString()),
+                                MonthlyTimeAway = Convert.ToDecimal(rowData.Rows[i][5].ToString()),
+                                CreatedDate = DateTime.Now.Date,
+                                CreatedUserName = User.Identity.Name
+                            });
+                        }
+                        catch (Exception)
+                        {
+
+                        }
                     }
                 }
             }

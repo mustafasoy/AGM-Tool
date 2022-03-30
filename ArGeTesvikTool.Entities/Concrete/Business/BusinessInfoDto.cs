@@ -19,8 +19,8 @@ namespace ArGeTesvikTool.Entities.Concrete.Business
         public string ChamberCommerce { get; set; }
         public string TaxOffice { get; set; }
         public string RegistrationNo { get; set; }
-        public decimal FoundingCapital { get; set; }
-        public decimal AvaibleCapital { get; set; }
+        public string FoundingCapital { get; set; }
+        public string AvaibleCapital { get; set; }
         public Sme IsSME { get; set; }
         public string CRSNumber { get; set; }
     }

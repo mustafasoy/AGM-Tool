@@ -3,71 +3,78 @@
 <input asp-for="NewAmountInfo.Id" hidden="hidden" />
 
 @*<h6 class="invoice-address">
-    Faaliyet Dönemi
-</h6>
-<div class="form-group">
-    <input asp-for="NewAmountInfo.Year" class="form-control">
-</div>*@
+        Faaliyet Dönemi
+    </h6>
+    <div class="form-group">
+        <input asp-for="NewAmountInfo.Year" class="form-control">
+    </div>*@
 
 <h6 class="invoice-address">
-    Ar-Ge/Tasarım İndirimi Kapsamında Yararlanılan/Yararlanılacak Kurumlar Vergisi İstisnası
+    İlk Madde ve Malzeme Giderleri
 </h6>
 <div class="form-group">
-    <input asp-for="NewAmountInfo.TaxExemption" class="form-control">
-</div>
-
-<h6 class="invoice-address">
-    Ar-Ge ve Tasarım İndirimine Tabi Harcamalar Toplamı
-</h6>
-<div class="form-group">
-    <input asp-for="NewAmountInfo.WithholdingIncentive" class="form-control">
-</div>
-
-<h6 class="invoice-address">
-    Sağlanan Nakit Destekler
-</h6>
-<div class="form-group">
-    <input asp-for="NewAmountInfo.PremiumSupport" class="form-control">
-</div>
-
-<h6 class="invoice-address">
-    Ar-Ge ve/veya Tasarım Harcaması
-</h6>
-<div class="form-group">
-    <input asp-for="NewAmountInfo.StampTaxException" class="form-control">
-</div>
-
-<h6 class="invoice-address">
-    Vergi, Resim ve Harçlar
-</h6>
-<div class="form-group">
-    <input asp-for="NewAmountInfo.CustomTaxException" class="form-control">
-</div>
-
-<h6 class="invoice-address">
-    Genel Giderler
-</h6>
-<div class="form-group">
-    <input asp-for="NewAmountInfo.IncentiveAmount" class="form-control">
-</div>
-
-<h6 class="invoice-address">
-    Net Personel Giderleri Toplamı
-</h6>
-<div class="form-group">
-    <input asp-for="NewAmountInfo.TotalExpenditure" class="form-control">
+    <input asp-for="NewAmountInfo.MaterialExpense" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
 
 <h6 class="invoice-address">
     Amortisman Tutarı
 </h6>
 <div class="form-group">
-    <input asp-for="NewAmountInfo.AnnualTotal" class="form-control">
+    <input asp-for="NewAmountInfo.DepreciationAmount" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
 
 <h6 class="invoice-address">
-    İlk Madde ve Malzeme Giderleri
+    Net Personel Giderleri Toplamı
 </h6>
 <div class="form-group">
-    <input asp-for="NewAmountInfo.RatioTurnover" class="form-control">
+    <input asp-for="NewAmountInfo.PersonelExpense" class="form-control currency" maxlength="20" placeholder="0,00" />
+</div>
+
+<h6 class="invoice-address">
+    Genel Giderler
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.GeneralExpense" class="form-control currency" maxlength="20" placeholder="0,00" />
+</div>
+
+<h6 class="invoice-address">
+    Dışarıdan Sağlanan Fayda ve Hizmetler
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.ExternalBenefit" class="form-control currency" maxlength="20" placeholder="0,00" />
+</div>
+
+<h6 class="invoice-address">
+    Vergi, Resim ve Harçlar
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.TaxFee" aclass="form-control currency" maxlength="20" placeholder="0,00" />
+</div>
+
+<h6 class="invoice-address">
+    Ar-Ge ve/veya Tasarım Harcaması
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.DesignExpense" class="form-control currency" maxlength="20" placeholder="0,00" />
+</div>
+
+<h6 class="invoice-address">
+    Sağlanan Nakit Destekler
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.CashSupport" class="form-control currency" maxlength="20" placeholder="0,00" />
+</div>
+
+<h6 class="invoice-address">
+    Ar-Ge ve Tasarım İndirimine Tabi Harcamalar Toplamı
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.TotalExpenditure" class="form-control currency" maxlength="20" placeholder="0,00" />
+</div>
+
+<h6 class="invoice-address">
+    Ar-Ge/Tasarım İndirimi Kapsamında Yararlanılan/Yararlanılacak Kurumlar Vergisi İstisnası
+</h6>
+<div class="form-group">
+    <input asp-for="NewAmountInfo.TaxExemption" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>

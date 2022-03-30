@@ -29,7 +29,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="GroupInfo.CompanyName" class="form-control">
+                                        <input asp-for="GroupInfo.CompanyName" class="form-control" />
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -44,8 +44,15 @@
                                             Menşei
                                         </h6>
                                     </div>
+                                    <input asp-for="GroupInfo.CountryText" type="hidden" class="form-control" />
                                     <div class="col-md-8 form-group">
-                                        <textarea asp-for="GroupInfo.Origin" class="form-control" rows="2"></textarea>
+                                        <fieldset class="form-group">
+                                            <select asp-for="GroupInfo.CountryCode" id="country" class="select2 form-control select2-hidden-accessible">
+                                                <option selected="selected" value="">
+                                                    Seçiniz
+                                                </option>
+                                            </select>
+                                        </fieldset>
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -54,7 +61,7 @@
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="GroupInfo.FoundingDate" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                            <input asp-for="GroupInfo.FoundingDate" type="text" asp-format="{0:dd-MM-yyyy}" class="form-control pickadate-months-year" placeholder="Tarih seçin">
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>
@@ -73,3 +80,14 @@
     </div>
 </div>
 <!-- END: Content-->
+<script src="~/frest/app-assets/js/list-country.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#country").val('@ViewBag.Country');
+        $("#country").change();
+
+        //$("#country").on("change", function () {
+        //    $('input[name="GroupInfo.CountryText"]').val($("#city option:selected").text());
+        //})
+    });
+</script>

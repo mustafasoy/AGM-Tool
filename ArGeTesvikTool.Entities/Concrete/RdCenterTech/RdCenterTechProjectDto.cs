@@ -12,21 +12,21 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
         public DateTime ProjectStartDate { get; set; }
         public DateTime ProjectEndDate { get; set; }
         public int PersonNumber { get; set; }
-        public decimal ProjectDuration { get; set; }
+        public string ProjectDuration { get; set; }
         public string ProjectFileName { get; set; }
         public byte[] ProjectContent { get; set; }
         public string ProjectContentType { get; set; }
         public string NatSupportProgram { get; set; }
         public string IntSupportProgram { get; set; }
-        public decimal TotalProjectIncome { get; set; }
-        public decimal EquityAmount { get; set; }
-        public decimal SupportAmount { get; set; }
+        public string TotalProjectIncome { get; set; }
+        public string EquityAmount { get; set; }
+        public string SupportAmount { get; set; }
         public string OrderBase { get; set; }
         public string ServiceProcurementSubject { get; set; }
         public ServiceProcurement ServiceProcurement { get; set; }
-        public decimal ServiceProcurementAmount { get; set; }
-        public decimal NatServiceProcurementAmount { get; set; }
-        public decimal IntServiceProcurementAmount { get; set; }
+        public string ServiceProcurementAmount { get; set; }
+        public string NatServiceProcurementAmount { get; set; }
+        public string IntServiceProcurementAmount { get; set; }
         public string IncomeFileName { get; set; }
         public byte[] IncomeContent { get; set; }
         public string IncomeContentType { get; set; }

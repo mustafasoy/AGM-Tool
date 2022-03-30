@@ -1,0 +1,50 @@
+﻿@model RdCenterCalProjectInfoViewModel
+
+<input asp-for="NewProjectInfo.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Proje Kodu
+</h6>
+<div class="form-group">
+    <input asp-for="NewProjectInfo.ProjectCode" class="form-control" />
+</div>
+
+<h6 class="invoice-address">
+    Proje Tanım
+</h6>
+<div class="form-group">
+    <input asp-for="NewProjectInfo.ProjectName" class="form-control" />
+</div>
+
+<h6 class="invoice-address">
+    Proje Tipi
+</h6>
+<div class="form-group">
+    <input asp-for="NewProjectInfo.ProjectType" class="form-control" />
+</div>
+
+<h6 class="invoice-address">
+    Proje Başlangıç Tarihi
+</h6>
+<div class="form-group">
+    <fieldset class="form-group position-relative has-icon-left">
+        <input asp-for="NewProjectInfo.ProjectStartDate" type="date" asp-format="{0:dd-MM-yyyy}" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+        <div class="form-control-position">
+            <i class='bx bx-calendar'></i>
+        </div>
+    </fieldset>
+</div>
+
+<h6 class="invoice-address">
+    Proje Bitiş Tarihi
+</h6>
+<div class="form-group">
+    <fieldset class="form-group position-relative has-icon-left">
+        <input asp-for="NewProjectInfo.ProjectEndDate" type="date" asp-format="{0:dd-MM-yyyy}" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+        <div class="form-control-position">
+            <i class='bx bx-calendar'></i>
+        </div>
+    </fieldset>
+</div>
+
+<script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>

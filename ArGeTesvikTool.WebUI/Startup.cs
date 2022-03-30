@@ -6,13 +6,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace ArGeTesvikTool.WebUI
 {
@@ -64,18 +68,16 @@ namespace ArGeTesvikTool.WebUI
                 options.SlidingExpiration = true;
             });
 
-            services
-                .AddMvc(option =>
-                {
-                    option.EnableEndpointRouting = false;
-                    option.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-
-                });
-              //.AddJsonOptions(opts =>
-              //{
-              //    var enumConverter = new JsonStringEnumConverter();
-              //    opts.JsonSerializerOptions.Converters.Add(enumConverter);
-              //});
+            services.AddMvc(option =>
+            {
+                option.EnableEndpointRouting = false;
+                option.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
+            //.AddJsonOptions(opts =>
+            //{
+            //    var enumConverter = new JsonStringEnumConverter();
+            //    opts.JsonSerializerOptions.Converters.Add(enumConverter);
+            //});
 
             services
                 //.AddSession()
@@ -101,6 +103,7 @@ namespace ArGeTesvikTool.WebUI
             //app.UseSession();
             // Middleware used for microsoft identity
             app.UseAuthentication();
+
             app.UseMvc(ConfigureRoutes);//app.UseMvcWithDefaultRoute();
         }
 

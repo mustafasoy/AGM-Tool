@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace ArGeTesvikTool.Entities.Concrete.Pacs
+namespace ArGeTesvikTool.Entities.Concrete.RdCenterCal
 {
-    public class PersonelAttendanceDto
+    public class RdCenterCalPersAttendanceDto
     {
         public int Id { get; set; }
         public string UserId { get; set; }

@@ -78,10 +78,12 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
                 .HasMaxLength(26);
 
             entity.Property(x => x.FoundingCapital)
-                .HasColumnName("FoundingCapital");
+                .HasColumnName("FoundingCapital")
+                .HasMaxLength(20);
 
             entity.Property(x => x.AvaibleCapital)
-                .HasColumnName("AvaibleCapital");
+                .HasColumnName("AvaibleCapital")
+                .HasMaxLength(20);
 
             entity.Property(x => x.AvaibleCapital)
                 .HasColumnName("AvaibleCapital");

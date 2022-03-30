@@ -43,9 +43,9 @@
                                             <div class="col-8">
                                                 <fieldset class="form-group">
                                                     <div class="custom-file">
-                                                        <input asp-for="FormFile" type="file" accept=".xls,.xlsx" class="custom-file-input">
+                                                        <input asp-for="FormFile" type="file" accept=".xls,.xlsx" class="custom-file-input" />
                                                         <label class="custom-file-label">Dosya seçin</label>
-                                                        <span asp-validation-for="FormFile" class="error"></span>
+                                                        <span asp-validation-for="FormFile" class="error" id="formFile"></span>
                                                     </div>
                                                 </fieldset>
                                             </div>
@@ -176,14 +176,18 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
             showMessage(message);
         };
-    })
+
+        message = "@(TempData["ExcelError"] as string)";
+        if (message != "") {
+            $('#formFile').text(message);
+        };
+    });
 
     $(function () {
         $("#fileUpload").validate({
@@ -201,7 +205,7 @@
                 },
             }
         })
-    })
+    });
 
     var Create = function () {
         $.ajax({
@@ -212,7 +216,7 @@
                 $('#addNewModal').modal('show');
             }
         })
-    }
+    };
 
     var Update = function (id) {
         $.ajax({

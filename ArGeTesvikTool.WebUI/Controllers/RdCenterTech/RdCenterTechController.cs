@@ -322,7 +322,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 
                 _academicLibraryService.Add(academicLibraryViewModel.AcademicLibrary);
 
-                AddSuccessMessage("Bilgi eklendi.");
+                AddSuccessMessage("Ulusal/Uluslararası bilimsel bilgi eklendi.");
 
                 return RedirectToAction("Index", "Home");
             }
@@ -336,7 +336,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 
             _academicLibraryService.Update(academicLibraryViewModel.AcademicLibrary);
 
-            AddSuccessMessage("Bilgi güncellendi.");
+            AddSuccessMessage("Ulusal/Uluslararası bilimsel bilgi güncellendi.");
 
             return RedirectToAction("Index", "Home");
         }

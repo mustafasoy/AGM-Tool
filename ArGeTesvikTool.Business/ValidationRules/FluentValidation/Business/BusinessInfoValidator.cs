@@ -14,9 +14,9 @@ namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation.Business
                 .NotEmpty().WithMessage("Faaliyet kodunu giriniz.");
 
             RuleFor(x => x.PhoneNumber.ToString())
-                .MaximumLength(10)
+                .MaximumLength(14)
                 .When(x => !string.IsNullOrEmpty(x.PhoneNumber))
-                .WithMessage("Telefon numarası alanına 11 karakterden fazla girmeyin.");
+                .WithMessage("Telefon numarası yanlış.");
 
             RuleFor(x => x.TradeNumber.ToString())
                 .MaximumLength(26)

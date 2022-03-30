@@ -1,0 +1,31 @@
+﻿@model RdCenterCalPersonnelInfoViewModel
+
+<input asp-for="NewPersonnelInfo.Id" hidden="hidden" />
+
+<h6 class="invoice-address">
+    Mail Adresi
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.Email" type="email" class="form-control" placeholder="mail@mail.com" />
+</div>
+
+<h6 class="invoice-address">
+    Ad
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.Name" class="form-control" />
+</div>
+
+<h6 class="invoice-address">
+    Soyad
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.LastName" class="form-control" />
+</div>
+
+<h6 class="invoice-address">
+    Kullanıcı Id
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.UserId" type="number" onkeydown="return event.keyCode !== 69" class="form-control" />
+</div>

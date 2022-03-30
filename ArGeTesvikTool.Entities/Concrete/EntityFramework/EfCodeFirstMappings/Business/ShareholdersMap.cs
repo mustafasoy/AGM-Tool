@@ -20,16 +20,21 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
             entity.Property(x => x.CompanyName)
                 .HasColumnName("CompanyName")
                 .HasMaxLength(256);
-            
-            entity.Property(x => x.Origin)
-                .HasColumnName("Origin")
+
+            entity.Property(x => x.CountryCode)
+                .HasColumnName("CountryCode")
+                .HasMaxLength(4);
+
+            entity.Property(x => x.CountryText)
+                .HasColumnName("CountryText")
                 .HasMaxLength(50);
-            
+
             entity.Property(x => x.Share)
                 .HasColumnName("Share");
             
             entity.Property(x => x.ShareAmount)
-                .HasColumnName("ShareAmount");
+                .HasColumnName("ShareAmount")
+                .HasMaxLength(20);
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

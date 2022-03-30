@@ -24,7 +24,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-2 form-group">
-                                        <input asp-for="CooperationInfo.TotalProjectNumber" class="form-control" readonly="readonly">
+                                        <input asp-for="CooperationInfo.TotalProjectNumber" class="form-control" readonly="readonly" />
                                     </div>
                                     <div class="col-md-5"></div>
 
@@ -34,7 +34,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-2 form-group">
-                                        <input asp-for="CooperationInfo.PeriodicExpenditure" class="form-control" readonly="readonly">
+                                        <input asp-for="CooperationInfo.PeriodicExpenditure" class="form-control" readonly="readonly" />
                                     </div>
                                     <div class="col-md-5"></div>
 
@@ -44,7 +44,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-2 form-group">
-                                        <input asp-for="CooperationInfo.PublicPeriodicExpenditure" class="form-control" readonly="readonly">
+                                        <input asp-for="CooperationInfo.PublicPeriodicExpenditure" class="form-control" readonly="readonly" />
                                     </div>
                                     <div class="col-md-5"></div>
 
@@ -54,7 +54,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-2 form-group">
-                                        <input asp-for="CooperationInfo.ProjectPeriodicExpenditure" class="form-control" readonly="readonly">
+                                        <input asp-for="CooperationInfo.ProjectPeriodicExpenditure" class="form-control" readonly="readonly" />
                                     </div>
                                     <div class="col-md-5"></div>
                                 </div>
@@ -63,7 +63,7 @@
                                     <div class="d-flex align-items-center">
                                         <span class="ml-25">
                                             Bilgileri düzeltmek için
-                                            <a onclick="window.location='@Url.Action( "RdCenterTech", "OngoingProject")'">
+                                            <a asp-controller="RdCenterTech" asp-action="OngoingProject">
                                                 AGM Personel Bilgileri
                                             </a>
                                             sayfasına gidiniz.

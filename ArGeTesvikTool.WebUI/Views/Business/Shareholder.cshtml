@@ -57,7 +57,7 @@
                                                     @Html.DisplayFor(modelItem => item.CompanyName)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.Origin)
+                                                    @Html.DisplayFor(modelItem => item.CountryText)
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.Share)
@@ -67,7 +67,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="invoice-action">
-                                                        <a onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
                                                             <i class="bx bx-edit"></i>
                                                         </a>
                                                         <a asp-action="ShareholderDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
@@ -115,14 +115,13 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
             showMessage(message);
         };
-    })
+    });
 
     $(function () {
         $("#jquery-val-form").validate({
@@ -130,7 +129,7 @@
                 'NewShareholder.CompanyName': {
                     required: true,
                 },
-                'NewShareholder.Origin': {
+                'NewShareholder.CountryCode': {
                     required: true,
                 },
                 'NewShareholder.Share': {

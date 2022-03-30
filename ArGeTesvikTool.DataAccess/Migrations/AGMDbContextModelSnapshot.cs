@@ -86,8 +86,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("AcquisitionTurnover")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("AcquisitionTurnover")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("AcquisitionTurnover");
 
                     b.Property<DateTime>("CreatedDate")
@@ -99,20 +100,24 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("CreatedUserName");
 
-                    b.Property<decimal>("DomesticSales")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("DomesticSales")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("DomesticSales");
 
-                    b.Property<decimal>("ExportSales")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("ExportSales")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("ExportSales");
 
-                    b.Property<decimal>("GrossSales")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("GrossSales")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("GrossSales");
 
-                    b.Property<decimal>("LongTermLoan")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("LongTermLoan")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("LongTermLoan");
 
                     b.Property<string>("ModifedUserName")
@@ -124,20 +129,24 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("date")
                         .HasColumnName("ModifiedDate");
 
-                    b.Property<decimal>("NetSales")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("NetSales")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("NetSales");
 
-                    b.Property<decimal>("RDExpenditure")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("RDExpenditure")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("RDExpenditure");
 
-                    b.Property<decimal>("SortTermLoan")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("SortTermLoan")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("SortTermLoan");
 
-                    b.Property<decimal>("TotalAsset")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("TotalAsset")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("TotalAsset");
 
                     b.Property<int>("Year")
@@ -146,9 +155,6 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Year");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Year")
-                        .IsUnique();
 
                     b.ToTable("BusinessFinancialInfos");
                 });
@@ -171,8 +177,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("Adress");
 
-                    b.Property<decimal>("AvaibleCapital")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("AvaibleCapital")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("AvaibleCapital");
 
                     b.Property<string>("CRSNumber")
@@ -213,8 +220,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("date")
                         .HasColumnName("Date");
 
-                    b.Property<decimal>("FoundingCapital")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("FoundingCapital")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("FoundingCapital");
 
                     b.Property<string>("IsSME")
@@ -387,6 +395,16 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("CompanyName");
 
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)")
+                        .HasColumnName("CountryCode");
+
+                    b.Property<string>("CountryText")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("CountryText");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("date")
                         .HasColumnName("CreatedDate");
@@ -408,11 +426,6 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("date")
                         .HasColumnName("ModifiedDate");
-
-                    b.Property<string>("Origin")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("Origin");
 
                     b.Property<int>("Year")
                         .HasMaxLength(4)
@@ -510,6 +523,16 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("CompanyName");
 
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)")
+                        .HasColumnName("CountryCode");
+
+                    b.Property<string>("CountryText")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("CountryText");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("date")
                         .HasColumnName("CreatedDate");
@@ -527,11 +550,6 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("date")
                         .HasColumnName("ModifiedDate");
-
-                    b.Property<string>("Origin")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("Origin");
 
                     b.Property<decimal>("Share")
                         .HasColumnType("decimal(18,2)")
@@ -641,8 +659,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("CreatedUserName");
 
-                    b.Property<decimal>("DomesticSalesRevenue")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("DomesticSalesRevenue")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("DomesticSalesRevenue");
 
                     b.Property<int>("InternationalProjectNumber")
@@ -670,20 +689,24 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("NationalProjectNumber");
 
-                    b.Property<decimal>("OverseasSalesRevenue")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("OverseasSalesRevenue")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("OverseasSalesRevenue");
 
-                    b.Property<decimal>("PeriodicExpenditure")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("PeriodicExpenditure")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("PeriodicExpenditure");
 
-                    b.Property<decimal>("ProjectPeriodicExpenditure")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("ProjectPeriodicExpenditure")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("ProjectPeriodicExpenditure");
 
-                    b.Property<decimal>("PublicPeriodicExpenditure")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("PublicPeriodicExpenditure")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("PublicPeriodicExpenditure");
 
                     b.Property<int>("Year")
@@ -748,9 +771,10 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("AnnualTotal")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("AnnualTotal");
+                    b.Property<string>("CashSupport")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("CashSupport");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("date")
@@ -761,13 +785,30 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("CreatedUserName");
 
-                    b.Property<decimal>("CustomTaxException")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("CustomTaxException");
+                    b.Property<string>("DepreciationAmount")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("DepreciationAmount");
 
-                    b.Property<decimal>("IncentiveAmount")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("IncentiveAmount");
+                    b.Property<string>("DesignExpense")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("DesignExpense");
+
+                    b.Property<string>("ExternalBenefit")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("ExternalBenefit");
+
+                    b.Property<string>("GeneralExpense")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("GeneralExpense");
+
+                    b.Property<string>("MaterialExpense")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("MaterialExpense");
 
                     b.Property<string>("ModifedUserName")
                         .HasMaxLength(256)
@@ -778,29 +819,25 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("date")
                         .HasColumnName("ModifiedDate");
 
-                    b.Property<decimal>("PremiumSupport")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("PremiumSupport");
+                    b.Property<string>("PersonelExpense")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("PersonelExpense");
 
-                    b.Property<decimal>("RatioTurnover")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("RatioTurnover");
-
-                    b.Property<decimal>("StampTaxException")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("StampTaxException");
-
-                    b.Property<decimal>("TaxExemption")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("TaxExemption")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("TaxExemption");
 
-                    b.Property<decimal>("TotalExpenditure")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("TotalExpenditure");
+                    b.Property<string>("TaxFee")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("TaxFee");
 
-                    b.Property<decimal>("WithholdingIncentive")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("WithholdingIncentive");
+                    b.Property<string>("TotalExpenditure")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("TotalExpenditure");
 
                     b.Property<int>("Year")
                         .HasMaxLength(4)
@@ -808,9 +845,6 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Year");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Year")
-                        .IsUnique();
 
                     b.ToTable("RdCenterAmounts");
                 });
@@ -936,9 +970,10 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("CashSupport")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("CashSupport");
+                    b.Property<string>("AnnualTotal")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("AnnualTotal");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("date")
@@ -949,25 +984,15 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("CreatedUserName");
 
-                    b.Property<decimal>("DepreciationAmount")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("DepreciationAmount");
+                    b.Property<string>("CustomTaxException")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("CustomTaxException");
 
-                    b.Property<decimal>("DesignExpense")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("DesignExpense");
-
-                    b.Property<decimal>("ExternalBenefit")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("ExternalBenefit");
-
-                    b.Property<decimal>("GeneralExpense")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("GeneralExpense");
-
-                    b.Property<decimal>("MaterialExpense")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("MaterialExpense");
+                    b.Property<string>("IncentiveAmount")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("IncentiveAmount");
 
                     b.Property<string>("ModifedUserName")
                         .HasMaxLength(256)
@@ -978,21 +1003,35 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("date")
                         .HasColumnName("ModifiedDate");
 
-                    b.Property<decimal>("PersonelExpense")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("PersonelExpense");
+                    b.Property<string>("PremiumSupport")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("PremiumSupport");
 
-                    b.Property<decimal>("TaxExemption")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("RatioTurnover")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("RatioTurnover");
+
+                    b.Property<string>("StampTaxException")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("StampTaxException");
+
+                    b.Property<string>("TaxExemption")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("TaxExemption");
 
-                    b.Property<decimal>("TaxFee")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("TaxFee");
-
-                    b.Property<decimal>("TotalExpenditure")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("TotalExpenditure")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("TotalExpenditure");
+
+                    b.Property<string>("WithholdingIncentive")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("WithholdingIncentive");
 
                     b.Property<int>("Year")
                         .HasMaxLength(4)
@@ -1000,9 +1039,6 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Year");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Year")
-                        .IsUnique();
 
                     b.ToTable("RdCenterDiscounts");
                 });
@@ -1335,6 +1371,16 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)")
+                        .HasColumnName("CountryCode");
+
+                    b.Property<string>("CountryText")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("CountryText");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("date")
                         .HasColumnName("CreatedDate");
@@ -1373,11 +1419,6 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("NameSurname");
-
-                    b.Property<string>("Nationality")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("Location");
 
                     b.Property<string>("PersonPosition")
                         .IsRequired()
@@ -1829,8 +1870,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("DocumentFileName");
 
-                    b.Property<decimal>("EquityAmount")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("EquityAmount")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("EquityAmount");
 
                     b.Property<byte[]>("IncomeContent")
@@ -1845,8 +1887,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("IncomeFileName");
 
-                    b.Property<decimal>("IntServiceProcurementAmount")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("IntServiceProcurementAmount")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("IntServiceProcurementAmount");
 
                     b.Property<string>("IntSupportProgram")
@@ -1862,8 +1905,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("date")
                         .HasColumnName("ModifiedDate");
 
-                    b.Property<decimal>("NatServiceProcurementAmount")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("NatServiceProcurementAmount")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("NatServiceProcurementAmount");
 
                     b.Property<string>("NatSupportProgram")
@@ -1895,8 +1939,9 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ProjectContentType");
 
-                    b.Property<decimal>("ProjectDuration")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("ProjectDuration")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)")
                         .HasColumnName("ProjectDuration");
 
                     b.Property<DateTime>("ProjectEndDate")
@@ -1946,20 +1991,23 @@ namespace ArGeTesvikTool.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ServiceProcurement");
 
-                    b.Property<decimal>("ServiceProcurementAmount")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("ServiceProcurementAmount")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("ServiceProcurementAmount");
 
                     b.Property<string>("ServiceProcurementSubject")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ServiceProcurementSubject");
 
-                    b.Property<decimal>("SupportAmount")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("SupportAmount")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("SupportAmount");
 
-                    b.Property<decimal>("TotalProjectIncome")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("TotalProjectIncome")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("TotalProjectIncome");
 
                     b.Property<int>("Year")

@@ -17,12 +17,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.Index
     {
         private readonly INewDataService _newDataService;
         private readonly IRdCenterPersonInfoService _infoService;
-        private readonly IRdCenterDiscountService _discountService;
+        private readonly IRdCenterAmountService _amountService;
 
-        public IndexController(IRdCenterPersonInfoService infoService, IRdCenterDiscountService discountService, INewDataService newDataService)
+        public IndexController(IRdCenterPersonInfoService infoService, IRdCenterAmountService amountService, INewDataService newDataService)
         {
             _infoService = infoService;
-            _discountService = discountService;
+            _amountService = amountService;
             _newDataService = newDataService;
         }
 
@@ -99,13 +99,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.Index
 
         public IActionResult SpendingIntensity(int year)
         {
-            List<RdCenterDiscountDto> discountList = _discountService.GetAllByYear(year);
+            List<RdCenterAmountDto> amountList = _amountService.GetAllByYear(year);
 
             SpendingIntensityDto spendingIntensity = new()
             {
-                CashSupport = discountList.Select(x => x.CashSupport).Sum(),
-                PreviousYearCashSupport = discountList.Select(x => x.CashSupport).Sum(),
-                DesignExpense = discountList.Select(x => x.DesignExpense).Sum()
+                CashSupport = amountList.Select(x => Convert.ToDecimal(x.CashSupport)).Sum().ToString(),
+                PreviousYearCashSupport = amountList.Select(x => Convert.ToDecimal(x.CashSupport)).Sum().ToString(),
+                DesignExpense = amountList.Select(x => Convert.ToDecimal(x.DesignExpense)).Sum().ToString()
             };
 
             SpendingIntensityViewModel spendingIntensityInfoViewModel = new()

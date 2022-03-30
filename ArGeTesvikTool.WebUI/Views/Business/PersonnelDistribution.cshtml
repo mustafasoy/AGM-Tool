@@ -91,7 +91,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="invoice-action">
-                                                        <a onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
                                                             <i class="bx bx-edit"></i>
                                                         </a>
                                                         <a asp-action="PersonnelDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
@@ -140,8 +140,14 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
+    $(document).ready(function () {
+        var message = "@(TempData["SuccessMessage"] as string)";
+        if (message != "") {
+            showMessage(message);
+        };
+    });
+
     $(function () {
         $("#jquery-val-form").validate({
             rules: {
@@ -154,7 +160,7 @@
 
     var Create = function () {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/Business/PersonnelCreate",
             success: function (response) {
                 $('#modalBody').html(response);
@@ -165,7 +171,7 @@
 
     var Update = function (id) {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/Business/PersonnelUpdate",
             data: { id: id },
             success: function (response) {

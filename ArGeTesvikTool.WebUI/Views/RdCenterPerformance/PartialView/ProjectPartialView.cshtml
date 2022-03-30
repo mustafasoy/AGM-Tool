@@ -6,21 +6,21 @@
     Proje
 </h6>
 <div class="form-group">
-    <input asp-for="NewProjectInfo.ProjectName" class="form-control">
+    <input asp-for="NewProjectInfo.ProjectName" class="form-control" />
 </div>
 
 <h6 class="invoice-address">
     Proje Sonucu Ticarileşen Ürün Adı
 </h6>
 <div class="form-group">
-    <input asp-for="NewProjectInfo.CommercialProductName" class="form-control">
+    <input asp-for="NewProjectInfo.CommercialProductName" class="form-control" />
 </div>
 
 <h6 class="invoice-address">
     İthal İkame Bir Ürün
 </h6>
 <div class="form-group checkbox">
-    <input asp-for="NewProjectInfo.IsImportProduct" type="checkbox" class="form-group checkbox-input" id="importProduct">
+    <input asp-for="NewProjectInfo.IsImportProduct" type="checkbox" class="form-group checkbox-input" id="importProduct" />
     <label for="importProduct">
         İthal ikame bir ürün ise seçiniz.
     </label>
@@ -37,5 +37,5 @@
     Proje Sonucu Ticarileşen Üründen Elde Edilen Toplam Gelir (TL)
 </h6>
 <div class="form-group">
-    <input asp-for="NewProjectInfo.Amount" class="form-control">
+    <input asp-for="NewProjectInfo.Amount" asp-format="{0:N}" class="form-control" />
 </div>

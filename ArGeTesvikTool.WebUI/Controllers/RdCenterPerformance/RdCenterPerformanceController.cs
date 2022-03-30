@@ -64,7 +64,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerformance
         }
 
         [HttpPost]
-        public IActionResult PersonInfo(RdCenterPerformanceProjectViewModel projectViewModel)
+        public IActionResult Project(RdCenterPerformanceProjectViewModel projectViewModel)
         {
             var project = _projectService.GetById(projectViewModel.NewProjectInfo.Id);
             if (project == null)
@@ -90,7 +90,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerformance
                 AddSuccessMessage("Ticarileşen proje kaydı güncellendi.");
             }
 
-            return RedirectToAction("Projec", new { year = 2022 });
+            return RedirectToAction("Project", new { year = 2022 });
         }
         #endregion
     }

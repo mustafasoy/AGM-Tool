@@ -12,20 +12,41 @@
 <h6 class="invoice-address">
     Uyruğu
 </h6>
+<input asp-for="NewShareholder.CountryText" type="hidden" class="form-control" />
 <div class="form-group">
-    <input asp-for="NewShareholder.Origin" class="form-control">
+    <fieldset class="form-group">
+        <select asp-for="NewShareholder.CountryCode" id="country" class="select2 form-control select2-hidden-accessible">
+            <option selected="selected" value="">
+                Seçiniz
+            </option>
+        </select>
+    </fieldset>
 </div>
 
 <h6 class="invoice-address">
     Pay(%)
 </h6>
 <div class="form-group">
-    <input asp-for="NewShareholder.Share" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
+    <input asp-for="NewShareholder.Share" type="number" onkeydown="return event.keyCode !== 69" class="form-control" />
 </div>
 
 <h6 class="invoice-address">
     Pay Tutarı(TL)
 </h6>
 <div class="form-group">
-    <input asp-for="NewShareholder.ShareAmount" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
+    <input asp-for="NewShareholder.ShareAmount" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
+
+<script src="~/frest/app-assets/js/scripts/forms/select/form-select2.js"></script>
+<script src="~/frest/app-assets/js/list-country.js"></script>
+<script src="~/frest/app-assets/js/currency.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#country").val('@ViewBag.Country');
+        $("#country").change()
+
+        $("#country").on("change", function () {
+            $('input[name="NewShareholder.CountryText"]').val($("#country option:selected").text());
+        })
+    });
+</script>

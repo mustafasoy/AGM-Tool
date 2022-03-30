@@ -64,6 +64,9 @@
                                         {
                                             <tr>
                                                 <td>
+                                                    @Html.DisplayFor(modelItem => item.Year)
+                                                </td>
+                                                <td>
                                                     @Html.DisplayFor(modelItem => item.NetSales)
                                                 </td>
                                                 <td>
@@ -92,7 +95,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="invoice-action">
-                                                        <a onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
                                                             <i class="bx bx-edit"></i>
                                                         </a>
                                                         <a asp-action="FinancialDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
@@ -140,8 +143,14 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
+    $(document).ready(function () {
+        var message = "@(TempData["SuccessMessage"] as string)";
+        if (message != "") {
+            showMessage(message);
+        };
+    });
+
     var Create = function () {
         $.ajax({
             type: "GET",
@@ -156,7 +165,7 @@
     var Update = function (id) {
         $.ajax({
             type: "GET",
-            url: "/Business/FinancialCreate",
+            url: "/Business/Financialupdate",
             data: { id: id },
             success: function (response) {
                 $('#modalBody').html(response);

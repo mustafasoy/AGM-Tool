@@ -2,8 +2,8 @@
 {
     public class CommercializationDto
     {
-        public decimal TotalTurnoverAmount { get; set; }
-        public decimal DomesticSalesRevenue { get; set; }
-        public decimal OverseasSalesRevenue { get; set; }
+        public string TotalTurnoverAmount { get; set; }
+        public string DomesticSalesRevenue { get; set; }
+        public string OverseasSalesRevenue { get; set; }
     }
 }

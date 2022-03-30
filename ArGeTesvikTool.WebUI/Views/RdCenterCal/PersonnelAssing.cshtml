@@ -1,0 +1,130 @@
+﻿@model ArGeTesvikTool.WebUI.Models.RdCenterCal.RdCenterCalPersAssingViewModel
+@{
+    ViewData["Title"] = "Projeye Personel Ata";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <h4 class="text-primary">
+                Projeye Personel Ata
+            </h4>
+            <br />
+            <!-- users list start -->
+            <section class="users-list-wrapper">
+                <div class="users-list-filter px-1">
+                    <form>
+                        <div class="row border rounded py-2 mb-2">
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <h6 class="invoice-address">
+                                    Personel Mail Adresi
+                                </h6>
+                                <fieldset class="form-group">
+                                    <select class="form-control" id="users-list-verified">
+                                        <option value="">
+                                            Hepsi
+                                        </option>
+                                        <option value="Evet">
+                                            Evet
+                                        </option>
+                                        <option value="Hayır">
+                                            Hayır
+                                        </option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <h6 class="invoice-address">
+                                    Proje Kodu
+                                </h6>
+                                <fieldset class="form-group">
+                                    <select class="form-control" id="users-list-role">
+                                        <option value="">
+                                            Hepsi
+                                        </option>
+                                        <option value="Yönetici">
+                                            Yönetici
+                                        </option>
+                                        <option value="Personel">
+                                            Personel
+                                        </option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
+                                <button type="reset" class="btn btn-primary btn-block glow users-list-clear mb-0">
+                                    Getir
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="users-list-table">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- datatable start -->
+                            <div class="table-responsive">
+                                <table id="users-list-datatable" class="table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                kullanıcı adı
+                                            </th>
+                                            <th>
+                                                ad soyad
+                                            </th>
+                                            <th>
+                                                doğrulandı
+                                            </th>
+                                            <th>
+                                                rol
+                                            </th>
+                                            <th>
+                                                durum
+                                            </th>
+                                            <th>
+                                                düzenle
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    @*<tbody>
+                                        @foreach (var item in Model.NewPersAssing)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.UserName
+                                                </td>
+                                                <td>
+                                                    @item.Name @item.LastName
+                                                </td>
+                                                <td>
+                                                    Evet
+                                                </td>
+                                                <td>
+                                                    Personel
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-light-success">
+                                                        Active
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <a asp-action="EditUser" asp-route-id="@item.Id" method="post">
+                                                        <i class="bx bx-edit-alt"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>*@
+                                </table>
+                            </div>
+                            <!-- datatable ends -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- users list ends -->
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

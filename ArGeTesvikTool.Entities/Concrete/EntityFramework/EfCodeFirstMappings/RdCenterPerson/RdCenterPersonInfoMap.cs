@@ -26,8 +26,12 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("NameSurname")
                 .HasMaxLength(256);
 
-            entity.Property(x => x.Nationality)
-                .HasColumnName("Location")
+            entity.Property(x => x.CountryCode)
+                .HasColumnName("CountryCode")
+                .HasMaxLength(4);
+
+            entity.Property(x => x.CountryText)
+                .HasColumnName("CountryText")
                 .HasMaxLength(50);
 
             entity.Property(x => x.EducationStatu)

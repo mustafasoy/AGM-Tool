@@ -27,7 +27,7 @@
                                     <div class="col-8">
                                         <fieldset class="form-group">
                                             <div class="custom-file">
-                                                <input asp-for="FormFile" type="file" class="custom-file-input" id="fileUpload">
+                                                <input asp-for="FormFile" type="file" class="custom-file-input" id="fileUpload" />
                                                 <label class="custom-file-label">Dosya seçin</label>
                                                 <span asp-validation-for="FormFile" class="error"></span>
                                             </div>
@@ -113,12 +113,11 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
             showMessage(message);
         };
-});
+    });
 </script>

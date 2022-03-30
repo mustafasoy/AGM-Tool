@@ -4,14 +4,15 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenter
 {
     public class RdCenterAmountDto : AuditableEntity
     {
-        public decimal TaxExemption { get; set; }
-        public decimal WithholdingIncentive { get; set; }
-        public decimal PremiumSupport { get; set; }
-        public decimal StampTaxException { get; set; }
-        public decimal CustomTaxException { get; set; }
-        public decimal IncentiveAmount { get; set; }
-        public decimal TotalExpenditure { get; set; }
-        public decimal AnnualTotal { get; set; }
-        public decimal RatioTurnover { get; set; }
+        public string MaterialExpense { get; set; }
+        public string DepreciationAmount { get; set; }
+        public string PersonelExpense { get; set; }
+        public string GeneralExpense { get; set; }
+        public string ExternalBenefit { get; set; }
+        public string TaxFee { get; set; }
+        public string DesignExpense { get; set; }
+        public string CashSupport { get; set; }
+        public string TotalExpenditure { get; set; }
+        public string TaxExemption { get; set; }
     }
 }

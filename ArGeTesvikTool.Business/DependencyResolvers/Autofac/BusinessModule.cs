@@ -3,6 +3,7 @@ using ArGeTesvikTool.Business.Abstract.Business;
 using ArGeTesvikTool.Business.Abstract.Home;
 using ArGeTesvikTool.Business.Abstract.Index;
 using ArGeTesvikTool.Business.Abstract.RdCenter;
+using ArGeTesvikTool.Business.Abstract.RdCenterCal;
 using ArGeTesvikTool.Business.Abstract.RdCenterPerformance;
 using ArGeTesvikTool.Business.Abstract.RdCenterPerson;
 using ArGeTesvikTool.Business.Abstract.RdCenterTech;
@@ -10,6 +11,7 @@ using ArGeTesvikTool.Business.Concrete.Business;
 using ArGeTesvikTool.Business.Concrete.Home;
 using ArGeTesvikTool.Business.Concrete.Index;
 using ArGeTesvikTool.Business.Concrete.RdCenter;
+using ArGeTesvikTool.Business.Concrete.RdCenterCal;
 using ArGeTesvikTool.Business.Concrete.RdCenterPerformance;
 using ArGeTesvikTool.Business.Concrete.RdCenterPerson;
 using ArGeTesvikTool.Business.Concrete.RdCenterTech;
@@ -17,6 +19,7 @@ using ArGeTesvikTool.DataAccess.Abstract;
 using ArGeTesvikTool.DataAccess.Abstract.Business;
 using ArGeTesvikTool.DataAccess.Abstract.Index;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenter;
+using ArGeTesvikTool.DataAccess.Abstract.RdCenterCal;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterPerformance;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterPerson;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterTech;
@@ -24,6 +27,7 @@ using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Business;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Index;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenter;
+using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterCal;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterPerformance;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterPerson;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterTech;
@@ -86,6 +90,17 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterAmountDal>().As<IRdCenterAmountDal>().SingleInstance();
             builder.RegisterType<RdCenterDiscountManager>().As<IRdCenterDiscountService>().SingleInstance();
             builder.RegisterType<EfRdCenterDiscountDal>().As<IRdCenterDiscountDal>().SingleInstance();
+            #endregion
+
+            #region RdCenterCal
+            builder.RegisterType<RdCenterCalPersonnelManager>().As<IRdCenterCalPersonnelService>().SingleInstance();
+            builder.RegisterType<EfRdCenterCalPersonnelDal>().As<IRdCenterCalPersonnelDal>().SingleInstance();
+            builder.RegisterType<RdCenterCalProjectManager>().As<IRdCenterCalProjectService>().SingleInstance();
+            builder.RegisterType<EfRdCenterCalProjectDal>().As<IRdCenterCalProjectDal>().SingleInstance();
+            builder.RegisterType<RdCenterCalTimeAwayManager>().As<IRdCenterCalTimeAwayService>().SingleInstance();
+            builder.RegisterType<EfRdCenterCalTimeAwayDal>().As<IRdCenterCalTimeAwayDal>().SingleInstance();
+            builder.RegisterType<RdCenterCalPersAssingManager>().As<IRdCenterCalPersAssingService>().SingleInstance();
+            builder.RegisterType<EfRdCenterCalPersAssingDal>().As<IRdCenterCalPersAssingDal>().SingleInstance();
             #endregion
 
             #region RdCenterPerson

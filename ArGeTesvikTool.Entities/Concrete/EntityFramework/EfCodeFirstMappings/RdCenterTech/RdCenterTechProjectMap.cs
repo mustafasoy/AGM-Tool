@@ -43,7 +43,8 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("PersonNumber");
 
             entity.Property(x => x.ProjectDuration)
-                .HasColumnName("ProjectDuration");
+                .HasColumnName("ProjectDuration")
+                .HasMaxLength(4);
 
             entity.Property(x => x.ProjectFileName)
                 .HasColumnName("ProjectFileName");
@@ -61,13 +62,16 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("IntSupportProgram");
 
             entity.Property(x => x.TotalProjectIncome)
-                .HasColumnName("TotalProjectIncome");
+                .HasColumnName("TotalProjectIncome")
+                .HasMaxLength(20);
 
             entity.Property(x => x.EquityAmount)
-                .HasColumnName("EquityAmount");
+                .HasColumnName("EquityAmount")
+                .HasMaxLength(20);
 
             entity.Property(x => x.SupportAmount)
-                .HasColumnName("SupportAmount");
+                .HasColumnName("SupportAmount")
+                .HasMaxLength(20);
 
             entity.Property(x => x.OrderBase)
                 .HasColumnName("OrderBase");
@@ -79,13 +83,16 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("ServiceProcurement");
 
             entity.Property(x => x.ServiceProcurementAmount)
-                .HasColumnName("ServiceProcurementAmount");
+                .HasColumnName("ServiceProcurementAmount")
+                .HasMaxLength(20);
 
             entity.Property(x => x.NatServiceProcurementAmount)
-                .HasColumnName("NatServiceProcurementAmount");
+                .HasColumnName("NatServiceProcurementAmount")
+                .HasMaxLength(20);
 
             entity.Property(x => x.IntServiceProcurementAmount)
-                .HasColumnName("IntServiceProcurementAmount");
+                .HasColumnName("IntServiceProcurementAmount")
+                .HasMaxLength(20);
 
             entity.Property(x => x.IncomeFileName)
                 .HasColumnName("IncomeFileName");

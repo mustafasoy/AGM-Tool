@@ -1,7 +1,6 @@
 ﻿@model ArGeTesvikTool.WebUI.Models.RdCenter.RdCenterDiscountViewModel
 @{
     ViewBag.Title = "5746 Sayılı Kanun Kapsamında Yararlanılan İndirim, İstisna, Muafiyet vb. Teşvik Tutarı";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -26,10 +25,10 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                Faaliyet Dönemi
+                                                Dönemi
                                             </th>
                                             <th>
-                                                Ar-Ge ve Tasarım İndirimi Kapsamında Yararlanılan / Yaralanılacak Kurumları Vergisi İstisnası
+                                                Ar-Ge ve Tasarım İndirimi Kapsamında Yararlanılan/Yaralanılacak Kurumları Vergisi İstisnası
                                             </th>
                                             <th>
                                                 Gelir Vergisi Stopaj Teşviği
@@ -68,34 +67,31 @@
                                                     @Html.DisplayFor(modelItem => item.Year)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.MaterialExpense)
+                                                    @Html.DisplayFor(modelItem => item.TaxExemption)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.DepreciationAmount)
+                                                    @Html.DisplayFor(modelItem => item.WithholdingIncentive)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.PersonelExpense)
+                                                    @Html.DisplayFor(modelItem => item.PremiumSupport)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.GeneralExpense)
+                                                    @Html.DisplayFor(modelItem => item.StampTaxException)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.ExternalBenefit)
+                                                    @Html.DisplayFor(modelItem => item.CustomTaxException)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.TaxFee)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.DesignExpense)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.CashSupport)
+                                                    @Html.DisplayFor(modelItem => item.IncentiveAmount)
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.TotalExpenditure)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.TaxExemption)
+                                                    @Html.DisplayFor(modelItem => item.AnnualTotal)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.RatioTurnover)
                                                 </td>
                                                 <td>
                                                     <div class="invoice-action">
@@ -147,7 +143,6 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";

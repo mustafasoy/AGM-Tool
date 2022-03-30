@@ -2,8 +2,8 @@
 {
     public class SpendingIntensityDto
     {
-        public decimal CashSupport { get; set; }
-        public decimal PreviousYearCashSupport { get; set; }
-        public decimal DesignExpense { get; set; }
+        public string CashSupport { get; set; }
+        public string PreviousYearCashSupport { get; set; }
+        public string DesignExpense { get; set; }
     }
 }

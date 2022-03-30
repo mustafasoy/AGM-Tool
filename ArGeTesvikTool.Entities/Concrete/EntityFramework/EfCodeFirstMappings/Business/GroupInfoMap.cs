@@ -27,11 +27,15 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
             entity.Property(x => x.Address)
                 .HasColumnName("Address")
                 .HasMaxLength(256);
-            
-            entity.Property(x => x.Origin)
-                .HasColumnName("Origin")
+
+            entity.Property(x => x.CountryCode)
+                .HasColumnName("CountryCode")
+                .HasMaxLength(4);
+
+            entity.Property(x => x.CountryText)
+                .HasColumnName("CountryText")
                 .HasMaxLength(50);
-            
+
             entity.Property(x => x.FoundingDate)
                 .HasColumnName("FoundingDate")
                 .HasColumnType("date");

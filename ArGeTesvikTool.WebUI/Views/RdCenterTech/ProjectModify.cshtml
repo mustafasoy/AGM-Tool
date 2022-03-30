@@ -41,7 +41,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.ProjectCode" class="form-control">
+                                        <input asp-for="NewProject.ProjectCode" class="form-control" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -50,7 +50,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.ProjectName" class="form-control">
+                                        <input asp-for="NewProject.ProjectName" class="form-control" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="NewProject.ProjectStartDate" asp-format="{0:dd-MM-yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                            <input asp-for="NewProject.ProjectStartDate" asp-format="{0:dd-MM-yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="NewProject.ProjectEndDate" asp-format="{0:dd-MM-yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                            <input asp-for="NewProject.ProjectEndDate" asp-format="{0:dd-MM-yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>
@@ -87,7 +87,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.PersonNumber" type="number" onkeydown="return event.keyCode !== 69" class="form-control">
+                                        <input asp-for="NewProject.PersonNumber" type="number" onkeydown="return event.keyCode !== 69" class="form-control" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -96,7 +96,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.ProjectDuration" class="form-control">
+                                        <input asp-for="NewProject.ProjectDuration" class="form-control" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -107,7 +107,7 @@
                                     <div class="col-md-4 form-group">
                                         <fieldset class="form-group">
                                             <div class="custom-file">
-                                                <input asp-for="ProjectFile" type="file" accept=".xls,.xlsx,.pdf" class="custom-file-input">
+                                                <input asp-for="ProjectFile" type="file" accept=".xls,.xlsx,.pdf" class="custom-file-input" />
                                                 <label class="custom-file-label">Dosya seçin</label>
                                             </div>
                                         </fieldset>
@@ -120,12 +120,12 @@
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <div class="form-group checkbox">
-                                            <input type="checkbox" class="form-group checkbox-input" id="checkNatSupportProgram">
+                                            <input type="checkbox" class="form-group checkbox-input" id="checkNatSupportProgram" />
                                             <label for="checkNatSupportProgram">
                                                 Ulusal destek programı ise seçiniz.
                                             </label>
                                         </div>
-                                        <input asp-for="NewProject.NatSupportProgram" class="form-control" id="natSupportProgram">
+                                        <input asp-for="NewProject.NatSupportProgram" class="form-control" id="natSupportProgram" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -135,12 +135,12 @@
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <div class="form-group checkbox">
-                                            <input type="checkbox" class="form-group checkbox-input" id="checkIntSupportProgram">
+                                            <input type="checkbox" class="form-group checkbox-input" id="checkIntSupportProgram" />
                                             <label for="checkIntSupportProgram">
                                                 Uluslararası destek programı ise seçiniz.
                                             </label>
                                         </div>
-                                        <input asp-for="NewProject.IntSupportProgram" class="form-control" id="intSupportProgram">
+                                        <input asp-for="NewProject.IntSupportProgram" class="form-control" id="intSupportProgram" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -149,7 +149,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.TotalProjectIncome" class="form-control">
+                                        <input asp-for="NewProject.TotalProjectIncome" class="form-control currency" maxlength="20" placeholder="0,00" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -158,7 +158,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.EquityAmount" class="form-control">
+                                        <input asp-for="NewProject.EquityAmount" class="form-control currency" maxlength="20" placeholder="0,00" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -167,7 +167,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.SupportAmount" class="form-control">
+                                        <input asp-for="NewProject.SupportAmount" class="form-control currency" maxlength="20" placeholder="0,00" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -177,12 +177,12 @@
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <div class="form-group checkbox">
-                                            <input type="checkbox" class="form-group checkbox-input" id="checkOrderBase">
+                                            <input type="checkbox" class="form-group checkbox-input" id="checkOrderBase" />
                                             <label for="checkOrderBase">
                                                 Siparişe dayalı ar-ge ise seçiniz.
                                             </label>
                                         </div>
-                                        <input asp-for="NewProject.OrderBase" class="form-control" id="orderBase">
+                                        <input asp-for="NewProject.OrderBase" class="form-control" id="orderBase" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -191,7 +191,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.ServiceProcurementSubject" class="form-control">
+                                        <input asp-for="NewProject.ServiceProcurementSubject" class="form-control" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -211,7 +211,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.ServiceProcurementAmount" class="form-control">
+                                        <input asp-for="NewProject.ServiceProcurementAmount" class="form-control currency" maxlength="20" placeholder="0,00" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -220,7 +220,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.NatServiceProcurementAmount" class="form-control">
+                                        <input asp-for="NewProject.NatServiceProcurementAmount" class="form-control currency" maxlength="20" placeholder="0,00" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -229,7 +229,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.IntServiceProcurementAmount" class="form-control">
+                                        <input asp-for="NewProject.IntServiceProcurementAmount" class="form-control currency" maxlength="20" placeholder="0,00" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -240,7 +240,7 @@
                                     <div class="col-md-4 form-group">
                                         <fieldset class="form-group">
                                             <div class="custom-file">
-                                                <input asp-for="IncomeFile" type="file" accept=".xls,.xlsx,.pdf" class="custom-file-input">
+                                                <input asp-for="IncomeFile" type="file" accept=".xls,.xlsx,.pdf" class="custom-file-input" />
                                                 <label class="custom-file-label">Dosya seçin</label>
                                             </div>
                                         </fieldset>
@@ -252,7 +252,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.ProjectSubject" class="form-control">
+                                        <input asp-for="NewProject.ProjectSubject" class="form-control" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -261,7 +261,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-4 form-group">
-                                        <input asp-for="NewProject.ProjectSummary" class="form-control">
+                                        <input asp-for="NewProject.ProjectSummary" class="form-control" />
                                     </div>
                                     <div class="col-md-5"></div>
                                     <div class="col-md-3">
@@ -309,7 +309,7 @@
                                     <div class="col-md-4 form-group">
                                         <fieldset class="form-group">
                                             <div class="custom-file">
-                                                <input asp-for="DocumentFile" type="file" accept=".xls,.xlsx,.pdf" class="custom-file-input">
+                                                <input asp-for="DocumentFile" type="file" accept=".xls,.xlsx,.pdf" class="custom-file-input" />
                                                 <label class="custom-file-label">Dosya seçin</label>
                                             </div>
                                         </fieldset>

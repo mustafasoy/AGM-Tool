@@ -10,71 +10,64 @@
 </div>*@
 
 <h6 class="invoice-address">
-    Ar-Ge ve Tasarım İndirimi Kapsamında Yararlanılan / Yaralanılacak Kurumları Vergisi İstisnası
+    Ar-Ge ve Tasarım İndirimi Kapsamında Yararlanılan/Yaralanılacak Kurumları Vergisi İstisnası
 </h6>
 <div class="form-group">
-    <input asp-for="NewDiscountInfo.MaterialExpense" class="form-control">
+    <input asp-for="NewDiscountInfo.TaxExemption" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
 
 <h6 class="invoice-address">
     Gelir Vergisi Stopaj Teşviği
 </h6>
 <div class="form-group">
-    <input asp-for="NewDiscountInfo.DepreciationAmount" class="form-control">
+    <input asp-for="NewDiscountInfo.WithholdingIncentive" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
 
 <h6 class="invoice-address">
     Sigorta Primi Desteği
 </h6>
 <div class="form-group">
-    <input asp-for="NewDiscountInfo.PersonelExpense" class="form-control">
+    <input asp-for="NewDiscountInfo.PremiumSupport" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
 
 <h6 class="invoice-address">
     Damga Vergisi İstisnası
 </h6>
 <div class="form-group">
-    <input asp-for="NewDiscountInfo.GeneralExpense" class="form-control">
+    <input asp-for="NewDiscountInfo.StampTaxException" asp-format="{0:N}" class="form-control" />
 </div>
 
 <h6 class="invoice-address">
     Gümrük Vergisi İstisnası
 </h6>
 <div class="form-group">
-    <input asp-for="NewDiscountInfo.ExternalBenefit" class="form-control">
+    <input asp-for="NewDiscountInfo.CustomTaxException" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
 
 <h6 class="invoice-address">
     Yararlanılan İndirim, İstisna, Muafiyeti vb. Teşvik Tutarı
 </h6>
 <div class="form-group">
-    <input asp-for="NewDiscountInfo.TaxFee" class="form-control">
+    <input asp-for="NewDiscountInfo.IncentiveAmount" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
 
 <h6 class="invoice-address">
     Ar-Ge İndirimine Tabi Harcamalar Toplamı
 </h6>
 <div class="form-group">
-    <input asp-for="NewDiscountInfo.DesignExpense" class="form-control">
-</div>
-
-<h6 class="invoice-address">
-    Ar-Ge ve Tasarım İndirimine Tabi Harcamalar Toplamı
-</h6>
-<div class="form-group">
-    <input asp-for="NewDiscountInfo.CashSupport" class="form-control">
+    <input asp-for="NewDiscountInfo.TotalExpenditure" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
 
 <h6 class="invoice-address">
     Yıllık Toplam Ciro
 </h6>
 <div class="form-group">
-    <input asp-for="NewDiscountInfo.TotalExpenditure" class="form-control">
+    <input asp-for="NewDiscountInfo.AnnualTotal" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
 
 <h6 class="invoice-address">
     Toplam Harcamanın Ciroya Oranı
 </h6>
 <div class="form-group">
-    <input asp-for="NewDiscountInfo.TaxExemption" class="form-control">
+    <input asp-for="NewDiscountInfo.RatioTurnover" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>

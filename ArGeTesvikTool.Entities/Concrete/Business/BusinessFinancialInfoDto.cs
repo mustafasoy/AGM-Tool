@@ -4,14 +4,14 @@ namespace ArGeTesvikTool.Entities.Concrete.Business
 {
     public class BusinessFinancialInfoDto : AuditableEntity
     {
-        public decimal NetSales { get; set; }
-        public decimal TotalAsset { get; set; }
-        public decimal SortTermLoan { get; set; }
-        public decimal LongTermLoan { get; set; }
-        public decimal DomesticSales { get; set; }
-        public decimal ExportSales { get; set; }
-        public decimal GrossSales { get; set; }
-        public decimal RDExpenditure { get; set; }
-        public decimal AcquisitionTurnover { get; set; }
+        public string NetSales { get; set; }
+        public string TotalAsset { get; set; }
+        public string SortTermLoan { get; set; }
+        public string LongTermLoan { get; set; }
+        public string DomesticSales { get; set; }
+        public string ExportSales { get; set; }
+        public string GrossSales { get; set; }
+        public string RDExpenditure { get; set; }
+        public string AcquisitionTurnover { get; set; }
     }
 }

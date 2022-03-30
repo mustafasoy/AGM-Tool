@@ -1,0 +1,164 @@
+﻿@model RdCenterCalProjectInfoViewModel
+@{
+    ViewBag.Title = "Proje Tanımla";
+    int rowNumber = 0;
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <h4 class="text-primary">
+                Proje Tanımla
+            </h4>
+            <br />
+            <section class="invoice-list-wrapper">
+                <div class="invoice-create-btn mb-1">
+                    <a class="btn btn-primary invoice-create" onclick="Create()">
+                        Yeni Proje Ekle
+                    </a>
+                </div>
+                <div class="users-list-table">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- datatable start -->
+                            <div class="table-responsive">
+                                <table id="users-list-datatable" class="table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Sıra No
+                                            </th>
+                                            <th>
+                                                Proje Kodu
+                                            </th>
+                                            <th>
+                                                Proje Tanım
+                                            </th>
+                                            <th>
+                                                Proje Tipi
+                                            </th>
+                                            <th>
+                                                Başlangıç Tarihi
+                                            </th>
+                                            <th>
+                                                Bitiş Tarihi
+                                            </th>
+                                            <th>
+                                                Düzenle
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ProjectList)
+                                        {
+                                            rowNumber++;
+                                        <tr>
+                                            <td>
+                                                @rowNumber
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProjectCode)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProjectName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ProjectType)
+                                            </td>
+                                            <td>
+                                                @Html.Raw(item.ProjectStartDate.ToString("dd/MM/yyyy"))
+                                            </td>
+                                            <td>
+                                                @Html.Raw(item.ProjectEndDate.ToString("dd/MM/yyyy"))
+                                            </td>
+                                            <td>
+                                                <div class="invoice-action">
+                                                    <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                        <i class="bx bx-edit"></i>
+                                                    </a>
+                                                    <a asp-action="ProjectDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                        <i class="bx bx-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- datatable ends -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">
+                                    Yeni Proje Ekle
+                                </h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form asp-action="ProjectInfo" method="post" id="jquery-val-form">
+                                <div class="modal-body" id="modalBody">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                                        Kapat
+                                    </button>
+                                    <button type="submit" class="btn btn-primary ml-1">
+                                        Kaydet
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+<script>
+    $(document).ready(function () {
+        var message = "@(TempData["SuccessMessage"] as string)";
+        if (message != "") {
+            showMessage(message);
+        };
+    });
+
+    $(function () {
+        $("#jquery-val-form").validate({
+            rules: {
+                'NewProjectInfo.ProjectCode': {
+                    required: true,
+                }
+            }
+        })
+    });
+
+    var Create = function () {
+        $.ajax({
+            type: "GET",
+            url: "/RdCenterCal/ProjectCreate",
+            success: function (response) {
+                $('#modalBody').html(response);
+                $('#addNewModal').modal('show');
+            }
+        })
+    };
+
+    var Update = function (id) {
+        $.ajax({
+            type: "GET",
+            url: "/RdCenterCal/ProjectUpdate",
+            data: { id: id },
+            success: function (response) {
+                $('#modalBody').html(response);
+                $('#addNewModal').modal('show');
+            }
+        })
+    }
+</script>

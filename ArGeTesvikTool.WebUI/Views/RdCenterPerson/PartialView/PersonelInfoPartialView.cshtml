@@ -6,7 +6,7 @@
     Kimlik Numarası
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.IdentityNumber" type="number" maxlength="11" onkeydown="return event.keyCode !== 69" class="form-control">
+    <input asp-for="NewPersonnelInfo.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control">
 </div>
 
 <h6 class="invoice-address">
@@ -19,8 +19,16 @@
 <h6 class="invoice-address">
     Uyruğu
 </h6>
+
+<input asp-for="NewPersonnelInfo.CountryText" type="hidden" class="form-control" />
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.Nationality" class="form-control">
+    <fieldset class="form-group">
+        <select asp-for="NewPersonnelInfo.CountryCode" id="country" class="select2 form-control select2-hidden-accessible">
+            <option selected="selected" value="">
+                Seçiniz
+            </option>
+        </select>
+    </fieldset>
 </div>
 
 <h6 class="invoice-address">
@@ -38,14 +46,14 @@
     Mezun Olduğu Okul
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.GraduateUniversity" class="form-control">
+    <input asp-for="NewPersonnelInfo.GraduateUniversity" class="form-control" />
 </div>
 
 <h6 class="invoice-address">
     Mezun Olduğu Bölüm
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.UniversityDepartmant" class="form-control">
+    <input asp-for="NewPersonnelInfo.UniversityDepartmant" class="form-control" />
 </div>
 
 <h6 class="invoice-address">
@@ -63,18 +71,36 @@
     Sgk Sicil No
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control">
+    <input asp-for="NewPersonnelInfo.RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control" />
 </div>
 
 <h6 class="invoice-address">
     İşe başladığı tarih
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.StartDate" type="date" id="datePicker" class="form-control">
+    <fieldset class="form-group position-relative has-icon-left">
+        <input asp-for="NewPersonnelInfo.StartDate" type="text" asp-format="{0:dd-MM-yyyy}" id="datePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+        <div class="form-control-position">
+            <i class='bx bx-calendar'></i>
+        </div>
+    </fieldset>
 </div>
 
+<script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
+<script src="~/frest/app-assets/js/scripts/forms/select/form-select2.js"></script>
+<script src="~/frest/app-assets/js/list-country.js"></script>
 <script>
     $(document).ready(function () {
-        document.getElementById('datePicker').valueAsDate = new Date();
-    })
+        $("#country").val('@ViewBag.Country');
+        $("#country").change();
+
+        var dateVal = $("#datePicker").val();
+        if (dateVal == '01-01-0001') {
+            $("#datePicker").val("");
+        };
+
+        $("#country").on("change", function () {
+            $('input[name="NewPersonnelInfo.CountryText"]').val($("#country option:selected").text());
+        });
+    });
 </script>

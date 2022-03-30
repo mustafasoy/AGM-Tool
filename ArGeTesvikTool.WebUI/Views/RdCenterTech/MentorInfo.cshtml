@@ -81,7 +81,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h3 class="modal-title">
-                                    Yeni yazılım bilgisi ekle
+                                    Yeni mentörlük bilgisi ekle
                                 </h3>
                                 <button type="button" class="close rounded-pill" data-dismiss="modal" aria-label="Kapat">
                                     <i class="bx bx-x"></i>
@@ -107,7 +107,6 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
@@ -140,7 +139,7 @@
     var Update = function (id) {
         $.ajax({
             type: "GET",
-            url: "/RdCenterTech/SoftwareCreate",
+            url: "/RdCenterTech/MentorInfoUpdate",
             data: { id: id },
             success: function (response) {
                 $('#modalBody').html(response);

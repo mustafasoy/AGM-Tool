@@ -29,7 +29,7 @@ namespace ArGeTesvikTool.WebUI.Helpers
                 Port = emailConfig.Port,
                 From = emailConfig.From,
                 Username = emailConfig.Username,
-                Password = emailConfig.Password, //_configuration.GetValue<string>("EmailConfiguration:Password"),
+                Password = emailConfig.Password,
             };
 
             var emailMessage = CreateMail(mailConfiguration, message);

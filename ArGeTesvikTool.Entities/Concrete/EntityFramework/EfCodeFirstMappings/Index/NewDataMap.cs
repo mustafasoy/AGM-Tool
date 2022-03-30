@@ -27,19 +27,24 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.I
                 .HasColumnName("NationalProjectNumber");
 
             entity.Property(x => x.PeriodicExpenditure)
-                .HasColumnName("PeriodicExpenditure");
+                .HasColumnName("PeriodicExpenditure")
+                .HasMaxLength(20);
 
             entity.Property(x => x.ProjectPeriodicExpenditure)
-                .HasColumnName("ProjectPeriodicExpenditure");
+                .HasColumnName("ProjectPeriodicExpenditure")
+                .HasMaxLength(20);
 
             entity.Property(x => x.PublicPeriodicExpenditure)
-                .HasColumnName("PublicPeriodicExpenditure");
+                .HasColumnName("PublicPeriodicExpenditure")
+                .HasMaxLength(20);
 
             entity.Property(x => x.DomesticSalesRevenue)
-                .HasColumnName("DomesticSalesRevenue");
+                .HasColumnName("DomesticSalesRevenue")
+                .HasMaxLength(20);
 
             entity.Property(x => x.OverseasSalesRevenue)
-                .HasColumnName("OverseasSalesRevenue");
+                .HasColumnName("OverseasSalesRevenue")
+                .HasMaxLength(20);
 
             entity.Property(x => x.IsIso14001)
                 .HasColumnName("Iso14001");

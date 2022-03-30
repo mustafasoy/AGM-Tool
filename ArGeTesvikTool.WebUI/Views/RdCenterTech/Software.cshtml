@@ -115,7 +115,6 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
@@ -140,7 +139,7 @@
     var Create = function () {
         $.ajax({
             type: "GET",
-            url: "/RdCenterTech/ProjectCreate",
+            url: "/RdCenterTech/SoftwareCreate",
             success: function (response) {
                 $('#modalBody').html(response);
                 $('#addNewModal').modal('show');
@@ -151,7 +150,7 @@
     var Update = function (id) {
         $.ajax({
             type: "GET",
-            url: "/RdCenterTech/ProjectUpdate",
+            url: "/RdCenterTech/SoftwareUpdate",
             data: { id: id },
             success: function (response) {
                 $('#modalBody').html(response);

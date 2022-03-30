@@ -10,9 +10,6 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
         {
             entity.ToTable("RdCenterAmounts");
 
-            entity.HasIndex(x => x.Year)
-                .IsUnique();
-
             entity.Property(x => x.Id)
                 .HasColumnName("Id");
 
@@ -20,32 +17,45 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("Year")
                 .HasMaxLength(4);
 
-            entity.Property(x => x.TaxExemption)
-                .HasColumnName("TaxExemption");
+            entity.Property(x => x.MaterialExpense)
+                .HasColumnName("MaterialExpense")
+                .HasMaxLength(20);
 
-            entity.Property(x => x.WithholdingIncentive)
-                .HasColumnName("WithholdingIncentive");
+            entity.Property(x => x.DepreciationAmount)
+                .HasColumnName("DepreciationAmount")
+                .HasMaxLength(20);
 
-            entity.Property(x => x.PremiumSupport)
-                .HasColumnName("PremiumSupport");
+            entity.Property(x => x.PersonelExpense)
+                .HasColumnName("PersonelExpense")
+                .HasMaxLength(20);
 
-            entity.Property(x => x.StampTaxException)
-                .HasColumnName("StampTaxException");
+            entity.Property(x => x.GeneralExpense)
+                .HasColumnName("GeneralExpense")
+                .HasMaxLength(20);
 
-            entity.Property(x => x.CustomTaxException)
-                .HasColumnName("CustomTaxException");
+            entity.Property(x => x.ExternalBenefit)
+                .HasColumnName("ExternalBenefit")
+                .HasMaxLength(20);
 
-            entity.Property(x => x.IncentiveAmount)
-                .HasColumnName("IncentiveAmount");
+            entity.Property(x => x.TaxFee)
+                .HasColumnName("TaxFee")
+                .HasMaxLength(20);
+
+            entity.Property(x => x.DesignExpense)
+                .HasColumnName("DesignExpense")
+                .HasMaxLength(20);
+
+            entity.Property(x => x.CashSupport)
+                .HasColumnName("CashSupport")
+                .HasMaxLength(20);
 
             entity.Property(x => x.TotalExpenditure)
-                .HasColumnName("TotalExpenditure");
+                .HasColumnName("TotalExpenditure")
+                .HasMaxLength(20);
 
-            entity.Property(x => x.AnnualTotal)
-                .HasColumnName("AnnualTotal");
-
-            entity.Property(x => x.RatioTurnover)
-                .HasColumnName("RatioTurnover");
+            entity.Property(x => x.TaxExemption)
+                .HasColumnName("TaxExemption")
+                .HasMaxLength(20);
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

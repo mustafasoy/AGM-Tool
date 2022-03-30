@@ -345,83 +345,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
         #endregion
 
-        #region Amount CRUD
-        public IActionResult Amount(int year)
-        {
-            List<RdCenterAmountDto> amountList = _amountService.GetAllByYear(year);
-
-            RdCenterAmountViewModel amountViewModel = new()
-            {
-                AmountList = amountList
-            };
-
-            return View(amountViewModel);
-        }
-
-        public IActionResult AmountCreate()
-        {
-            RdCenterAmountDto amountInfo = new();
-
-            RdCenterAmountViewModel amountViewModel = new()
-            {
-                NewAmountInfo = amountInfo
-            };
-
-            return PartialView("PartialView/AmountPartialView", amountViewModel);
-        }
-
-        public IActionResult AmountUpdate(int id)
-        {
-            var amount = _amountService.GetById(id);
-
-            RdCenterAmountViewModel amountViewModel = new()
-            {
-                NewAmountInfo = amount
-            };
-
-            return PartialView("PartialView/AmountPartialView", amountViewModel);
-        }
-
-        public IActionResult AmountDelete(int id)
-        {
-            _amountService.Delete(id);
-
-            AddSuccessMessage("Ar-Ge ve yenilik harcamalarının kapsamı bilgisi silindi.");
-
-            return RedirectToAction("Amount");
-        }
-
-        [HttpPost]
-        public IActionResult Amount(RdCenterAmountViewModel amountViewModel)
-        {
-            var amount = _amountService.GetById(amountViewModel.NewAmountInfo.Id);
-            if (amount == null)
-            {
-                amountViewModel.NewAmountInfo.CreatedDate = DateTime.Now;
-                amountViewModel.NewAmountInfo.CreatedUserName = User.Identity.Name;
-
-                _amountService.Add(amountViewModel.NewAmountInfo);
-
-                AddSuccessMessage("Ar-Ge ve yenilik harcamalarının kapsamı bilgisi eklendi.");
-            }
-            else
-            {
-                amountViewModel.NewAmountInfo.Id = amount.Id;
-                amountViewModel.NewAmountInfo.Year = amount.Year;
-                amountViewModel.NewAmountInfo.CreatedDate = amount.CreatedDate;
-                amountViewModel.NewAmountInfo.CreatedUserName = amount.CreatedUserName;
-                amountViewModel.NewAmountInfo.ModifiedDate = DateTime.Now;
-                amountViewModel.NewAmountInfo.ModifedUserName = User.Identity.Name;
-
-                _amountService.Update(amountViewModel.NewAmountInfo);
-
-                AddSuccessMessage("Ar-Ge ve yenilik harcamalarının kapsamı bilgisi güncellendi.");
-            }
-
-            return Redirect("Amount");
-        }
-        #endregion
-
         #region Discount CRUD
         public IActionResult Discount(int year)
         {
@@ -496,6 +419,83 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
             }
 
             return Redirect("Discount");
+        }
+        #endregion
+
+        #region Amount CRUD
+        public IActionResult Amount(int year)
+        {
+            List<RdCenterAmountDto> amountList = _amountService.GetAllByYear(year);
+
+            RdCenterAmountViewModel amountViewModel = new()
+            {
+                AmountList = amountList
+            };
+
+            return View(amountViewModel);
+        }
+
+        public IActionResult AmountCreate()
+        {
+            RdCenterAmountDto amountInfo = new();
+
+            RdCenterAmountViewModel amountViewModel = new()
+            {
+                NewAmountInfo = amountInfo
+            };
+
+            return PartialView("PartialView/AmountPartialView", amountViewModel);
+        }
+
+        public IActionResult AmountUpdate(int id)
+        {
+            var amount = _amountService.GetById(id);
+
+            RdCenterAmountViewModel amountViewModel = new()
+            {
+                NewAmountInfo = amount
+            };
+
+            return PartialView("PartialView/AmountPartialView", amountViewModel);
+        }
+
+        public IActionResult AmountDelete(int id)
+        {
+            _amountService.Delete(id);
+
+            AddSuccessMessage("Ar-Ge ve yenilik harcamalarının kapsamı bilgisi silindi.");
+
+            return RedirectToAction("Amount");
+        }
+
+        [HttpPost]
+        public IActionResult Amount(RdCenterAmountViewModel amountViewModel)
+        {
+            var amount = _amountService.GetById(amountViewModel.NewAmountInfo.Id);
+            if (amount == null)
+            {
+                amountViewModel.NewAmountInfo.CreatedDate = DateTime.Now;
+                amountViewModel.NewAmountInfo.CreatedUserName = User.Identity.Name;
+
+                _amountService.Add(amountViewModel.NewAmountInfo);
+
+                AddSuccessMessage("Ar-Ge ve yenilik harcamalarının kapsamı bilgisi eklendi.");
+            }
+            else
+            {
+                amountViewModel.NewAmountInfo.Id = amount.Id;
+                amountViewModel.NewAmountInfo.Year = amount.Year;
+                amountViewModel.NewAmountInfo.CreatedDate = amount.CreatedDate;
+                amountViewModel.NewAmountInfo.CreatedUserName = amount.CreatedUserName;
+                amountViewModel.NewAmountInfo.ModifiedDate = DateTime.Now;
+                amountViewModel.NewAmountInfo.ModifedUserName = User.Identity.Name;
+
+                _amountService.Update(amountViewModel.NewAmountInfo);
+
+                AddSuccessMessage("Ar-Ge ve yenilik harcamalarının kapsamı bilgisi güncellendi.");
+            }
+
+            return Redirect("Amount");
         }
         #endregion
     }

@@ -1,7 +1,6 @@
 ﻿@model RdCenterAmountViewModel
 @{
     ViewBag.Title = "Ar-Ge İndirimine Konu Olan Ar-Ge ve Yenilik Harcamalarının Kapsamı";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -26,7 +25,7 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                Faaliyet Dönemi
+                                                Dönem
                                             </th>
                                             <th>
                                                 İlk Madde ve Malzeme Giderleri
@@ -57,56 +56,61 @@
                                             </th>
                                             <th>
                                                 Ar-Ge/Tasarım İndirimi Kapsamında
-                                                <br />
-                                                Yararlanılan / Yararlanılacak Kurumlar Vergisi İstisnası
+                                                Yararlanılan/Yararlanılacak Kurumlar Vergisi İstisnası
+                                            </th>
+                                            <th>
+                                                Düzenle
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var item in Model.AmountList)
                                         {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Year)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.TaxExemption)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.WithholdingIncentive)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.PremiumSupport)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.StampTaxException)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.CustomTaxException)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.IncentiveAmount)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.TotalExpenditure)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.AnnualTotal)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.RatioTurnover)
-                                                </td>
-                                                <td>
-                                                    <div class="invoice-action">
-                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
-                                                            <i class="bx bx-edit"></i>
-                                                        </a>
-                                                        <a asp-action="AmountDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
-                                                            <i class="bx bx-trash"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Year)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MaterialExpense)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DepreciationAmount)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PersonelExpense)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.GeneralExpense)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ExternalBenefit)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TaxFee)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DesignExpense)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CashSupport)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TotalExpenditure)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TaxExemption)
+                                            </td>
+                                            <td>
+                                                <div class="invoice-action">
+                                                    <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                        <i class="bx bx-edit"></i>
+                                                    </a>
+                                                    <a asp-action="AmountDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                        <i class="bx bx-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
                                         }
                                     </tbody>
                                 </table>
@@ -146,7 +150,6 @@
     </div>
 </div>
 <!-- END: Content-->
-<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         var message = "@(TempData["SuccessMessage"] as string)";
