@@ -1,22 +1,18 @@
 using ArGeTesvikTool.Business.ValidationRules.CustomValidation;
-using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using ArGeTesvikTool.WebUI.Models;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
+using System.Text.Json.Serialization;
 
 namespace ArGeTesvikTool.WebUI
 {

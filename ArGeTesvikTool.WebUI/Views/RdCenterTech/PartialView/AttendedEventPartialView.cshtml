@@ -14,14 +14,14 @@
 </div>
 
 <h6 class="invoice-address">
-    Katılım sağlanan etkinlik
+    Katılım Sağlanan Etkinlik
 </h6>
 <div class="form-group">
     <input asp-for="NewAttendedEvent.AttendedEvent" class="form-control" />
 </div>
 
 <h6 class="invoice-address">
-    Yurt içi/Yurt dışı
+    Yurt İçi/Yurt Dışı
 </h6>
 <div class="form-group">
     <select asp-for="NewAttendedEvent.Location" asp-items="Html.GetEnumSelectList<ConferenceLocation>()" class="form-control">
@@ -32,7 +32,7 @@
 </div>
 
 <h6 class="invoice-address">
-    Katılım tarih aralığı
+    Katılım Tarih Aralığı
 </h6>
 <div class="form-group">
     <fieldset class="form-group position-relative has-icon-left">
@@ -44,15 +44,10 @@
 </div>
 
 <h6 class="invoice-address">
-    Kişi sayısı
+    Kişi Sayısı
 </h6>
 <div class="form-group">
     <input asp-for="NewAttendedEvent.PersonNumber" type="number" onkeydown="return event.keyCode !== 69" class="form-control" />
 </div>
 
-@*<script src="~/frest/app-assets/vendors/js/pickers/pickadate/picker.js"></script>
-<script src="~/frest/app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
-<script src="~/frest/app-assets/vendors/js/pickers/pickadate/picker.time.js"></script>
-<script src="~/frest/app-assets/vendors/js/extensions/moment.min.js"></script>
-<script src="~/frest/app-assets/vendors/js/pickers/daterange/daterangepicker.js"></script>*@
 <script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>

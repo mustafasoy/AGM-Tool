@@ -82,8 +82,6 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterSchemaDal>().As<IRdCenterSchemaDal>().SingleInstance();
             builder.RegisterType<RdCenterAreaInfoManager>().As<IRdCenterAreaInfoService>().SingleInstance();
             builder.RegisterType<EfRdCenterAreaInfoDal>().As<IRdCenterAreaInfoDal>().SingleInstance();
-            builder.RegisterType<RdCenterFinancialInfoManager>().As<IRdCenterFinancialInfoService>().SingleInstance();
-            builder.RegisterType<EfRdCenterFinancialInfoDal>().As<IRdCenterFinancialInfoDal>().SingleInstance();
             builder.RegisterType<RdCenterPhysicalAreaManager>().As<IRdCenterPhysicalAreaService>().SingleInstance();
             builder.RegisterType<EfRdCenterPhysicalAreaDal>().As<IRdCenterPhysicalAreaDal>().SingleInstance();
             builder.RegisterType<RdCenterAmountManager>().As<IRdCenterAmountService>().SingleInstance();
@@ -101,6 +99,10 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterCalTimeAwayDal>().As<IRdCenterCalTimeAwayDal>().SingleInstance();
             builder.RegisterType<RdCenterCalPersAssingManager>().As<IRdCenterCalPersAssingService>().SingleInstance();
             builder.RegisterType<EfRdCenterCalPersAssingDal>().As<IRdCenterCalPersAssingDal>().SingleInstance();
+            builder.RegisterType<RdCenterCalPersonnelEntryManager>().As<IRdCenterCalPersonnelEntryService>().SingleInstance();
+            builder.RegisterType<EfRdCenterCalPersonnelEntryDal>().As<IRdCenterCalPersonnelEntryDal>().SingleInstance();
+            builder.RegisterType<RdCenterCalManagerEntryManager>().As<IRdCenterCalManagerEntryService>().SingleInstance();
+            builder.RegisterType<EfRdCenterCalManagerEntryDal>().As<IRdCenterCalManagerEntryDal>().SingleInstance();
             #endregion
 
             #region RdCenterPerson

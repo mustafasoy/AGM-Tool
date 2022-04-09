@@ -2,9 +2,13 @@
 using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterCal;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
 {
@@ -14,13 +18,17 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         private readonly IRdCenterCalProjectService _projectService;
         private readonly IRdCenterCalTimeAwayService _timeAwayService;
         private readonly IRdCenterCalPersAssingService _persAssingService;
+        private readonly IRdCenterCalPersonnelEntryService _persEntryService;
+        private readonly IRdCenterCalManagerEntryService _managerService;
 
-        public RdCenterCalController(IRdCenterCalPersonnelService personnelService, IRdCenterCalProjectService projectService, IRdCenterCalTimeAwayService timeAwayService, IRdCenterCalPersAssingService persAssingService)
+        public RdCenterCalController(IRdCenterCalPersonnelService personnelService, IRdCenterCalProjectService projectService, IRdCenterCalTimeAwayService timeAwayService, IRdCenterCalPersAssingService persAssingService, IRdCenterCalPersonnelEntryService persEntryService, IRdCenterCalManagerEntryService managerService)
         {
             _personnelService = personnelService;
             _projectService = projectService;
             _timeAwayService = timeAwayService;
             _persAssingService = persAssingService;
+            _persEntryService = persEntryService;
+            _managerService = managerService;
         }
 
         #region Personnel CRUD
@@ -139,7 +147,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
 
         public IActionResult ProjectDelete(int id)
         {
-           _projectService.Delete(id);
+            _projectService.Delete(id);
 
             AddSuccessMessage("Proje bilgisi silindi.");
 
@@ -329,6 +337,130 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
 
             return Redirect("PersonnelAssing");
         }
+        #endregion
+
+        #region PersonnelEntry CRUD
+        public IActionResult PersonnelEntry()
+        {
+            var projectList = _projectService.GetAll();
+            var timeAwayList = _timeAwayService.GetAll();
+
+            RdCenterCalProjectInfoDto newRecord = new()
+            {
+                ProjectCode = "Project 1",
+                ProjectName = "new Proje 1"
+            };
+            projectList.Add(newRecord);
+            newRecord = new()
+            {
+                ProjectCode = "Project 2",
+                ProjectName = "new Proje 2"
+            };
+            projectList.Add(newRecord);
+            RdCenterCalTimeAwayDto newTime = new()
+            {
+                TimeAwayCode = "time 1",
+                TimeAwayName = "new time 1"
+            };
+            timeAwayList.Add(newTime);
+            newTime = new()
+            {
+                TimeAwayCode = "time 2",
+                TimeAwayName = "new time 2"
+            };
+            timeAwayList.Add(newTime);
+
+
+            RdCenterCalPersonnelEntryViewModel personnelEntryViewModel = new()
+            {
+                ProjectList = projectList.Select(x => new SelectListItem
+                {
+                    Value = x.ProjectCode,
+                    Text = x.ProjectName
+                }).ToList(),
+                TimeAwayList = timeAwayList.Select(x => new SelectListItem
+                {
+                    Value = x.TimeAwayCode,
+                    Text = x.TimeAwayName
+                }).ToList(),
+            };
+
+            return View(personnelEntryViewModel);
+        }
+
+        public JsonResult GetPersonnelEntry(int year)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var personnelEntry = _persEntryService.GetAll(2022)
+                .Select(x=> new RdCenterCalPersonnelAddViewModel() { 
+                    Id = x.Id,
+                    UserId = userId,
+                    ProjectCode = x.ProjectCode,
+                    ProjectName = x.ProjectName,
+                    TimeAwayCode = x.TimeAwayCode,
+                    TimeAwayName = x.TimeAwayName,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate
+            });
+
+            return Json(personnelEntry);
+        }
+
+        [HttpPost]
+        public JsonResult CreateorUpdatePersonnelEntry(RdCenterCalPersonnelAddViewModel personnelViewModel)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var personnelEntry = _persEntryService.GetById(personnelViewModel.Id);
+
+            RdCenterCalPersonnelEntryDto entryDto = new();
+
+            if (personnelEntry == null)
+            {
+                personnelViewModel.UserId = userId;
+                personnelViewModel.Year = DateTime.Now.Year;
+                personnelViewModel.CreatedDate = DateTime.Now;
+                personnelViewModel.CreatedUserName = User.Identity.Name;
+
+                entryDto = personnelViewModel.Adapt<RdCenterCalPersonnelEntryDto>();
+                _persEntryService.Add(entryDto);
+            }
+            else
+            {
+                personnelViewModel.Id = personnelEntry.Id;
+                personnelViewModel.UserId = userId;
+                personnelViewModel.Year = personnelEntry.Year;
+                personnelViewModel.ProjectName = personnelEntry.ProjectName;
+                personnelViewModel.TimeAwayName = personnelEntry.TimeAwayName;
+                personnelViewModel.StartDate = personnelViewModel.StartDate;
+                personnelViewModel.EndDate = personnelViewModel.EndDate;
+                personnelViewModel.CreatedDate = personnelEntry.CreatedDate;
+                personnelViewModel.CreatedUserName = personnelEntry.CreatedUserName;
+                personnelViewModel.ModifiedDate = DateTime.Now;
+                personnelViewModel.ModifedUserName = User.Identity.Name;
+
+                entryDto = personnelViewModel.Adapt<RdCenterCalPersonnelEntryDto>();
+
+                _persEntryService.Update(entryDto);
+            }
+
+            return Json("200");
+        }
+
+        public JsonResult DeletePersonnelEntry(int id)
+        {
+            _persEntryService.Delete(id);
+
+            return Json("200");
+        }
+        #endregion
+
+        #region ManagerEntry CRUD
+        public IActionResult ManagerEntry()
+        {
+            return View();
+        } 
         #endregion
     }
 }

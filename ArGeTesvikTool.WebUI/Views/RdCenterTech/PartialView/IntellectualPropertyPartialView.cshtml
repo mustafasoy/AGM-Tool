@@ -14,7 +14,7 @@
 </div>
 
 <h6 class="invoice-address">
-    Mülkiyet türü
+    Mülkiyet Türü
 </h6>
 <div class="form-group">
     <select asp-for="NewProperty.ProperyType" asp-items="Html.GetEnumSelectList<ProperyType>()" class="form-control" id="propertyType">
@@ -25,7 +25,7 @@
 </div>
 
 <h6 class="invoice-address">
-    Buluş adı
+    Buluş Adı
 </h6>
 <div class="form-group">
     <input asp-for="NewProperty.InventionType" class="form-control" />
@@ -43,7 +43,7 @@
 </div>
 
 <h6 class="invoice-address">
-    Geliştirme yeri
+    Geliştirme Yeri
 </h6>
 <div class="form-group">
     <select asp-for="NewProperty.DevelopmentPlace" asp-items="Html.GetEnumSelectList<DevelopmentPlace>()" class="form-control" id="developmentPlace">
@@ -65,13 +65,15 @@
 </div>
 
 <h6 class="invoice-address">
-    Başvuru tarihi
+    Başvuru Tarihi
 </h6>
-<fieldset class="form-group position-relative has-icon-left">
-    <input asp-for="NewProperty.ApplicationDate" type="text" class="form-control showdropdowns" placeholder="Tarih seçin">
-    <div class="form-control-position">
-        <i class='bx bx-calendar'></i>
-    </div>
-</fieldset>
+<div class="form-group">
+    <fieldset class="form-group position-relative has-icon-left">
+        <input asp-for="NewProperty.ApplicationDate" type="date" asp-format="{0:dd-MM-yyyy}" id="datePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+        <div class="form-control-position">
+            <i class='bx bx-calendar'></i>
+        </div>
+    </fieldset>
+</div>
 
 <script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>

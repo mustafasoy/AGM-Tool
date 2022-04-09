@@ -34,7 +34,8 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasMaxLength(2);
 
             entity.Property(x => x.MonthlyTimeAway)
-                .HasColumnName("MonthlyTimeAway");
+                .HasColumnName("MonthlyTimeAway")
+                .HasColumnName("decimal(3,1)");
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

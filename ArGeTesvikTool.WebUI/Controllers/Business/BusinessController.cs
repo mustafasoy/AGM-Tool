@@ -200,7 +200,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             GroupInfoViewModel groupViewModel = new()
             {
                 GroupInfo = groupInfo
-            };            return View(groupViewModel);
+            };
+            return View(groupViewModel);
         }
 
         [HttpPost]
@@ -465,7 +466,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                 financialInfoViewModel.NewFinancialInfo.ModifiedDate = DateTime.Now;
                 financialInfoViewModel.NewFinancialInfo.ModifedUserName = User.Identity.Name;
 
-               _financialService.Update(financialInfoViewModel.NewFinancialInfo);
+                _financialService.Update(financialInfoViewModel.NewFinancialInfo);
 
                 AddSuccessMessage("Finansal bilgi kaydı güncellendi.");
             }

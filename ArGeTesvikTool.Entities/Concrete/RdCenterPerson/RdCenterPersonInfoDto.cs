@@ -14,20 +14,9 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterPerson
         public string GraduateUniversity { get; set; }
         public string UniversityDepartmant { get; set; }
         public PersonPosition PersonPosition { get; set; }
+        public WorkType WorkType { get; set; }
         public string RegistrationNo { get; set; }
         public DateTime StartDate { get; set; }
-    }
-
-    public enum PersonPosition
-    {
-        [Display(Name = "Araştırmacı")]
-        Arastirmaci = 1,
-        [Display(Name = "Teknisyen")]
-        Teknisyen = 2,
-        [Display(Name = "Destek Personeli")]
-        DestekPersonel = 3,
-        [Display(Name = "Stajyer")]
-        Stajyer = 4
     }
 
     public enum EducationStatu
@@ -49,4 +38,25 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterPerson
         [Display(Name = "Doktora")]
         Doktora = 8,
     }
+
+    public enum PersonPosition
+    {
+        [Display(Name = "Araştırmacı")]
+        Arastirmaci = 1,
+        [Display(Name = "Teknisyen")]
+        Teknisyen = 2,
+        [Display(Name = "Destek Personeli")]
+        DestekPersonel = 3,
+        [Display(Name = "Stajyer")]
+        Stajyer = 4
+    }
+
+    public enum WorkType
+    {
+        [Display(Name = "Tam Zamanlı")]
+        Tam = 1,
+        [Display(Name = "Kısmi Zamanlı")]
+        Kısmi = 2,
+    }
+
 }

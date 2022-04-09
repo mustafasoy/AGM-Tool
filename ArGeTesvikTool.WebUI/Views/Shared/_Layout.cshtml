@@ -9,6 +9,7 @@
     <title>@ViewBag.Title</title>
 
     <partial name="~/Views/Shared/PartialView/_Stylesheet.cshtml" />
+    @await RenderSectionAsync("CalendarStyle", required: false)
 </head>
 <!-- END: Head-->
 <!-- BEGIN: Body-->
@@ -64,7 +65,17 @@
     <!-- demo chat-->
     <div class="sidenav-overlay" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div>
     <div class="drag-target" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div>
+    <!-- BEGIN: Footer-->
+    <footer class="footer footer-static footer-light">
+        <p class="clearfix mb-0">
+            <span class="d-sm-inline-block d-none">
+                <script>document.write(new Date().getFullYear());</script> &copy;Borusan Logistik Ar-Ge Yönetimi
+            </span>
+        </p>
+    </footer>
+    <!-- END: Footer-->
     <!-- footer scripts-->
     <partial name="~/Views/Shared/PartialView/_FooterScripts.cshtml" />
+    @await RenderSectionAsync("CalendarScripts", required: false)
 </body>
 </html>

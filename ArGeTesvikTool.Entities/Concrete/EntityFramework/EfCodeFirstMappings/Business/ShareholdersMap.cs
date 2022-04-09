@@ -30,7 +30,8 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
                 .HasMaxLength(50);
 
             entity.Property(x => x.Share)
-                .HasColumnName("Share");
+                .HasColumnName("Share")
+                .HasColumnType("decimal(3,2)");
             
             entity.Property(x => x.ShareAmount)
                 .HasColumnName("ShareAmount")

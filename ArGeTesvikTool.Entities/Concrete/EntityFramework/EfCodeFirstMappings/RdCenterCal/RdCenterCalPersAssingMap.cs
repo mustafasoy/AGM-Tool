@@ -8,13 +8,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
     {
         public RdCenterCalPersAssingMap(EntityTypeBuilder<RdCenterCalPersAssingDto> entity)
         {
-            entity.ToTable("RdCenterPersAssings");
-
-            entity.HasIndex(x => x.Email)
-                .IsUnique();
-
-            entity.HasIndex(x => x.ProjectCode)
-                .IsUnique();
+            entity.ToTable("RdCenterCalPersAssings");
 
             entity.Property(x => x.Id)
                 .HasColumnName("Id");
@@ -23,8 +17,8 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("Year")
                 .HasMaxLength(4);
 
-            entity.Property(x => x.Email)
-                .HasColumnName("Email")
+            entity.Property(x => x.Mail)
+                .HasColumnName("Mail")
                 .HasMaxLength(256);
 
             entity.Property(x => x.ProjectCode)

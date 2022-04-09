@@ -1,0 +1,173 @@
+﻿@model RdCenterCalManagerEntryViewModel
+
+@{
+    ViewData["Title"] = "Yönetici Aktivite Giriş";
+    int rowNumber = 0;
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-body">
+            <section class="invoice-list-wrapper">
+                <div class="row match-height">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-primary">
+                                    Yönetici Aktivite Bilgi
+                                </h4>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0 d-flex align-items-center">
+                                        <li class="ml-2">
+                                            <form asp-action="ExportExcel" method="post">
+                                                <button type="submit" class="btn btn-outline-primary btn-sm mr-1 mb-1">
+                                                    <i class="bx bx-cloud-download"></i>
+                                                    <span class="align-middle ml-25">
+                                                        Excel formatını indiriniz
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <hr />
+                                <form asp-action="ImportExcel" method="post" enctype="multipart/form-data" id="fileUpload">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h6 class="invoice-address">
+                                                    Dışarıda Geçirilen Sürelere İlişkin Bilgiler
+                                                </h6>
+                                            </div>
+                                            <div class="col-8">
+                                                <fieldset class="form-group">
+                                                    <div class="custom-file">
+                                                        <input asp-for="FormFile" type="file" accept=".xls,.xlsx" class="custom-file-input" />
+                                                        <label class="custom-file-label">Dosya seçin</label>
+                                                        <span asp-validation-for="FormFile" class="error" id="formFile"></span>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="invoice-create-btn mb-1">
+                    <a class="btn btn-primary invoice-create" onclick="Create()">
+                        Yeni Bilgi Ekle
+                    </a>
+                </div>
+                <div class="users-list-table">
+                    <div class="card">
+                        <div class="card-header">
+                        </div>
+                        <div class="card-body">
+                            <!-- datatable start -->
+                            <div class="table-responsive">
+                                <table id="users-list-datatable" class="table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th hidden="hidden">
+                                                Sıra No
+                                            </th>
+                                            <th>
+                                                Mail Adresi
+                                            </th>
+                                            <th>
+                                                Proje Kodu
+                                            </th>
+                                            <th>
+                                                Dışarıda Geçirilen Süre Kodu
+                                            </th>
+                                            <th>
+                                                Tarih
+                                            </th>
+                                            <th>
+                                                Saat
+                                            </th>
+                                            <th>
+                                                İşlemler
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.EntryList)
+                                        {
+                                            rowNumber++;
+                                            <tr>
+                                                <td hidden="hidden">
+                                                    @rowNumber
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Mail)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ProjectCode)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TimeAwayCode)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Date)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Time)
+                                                </td>
+                                                <td>
+                                                    <div class="invoice-action">
+                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                            <i class="bx bx-edit"></i>
+                                                        </a>
+                                                        <a asp-action="TimeAwayDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                            <i class="bx bx-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- datatable ends -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">
+                                    Yeni Bilgi Ekle
+                                </h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form asp-action="TimeAway" method="post" id="jquery-val-form">
+                                <div class="modal-body" id="modalBody">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                                        Kapat
+                                    </button>
+                                    <button type="submit" class="btn btn-primary ml-1">
+                                        Kaydet
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

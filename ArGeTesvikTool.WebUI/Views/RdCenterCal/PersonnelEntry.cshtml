@@ -1,0 +1,195 @@
+﻿@model RdCenterCalPersonnelEntryViewModel
+@{
+    ViewData["Title"] = "Personel Aktivite Giriş";
+}
+
+@section CalendarStyle{
+    <link href="~/fullcalendar/lib/main.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+}
+
+<!-- save modal start  -->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    Yeni Aktivite Ekle
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="jquery-val-form">
+                    @Html.AntiForgeryToken()
+                    <input id="entryId" hidden="hidden" />
+                    <div class="form-group">
+                        <span id="error" class="text-danger"></span>
+                    </div>
+                    <h6 class="invoice-address">
+                        Proje Kodu
+                    </h6>
+                    <div class="form-group">
+                        <input id="projectName" hidden="hidden" />
+                        <select asp-items="@Model.ProjectList" id="projectCode" class="form-control">
+                            <option value="">
+                                Seçiniz
+                            </option>
+                        </select>
+                    </div>
+                    <h6 class="invoice-address">
+                        Dışarıda Geçirilen Süre Kodu
+                    </h6>
+                    <div class="form-group">
+                        <input id="timeAwayName" hidden="hidden" />
+                        <select asp-items="@Model.TimeAwayList" id="timeAwayCode" class="form-control">
+                            <option value="">
+                                Seçiniz
+                            </option>
+                        </select>
+                    </div>
+                    <h6 class="invoice-address">
+                        Başlangıç Tarih/Saat
+                    </h6>
+                    <div class="form-group">
+                        <div class="input-group date" id="startDatetimepicker" data-target-input="nearest">
+                            <input type="text" id="startDate" class="form-control datetimepicker-input" data-target="#startDatetimepicker" placeholder="Tarih seçin" />
+                            <div class="input-group-append" data-target="#startDatetimepicker" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="invoice-address">
+                        Bitiş Tarih/Saat
+                    </h6>
+                    <div class="form-group">
+                        <div class="input-group date" id="endDatetimepicker" data-target-input="nearest">
+                            <input type="text" id="endDate" class="form-control datetimepicker-input" data-target="#endDatetimepicker" placeholder="Tarih seçin" />
+                            <div class="input-group-append" data-target="#endDatetimepicker" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                    Kapat
+                </button>
+                <button id="save" type="submit" class="btn btn-primary ml-1">
+                    Kaydet
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- save modal end  -->
+<!-- update modal start  -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    Bilgileri Düzenle
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="jquery-val-form">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <span id="error" class="text-danger"></span>
+                    </div>
+                    <h6 class="invoice-address">
+                        Proje Kodu
+                    </h6>
+                    <div class="form-group">
+                        <input id="projectName" hidden="hidden" />
+                        <select asp-items="@Model.ProjectList" id="updateProjectCode" class="form-control">
+                            <option value="">
+                                Seçiniz
+                            </option>
+                        </select>
+                    </div>
+                    <h6 class="invoice-address">
+                        Dışarıda Geçirilen Süre Kodu
+                    </h6>
+                    <div class="form-group">
+                        <input id="timeAwayName" hidden="hidden" />
+                        <select asp-items="@Model.TimeAwayList" id="updateTimeAwayCode" class="form-control">
+                            <option value="">
+                                Seçiniz
+                            </option>
+                        </select>
+                    </div>
+                    <h6 class="invoice-address">
+                        Başlangıç Tarih/Saat
+                    </h6>
+                    <div class="form-group">
+                        <div class="input-group date" id="updateStartDatetimepicker" data-target-input="nearest">
+                            <input type="text" id="updateStartDate" class="form-control datetimepicker-input" data-target="#updateStartDatetimepicker" placeholder="Tarih seçin" />
+                            <div class="input-group-append" data-target="#updateStartDatetimepicker" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="invoice-address">
+                        Bitiş Tarih/Saat
+                    </h6>
+                    <div class="form-group">
+                        <div class="input-group date" id="updateEndDatetimepicker" data-target-input="nearest">
+                            <input type="text" id="updateEndDate" class="form-control datetimepicker-input" data-target="#updateEndDatetimepicker" placeholder="Tarih seçin" />
+                            <div class="input-group-append" data-target="#updateEndDatetimepicker" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="delete" type="button" class="btn btn-light-danger">
+                    Sil
+                </button>
+                <button id="update" type="submit" class="btn btn-warning ml-1">
+                    Güncelle
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- update modal end  -->
+
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <!-- calendar Wrapper  -->
+            <div class="calendar-wrapper position-relative">
+                <!-- calendar app overlay -->
+                <div class="app-content-overlay"></div>
+                <!-- calendar sidebar start -->
+                <!-- calendar sidebar end -->
+                <!-- calendar view start  -->
+                <div class="calendar-view">
+                    <!-- calendar view  -->
+                    <div id="calendar" class="calendar-content"></div>
+                </div>
+                <!-- calendar view end  -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section CalendarScripts{
+    <script src="~/fullcalendar/lib/main.js"></script>
+    <script src="~/fullcalendar/lib/calendar.js"></script>
+    <script src="~/fullcalendar/lib/locales/tr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
+}

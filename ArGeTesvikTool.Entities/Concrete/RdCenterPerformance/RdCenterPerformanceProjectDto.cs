@@ -8,6 +8,6 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterPerformance
         public string CommercialProductName { get; set; }
         public bool IsImportProduct { get; set; }
         public string Explanation { get; set; }
-        public decimal Amount { get; set; }
+        public string Amount { get; set; }
     }
 }

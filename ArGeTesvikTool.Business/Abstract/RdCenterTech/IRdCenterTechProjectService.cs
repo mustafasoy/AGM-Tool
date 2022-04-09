@@ -10,5 +10,6 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenterTech
         void Delete(int id);
         RdCenterTechProjectDto GetById(int id);
         List<RdCenterTechProjectDto> GetAllByYearStatu(int year, string projectStatu);
+        List<RdCenterTechProjectDto> GetAllProjectName();
     }
 }

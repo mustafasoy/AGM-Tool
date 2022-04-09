@@ -37,5 +37,7 @@
     Proje Sonucu Ticarileşen Üründen Elde Edilen Toplam Gelir (TL)
 </h6>
 <div class="form-group">
-    <input asp-for="NewProjectInfo.Amount" asp-format="{0:N}" class="form-control" />
+    <input asp-for="NewProjectInfo.Amount" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
+
+<script src="~/frest/app-assets/js/currency.js"></script>

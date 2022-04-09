@@ -2,13 +2,6 @@
 
 <input asp-for="NewDiscountInfo.Id" hidden="hidden" />
 
-@*<h6 class="invoice-address">
-    Faaliyet Dönemi
-</h6>
-<div class="form-group">
-    <input asp-for="NewDiscountInfo.Year" class="form-control">
-</div>*@
-
 <h6 class="invoice-address">
     Ar-Ge ve Tasarım İndirimi Kapsamında Yararlanılan/Yaralanılacak Kurumları Vergisi İstisnası
 </h6>
@@ -71,3 +64,5 @@
 <div class="form-group">
     <input asp-for="NewDiscountInfo.RatioTurnover" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
+
+<script src="~/frest/app-assets/js/currency.js"></script>

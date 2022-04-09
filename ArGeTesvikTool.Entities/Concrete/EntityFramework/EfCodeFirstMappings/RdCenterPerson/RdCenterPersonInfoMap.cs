@@ -52,6 +52,11 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasMaxLength(20)
                 .HasConversion(x => x.ToString(), x => (PersonPosition)Enum.Parse(typeof(PersonPosition), x));
 
+            entity.Property(x => x.WorkType)
+                .HasColumnName("WorkType")
+                .HasMaxLength(20)
+                .HasConversion(x => x.ToString(), x => (WorkType)Enum.Parse(typeof(WorkType), x));
+
             entity.Property(x => x.RegistrationNo)
                 .HasColumnName("RegistrationNo")
                 .HasMaxLength(26);

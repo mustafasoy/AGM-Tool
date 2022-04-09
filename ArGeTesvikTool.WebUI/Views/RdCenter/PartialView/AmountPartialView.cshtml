@@ -2,13 +2,6 @@
 
 <input asp-for="NewAmountInfo.Id" hidden="hidden" />
 
-@*<h6 class="invoice-address">
-        Faaliyet Dönemi
-    </h6>
-    <div class="form-group">
-        <input asp-for="NewAmountInfo.Year" class="form-control">
-    </div>*@
-
 <h6 class="invoice-address">
     İlk Madde ve Malzeme Giderleri
 </h6>
@@ -48,7 +41,7 @@
     Vergi, Resim ve Harçlar
 </h6>
 <div class="form-group">
-    <input asp-for="NewAmountInfo.TaxFee" aclass="form-control currency" maxlength="20" placeholder="0,00" />
+    <input asp-for="NewAmountInfo.TaxFee" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
 
 <h6 class="invoice-address">
@@ -78,3 +71,5 @@
 <div class="form-group">
     <input asp-for="NewAmountInfo.TaxExemption" class="form-control currency" maxlength="20" placeholder="0,00" />
 </div>
+
+<script src="~/frest/app-assets/js/currency.js"></script>

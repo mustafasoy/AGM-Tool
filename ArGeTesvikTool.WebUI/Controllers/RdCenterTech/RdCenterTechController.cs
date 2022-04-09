@@ -6,9 +6,11 @@ using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterTech;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 {
@@ -418,11 +420,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
         #endregion
 
-        public IActionResult Property()
-        {
-            return View();
-        }
-
         #region Software CRUD
         public IActionResult Software()
         {
@@ -580,11 +577,18 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         #region Intellectual Property CRUD
         public IActionResult IntellectualProperty()
         {
+            var projectList = _projectService.GetAllProjectName();
+
             List<RdCenterTechIntellectualPropertyDto> propertyInfoList = _propertyService.GetAll();
 
             RdCenterTechIntellectualPropertyViewModel propertyInfoViewModel = new()
             {
-                PropertyList = propertyInfoList
+                PropertyList = propertyInfoList,
+                ProjectList = projectList.Select(x => new SelectListItem
+                {
+                    Value = x.ProjectCode,
+                    Text = x.ProjectName
+                }).ToList(),
             };
 
             return View(propertyInfoViewModel);

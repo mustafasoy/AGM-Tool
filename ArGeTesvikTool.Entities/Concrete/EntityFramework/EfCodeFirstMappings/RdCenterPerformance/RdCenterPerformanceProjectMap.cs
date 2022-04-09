@@ -31,7 +31,8 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("Explanation");
 
             entity.Property(x => x.Amount)
-                .HasColumnName("Amount");
+                .HasColumnName("Amount")
+                .HasMaxLength(20);
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

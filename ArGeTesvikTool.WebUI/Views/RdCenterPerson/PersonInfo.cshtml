@@ -52,6 +52,9 @@
                                                 Görevi
                                             </th>
                                             <th>
+                                                Çalışma Şekli
+                                            </th>
+                                            <th>
                                                 SGK Sicil No
                                             </th>
                                             <th>
@@ -66,69 +69,79 @@
                                         @foreach (var item in Model.PersonInfoList)
                                         {
                                             rowNumber++;
-                                            <tr>
-                                                <td hidden="hidden">
-                                                    @rowNumber
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.IdentityNumber)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.NameSurname)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.CountryText)
-                                                </td>
-                                                <td>
-                                                    @if (item.EducationStatu == 0)
-                                                    {
-                                                        @:
-                                                    }
-                                                    else
-                                                    {
-                                                        @Html.DisplayFor(modelItem => item.EducationStatu)
-                                                    }
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.GraduateUniversity)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.UniversityDepartmant)
-                                                </td>
-                                                <td>
-                                                    @if (item.PersonPosition == 0)
-                                                    {
-                                                        @:
-                                                    }
-                                                    else
-                                                    {
-                                                        @Html.DisplayFor(modelItem => item.PersonPosition)
-                                                    }
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.RegistrationNo)
-                                                </td>
-                                                <td>
-                                                    @if (item.StartDate.ToString("dd/MM/yyyy") == "01.01.0001")
-                                                    {
-                                                        @:
-                                                    }
-                                                    else
-                                                    {
-                                                        @Html.Raw(item.StartDate.ToString("dd/MM/yyyy"))
-                                                    }
-                                                </td>
-                                                <td>
-                                                    <div class="invoice-action">
-                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
-                                                            <i class="bx bx-edit"></i>
-                                                        </a>
-                                                        <a asp-action="PersonInfoDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
-                                                            <i class="bx bx-trash"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td hidden="hidden">
+                                                @rowNumber
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IdentityNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NameSurname)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CountryText)
+                                            </td>
+                                            <td>
+                                                @if (item.EducationStatu == 0)
+                                                {
+                                                    @:
+                                                }
+                                                else
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.EducationStatu)
+                                                }
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.GraduateUniversity)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.UniversityDepartmant)
+                                            </td>
+                                            <td>
+                                                @if (item.PersonPosition == 0)
+                                                {
+                                                    @:
+                                                }
+                                                else
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.PersonPosition)
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.WorkType == 0)
+                                                {
+                                                    @:
+                                                }
+                                                else
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.WorkType)
+                                                }
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RegistrationNo)
+                                            </td>
+                                            <td>
+                                                @if (item.StartDate.ToString("dd/MM/yyyy") == "01.01.0001")
+                                                {
+                                                    @:
+                                                }
+                                                else
+                                                {
+                                                    @Html.Raw(item.StartDate.ToString("dd/MM/yyyy"))
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="invoice-action">
+                                                    <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                        <i class="bx bx-edit"></i>
+                                                    </a>
+                                                    <a asp-action="PersonInfoDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                        <i class="bx bx-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
                                         }
                                     </tbody>
                                 </table>

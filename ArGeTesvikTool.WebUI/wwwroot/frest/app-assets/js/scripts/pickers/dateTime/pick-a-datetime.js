@@ -40,10 +40,10 @@
     // Picker Translations
     $('.pickadate-translations').pickadate({
         formatSubmit: 'dd/mm/yyyy',
-        monthsFull: ['Ocak', 'Şubat', 'Mart', 'Nisa', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+        monthsFull: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
         monthsShort: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
         weekdaysShort: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
-        format: 'dd-mm-yyyy',
+        format: 'dd.mm.yyyy',
         today: 'bugün',
         clear: 'temizle',
         close: 'kapat'
@@ -61,10 +61,10 @@
         selectYears: true,
         selectMonths: true,
         formatSubmit: 'dd/mm/yyyy',
-        monthsFull: ['Ocak', 'Şubat', 'Mart', 'Nisa', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+        monthsFull: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
         monthsShort: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
         weekdaysShort: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
-        format: 'dd-mm-yyyy',
+        format: 'dd.mm.yyyy',
         today: 'bugün',
         clear: 'temizle',
         close: 'kapat'

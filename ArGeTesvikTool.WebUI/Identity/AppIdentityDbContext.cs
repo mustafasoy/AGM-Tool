@@ -1,4 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ArGeTesvikTool.Entities.Concrete;
+using ArGeTesvikTool.Entities.Concrete.Business;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Business;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Index;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenter;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterCal;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerformance;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerson;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech;
+using ArGeTesvikTool.Entities.Concrete.Index;
+using ArGeTesvikTool.Entities.Concrete.RdCenter;
+using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
+using ArGeTesvikTool.Entities.Concrete.RdCenterPerformance;
+using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
+using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +30,8 @@ namespace ArGeTesvikTool.WebUI.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            #region Identity
             modelBuilder.Entity<IdentityRoleClaim<string>>(entity =>
             {
                 entity.ToTable("RoleClaims");
@@ -21,6 +39,9 @@ namespace ArGeTesvikTool.WebUI.Models
             modelBuilder.Entity<AppIdentityRole>(entity =>
             {
                 entity.ToTable(name: "Roles");
+                entity.Property(x => x.RoleText)
+                .HasColumnName("RoleText")
+                .HasMaxLength(20);
             });
             modelBuilder.Entity<IdentityUserClaim<string>>(entity =>
             {
@@ -37,11 +58,21 @@ namespace ArGeTesvikTool.WebUI.Models
             modelBuilder.Entity<AppIdentityUser>(entity =>
             {
                 entity.ToTable(name: "Users");
+                entity.Property(x => x.Name)
+                    .HasColumnName("Name")
+                    .HasMaxLength(256);
+
+                entity.Property(x => x.LastName)
+                    .HasColumnName("LastName")
+                    .HasMaxLength(256);
             });
             modelBuilder.Entity<IdentityUserToken<string>>(entity =>
             {
                 entity.ToTable("UserTokens");
             });
+            #endregion
+
+            modelBuilder = CodeFirstMappings.CreateCodeFirstMapping(modelBuilder);
         }
     }
 }
