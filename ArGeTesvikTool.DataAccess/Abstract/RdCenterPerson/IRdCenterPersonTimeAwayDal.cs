@@ -5,6 +5,6 @@ namespace ArGeTesvikTool.DataAccess.Abstract.RdCenterPerson
 {
     public interface IRdCenterPersonTimeAwayDal : IEntityRepository<RdCenterPersonTimeAwayDto>
     {
-        //custom operations for business info class, that should be written here. like; store procedure or join query
+        //custom operations that should be written here. like; store procedure or join query
     }
 }

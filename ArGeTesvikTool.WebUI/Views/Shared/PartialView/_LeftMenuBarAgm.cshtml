@@ -42,6 +42,14 @@
                 </span>
             </a>
         </li>
+        <li active-when="/RdCenterCal/PublicHoliday">
+            <a asp-controller="RdCenterCal" asp-action="PublicHoliday">
+                <i class="bx bx-columns"></i>
+                <span class="menu-title text-truncate" data-i18n="Public Holiday">
+                    Resmi/Dini Tatil Tanımla
+                </span>
+            </a>
+        </li>
     </ul>
 </li>
 <!-- agm system defination end-->
@@ -122,19 +130,19 @@
         </span>
     </a>
     <ul class="menu-content">
-        <li active-when="/ /">
+        <li active-when="/RdCenterCal/Income">
             <a asp-controller="" asp-action="">
                 <i class="bx bx-table"></i>
-                <span class="menu-item text-truncate" data-i18n="Day Calculation">
-                    Gün Sayısı Hesaplama
+                <span class="menu-item text-truncate" data-i18n="Income Report">
+                    Gelir Vergisi Raporu
                 </span>
             </a>
         </li>
-        <li active-when="/ /">
+        <li active-when="/RdCenterCal/SSI">
             <a asp-controller="" asp-action="">
                 <i class="bx bx-copy-alt"></i>
-                <span class="menu-item" data-i18n="Day Report">
-                    Gün Sayısı Raporu
+                <span class="menu-item" data-i18n="SSI Report">
+                    SGK Raporu
                 </span>
             </a>
         </li>

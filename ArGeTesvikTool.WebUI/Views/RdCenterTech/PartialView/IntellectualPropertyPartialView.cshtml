@@ -6,7 +6,7 @@
     Proje
 </h6>
 <div class="form-group">
-    <select asp-for="NewProperty.ProjectName" class="form-control" id="projectName">
+    <select asp-for="NewProperty.ProjectName" asp-items="@Model.ProjectList" class="form-control" id="projectName">
         <option value="">
             Seçiniz
         </option>
@@ -69,7 +69,7 @@
 </h6>
 <div class="form-group">
     <fieldset class="form-group position-relative has-icon-left">
-        <input asp-for="NewProperty.ApplicationDate" type="date" asp-format="{0:dd-MM-yyyy}" id="datePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+        <input asp-for="NewProperty.ApplicationDate" asp-format="{0:dd.MM.yyyy}" type="text" id="datePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
         <div class="form-control-position">
             <i class='bx bx-calendar'></i>
         </div>

@@ -37,6 +37,15 @@ $(function () {
                 'Name': {
                     required: true,
                 },
+                'RegistrationNo': {
+                    required: true,
+                },
+                'StartDate': {
+                    required: true
+                },
+                'EndDate': {
+                    required: true
+                },
                 'User.Name': {
                     required: true
                 },

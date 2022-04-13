@@ -7,6 +7,7 @@ using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerformance;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
+using ArGeTesvikTool.Entities.Concrete.Report;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
@@ -29,15 +30,15 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("DbConnection"));
         }
 
-        #region Home Db Map
+        #region Home Db Set
         public DbSet<FiscalYearDto> FiscalYears { get; set; }
         #endregion
 
-        #region Index Db Map
+        #region Index Db Set
         public DbSet<NewDataDto> NewDatas { get; set; }
         #endregion
 
-        #region Business Db Map
+        #region Business Db Set
         public DbSet<BusinessContactDto> BusinessContracts { get; set; }
         public DbSet<BusinessInfoDto> BusinessInfos { get; set; }
         public DbSet<BusinessIntroDto> BusinessIntros { get; set; }
@@ -49,7 +50,7 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         public DbSet<BusinessFinancialInfoDto> BusinessFinancialInfos { get; set; }
         #endregion
 
-        #region RdCenter Db Map
+        #region RdCenter Db Set
         public DbSet<RdCenterContactDto> RdCenterContracts { get; set; }
         public DbSet<RdCenterInfoDto> RdCenterInfos { get; set; }
         public DbSet<RdCenterSchemaDto> RdCenterSchemas { get; set; }
@@ -59,7 +60,7 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         public DbSet<RdCenterDiscountDto> RdCenterDiscounts { get; set; }
         #endregion
 
-        #region RdCenterCal Db Map
+        #region RdCenterCal Db Set
         public DbSet<RdCenterCalPersAttendanceDto> PersonelAttendances { get; set; }
         public DbSet<RdCenterCalPersonnelInfoDto> RdCenterCalPersonnelInfos { get; set; }
         public DbSet<RdCenterCalProjectInfoDto> RdCenterCalProjectInfos { get; set; }
@@ -67,15 +68,16 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         public DbSet<RdCenterCalPersAssingDto> RdCenterPersAssings { get; set; }
         public DbSet<RdCenterCalPersonnelEntryDto> RdCenterPersonnelEntries { get; set; }
         public DbSet<RdCenterCalManagerEntryDto> RdCenterManagerEntries { get; set; }
+        public DbSet<RdCenterCalPublicHolidayDto> RdCenterCalPublicHolidays { get; set; }
         #endregion
 
-        #region RdCenterPerson Db Map
+        #region RdCenterPerson Db Set
         public DbSet<RdCenterPersonInfoDto> RdCenterPersonInfos { get; set; }
         public DbSet<RdCenterPersonRewardDto> RdCenterPersonRewards { get; set; }
         public DbSet<RdCenterPersonTimeAwayDto> RdCenterPersonTimeAways { get; set; }
         #endregion
 
-        #region RdCenterTech Db Map
+        #region RdCenterTech Db Set
         public DbSet<RdCenterTechAcademicLibraryDto> RdCenterTechAcademicLibraries { get; set; }
         public DbSet<RdCenterTechAttendedEventDto> RdCenterTechAttendedEvents { get; set; }
         public DbSet<RdCenterTechCollaborationDto> RdCenterTechCollaborations { get; set; }
@@ -86,8 +88,12 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         public DbSet<RdCenterTechIntellectualPropertyDto> RdCenterTechIntellectualProperties { get; set; }
         #endregion
 
-        #region RdCenterPerformance Db Map
+        #region RdCenterPerformance Db Set
         public DbSet<RdCenterPerformanceProjectDto> RdCenterPerformanceProjects { get; set; }
+        #endregion
+
+        #region Report Db Set
+        public DbSet<IncomeDto> Incomes { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

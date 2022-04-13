@@ -18,6 +18,18 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("UserId")
                 .HasMaxLength(450);
 
+            entity.Property(x => x.PersonnelFullName)
+                .HasColumnName("PersonnelFullName")
+                .HasMaxLength(512);
+
+            entity.Property(x => x.RegistrationNo)
+                .HasColumnName("RegistrationNo")
+                .HasMaxLength(26);
+
+            entity.Property(x => x.WorkType)
+                .HasColumnName("WorkType")
+                .HasMaxLength(20);
+
             entity.Property(x => x.ProjectCode)
                 .HasColumnName("ProjectCode")
                 .HasMaxLength(20);

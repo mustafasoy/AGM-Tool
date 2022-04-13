@@ -27,8 +27,9 @@
     Proje Başlangıç Tarihi
 </h6>
 <div class="form-group">
+    <input asp-for="NewProjectInfo.ProjectStartDate" id="startDate" hidden="hidden" />
     <fieldset class="form-group position-relative has-icon-left">
-        <input asp-for="NewProjectInfo.ProjectStartDate" type="date" asp-format="{0:dd-MM-yyyy}" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+        <input asp-for="NewProjectInfo.ProjectStartDate" type="date" id="startDatePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
         <div class="form-control-position">
             <i class='bx bx-calendar'></i>
         </div>
@@ -39,8 +40,9 @@
     Proje Bitiş Tarihi
 </h6>
 <div class="form-group">
+    <input asp-for="NewProjectInfo.ProjectEndDate" id="endDate" hidden="hidden" />
     <fieldset class="form-group position-relative has-icon-left">
-        <input asp-for="NewProjectInfo.ProjectEndDate" type="date" asp-format="{0:dd-MM-yyyy}" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+        <input asp-for="NewProjectInfo.ProjectEndDate" type="date" id="endDatePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
         <div class="form-control-position">
             <i class='bx bx-calendar'></i>
         </div>
@@ -48,3 +50,20 @@
 </div>
 
 <script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
+<script>
+    var startDate = moment($("#startDate").val()).format('DD.MM.YYYY')
+    if (startDate != "01.01.0001") {
+        $("#startDatePicker").val(startDate);
+    }
+    else {
+        $("#startDatePicker").val("");
+    }
+
+    var endDate = moment($("#endDate").val()).format('DD.MM.YYYY')
+    if (endDate != "01.01.0001") {
+        $("#endDatePicker").val(endDate);
+    }
+    else {
+        $("#endDatePicker").val("");
+    }
+</script>

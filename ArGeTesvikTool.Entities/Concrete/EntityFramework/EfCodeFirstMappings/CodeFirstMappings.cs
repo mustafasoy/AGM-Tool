@@ -8,12 +8,14 @@ using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCen
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerformance;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerson;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Report;
 using ArGeTesvikTool.Entities.Concrete.Index;
 using ArGeTesvikTool.Entities.Concrete.RdCenter;
 using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerformance;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
+using ArGeTesvikTool.Entities.Concrete.Report;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
@@ -60,6 +62,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
             _ = new RdCenterCalPersAssingMap(modelBuilder.Entity<RdCenterCalPersAssingDto>());
             _ = new RdCenterCalPersonnelEntryMap(modelBuilder.Entity<RdCenterCalPersonnelEntryDto>());
             _ = new RdCenterCalManagerEntryMap(modelBuilder.Entity<RdCenterCalManagerEntryDto>());
+            _ = new RdCenterCalPublicHolidayMap(modelBuilder.Entity<RdCenterCalPublicHolidayDto>());
             #endregion
 
             #region RdCenterPerson Db Map
@@ -81,6 +84,10 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
 
             #region RdCenterPerformance Db Map
             _ = new RdCenterPerformanceProjectMap(modelBuilder.Entity<RdCenterPerformanceProjectDto>());
+            #endregion
+
+            #region Report Db Map
+            _ = new IncomeMap(modelBuilder.Entity<IncomeDto>());
             #endregion
 
             return modelBuilder;

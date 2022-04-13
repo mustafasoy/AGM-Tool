@@ -35,7 +35,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.MonthlyTimeAway)
                 .HasColumnName("MonthlyTimeAway")
-                .HasColumnName("decimal(3,1)");
+                .HasColumnType("decimal(3,1)");
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

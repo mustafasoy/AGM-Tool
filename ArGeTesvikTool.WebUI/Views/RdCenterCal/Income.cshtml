@@ -1,0 +1,56 @@
+﻿@model RdCenterCalIncomeReportViewModel
+@{
+    ViewBag.Title = "Gelir Vergisi Rapor";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            Gelir Vergisi Rapor
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="Income" method="post" id="jquery-val-form">
+                            <div class="col-md-2">
+                                <h6 class="invoice-address">
+                                    Proje Başlama Tarihi
+                                </h6>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <fieldset class="form-group position-relative has-icon-left">
+                                    <input asp-for="StartDate" asp-format="{0:dd.MM.yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+                                    <div class="form-control-position">
+                                        <i class='bx bx-calendar'></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="invoice-address">
+                                    Proje Bitiş Tarihi
+                                </h6>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <fieldset class="form-group position-relative has-icon-left">
+                                    <input asp-for="EndDate" asp-format="{0:dd.MM.yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+                                    <div class="form-control-position">
+                                        <i class='bx bx-calendar'></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-sm-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary mr-1">
+                                    Getir
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

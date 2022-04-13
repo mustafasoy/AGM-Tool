@@ -7,6 +7,9 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterCal
     public class RdCenterCalPersonnelEntryDto : AuditableEntity
     {
         public string UserId { get; set; }
+        public string PersonnelFullName { get; set; }
+        public string RegistrationNo { get; set; }
+        public string WorkType { get; set; }
         public string ProjectCode { get; set; }
         public string ProjectName { get; set; }
         public string TimeAwayCode { get; set; }

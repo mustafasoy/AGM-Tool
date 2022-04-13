@@ -1,5 +1,8 @@
 ﻿using ArGeTesvikTool.Business.Abstract.RdCenterCal;
+using ArGeTesvikTool.Business.Abstract.RdCenterPerson;
+using ArGeTesvikTool.Business.Abstract.RdCenterTech;
 using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
+using ArGeTesvikTool.Entities.Concrete.Report;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterCal;
 using Mapster;
@@ -16,12 +19,18 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
     {
         private readonly IRdCenterCalPersonnelService _personnelService;
         private readonly IRdCenterCalProjectService _projectService;
+
         private readonly IRdCenterCalTimeAwayService _timeAwayService;
         private readonly IRdCenterCalPersAssingService _persAssingService;
         private readonly IRdCenterCalPersonnelEntryService _persEntryService;
         private readonly IRdCenterCalManagerEntryService _managerService;
+        private readonly IRdCenterPersonInfoService _infoService;
+        private readonly IRdCenterCalPublicHolidayService _holidayService;
 
-        public RdCenterCalController(IRdCenterCalPersonnelService personnelService, IRdCenterCalProjectService projectService, IRdCenterCalTimeAwayService timeAwayService, IRdCenterCalPersAssingService persAssingService, IRdCenterCalPersonnelEntryService persEntryService, IRdCenterCalManagerEntryService managerService)
+        private readonly IRdCenterPersonInfoService _persService;
+        private readonly IRdCenterTechProjectService _projService;
+
+        public RdCenterCalController(IRdCenterCalPersonnelService personnelService, IRdCenterCalProjectService projectService, IRdCenterCalTimeAwayService timeAwayService, IRdCenterCalPersAssingService persAssingService, IRdCenterCalPersonnelEntryService persEntryService, IRdCenterCalManagerEntryService managerService, IRdCenterPersonInfoService infoService, IRdCenterCalPublicHolidayService holidayService, IRdCenterPersonInfoService persService, IRdCenterTechProjectService projService)
         {
             _personnelService = personnelService;
             _projectService = projectService;
@@ -29,6 +38,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             _persAssingService = persAssingService;
             _persEntryService = persEntryService;
             _managerService = managerService;
+            _infoService = infoService;
+            _holidayService = holidayService;
+
+            _persService = persService;
+            _projService = projService;
         }
 
         #region Personnel CRUD
@@ -342,47 +356,45 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         #region PersonnelEntry CRUD
         public IActionResult PersonnelEntry()
         {
-            var projectList = _projectService.GetAll();
+            var projectRelated = new SelectListGroup { Name = "Proje İlişkili" };
+            var nonProjectRelated = new SelectListGroup { Name = "Proje İlişkisiz" };
+            //var projectList = _projectService.GetAll();
             var timeAwayList = _timeAwayService.GetAll();
 
-            RdCenterCalProjectInfoDto newRecord = new()
-            {
-                ProjectCode = "Project 1",
-                ProjectName = "new Proje 1"
-            };
-            projectList.Add(newRecord);
-            newRecord = new()
-            {
-                ProjectCode = "Project 2",
-                ProjectName = "new Proje 2"
-            };
-            projectList.Add(newRecord);
-            RdCenterCalTimeAwayDto newTime = new()
-            {
-                TimeAwayCode = "time 1",
-                TimeAwayName = "new time 1"
-            };
-            timeAwayList.Add(newTime);
-            newTime = new()
-            {
-                TimeAwayCode = "time 2",
-                TimeAwayName = "new time 2"
-            };
-            timeAwayList.Add(newTime);
+            var projectList = _projService.GetAllProjectName();
 
+            List<SelectListItem> timeAwaySelectList = new();
+            foreach (var item in timeAwayList)
+            {
+                if (Convert.ToInt32(item.TimeAwayCode) >= 1 && Convert.ToInt32(item.TimeAwayCode) <= 12)
+                {
+                    timeAwaySelectList.Add(new SelectListItem
+                    {
+                        Value = item.TimeAwayCode,
+                        Text = item.TimeAwayName,
+                        Group = projectRelated
+                    });
+                }
+                else
+                {
+                    timeAwaySelectList.Add(new SelectListItem
+                    {
+                        Value = item.TimeAwayCode,
+                        Text = item.TimeAwayName,
+                        Group = nonProjectRelated
+                    });
+                }
+
+            }
 
             RdCenterCalPersonnelEntryViewModel personnelEntryViewModel = new()
             {
                 ProjectList = projectList.Select(x => new SelectListItem
                 {
                     Value = x.ProjectCode,
-                    Text = x.ProjectName
+                    Text = x.ProjectName,
                 }).ToList(),
-                TimeAwayList = timeAwayList.Select(x => new SelectListItem
-                {
-                    Value = x.TimeAwayCode,
-                    Text = x.TimeAwayName
-                }).ToList(),
+                TimeAwayList = timeAwaySelectList
             };
 
             return View(personnelEntryViewModel);
@@ -393,7 +405,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var personnelEntry = _persEntryService.GetAll(2022)
-                .Select(x=> new RdCenterCalPersonnelAddViewModel() { 
+                .Select(x => new RdCenterCalPersonnelAddViewModel()
+                {
                     Id = x.Id,
                     UserId = userId,
                     ProjectCode = x.ProjectCode,
@@ -402,7 +415,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                     TimeAwayName = x.TimeAwayName,
                     StartDate = x.StartDate,
                     EndDate = x.EndDate
-            });
+                });
 
             return Json(personnelEntry);
         }
@@ -412,6 +425,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            var currentUser = _userManager.FindByIdAsync(userId).Result;
+
+            string regNo = currentUser.RegistrationNo;
+            string workType = _infoService.GetByRegNo(regNo).RegistrationNo;
+
+
             var personnelEntry = _persEntryService.GetById(personnelViewModel.Id);
 
             RdCenterCalPersonnelEntryDto entryDto = new();
@@ -419,6 +438,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             if (personnelEntry == null)
             {
                 personnelViewModel.UserId = userId;
+                personnelViewModel.PersonnelFullName = currentUser.Name + " " + currentUser.LastName;
+                personnelViewModel.RegistrationNo = regNo;
+                personnelViewModel.WorkType = workType;
                 personnelViewModel.Year = DateTime.Now.Year;
                 personnelViewModel.CreatedDate = DateTime.Now;
                 personnelViewModel.CreatedUserName = User.Identity.Name;
@@ -430,6 +452,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             {
                 personnelViewModel.Id = personnelEntry.Id;
                 personnelViewModel.UserId = userId;
+                personnelViewModel.PersonnelFullName = currentUser.Name + " " + currentUser.LastName;
+                personnelViewModel.RegistrationNo = regNo;
+                personnelViewModel.WorkType = workType;
                 personnelViewModel.Year = personnelEntry.Year;
                 personnelViewModel.ProjectName = personnelEntry.ProjectName;
                 personnelViewModel.TimeAwayName = personnelEntry.TimeAwayName;
@@ -460,7 +485,270 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         public IActionResult ManagerEntry()
         {
             return View();
-        } 
+        }
         #endregion
+
+        public IActionResult Calculation()
+        {
+
+            return View();
+        }
+
+        #region PublicHoliday CRUD
+        public IActionResult PublicHoliday(int year)
+        {
+            var yearList = _holidayService.GetAll();
+
+            int duplicateYear = 0;
+            foreach (var item in yearList.ToList())
+            {
+                if (item.Year == year)
+                {
+                    yearList.Remove(item);
+                }
+
+                if (item.Year == duplicateYear)
+                    yearList.Remove(item);
+
+                duplicateYear = item.Year;
+            }
+
+            List<RdCenterCalPublicHolidayDto> holidayList = _holidayService.GetAll();
+
+            RdCenterCalPublicHolidayViewModel holidayViewModel = new()
+            {
+                HolidayList = holidayList,
+                YearList = yearList.Select(x => new SelectListItem
+                {
+                    Value = x.Year.ToString(),
+                    Text = x.Year.ToString()
+                }).ToList(),
+            };
+
+            ViewBag.Year = year;
+
+            return View(holidayViewModel);
+        }
+
+        public IActionResult HolidayCreate()
+        {
+            RdCenterCalPublicHolidayDto holiday = new();
+
+            RdCenterCalPublicHolidayViewModel holidayViewModel = new()
+            {
+                NewHoliday = holiday
+            };
+
+            return PartialView("PartialView/HolidayPartialView", holidayViewModel);
+        }
+
+        public IActionResult HolidayUpdate(int id)
+        {
+            var holiday = _holidayService.GetById(id);
+
+            RdCenterCalPublicHolidayViewModel holidayViewModel = new()
+            {
+                NewHoliday = holiday
+            };
+
+            return PartialView("PartialView/HolidayPartialView", holidayViewModel);
+        }
+
+        public IActionResult HolidayDelete(int id)
+        {
+            _holidayService.Delete(id);
+
+            AddSuccessMessage("Resmi tatil bilgisi silindi.");
+
+            return RedirectToAction("PublicHoliday");
+        }
+
+        [HttpPost]
+        public IActionResult PublicHoliday(RdCenterCalPublicHolidayViewModel holidayViewModel)
+        {
+            var holiday = _holidayService.GetById(holidayViewModel.NewHoliday.Id);
+            if (holiday == null)
+            {
+                holidayViewModel.NewHoliday.Month = holidayViewModel.NewHoliday.StartDate.Month;
+                holidayViewModel.NewHoliday.CreatedDate = DateTime.Now;
+                holidayViewModel.NewHoliday.CreatedUserName = User.Identity.Name;
+
+                _holidayService.Add(holidayViewModel.NewHoliday);
+
+                AddSuccessMessage("Resmi tatil bilgisi eklendi.");
+            }
+            else
+            {
+                holidayViewModel.NewHoliday.Id = holiday.Id;
+                holidayViewModel.NewHoliday.Year = holiday.Year;
+                holidayViewModel.NewHoliday.Month = holiday.Month;
+                holidayViewModel.NewHoliday.CreatedDate = holiday.CreatedDate;
+                holidayViewModel.NewHoliday.CreatedUserName = holiday.CreatedUserName;
+                holidayViewModel.NewHoliday.ModifiedDate = DateTime.Now;
+                holidayViewModel.NewHoliday.ModifedUserName = User.Identity.Name;
+
+                _holidayService.Update(holidayViewModel.NewHoliday);
+
+                AddSuccessMessage("Resmi tatil bilgisi güncellendi.");
+            }
+
+            return Redirect("PublicHoliday");
+        }
+        #endregion
+
+        public IActionResult Income()
+        {
+            DateTime startDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
+            RdCenterCalIncomeReportViewModel reportViewModel = new()
+            {
+                StartDate = startDate,
+                EndDate = startDate.AddMonths(1).AddDays(-1)
+            };
+
+            return View(reportViewModel);
+        }
+
+        [HttpPost]
+        public void Income(RdCenterCalIncomeReportViewModel reportViewModel)
+        {
+            var personnelEntries = _persEntryService.GetAllByMonth(reportViewModel.StartDate, reportViewModel.EndDate);
+
+            List<IncomeDto> incomeList = new();
+            foreach (var item in personnelEntries)
+            {
+                IncomeDto newIncome = new();
+                decimal timediff = Convert.ToDecimal((item.EndDate.Subtract(item.StartDate)).TotalHours);
+
+                #region Ar-Ge Merkezi İçerisinde Geçirilen Süre
+                if (!string.IsNullOrEmpty(item.ProjectCode))
+                {
+                    newIncome.RdCenterTimeSpend = IsTimeBiggerThanEight(ref timediff);
+                }
+                #endregion
+
+                #region Uzaktan Çalışma Süresi
+                if (item.TimeAwayCode == "12")
+                {
+                    newIncome.RemoteTimeSpend = IsTimeBiggerThanEight(ref timediff);
+                }
+                #endregion
+
+                #region Projeler veya Lisansüstü Eğitim Kapsamında Ar-Ge Merkezi Dışında Geçirilen Teşvikli Süre
+                if (Convert.ToInt32(item.TimeAwayCode) >= 1 && Convert.ToInt32(item.TimeAwayCode) <= 11)
+                {
+                    newIncome.ProjectTimeSpend = IsTimeBiggerThanEight(ref timediff);
+                }
+                #endregion
+
+                #region Ar-Ge Merkezi Dışında Geçirilen Diğer Teşviksiz R&D Zamanı
+                if (item.WorkType == "Tam Zamanlı" && item.TimeAwayCode == "99")
+                {
+                    newIncome.UncentiveTimeSpend = timediff;
+                }
+                #endregion
+
+                #region Ar-Ge Merkezi Dışında Geçirilen Non R&D Zamanı
+                if (item.WorkType == "Kısmi Zamanlı" && item.TimeAwayCode == "99")
+                {
+                    newIncome.NonRdCenterTimeSpend = timediff;
+                }
+                #endregion
+
+                #region Ar-Ge Merkezi Dışında Geçirilen Diğer Zamanlar
+                if (item.TimeAwayCode == "91")
+                {
+                    newIncome.NonRdCenterOtherTimeSpend = timediff;
+                }
+                #endregion
+
+                #region Ücretli Yıllık İzinler
+                if (item.TimeAwayCode == "90")
+                {
+                    newIncome.AnnualLeaveTimeSpend = timediff;
+                }
+                #endregion
+
+                incomeList.Add(newIncome);
+            }
+
+            //get working days between given start and end date
+            List<RdCenterCalPublicHolidayDto> publicholidays = _holidayService.GetAllByYear(reportViewModel.StartDate.Year);
+            List<DateTime> publicholidayList = new();
+            foreach (var item in publicholidays)
+            {
+                int timeDiff = Convert.ToInt32(item.EndDate.Subtract(item.StartDate).TotalHours);
+                for (int i = 0; i < timeDiff; i++)
+                {
+                    publicholidayList.Add(item.StartDate.AddDays(i));
+                }
+            }
+            int businessDayCount = GetBusinessDays(reportViewModel.StartDate, reportViewModel.EndDate, holidayList);
+            int weekendDayCount = GetWeekendDays(reportViewModel.StartDate);
+
+            var collect = incomeList
+                .GroupBy(x => new
+                {
+                    x.RegistrationNo
+                })
+                .Select(x => new IncomeDto
+                {
+                    RegistrationNo = x.Key.RegistrationNo,
+                    PersonnelFullName = x.First().PersonnelFullName,
+                    RdCenterTimeSpend = x.Sum(x => x.RdCenterTimeSpend),
+                    RemoteTimeSpend = x.Sum(x => x.RemoteTimeSpend),
+                    ProjectTimeSpend = x.Sum(x => x.ProjectTimeSpend),
+                    UncentiveTimeSpend = x.Sum(x => x.UncentiveTimeSpend),
+                    NonRdCenterTimeSpend = x.Sum(x => x.NonRdCenterTimeSpend),
+                    NonRdCenterOtherTimeSpend = x.Sum(x => x.NonRdCenterOtherTimeSpend),
+                    AnnualLeaveTimeSpend = x.Sum(x => x.AnnualLeaveTimeSpend),
+                    BaseUsedDay = x.First().BaseUsedDay
+                })
+                .ToList();
+
+            foreach (var item in collect)
+            {
+                decimal netWorkingTime = businessDayCount * 8 - item.AnnualLeaveTimeSpend;
+                decimal incentiveWorkingTime = item.RdCenterTimeSpend + item.RemoteTimeSpend + item.ProjectTimeSpend;
+                decimal incentiveRate = incentiveWorkingTime / netWorkingTime;
+                decimal incentiveWeekendRate = weekendDayCount * incentiveRate;
+                decimal publicHolidayRate = publicholidays.Count * incentiveRate;
+                decimal annualLeave = item.AnnualLeaveTimeSpend * incentiveRate;
+                decimal incentiveTimeTotal = incentiveWorkingTime + incentiveWeekendRate + publicHolidayRate + annualLeave;
+                decimal incentiveDayCount = incentiveTimeTotal / 8;
+
+                item.BaseUsedDay = Math.Floor(incentiveDayCount);
+            }
+        }
+
+        private static int GetBusinessDays(DateTime startDate, DateTime endDate, List<DateTime> holidays)
+        {
+            return Enumerable.Range(0, (endDate - startDate).Days)
+                .Select(a => startDate.AddDays(a))
+                .Where(a => a.DayOfWeek != DayOfWeek.Sunday)
+                .Where(a => a.DayOfWeek != DayOfWeek.Saturday)
+                .Count(a => !holidays.Any(x => x == a));
+        }
+
+        private static int GetWeekendDays(DateTime date)
+        {
+            DateTime firstMonthDay = new(date.Year, date.Month, 1);
+            DateTime firstMonthMonday = firstMonthDay.AddDays((DayOfWeek.Monday + 7 - firstMonthDay.DayOfWeek) % 7);
+            if (firstMonthMonday > firstMonthDay)
+            {
+                firstMonthDay = firstMonthDay.AddMonths(-1);
+                firstMonthMonday = firstMonthDay.AddDays((DayOfWeek.Monday + 7 - firstMonthDay.DayOfWeek) % 7);
+            }
+            return (date - firstMonthMonday).Days / 7 + 1;
+        }
+
+        private static decimal IsTimeBiggerThanEight(ref decimal timediff)
+        {
+            //if daily time is bigger than 8 hours. do it default 8
+            if (timediff > 8)
+            {
+                timediff = 8;
+            }
+            return timediff;
+        }
     }
 }

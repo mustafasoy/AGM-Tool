@@ -552,7 +552,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("ModifiedDate");
 
                     b.Property<decimal>("Share")
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("decimal(3,2)")
                         .HasColumnName("Share");
 
                     b.Property<string>("ShareAmount")
@@ -1003,81 +1003,6 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     b.ToTable("RdCenterDiscounts");
                 });
 
-            modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenter.RdCenterFinancialInfoDto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("AcquisitionTurnover")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("AcquisitionTurnover");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("date")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<string>("CreatedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("CreatedUserName");
-
-                    b.Property<decimal>("DomesticSales")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("DomesticSales");
-
-                    b.Property<decimal>("ExportSales")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("ExportSales");
-
-                    b.Property<decimal>("GrossSales")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("GrossSales");
-
-                    b.Property<decimal>("LongTermLoan")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("LongTermLoan");
-
-                    b.Property<string>("ModifedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("ModifedUserName");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("date")
-                        .HasColumnName("ModifiedDate");
-
-                    b.Property<decimal>("NetSales")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("NetSales");
-
-                    b.Property<decimal>("RDExpenditure")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("RDExpenditure");
-
-                    b.Property<decimal>("SortTermLoan")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("SortTermLoan");
-
-                    b.Property<decimal>("TotalAsset")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("TotalAsset");
-
-                    b.Property<int>("Year")
-                        .HasMaxLength(4)
-                        .HasColumnType("int")
-                        .HasColumnName("Year");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Year")
-                        .IsUnique();
-
-                    b.ToTable("RdCenterFinancialInfos");
-                });
-
             modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenter.RdCenterInfoDto", b =>
                 {
                     b.Property<int>("Id")
@@ -1452,6 +1377,11 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnType("date")
                         .HasColumnName("ModifiedDate");
 
+                    b.Property<string>("PersonnelFullName")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasColumnName("PersonnelFullName");
+
                     b.Property<string>("ProjectCode")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
@@ -1461,6 +1391,11 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("ProjectName");
+
+                    b.Property<string>("RegistrationNo")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)")
+                        .HasColumnName("RegistrationNo");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -1479,6 +1414,11 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("UserId");
+
+                    b.Property<string>("WorkType")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("WorkType");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -1613,6 +1553,64 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     b.ToTable("RdCenterCalProjectInfos");
                 });
 
+            modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenterCal.RdCenterCalPublicHolidayDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("date")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<string>("CreatedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("CreatedUserName");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("date")
+                        .HasColumnName("EndDate");
+
+                    b.Property<string>("HolidayName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("HolidayName");
+
+                    b.Property<bool>("IsHalfDay")
+                        .HasColumnType("bit")
+                        .HasColumnName("IsHalfDay");
+
+                    b.Property<string>("ModifedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("ModifedUserName");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("date")
+                        .HasColumnName("ModifiedDate");
+
+                    b.Property<int>("Month")
+                        .HasMaxLength(2)
+                        .HasColumnType("int")
+                        .HasColumnName("Month");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("date")
+                        .HasColumnName("StartDate");
+
+                    b.Property<int>("Year")
+                        .HasMaxLength(4)
+                        .HasColumnType("int")
+                        .HasColumnName("Year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RdCenterCalPublicHolidays");
+                });
+
             modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenterCal.RdCenterCalTimeAwayDto", b =>
                 {
                     b.Property<int>("Id")
@@ -1671,8 +1669,9 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)")
+                    b.Property<string>("Amount")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("Amount");
 
                     b.Property<string>("CommercialProductName")
@@ -1797,6 +1796,12 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("UniversityDepartmant");
 
+                    b.Property<string>("WorkType")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("WorkType");
+
                     b.Property<int>("Year")
                         .HasMaxLength(4)
                         .HasColumnType("int")
@@ -1892,7 +1897,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("Month");
 
                     b.Property<decimal>("MonthlyTimeAway")
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("decimal(3,1)")
                         .HasColumnName("MonthlyTimeAway");
 
                     b.Property<string>("ProjectCode")
@@ -2523,6 +2528,11 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("IdentityNumber")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)")
+                        .HasColumnName("IdentityNumber");
+
                     b.Property<string>("LastName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
@@ -2555,6 +2565,11 @@ namespace ArGeTesvikTool.WebUI.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("RegistrationNo")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)")
+                        .HasColumnName("RegistrationNo");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

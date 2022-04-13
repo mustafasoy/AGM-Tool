@@ -25,6 +25,14 @@ namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation
             
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("Şifre giriniz.");
+
+            RuleFor(x => x.IdentityNumber)
+                .NotEmpty().WithMessage("TC kimlik numarasını giriniz.")
+                .MaximumLength(11);
+
+            RuleFor(x => x.RegistrationNo)
+                .NotEmpty().WithMessage("Sicil numarasını giriniz.")
+                .MaximumLength(26);
         }
 
         private bool HasValidUserName(string arg)

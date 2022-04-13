@@ -1,19 +1,4 @@
-﻿using ArGeTesvikTool.Entities.Concrete;
-using ArGeTesvikTool.Entities.Concrete.Business;
-using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings;
-using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Business;
-using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Index;
-using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenter;
-using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterCal;
-using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerformance;
-using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterPerson;
-using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenterTech;
-using ArGeTesvikTool.Entities.Concrete.Index;
-using ArGeTesvikTool.Entities.Concrete.RdCenter;
-using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
-using ArGeTesvikTool.Entities.Concrete.RdCenterPerformance;
-using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
-using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
+﻿using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -65,6 +50,14 @@ namespace ArGeTesvikTool.WebUI.Models
                 entity.Property(x => x.LastName)
                     .HasColumnName("LastName")
                     .HasMaxLength(256);
+
+                entity.Property(x => x.IdentityNumber)
+                    .HasColumnName("IdentityNumber")
+                    .HasMaxLength(11);
+
+                entity.Property(x => x.RegistrationNo)
+                    .HasColumnName("RegistrationNo")
+                    .HasMaxLength(26);
             });
             modelBuilder.Entity<IdentityUserToken<string>>(entity =>
             {

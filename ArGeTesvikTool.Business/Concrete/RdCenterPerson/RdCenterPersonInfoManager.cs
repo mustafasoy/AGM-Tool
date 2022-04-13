@@ -34,6 +34,11 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterPerson
             return _rdCenterPerson.Get(x => x.Id == id);
         }
 
+        public RdCenterPersonInfoDto GetByRegNo(string regNo)
+        {
+            return _rdCenterPerson.Get(x => x.RegistrationNo == regNo);
+        }
+
         public List<RdCenterPersonInfoDto> GetAllByYear(int year)
         {
             return _rdCenterPerson.GetList(x=>x.Year == year);

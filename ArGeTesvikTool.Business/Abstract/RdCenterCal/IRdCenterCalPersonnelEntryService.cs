@@ -1,4 +1,5 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
+using System;
 using System.Collections.Generic;
 
 namespace ArGeTesvikTool.Business.Abstract.RdCenterCal
@@ -10,5 +11,6 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenterCal
         void Delete(int id);
         RdCenterCalPersonnelEntryDto GetById(int id);
         List<RdCenterCalPersonnelEntryDto> GetAll(int year);
+        List<RdCenterCalPersonnelEntryDto> GetAllByMonth(DateTime startDate, DateTime endDate);
     }
 }

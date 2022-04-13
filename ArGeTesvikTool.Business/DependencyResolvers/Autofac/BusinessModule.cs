@@ -103,6 +103,8 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterCalPersonnelEntryDal>().As<IRdCenterCalPersonnelEntryDal>().SingleInstance();
             builder.RegisterType<RdCenterCalManagerEntryManager>().As<IRdCenterCalManagerEntryService>().SingleInstance();
             builder.RegisterType<EfRdCenterCalManagerEntryDal>().As<IRdCenterCalManagerEntryDal>().SingleInstance();
+            builder.RegisterType<RdCenterCalPublicHolidayManager>().As<IRdCenterCalPublicHolidayService>().SingleInstance();
+            builder.RegisterType<EfRdCenterCalPublicHolidayDal>().As<IRdCenterCalPublicHolidayDal>().SingleInstance();
             #endregion
 
             #region RdCenterPerson

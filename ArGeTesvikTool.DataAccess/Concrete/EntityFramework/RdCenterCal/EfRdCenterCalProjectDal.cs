@@ -4,7 +4,7 @@ using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
 
 namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterCal
 {
-    public class EfRdCenterCalProjectDal: EfEntityRepositoryBase<RdCenterCalProjectInfoDto, AGMDbContext>, IRdCenterCalProjectDal
+    public class EfRdCenterCalProjectDal : EfEntityRepositoryBase<RdCenterCalProjectInfoDto, AGMDbContext>, IRdCenterCalProjectDal
     {
     }
 }

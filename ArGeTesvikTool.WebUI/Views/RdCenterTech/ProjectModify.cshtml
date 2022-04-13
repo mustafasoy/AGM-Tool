@@ -12,6 +12,18 @@
                         <h4 class="text-primary">
                             Proje Bilgilerini Düzenle
                         </h4>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0 d-flex align-items-center">
+                                <li class="ml-2">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm mr-1 mb-1" onclick="location.href='@Url.Action("OngoingProject", "RdCenterTech","2022")'">
+                                        <i class="bx bx-undo"></i>
+                                        <span class="align-middle ml-25">
+                                            Geri
+                                        </span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="card-body">
                         <hr />
@@ -60,7 +72,7 @@
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="NewProject.ProjectStartDate" asp-format="{0:dd-MM-yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+                                            <input asp-for="NewProject.ProjectStartDate" asp-format="{0:dd.MM.yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>
@@ -74,7 +86,7 @@
                                     </div>
                                     <div class="col-md-4 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="NewProject.ProjectEndDate" asp-format="{0:dd-MM-yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+                                            <input asp-for="NewProject.ProjectEndDate" asp-format="{0:dd.MM.yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>

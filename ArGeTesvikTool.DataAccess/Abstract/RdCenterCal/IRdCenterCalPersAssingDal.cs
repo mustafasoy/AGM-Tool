@@ -5,6 +5,6 @@ namespace ArGeTesvikTool.DataAccess.Abstract.RdCenterCal
 {
     public interface IRdCenterCalPersAssingDal : IEntityRepository<RdCenterCalPersAssingDto>
     {
-        //custom operations for business info class, that should be written here. like; store procedure or join query
+        //custom operations that should be written here. like; store procedure or join query
     }
 }

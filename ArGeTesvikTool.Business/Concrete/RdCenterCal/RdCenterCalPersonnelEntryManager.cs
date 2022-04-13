@@ -1,6 +1,7 @@
 ﻿using ArGeTesvikTool.Business.Abstract.RdCenterCal;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterCal;
 using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
+using System;
 using System.Collections.Generic;
 
 namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
@@ -36,7 +37,12 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
 
         public List<RdCenterCalPersonnelEntryDto> GetAll(int year)
         {
-            return _personnelEntry.GetList(x=>x.Year == year);
+            return _personnelEntry.GetList(x => x.Year == year);
+        }
+
+        public List<RdCenterCalPersonnelEntryDto> GetAllByMonth(DateTime startDate, DateTime endDate)
+        {
+            return _personnelEntry.GetList(x => x.StartDate >= startDate && x.EndDate <= endDate);
         }
     }
 }

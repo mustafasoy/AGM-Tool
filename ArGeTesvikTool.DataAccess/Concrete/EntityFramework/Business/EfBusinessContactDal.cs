@@ -6,6 +6,5 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Business
 {
     public class EfBusinessContactDal : EfEntityRepositoryBase<BusinessContactDto, AGMDbContext>, IBusinessContactDal
     {
-
     }
 }

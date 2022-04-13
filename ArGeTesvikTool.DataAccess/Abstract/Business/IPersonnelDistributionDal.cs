@@ -5,6 +5,6 @@ namespace ArGeTesvikTool.DataAccess.Abstract.Business
 {
     public interface IPersonnelDistributionDal: IEntityRepository<PersonnelDistributionDto>
     {
-        //custom operations for business info class, that should be written here. like; store procedure or join query
+        //custom operations that should be written here. like; store procedure or join query
     }
 }

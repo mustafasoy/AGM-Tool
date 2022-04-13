@@ -53,6 +53,20 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mb-50">
+                                                <label asp-for="IdentityNumber" class="text-bold-600">
+                                                    TC kimlik numarası
+                                                </label>
+                                                <input asp-for="IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control" placeholder="TC kimlik numarası" />
+                                                <span asp-validation-for="IdentityNumber" class="error"></span>
+                                            </div>
+                                            <div class="form-group mb-50">
+                                                <label asp-for="RegistrationNo" class="text-bold-600">
+                                                    Sicil numarası
+                                                </label>
+                                                <input asp-for="RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control" placeholder="Sicil numarası" />
+                                                <span asp-validation-for="RegistrationNo" class="error"></span>
+                                            </div>
+                                            <div class="form-group mb-50">
                                                 <label asp-for="UserName" class="text-bold-600">
                                                     Kullanıcı adı
                                                 </label>

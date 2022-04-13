@@ -92,6 +92,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         public async Task<IActionResult> Register(RegisterDto registerViewModel)
         {
             var validate = ValidatorTool.Validate(new RegisterValidator(), registerViewModel);
+
+            bool checkIdentity = VerifyIdentityNumber(registerViewModel.IdentityNumber);
+            if (!checkIdentity)
+            {
+                ModelState.AddModelError("IdentityNumber", "Kimlik numarasını kontrol ediniz.");
+                return View(registerViewModel);
+            }
+
             if (validate.IsValid)
             {
                 AppIdentityUser identityUser = registerViewModel.Adapt<AppIdentityUser>();

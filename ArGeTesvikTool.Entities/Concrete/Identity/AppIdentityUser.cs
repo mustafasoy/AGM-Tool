@@ -8,6 +8,8 @@ namespace ArGeTesvikTool.WebUI.Models
     {
         public string Name { get; set; }
         public string LastName { get; set; }
+        public string IdentityNumber { get; set; }
+        public string RegistrationNo { get; set; }
 
         public List<RdCenterCalPersonnelEntryDto> PersonnelEntries { get; set; }
     }
