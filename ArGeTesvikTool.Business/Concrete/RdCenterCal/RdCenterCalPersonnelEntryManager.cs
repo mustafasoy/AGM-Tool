@@ -3,6 +3,7 @@ using ArGeTesvikTool.DataAccess.Abstract.RdCenterCal;
 using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
 {
@@ -20,6 +21,11 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
             _personnelEntry.Add(rdCenterCalManagerEntry);
         }
 
+        public void AddList(List<RdCenterCalPersonnelEntryDto> rdCenterCalPersonnelEntityList)
+        {
+            _personnelEntry.AddList(rdCenterCalPersonnelEntityList);
+        }
+
         public void Update(RdCenterCalPersonnelEntryDto rdCenterCalManagerEntry)
         {
             _personnelEntry.Update(rdCenterCalManagerEntry);
@@ -35,7 +41,7 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
             return _personnelEntry.Get(x => x.Id == id);
         }
 
-        public List<RdCenterCalPersonnelEntryDto> GetAll(int year)
+        public List<RdCenterCalPersonnelEntryDto> GetAllByYear(int year)
         {
             return _personnelEntry.GetList(x => x.Year == year);
         }
@@ -43,6 +49,26 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
         public List<RdCenterCalPersonnelEntryDto> GetAllByMonth(DateTime startDate, DateTime endDate)
         {
             return _personnelEntry.GetList(x => x.StartDate >= startDate && x.EndDate <= endDate);
+        }
+
+        public List<RdCenterCalPersonnelEntryDto> GetAllPersonnel()
+        {
+            var entryList = _personnelEntry.GetList();
+
+            var personnelList = entryList.GroupBy(x => new { x.RegistrationNo})
+                .Select(s=> new RdCenterCalPersonnelEntryDto {
+                    PersonnelFullName = s.First().PersonnelFullName,
+                    RegistrationNo = s.First().RegistrationNo
+                })
+                .OrderBy(o=>o.PersonnelFullName)
+                .ToList();
+
+            return personnelList;
+        }
+
+        public List<RdCenterCalPersonnelEntryDto> GetAllByMonthByPersonnel(string regNo, DateTime startDate, DateTime endDate)
+        {
+            return _personnelEntry.GetList(x => x.RegistrationNo == regNo && x.StartDate >= startDate && x.EndDate <= endDate);
         }
     }
 }

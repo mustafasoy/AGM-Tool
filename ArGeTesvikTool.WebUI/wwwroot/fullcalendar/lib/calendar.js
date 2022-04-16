@@ -185,10 +185,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 personnelViewModel: events
             },
             success: function (response) {
-                if (response === "200") {
+                if (response === "201" || response==="204") {
                     getPersonnelEntry();
                     $('#saveModal').modal('hide');
-                    events.Id === "" ? showMessage('Kayıt eklendi.') : showMessage('Kayıt güncellendi.')
+                    response === "201" ? showMessage('Kayıt eklendi.') : showMessage('Kayıt güncellendi.')
                 }
                 else {
                     $('#saveModal').modal('hide');

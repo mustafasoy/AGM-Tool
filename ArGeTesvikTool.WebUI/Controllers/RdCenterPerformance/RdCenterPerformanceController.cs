@@ -18,9 +18,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerformance
         }
 
         #region Project CRUD
-        public IActionResult Project(int year)
+        public IActionResult Project()
         {
-            List<RdCenterPerformanceProjectDto> projectList = _projectService.GetAllByYear(year);
+            List<RdCenterPerformanceProjectDto> projectList = _projectService.GetAllByYear(GetSelectedYear());
 
             RdCenterPerformanceProjectViewModel projectViewModel = new()
             {
@@ -69,6 +69,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerformance
             var project = _projectService.GetById(projectViewModel.NewProjectInfo.Id);
             if (project == null)
             {
+                projectViewModel.NewProjectInfo.Year = GetSelectedYear();
                 projectViewModel.NewProjectInfo.CreatedDate = DateTime.Now;
                 projectViewModel.NewProjectInfo.CreatedUserName = User.Identity.Name;
 
@@ -90,7 +91,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerformance
                 AddSuccessMessage("Ticarileşen proje kaydı güncellendi.");
             }
 
-            return RedirectToAction("Project", new { year = 2022 });
+            return RedirectToAction("Project");
         }
         #endregion
     }

@@ -1,7 +1,6 @@
 ﻿@model RdCenterCalManagerEntryViewModel
 @{
     ViewBag.Title = "Personel Aktivite Giriş";
-    int rowNumber = 0;
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -74,23 +73,29 @@
                                 <table id="users-list-datatable" class="table" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th hidden="hidden">
-                                                Sıra No
+                                            <th>
+                                                Personel Adı Soyadı
                                             </th>
                                             <th>
-                                                Mail Adresi
+                                                Sicil Numarası
                                             </th>
                                             <th>
                                                 Proje Kodu
                                             </th>
                                             <th>
+                                                Proje Tanım
+                                            </th>
+                                            <th>
                                                 Dışarıda Geçirilen Süre Kodu
                                             </th>
                                             <th>
-                                                Tarih
+                                                Dışarıda Geçirilen Süre Tanım
                                             </th>
                                             <th>
-                                                Saat
+                                                Başlangıç Tarih Saat
+                                            </th>
+                                            <th>
+                                                Bitiş Tarih Saat
                                             </th>
                                             <th>
                                                 İşlemler
@@ -100,25 +105,30 @@
                                     <tbody>
                                         @foreach (var item in Model.EntryList)
                                         {
-                                            rowNumber++;
                                             <tr>
-                                                <td hidden="hidden">
-                                                    @rowNumber
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.PersonnelFullName)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.Mail)
+                                                    @Html.DisplayFor(modelItem => item.RegistrationNo)
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.ProjectCode)
                                                 </td>
                                                 <td>
+                                                    @Html.DisplayFor(modelItem => item.ProjectName)
+                                                </td>
+                                                <td>
                                                     @Html.DisplayFor(modelItem => item.TimeAwayCode)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.Date)
+                                                    @Html.DisplayFor(modelItem => item.TimeAwayName)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.Time)
+                                                    @Html.Raw(item.StartDate.ToString("dd.MM.yyyy"))
+                                                </td>
+                                                <td>
+                                                    @Html.Raw(item.EndDate.ToString("dd/MM/yyyy"))
                                                 </td>
                                                 <td>
                                                     <div class="invoice-action">
@@ -150,7 +160,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form asp-action="TimeAway" method="post" id="jquery-val-form">
+                            <form asp-action="ManagerEntry" method="post" id="jquery-val-form">
                                 <div class="modal-body" id="modalBody">
                                 </div>
                                 <div class="modal-footer">
@@ -170,3 +180,57 @@
     </div>
 </div>
 <!-- END: Content-->
+<script>
+    $(document).ready(function () {
+        var message = "@(TempData["SuccessMessage"] as string)";
+        if (message != "") {
+            showMessage(message);
+        };
+
+        message = "@(TempData["ExcelError"] as string)";
+        if (message != "") {
+            $('#formFile').text(message);
+        };
+    });
+
+    $(function () {
+        $("#fileUpload").validate({
+            rules: {
+                'FormFile': {
+                    required: true,
+                },
+            }
+        })
+
+        $("#jquery-val-form").validate({
+            rules: {
+                'NewTimeInfo.ProjectCode': {
+                    required: true,
+                },
+            }
+        })
+    });
+
+    var Create = function () {
+        $.ajax({
+            type: "GET",
+            url: "/RdCenterCal/ManagerEntry",
+            success: function (response) {
+                $('#modalBody').html(response);
+                $('#addNewModal').modal('show');
+            }
+        })
+    };
+
+    var Update = function (id) {
+        $.ajax({
+            type: "GET",
+            url: "/RdCenterCal/ManagerEntry",
+            data: { id: id },
+            success: function (response) {
+                $('#modalBody').html(response);
+                $('#addNewModal').modal('show');
+            }
+        })
+    }
+</script>

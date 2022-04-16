@@ -11,5 +11,6 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenterTech
         RdCenterTechProjectDto GetById(int id);
         List<RdCenterTechProjectDto> GetAllByYearStatu(int year, string projectStatu);
         List<RdCenterTechProjectDto> GetAllProjectName();
+        List<RdCenterTechProjectDto> GetAllProjectNameByYear(int year);
     }
 }

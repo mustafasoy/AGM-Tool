@@ -7,6 +7,7 @@ using ArGeTesvikTool.Business.Abstract.RdCenterCal;
 using ArGeTesvikTool.Business.Abstract.RdCenterPerformance;
 using ArGeTesvikTool.Business.Abstract.RdCenterPerson;
 using ArGeTesvikTool.Business.Abstract.RdCenterTech;
+using ArGeTesvikTool.Business.Abstract.Report;
 using ArGeTesvikTool.Business.Concrete.Business;
 using ArGeTesvikTool.Business.Concrete.Home;
 using ArGeTesvikTool.Business.Concrete.Index;
@@ -15,6 +16,7 @@ using ArGeTesvikTool.Business.Concrete.RdCenterCal;
 using ArGeTesvikTool.Business.Concrete.RdCenterPerformance;
 using ArGeTesvikTool.Business.Concrete.RdCenterPerson;
 using ArGeTesvikTool.Business.Concrete.RdCenterTech;
+using ArGeTesvikTool.Business.Concrete.Report;
 using ArGeTesvikTool.DataAccess.Abstract;
 using ArGeTesvikTool.DataAccess.Abstract.Business;
 using ArGeTesvikTool.DataAccess.Abstract.Index;
@@ -23,6 +25,7 @@ using ArGeTesvikTool.DataAccess.Abstract.RdCenterCal;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterPerformance;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterPerson;
 using ArGeTesvikTool.DataAccess.Abstract.RdCenterTech;
+using ArGeTesvikTool.DataAccess.Abstract.Report;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Business;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Index;
@@ -31,6 +34,7 @@ using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterCal;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterPerformance;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterPerson;
 using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterTech;
+using ArGeTesvikTool.DataAccess.Concrete.EntityFramework.Report;
 using ArGeTesvikTool.WebUI.Helpers;
 using Autofac;
 
@@ -101,10 +105,10 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterCalPersAssingDal>().As<IRdCenterCalPersAssingDal>().SingleInstance();
             builder.RegisterType<RdCenterCalPersonnelEntryManager>().As<IRdCenterCalPersonnelEntryService>().SingleInstance();
             builder.RegisterType<EfRdCenterCalPersonnelEntryDal>().As<IRdCenterCalPersonnelEntryDal>().SingleInstance();
-            builder.RegisterType<RdCenterCalManagerEntryManager>().As<IRdCenterCalManagerEntryService>().SingleInstance();
-            builder.RegisterType<EfRdCenterCalManagerEntryDal>().As<IRdCenterCalManagerEntryDal>().SingleInstance();
             builder.RegisterType<RdCenterCalPublicHolidayManager>().As<IRdCenterCalPublicHolidayService>().SingleInstance();
             builder.RegisterType<EfRdCenterCalPublicHolidayDal>().As<IRdCenterCalPublicHolidayDal>().SingleInstance();
+            builder.RegisterType<RdCenterCalPersAttendanceManager>().As<IRdCenterCalPersAttendanceService>().SingleInstance();
+            builder.RegisterType<EfRdCenterCalPersAttendanceDal>().As<IRdCenterCalPersAttendanceDal>().SingleInstance();
             #endregion
 
             #region RdCenterPerson
@@ -138,6 +142,14 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             #region RdCenterPerformance
             builder.RegisterType<RdCenterPerformanceProjectManager>().As<IRdCenterPerformanceProjectService>().SingleInstance();
             builder.RegisterType<EfRdCenterPerformanceProjectDal>().As<IRdCenterPerformanceProjectDal>().SingleInstance();
+            #endregion
+
+            #region Report
+            builder.RegisterType<IncomeManager>().As<IIncomeService>().SingleInstance();
+            builder.RegisterType<EfIncomeDal>().As<IIncomeDal>().SingleInstance();
+            builder.RegisterType<SocialSecurityManager>().As<ISocialSecurityService>().SingleInstance();
+            builder.RegisterType<EfSocialSecurityDal>().As<ISocialSecurityDal>().SingleInstance();
+            builder.RegisterType<ExportExcelManager>().As<IExportExcelService>().SingleInstance();
             #endregion
         }
     }

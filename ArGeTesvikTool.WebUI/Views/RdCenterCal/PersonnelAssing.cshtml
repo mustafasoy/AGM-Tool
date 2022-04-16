@@ -89,34 +89,34 @@
                                         </tr>
                                     </thead>
                                     @*<tbody>
-                                @foreach (var item in Model.NewPersAssing)
-                                {
-                                    <tr>
-                                        <td>
-                                            @item.UserName
-                                        </td>
-                                        <td>
-                                            @item.Name @item.LastName
-                                        </td>
-                                        <td>
-                                            Evet
-                                        </td>
-                                        <td>
-                                            Personel
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-light-success">
-                                                Active
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <a asp-action="EditUser" asp-route-id="@item.Id" method="post">
-                                                <i class="bx bx-edit-alt"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>*@
+                                            @foreach (var item in Model.NewPersAssing)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.UserName
+                                                    </td>
+                                                    <td>
+                                                        @item.Name @item.LastName
+                                                    </td>
+                                                    <td>
+                                                        Evet
+                                                    </td>
+                                                    <td>
+                                                        Personel
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-light-success">
+                                                            Active
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a asp-action="EditUser" asp-route-id="@item.Id" method="post">
+                                                            <i class="bx bx-edit-alt"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>*@
                                 </table>
                             </div>
                             <!-- datatable ends -->

@@ -12,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Text.Json.Serialization;
 
 namespace ArGeTesvikTool.WebUI
 {
@@ -76,8 +75,8 @@ namespace ArGeTesvikTool.WebUI
             //});
 
             services
-                //.AddSession()
-                //.AddDistributedMemoryCache()
+                .AddSession()
+                .AddDistributedMemoryCache()
                 .AddControllersWithViews()
                 .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
@@ -95,8 +94,9 @@ namespace ArGeTesvikTool.WebUI
             if (!env.IsDevelopment())
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
+
             app.UseStaticFiles();
-            //app.UseSession();
+            app.UseSession();
             // Middleware used for microsoft identity
             app.UseAuthentication();
 
@@ -105,7 +105,7 @@ namespace ArGeTesvikTool.WebUI
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
-            routeBuilder.MapRoute("Default", "{controller=Authentication}/{action=Login}/{year?}");
+            routeBuilder.MapRoute("Default", "{controller=Authentication}/{action=Login}");
         }
     }
 }

@@ -17,7 +17,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
 {
     public class RdCenterPersonController : BaseController
     {
-        private IWebHostEnvironment _hostEnvironment;
+        private readonly IWebHostEnvironment _hostEnvironment;
         private readonly IRdCenterPersonInfoService _infoService;
         private readonly IRdCenterPersonRewardService _rewardService;
         private readonly IRdCenterPersonTimeAwayService _timeAwayService;
@@ -31,9 +31,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         #region Person Info CRUD
-        public IActionResult PersonInfo(int year)
+        public IActionResult PersonInfo()
         {
-            List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAllByYear(year);
+            List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAllByYear(GetSelectedYear());
 
             RdCenterPersonViewModel personInfoViewModel = new()
             {
@@ -81,9 +81,18 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         [HttpPost]
         public IActionResult PersonInfo(RdCenterPersonViewModel personViewModel)
         {
+            //check personnel info, if exists give error.
+            var checkPersonInfo = _infoService.GetByRegNo(personViewModel.NewPersonnelInfo.RegistrationNo);
+            if (checkPersonInfo != null)
+            {
+                AddErrorMessage("Personel daha önce kaydedilmiş.");
+                return View(personViewModel);
+            }
+
             var personInfo = _infoService.GetById(personViewModel.NewPersonnelInfo.Id);
             if (personInfo == null)
             {
+                personViewModel.NewPersonnelInfo.Year = GetSelectedYear();
                 personViewModel.NewPersonnelInfo.CreatedDate = DateTime.Now;
                 personViewModel.NewPersonnelInfo.CreatedUserName = User.Identity.Name;
 
@@ -105,13 +114,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
                 AddSuccessMessage("Personel kaydı güncellendi.");
             }
 
-            return RedirectToAction("PersonInfo", new { year = 2022 });
+            return RedirectToAction("PersonInfo");
         }
         #endregion
 
-        public IActionResult Reward(int year)
+        public IActionResult Reward()
         {
-            var reward = _rewardService.GetByYear(year);
+            var reward = _rewardService.GetByYear(GetSelectedYear());
 
             RdCenterRewardViewModel rewardViewModel = new()
             {
@@ -127,14 +136,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             var reward = _rewardService.GetByYear(rewardViewModel.Reward.Year);
             if (reward == null)
             {
+                rewardViewModel.Reward.Year = GetSelectedYear();
                 rewardViewModel.Reward.CreatedDate = DateTime.Now;
                 rewardViewModel.Reward.CreatedUserName = User.Identity.Name;
-
+                
                 _rewardService.Add(rewardViewModel.Reward);
 
                 AddSuccessMessage("Performans değerlendirme bilgisi eklendi.");
-
-                return RedirectToAction("Index", "Home");
             }
 
             rewardViewModel.Reward.Id = reward.Id;
@@ -152,9 +160,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         #region TimeAway CRUD
-        public IActionResult TimeAway(int year)
+        public IActionResult TimeAway()
         {
-            List<RdCenterPersonTimeAwayDto> timeAwayList = _timeAwayService.GetAllByYear(year);
+            List<RdCenterPersonTimeAwayDto> timeAwayList = _timeAwayService.GetAllByYear(GetSelectedYear());
 
             RdCenterPersonTimeAwayViewModel timeAwayViewModel = new()
             {
@@ -241,6 +249,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             var timeAway = _timeAwayService.GetById(timeAwayViewModel.NewTimeInfo.Id);
             if (timeAway == null)
             {
+                timeAwayViewModel.NewTimeInfo.Year = GetSelectedYear();
                 timeAwayViewModel.NewTimeInfo.CreatedDate = DateTime.Now;
                 timeAwayViewModel.NewTimeInfo.CreatedUserName = User.Identity.Name;
 
@@ -313,9 +322,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
         #endregion
 
-        public IActionResult StaffInfo(int year)
+        public IActionResult StaffInfo()
         {
-            var personInfoList = _infoService.GetAllByYear(year);
+            var personInfoList = _infoService.GetAllByYear(GetSelectedYear());
 
             var staffInfoList = personInfoList
                 .GroupBy(x => x.PersonPosition)
@@ -343,9 +352,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             return View(staffInfoListView);
         }
 
-        public IActionResult SupportedProgram(int year)
+        public IActionResult SupportedProgram()
         {
-            var personInfoList = _infoService.GetAllByYear(year);
+            var personInfoList = _infoService.GetAllByYear(GetSelectedYear());
             List<RdCenterPersonInfoDto> supportedProgramList = personInfoList.Where(x => new[]
                                                                                               {
                                                                                                 EducationStatu.Lisans,

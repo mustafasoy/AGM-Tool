@@ -6,8 +6,8 @@ namespace ArGeTesvikTool.WebUI.Models.RdCenterCal
 {
     public class RdCenterCalManagerEntryViewModel
     {
-        public RdCenterCalManagerEntryDto EntryInfo { get; set; }
-        public List<RdCenterCalManagerEntryDto> EntryList { get; set; }
+        public RdCenterCalPersonnelEntryDto EntryInfo { get; set; }
+        public List<RdCenterCalPersonnelEntryDto> EntryList { get; set; }
         public IFormFile FormFile { get; set; }
     }
 }

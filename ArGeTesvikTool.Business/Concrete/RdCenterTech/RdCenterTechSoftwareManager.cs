@@ -32,9 +32,9 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterTech
             return _softwareDal.Get(x => x.Id == id);
         }
 
-        public List<RdCenterTechSoftwareDto> GetAll()
+        public List<RdCenterTechSoftwareDto> GetAllByYear(int year)
         {
-            return _softwareDal.GetList();
+            return _softwareDal.GetList(x => x.Year == year);
         }
     }
 }

@@ -187,6 +187,11 @@
         if (message != "") {
             showMessage(message);
         };
+
+        var message = "@(TempData["ErrorMessage"] as string)";
+        if (message != "") {
+            showErrorMessage(message);
+        };
     });
 
     $(function () {

@@ -1,0 +1,114 @@
+﻿@model ActivityReportViewModel
+@{
+    ViewBag.Title = "Yönetici Aktivie Rapor";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-body">
+            <!-- Select start -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="text-primary">
+                                Yönetici Aktivite Rapor
+                            </h4>
+                        </div>
+                        <hr />
+                        <div class="card-body" style="padding-bottom: 11rem">
+                            <form asp-action="ManagerActivityReport" method="post" id="jquery-val-form">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="invoice-address">
+                                            Başlangıç Tarihi
+                                        </h6>
+                                        <div class="form-group">
+                                            <fieldset class="form-group position-relative has-icon-left">
+                                                <input asp-for="StartDate" asp-format="{0:dd.MM.yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+                                                <div class="form-control-position">
+                                                    <i class='bx bx-calendar'></i>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="invoice-address">
+                                            Bitiş Tarihi
+                                        </h6>
+                                        <div class="form-group">
+                                            <fieldset class="form-group position-relative has-icon-left">
+                                                <input asp-for="EndDate" asp-format="{0:dd.MM.yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+                                                <div class="form-control-position">
+                                                    <i class='bx bx-calendar'></i>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="invoice-address">
+                                            Proje Kodu
+                                        </h6>
+                                        <div class="form-group">
+                                            <fieldset class="form-group">
+                                                <select asp-items="@Model.ProjectList" name="projectList" class="select2 form-control" multiple="multiple">
+                                                    <option value="">
+                                                        Seçiniz
+                                                    </option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="invoice-address">
+                                            Dışarıda Geçirilen Süre Kod
+                                        </h6>
+                                        <div class="form-group">
+                                            <fieldset class="form-group">
+                                                <select asp-items="@Model.TimeAwayList" name="timeAwayList" class="select2 form-control" multiple="multiple">
+                                                    <option value="">
+                                                        Seçiniz
+                                                    </option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="invoice-address">
+                                            Personel Adı
+                                        </h6>
+                                        <div class="form-group">
+                                            <fieldset class="form-group">
+                                                <select asp-items="@Model.PersonnelList" name="personnelList" class="select2 form-control" multiple="multiple">
+                                                    <option value="">
+                                                        Seçiniz
+                                                    </option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary mr-1">
+                                            Getir
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Select end -->
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+<script>
+    $(document).ready(function () {
+        var message = "@(TempData["ErrorMessage"] as string)";
+        if (message != "") {
+            showErrorMessage(message);
+        };
+    });
+</script>

@@ -21,11 +21,9 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h3 class="modal-title">Yıl seçiniz</h3>
-                                            @*<button type="button" class="close rounded-pill" data-dismiss="modal" aria-label="Close">
-                                                    <i class="bx bx-x"></i>
-                                                </button>*@
                                         </div>
                                         <div class="modal-body">
+                                            @Html.AntiForgeryToken()
                                             <fieldset class="form-group">
                                                 <select class="form-control" id="fiscalYear">
                                                     @foreach (var item in Model.YearList)
@@ -44,7 +42,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -66,9 +63,21 @@
         };
     });
 
+    var token = $('input[name="__RequestVerificationToken"]').val();
     function selectOnChange() {
         var valueSelected = $("#fiscalYear option:selected").text();
         sessionStorage.setItem('year', valueSelected);
-        location.reload();
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/Index",
+            data: {
+                __RequestVerificationToken: token,
+                year: valueSelected
+            },
+            success: function(){
+                location.reload();
+            }
+        })
     }
 </script>

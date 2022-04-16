@@ -11,6 +11,9 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
         {
             entity.ToTable("RdCenterPersonInfos");
 
+            entity.HasIndex(x => x.RegistrationNo)
+                .IsUnique();
+
             entity.Property(x => x.Id)
                 .HasColumnName("Id");
 

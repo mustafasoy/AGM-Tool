@@ -45,11 +45,21 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterTech
         public List<RdCenterTechProjectDto> GetAllProjectName()
         {
             return _rdCenterTechProject.GetList()
-                            .Select(x=> new RdCenterTechProjectDto
+                            .Select(x => new RdCenterTechProjectDto
                             {
                                 ProjectCode = x.ProjectCode,
                                 ProjectName = x.ProjectName
                             }).ToList();
+        }
+
+        public List<RdCenterTechProjectDto> GetAllProjectNameByYear(int year)
+        {
+            return _rdCenterTechProject.GetList().Where(x => x.Year == year)
+                .Select(x => new RdCenterTechProjectDto
+                {
+                    ProjectCode = x.ProjectCode,
+                    ProjectName = x.ProjectName
+                }).ToList();
         }
     }
 }

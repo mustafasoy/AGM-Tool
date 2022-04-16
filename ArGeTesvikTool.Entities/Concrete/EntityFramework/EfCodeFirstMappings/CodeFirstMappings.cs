@@ -61,7 +61,6 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
             _ = new RdCenterCalTimeAwayMap(modelBuilder.Entity<RdCenterCalTimeAwayDto>());
             _ = new RdCenterCalPersAssingMap(modelBuilder.Entity<RdCenterCalPersAssingDto>());
             _ = new RdCenterCalPersonnelEntryMap(modelBuilder.Entity<RdCenterCalPersonnelEntryDto>());
-            _ = new RdCenterCalManagerEntryMap(modelBuilder.Entity<RdCenterCalManagerEntryDto>());
             _ = new RdCenterCalPublicHolidayMap(modelBuilder.Entity<RdCenterCalPublicHolidayDto>());
             #endregion
 
@@ -88,6 +87,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
 
             #region Report Db Map
             _ = new IncomeMap(modelBuilder.Entity<IncomeDto>());
+            _ = new SocialSecurityMap(modelBuilder.Entity<SocialSecurityDto>());
             #endregion
 
             return modelBuilder;

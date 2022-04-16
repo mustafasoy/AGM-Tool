@@ -38,9 +38,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         #region Project CRUD
-        public IActionResult OngoingProject(int year)
+        public IActionResult OngoingProject()
         {
-            List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(year, ProjectStatu.Devam.ToString());
+            List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(GetSelectedYear(), ProjectStatu.Devam.ToString());
 
             RdCenterTechProjectViewModel projectViewModel = new()
             {
@@ -89,11 +89,10 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             var validate = ValidatorTool.Validate(new RdCenterTechProjectValidator(), projectViewModel.NewProject);
             if (validate.IsValid)
             {
-
-
                 var project = _projectService.GetById(projectViewModel.NewProject.Id);
                 if (project == null)
                 {
+                    projectViewModel.NewProject.Year = GetSelectedYear();
                     projectViewModel.NewProject.CreatedDate = DateTime.Now;
                     projectViewModel.NewProject.CreatedUserName = User.Identity.Name;
 
@@ -123,9 +122,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return View(projectViewModel);
         }
 
-        public IActionResult CompletedProject(int year)
+        public IActionResult CompletedProject()
         {
-            List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(year, ProjectStatu.Tamam.ToString());
+            List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(GetSelectedYear(), ProjectStatu.Tamam.ToString());
 
             RdCenterTechProjectViewModel projectViewModel = new()
             {
@@ -135,9 +134,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return View(projectViewModel);
         }
 
-        public IActionResult CanceledProject(int year)
+        public IActionResult CanceledProject()
         {
-            List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(year, ProjectStatu.Iptal.ToString());
+            List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(GetSelectedYear(), ProjectStatu.Iptal.ToString());
 
             RdCenterTechProjectViewModel projectViewModel = new()
             {
@@ -202,6 +201,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             var collaboration = _collaborationService.GetById(collaborationViewModel.NewCollaboration.Id);
             if (collaboration == null)
             {
+                collaborationViewModel.NewCollaboration.Year = GetSelectedYear();
                 collaborationViewModel.NewCollaboration.CreatedDate = DateTime.Now;
                 collaborationViewModel.NewCollaboration.CreatedUserName = User.Identity.Name;
 
@@ -223,14 +223,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
                 AddSuccessMessage("Ulusal/Uluslararası işbirliği kaydı güncellendi.");
             }
 
-            return Redirect("Collaboration");
+            return RedirectToAction("Collaboration");
         }
         #endregion
 
         #region Project Management CRUD
-        public IActionResult ProjectManagement(int year)
+        public IActionResult ProjectManagement()
         {
-            var projectManagementList = _projectManagementService.GetAllByYear(year);
+            var projectManagementList = _projectManagementService.GetAllByYear(GetSelectedYear());
 
             RdCenterTechProjectManagementViewModel projectManagementViewModel = new()
             {
@@ -286,7 +286,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
                         return View(projectManagementViewModel);
                     }
                 }
-
+                projectManagement.Year = GetSelectedYear();
                 projectManagement.CreatedDate = DateTime.Now;
                 projectManagement.CreatedUserName = User.Identity.Name;
 
@@ -301,9 +301,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
         #endregion
 
-        public IActionResult AcademicLibrary(int year)
+        public IActionResult AcademicLibrary()
         {
-            var academicLibrary = _academicLibraryService.GetByYear(year);
+            var academicLibrary = _academicLibraryService.GetByYear(GetSelectedYear());
 
             RdCenterTechAcademicLibraryViewModel academicLibraryViewModel = new()
             {
@@ -319,6 +319,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             var contact = _academicLibraryService.GetByYear(academicLibraryViewModel.AcademicLibrary.Year);
             if (contact == null)
             {
+                academicLibraryViewModel.AcademicLibrary.Year = GetSelectedYear();
                 academicLibraryViewModel.AcademicLibrary.CreatedDate = DateTime.Now;
                 academicLibraryViewModel.AcademicLibrary.CreatedUserName = User.Identity.Name;
 
@@ -346,7 +347,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         #region AttendedEvent CRUD
         public IActionResult AttendedEvent()
         {
-            List<RdCenterTechAttendedEventDto> attendedEventList = _attendedEventService.GetAll();
+            List<RdCenterTechAttendedEventDto> attendedEventList = _attendedEventService.GetAllByYear(GetSelectedYear());
 
             RdCenterTechAttendedEventViewModel attendedEventViewModel = new()
             {
@@ -395,6 +396,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             var attendedEvent = _attendedEventService.GetById(attendedEventViewModel.NewAttendedEvent.Id);
             if (attendedEvent == null)
             {
+                attendedEventViewModel.NewAttendedEvent.Year = GetSelectedYear();
                 attendedEventViewModel.NewAttendedEvent.CreatedDate = DateTime.Now;
                 attendedEventViewModel.NewAttendedEvent.CreatedUserName = User.Identity.Name;
 
@@ -423,7 +425,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         #region Software CRUD
         public IActionResult Software()
         {
-            List<RdCenterTechSoftwareDto> softwareList = _softwareService.GetAll();
+            List<RdCenterTechSoftwareDto> softwareList = _softwareService.GetAllByYear(GetSelectedYear());
 
             RdCenterTechSoftwareViewModel softwareViewModel = new()
             {
@@ -472,6 +474,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             var software = _softwareService.GetById(softwareViewModel.NewSoftware.Id);
             if (software == null)
             {
+                softwareViewModel.NewSoftware.Year = GetSelectedYear();
                 softwareViewModel.NewSoftware.CreatedDate = DateTime.Now;
                 softwareViewModel.NewSoftware.CreatedUserName = User.Identity.Name;
 
@@ -498,9 +501,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         #endregion
 
         #region Mentor Info CRUD
-        public IActionResult MentorInfo(int year)
+        public IActionResult MentorInfo()
         {
-            List<RdCenterTechMentorInfoDto> mentorInfoList = _mentorInfoService.GetAllByYear(year);
+            List<RdCenterTechMentorInfoDto> mentorInfoList = _mentorInfoService.GetAllByYear(GetSelectedYear());
 
             RdCenterTechMentorInfoViewModel mentorInfoViewModel = new()
             {
@@ -577,7 +580,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         #region Intellectual Property CRUD
         public IActionResult IntellectualProperty()
         {
-            var projectList = _projectService.GetAllProjectName();
+            var projectList = _projectService.GetAllProjectNameByYear(GetSelectedYear());
 
             List<RdCenterTechIntellectualPropertyDto> propertyInfoList = _propertyService.GetAll();
 
@@ -633,6 +636,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             var propertyInfo = _propertyService.GetById(propertyInfoViewModel.NewProperty.Id);
             if (propertyInfo == null)
             {
+                propertyInfoViewModel.NewProperty.Year = GetSelectedYear();
                 propertyInfoViewModel.NewProperty.CreatedDate = DateTime.Now;
                 propertyInfoViewModel.NewProperty.CreatedUserName = User.Identity.Name;
 

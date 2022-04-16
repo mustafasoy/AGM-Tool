@@ -67,7 +67,6 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         public DbSet<RdCenterCalTimeAwayDto> RdCenterCalTimeAways { get; set; }
         public DbSet<RdCenterCalPersAssingDto> RdCenterPersAssings { get; set; }
         public DbSet<RdCenterCalPersonnelEntryDto> RdCenterPersonnelEntries { get; set; }
-        public DbSet<RdCenterCalManagerEntryDto> RdCenterManagerEntries { get; set; }
         public DbSet<RdCenterCalPublicHolidayDto> RdCenterCalPublicHolidays { get; set; }
         #endregion
 
@@ -94,6 +93,7 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
 
         #region Report Db Set
         public DbSet<IncomeDto> Incomes { get; set; }
+        public DbSet<SocialSecurityDto> SocialSecurities { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

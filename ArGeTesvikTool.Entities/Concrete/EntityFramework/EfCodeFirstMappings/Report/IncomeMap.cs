@@ -1,7 +1,6 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.Report;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Report
 {
@@ -9,10 +8,18 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
     {
         public IncomeMap(EntityTypeBuilder<IncomeDto> entity)
         {
-            entity.ToTable("RdCenterTechAttendedEvents");
+            entity.ToTable("IncomeReports");
 
             entity.Property(x => x.Id)
                 .HasColumnName("Id");
+
+            entity.Property(x => x.Year)
+                .HasColumnName("Year")
+                .HasMaxLength(4);
+
+            entity.Property(x => x.Month)
+                .HasColumnName("Month")
+                .HasMaxLength(2);
 
             entity.Property(x => x.PersonnelFullName)
                 .HasColumnName("PersonnelFullName")

@@ -3,6 +3,8 @@
     public class IncomeDto
     {
         public int Id { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
         public string PersonnelFullName { get; set; }
         public string RegistrationNo { get; set; }
         public string WorkType { get; set; }

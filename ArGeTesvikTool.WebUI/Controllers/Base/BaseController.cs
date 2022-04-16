@@ -1,6 +1,7 @@
 ﻿using ArGeTesvikTool.Core.Entities;
 using ArGeTesvikTool.WebUI.Models;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
@@ -53,6 +54,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             TempData["SuccessMessage"] = message;
         }
 
+        public void AddErrorMessage(string message)
+        {
+            TempData["ErrorMessage"] = message;
+        }
+
         public FileStreamResult DownloadFile(IFileEntity entity)
         {
             var content = new MemoryStream(entity.Content);
@@ -60,6 +66,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             var fileName = entity.FileName;
 
             return File(content, contentType, fileName);
+        }
+
+        public int GetSelectedYear()
+        {
+            return (int)HttpContext.Session.GetInt32("year");
         }
 
         public static bool VerifyIdentityNumber(string identityNumber)

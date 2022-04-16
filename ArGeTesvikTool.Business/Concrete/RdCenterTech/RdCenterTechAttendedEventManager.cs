@@ -34,9 +34,9 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterTech
             return _attendedEventDal.Get(x => x.Id == id);
         }
 
-        public List<RdCenterTechAttendedEventDto> GetAll()
+        public List<RdCenterTechAttendedEventDto> GetAllByYear(int year)
         {
-            return _attendedEventDal.GetList();
+            return _attendedEventDal.GetList(x=>x.Year == year);
         }
     }
 }

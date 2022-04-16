@@ -34,9 +34,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
             _discountService = discountService;
         }
 
-        public IActionResult Contact(int year)
+        public IActionResult Contact()
         {
-            var contact = _contactService.GetByYear(year);
+            var contact = _contactService.GetByYear(GetSelectedYear());
 
             RdCenterContactViewModel contactViewModel = new()
             {
@@ -56,6 +56,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
                 var contact = _contactService.GetByYear(contactViewModel.RdCenterContact.Year);
                 if (contact == null)
                 {
+                    contactViewModel.RdCenterContact.Year = GetSelectedYear();
                     contactViewModel.RdCenterContact.CreatedDate = DateTime.Now;
                     contactViewModel.RdCenterContact.CreatedUserName = User.Identity.Name;
 
@@ -85,9 +86,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
             return View(contactViewModel);
         }
 
-        public IActionResult Info(int year)
+        public IActionResult Info()
         {
-            var info = _infoService.GetByYear(year);
+            var info = _infoService.GetByYear(GetSelectedYear());
 
             ViewBag.City = info != null
                 ? info.CityCode
@@ -110,6 +111,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
                 var info = _infoService.GetByYear(infoViewModel.RdCenterInfo.Year);
                 if (info == null)
                 {
+                    infoViewModel.RdCenterInfo.Year = GetSelectedYear();
                     infoViewModel.RdCenterInfo.CreatedDate = DateTime.Now;
                     infoViewModel.RdCenterInfo.CreatedUserName = User.Identity.Name;
 
@@ -139,9 +141,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         #region Schema CRUD
-        public IActionResult Schema(int year)
+        public IActionResult Schema()
         {
-            var schemaList = _schemaService.GetAllByYear(year);
+            var schemaList = _schemaService.GetAllByYear(GetSelectedYear());
 
             RdCenterSchemaViewModel schemaViewModel = new()
             {
@@ -208,9 +210,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         #endregion
 
         #region AreaInfo CRUD
-        public IActionResult AreaInfo(int year)
+        public IActionResult AreaInfo()
         {
-            var areaInfoList = _areaInfoService.GetAllByYear(year);
+            var areaInfoList = _areaInfoService.GetAllByYear(GetSelectedYear());
 
             RdCenterAreaInfoViewModel areaInfoViewModel = new()
             {
@@ -264,7 +266,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
                     return View(areaInfoList);
                 }
             }
-
+            areaInfo.Year = GetSelectedYear();
             areaInfo.CreatedDate = DateTime.Now;
             areaInfo.CreatedUserName = User.Identity.Name;
 
@@ -277,9 +279,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         #endregion
 
         #region PhysicalArea CRUD
-        public IActionResult PhysicalArea(int year)
+        public IActionResult PhysicalArea()
         {
-            var physicalAreaList = _physicalAreaService.GetAllByYear(year);
+            var physicalAreaList = _physicalAreaService.GetAllByYear(GetSelectedYear());
 
             RdCenterPhysicalAreaViewModel physicalAreaViewModel = new()
             {
@@ -333,7 +335,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
                     return View(physicalAreaViewModel);
                 }
             }
-
+            physicalArea.Year = GetSelectedYear();
             physicalArea.CreatedDate = DateTime.Now;
             physicalArea.CreatedUserName = User.Identity.Name;
 
@@ -346,9 +348,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         #endregion
 
         #region Discount CRUD
-        public IActionResult Discount(int year)
+        public IActionResult Discount()
         {
-            List<RdCenterDiscountDto> discountList = _discountService.GetAllByYear(year);
+            List<RdCenterDiscountDto> discountList = _discountService.GetAllByYear(GetSelectedYear());
 
             RdCenterDiscountViewModel discountViewModel = new()
             {
@@ -397,6 +399,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
             var discount = _discountService.GetById(discountViewModel.NewDiscountInfo.Id);
             if (discount == null)
             {
+                discountViewModel.NewDiscountInfo.Year = GetSelectedYear();
                 discountViewModel.NewDiscountInfo.CreatedDate = DateTime.Now;
                 discountViewModel.NewDiscountInfo.CreatedUserName = User.Identity.Name;
 
@@ -423,9 +426,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         #endregion
 
         #region Amount CRUD
-        public IActionResult Amount(int year)
+        public IActionResult Amount()
         {
-            List<RdCenterAmountDto> amountList = _amountService.GetAllByYear(year);
+            List<RdCenterAmountDto> amountList = _amountService.GetAllByYear(GetSelectedYear());
 
             RdCenterAmountViewModel amountViewModel = new()
             {
@@ -474,6 +477,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
             var amount = _amountService.GetById(amountViewModel.NewAmountInfo.Id);
             if (amount == null)
             {
+                amountViewModel.NewAmountInfo.Year = GetSelectedYear();
                 amountViewModel.NewAmountInfo.CreatedDate = DateTime.Now;
                 amountViewModel.NewAmountInfo.CreatedUserName = User.Identity.Name;
 

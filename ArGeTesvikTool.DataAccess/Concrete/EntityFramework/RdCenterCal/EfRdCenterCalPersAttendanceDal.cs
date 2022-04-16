@@ -4,8 +4,7 @@ using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
 
 namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework.RdCenterCal
 {
-    public class EfRdCenterCalManagerEntryDal : EfEntityRepositoryBase<RdCenterCalManagerEntryDto, AGMDbContext>, IRdCenterCalManagerEntryDal
+    public class EfRdCenterCalPersAttendanceDal : EfEntityRepositoryBase<RdCenterCalPersAttendanceDto, AGMDbContext>, IRdCenterCalPersAttendanceDal
     {
-
     }
 }

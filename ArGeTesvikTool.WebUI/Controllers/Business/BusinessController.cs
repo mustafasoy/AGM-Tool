@@ -39,9 +39,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             _financialService = financialService;
         }
 
-        public IActionResult Contact(int year)
+        public IActionResult Contact()
         {
-            var contact = _contactService.GetByYear(year);
+            var contact = _contactService.GetByYear(GetSelectedYear());
 
             BusinessContactViewModel contactViewModel = new()
             {
@@ -69,6 +69,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                 var contact = _contactService.GetByYear(contactViewModel.BusinessContact.Year);
                 if (contact == null)
                 {
+                    contactViewModel.BusinessContact.Year = GetSelectedYear();
                     contactViewModel.BusinessContact.CreatedDate = DateTime.Now;
                     contactViewModel.BusinessContact.CreatedUserName = User.Identity.Name;
 
@@ -96,9 +97,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return View(contactViewModel);
         }
 
-        public IActionResult Info(int year)
+        public IActionResult Info()
         {
-            var info = _infoService.GetByYear(year);
+            var info = _infoService.GetByYear(GetSelectedYear());
 
             ViewBag.City = info != null
                 ? info.CityCode
@@ -121,6 +122,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                 var info = _infoService.GetByYear(infoViewModel.BusinessInfo.Year);
                 if (info == null)
                 {
+                    infoViewModel.BusinessInfo.Year = GetSelectedYear();
                     infoViewModel.BusinessInfo.CreatedDate = DateTime.Now;
                     infoViewModel.BusinessInfo.CreatedUserName = User.Identity.Name;
 
@@ -148,9 +150,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return View(infoViewModel);
         }
 
-        public IActionResult Intro(int year)
+        public IActionResult Intro()
         {
-            var intro = _introService.GetByYear(year);
+            var intro = _introService.GetByYear(GetSelectedYear());
 
             BusinessIntroViewModel introViewModel = new()
             {
@@ -166,6 +168,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             var intro = _introService.GetByYear(introViewModel.BusinessIntro.Year);
             if (intro == null)
             {
+                introViewModel.BusinessIntro.Year = GetSelectedYear();
                 introViewModel.BusinessIntro.CreatedDate = DateTime.Now;
                 introViewModel.BusinessIntro.CreatedUserName = User.Identity.Name;
                 _introService.Add(introViewModel.BusinessIntro);
@@ -189,9 +192,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult GroupInfo(int year)
+        public IActionResult GroupInfo()
         {
-            var groupInfo = _groupInfoService.GetByYear(year);
+            var groupInfo = _groupInfoService.GetByYear(GetSelectedYear());
 
             ViewBag.Country = groupInfo != null
                 ? groupInfo.CountryCode
@@ -213,6 +216,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                 var groupInfo = _groupInfoService.GetByYear(groupInfoViewModel.GroupInfo.Year);
                 if (groupInfo == null)
                 {
+                    groupInfoViewModel.GroupInfo.Year = GetSelectedYear();
                     groupInfoViewModel.GroupInfo.CreatedDate = DateTime.Now;
                     groupInfoViewModel.GroupInfo.CreatedUserName = User.Identity.Name;
 
@@ -295,6 +299,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             var shareholder = _shareholderService.GetById(shareholderViewModel.NewShareholder.Id);
             if (shareholder == null)
             {
+                shareholderViewModel.NewShareholder.Year = GetSelectedYear();
                 shareholderViewModel.NewShareholder.CreatedDate = DateTime.Now;
                 shareholderViewModel.NewShareholder.CreatedUserName = User.Identity.Name;
 
@@ -333,7 +338,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return View(personnelDistributionViewModel);
         }
 
-        [IgnoreAntiforgeryToken]
         public IActionResult PersonnelCreate()
         {
             PersonnelDistributionDto personnel = new();
@@ -373,6 +377,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             var shareholder = _personnelService.GetById(distributionViewModel.NewPersonnel.Id);
             if (shareholder == null)
             {
+                distributionViewModel.NewPersonnel.Year = GetSelectedYear();
                 distributionViewModel.NewPersonnel.CreatedDate = DateTime.Now;
                 distributionViewModel.NewPersonnel.CreatedUserName = User.Identity.Name;
 
@@ -450,6 +455,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             var financialInfo = _financialService.GetById(financialInfoViewModel.NewFinancialInfo.Id);
             if (financialInfo == null)
             {
+                financialInfoViewModel.NewFinancialInfo.Year = GetSelectedYear();
                 financialInfoViewModel.NewFinancialInfo.CreatedDate = DateTime.Now;
                 financialInfoViewModel.NewFinancialInfo.CreatedUserName = User.Identity.Name;
 
@@ -476,9 +482,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         #endregion
 
         #region Schema CRUD
-        public IActionResult Schema(int year)
+        public IActionResult Schema()
         {
-            var schemaList = _schemaService.GetAllByYear(year);
+            var schemaList = _schemaService.GetAllByYear(GetSelectedYear());
 
             BusinessSchemaViewModel schemaViewModel = new()
             {
@@ -538,7 +544,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                         return View(schemaViewModel);
                     }
                 }
-
+                businessSchema.Year = GetSelectedYear();
                 businessSchema.CreatedDate = DateTime.Now;
                 businessSchema.CreatedUserName = User.Identity.Name;
 
@@ -553,9 +559,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
         #endregion
 
-        public IActionResult Strategy(int year)
+        public IActionResult Strategy()
         {
-            var strategy = _strategyService.GetByYear(year);
+            var strategy = _strategyService.GetByYear(GetSelectedYear());
 
 
             StrategyViewModel strategyViewModel = new()
@@ -572,6 +578,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             var strategy = _strategyService.GetByYear(strategyViewModel.Strategy.Year);
             if (strategy == null)
             {
+                strategyViewModel.Strategy.Year = GetSelectedYear();
                 strategyViewModel.Strategy.CreatedDate = DateTime.Now;
                 strategyViewModel.Strategy.CreatedUserName = User.Identity.Name;
                 _strategyService.Add(strategyViewModel.Strategy);
