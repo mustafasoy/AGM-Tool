@@ -9,9 +9,6 @@ using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using ArGeTesvikTool.Entities.Concrete.Report;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.IO;
-using System.Reflection;
 
 namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
 {
@@ -19,15 +16,8 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var settingPath = Path.GetFullPath(Path.Combine(@"../ArGeTesvikTool.WebUI/appsettings.json"));
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location))
-                .AddJsonFile(settingPath);
-
-            var configuration = builder.Build();
-
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DbConnection"));
+            optionsBuilder.UseSqlServer(@"Data Source=TR996928-1809;Initial Catalog=AGMDb;Integrated Security=True;MultipleActiveResultSets=True;");
+            //optionsBuilder.UseSqlServer(@"Data Source=tr-ankapptwv005;Initial Catalog=AGMDb;persist security info=True;user id=SGK_TESVIK;password=Taxtech12;MultipleActiveResultSets=True");
         }
 
         #region Home Db Set
@@ -62,8 +52,6 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
 
         #region RdCenterCal Db Set
         public DbSet<RdCenterCalPersAttendanceDto> PersonelAttendances { get; set; }
-        public DbSet<RdCenterCalPersonnelInfoDto> RdCenterCalPersonnelInfos { get; set; }
-        public DbSet<RdCenterCalProjectInfoDto> RdCenterCalProjectInfos { get; set; }
         public DbSet<RdCenterCalTimeAwayDto> RdCenterCalTimeAways { get; set; }
         public DbSet<RdCenterCalPersAssingDto> RdCenterPersAssings { get; set; }
         public DbSet<RdCenterCalPersonnelEntryDto> RdCenterPersonnelEntries { get; set; }

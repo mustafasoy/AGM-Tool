@@ -11,6 +11,6 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenterCal
         void Delete(int id);
         RdCenterCalPublicHolidayDto GetById(int id);
         List<RdCenterCalPublicHolidayDto> GetAll();
-        List<RdCenterCalPublicHolidayDto> GetAllByYear(int date);
+        List<RdCenterCalPublicHolidayDto> GetAllByMonth(DateTime startDate, DateTime endDate);
     }
 }

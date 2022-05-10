@@ -23,13 +23,14 @@
                             </div>
                             <div class="form-body">
                                 <div class="row">
+                                    <input asp-for="RdCenterContact.Year" hidden="hidden" />
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
                                             T.C Kimlik No / Yabancı Kimlik No
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="RdCenterContact.IdentityNumber" type="number" maxlength="11" onkeydown="return event.keyCode !== 69" class="form-control" />
+                                        <input asp-for="RdCenterContact.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control" />
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -69,7 +70,9 @@
                                         <input asp-for="RdCenterContact.PhoneNumber" type="text" id="phone" maxlength="14" class="form-control" placeholder="(532) 123-4567" />
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
+                                        <button type="submit" class="btn btn-primary">
+                                            Kaydet
+                                        </button>
                                     </div>
                                 </div>
                             </div>

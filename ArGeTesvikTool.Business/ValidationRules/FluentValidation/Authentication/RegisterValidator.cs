@@ -37,7 +37,7 @@ namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation
 
         private bool HasValidUserName(string arg)
         {
-            return Regex.IsMatch(arg, "^[a-zA-Z_.]+$");
+            return Regex.IsMatch(arg, "^[a-zA-Z_.ıuşço]+$");
         }
     }
 }

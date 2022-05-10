@@ -23,6 +23,7 @@
                             </div>
                             <div class="form-body">
                                 <div class="row">
+                                    <input asp-for="RdCenterInfo.Year" hidden="hidden" />
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
                                             Belge Alım Tarihi
@@ -124,7 +125,9 @@
                                         <input asp-for="RdCenterInfo.TotalArea" type="number" onkeydown="return event.keyCode !== 69" class="form-control" />
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
+                                        <button type="submit" class="btn btn-primary">
+                                            Kaydet
+                                        </button>
                                     </div>
                                 </div>
                             </div>

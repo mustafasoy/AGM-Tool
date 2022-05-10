@@ -2,6 +2,8 @@
 using ArGeTesvikTool.Business.Abstract.RdCenterPerson;
 using ArGeTesvikTool.Business.Abstract.RdCenterTech;
 using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
+using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
+using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models;
 using ArGeTesvikTool.WebUI.Models.RdCenterCal;
@@ -23,189 +25,95 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
 {
     public class RdCenterCalController : BaseController
     {
-        private readonly IRdCenterCalPersonnelService _personnelService;
-        private readonly IRdCenterCalProjectService _projectService;
-
         private readonly IRdCenterCalTimeAwayService _timeAwayService;
         private readonly IRdCenterCalPersAssingService _persAssingService;
         private readonly IRdCenterCalPersonnelEntryService _persEntryService;
         private readonly IRdCenterPersonInfoService _infoService;
+        private readonly IRdCenterCalPersAttendanceService _attendanceService;
         private readonly IRdCenterCalPublicHolidayService _holidayService;
-
-        private readonly IRdCenterPersonInfoService _persService;
         private readonly IRdCenterTechProjectService _projService;
 
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public RdCenterCalController(IRdCenterCalPersonnelService personnelService, IRdCenterCalProjectService projectService, IRdCenterCalTimeAwayService timeAwayService, IRdCenterCalPersAssingService persAssingService, IRdCenterCalPersonnelEntryService persEntryService, IRdCenterPersonInfoService infoService, IRdCenterCalPublicHolidayService holidayService, IRdCenterPersonInfoService persService, IRdCenterTechProjectService projService, IWebHostEnvironment environment, UserManager<AppIdentityUser> userManager) : base(userManager, null, null)
+        public RdCenterCalController(IRdCenterCalTimeAwayService timeAwayService, IRdCenterCalPersAssingService persAssingService, IRdCenterCalPersonnelEntryService persEntryService, IRdCenterPersonInfoService infoService, IRdCenterCalPersAttendanceService attendanceService, IRdCenterCalPublicHolidayService holidayService, IRdCenterTechProjectService projService, IWebHostEnvironment environment, UserManager<AppIdentityUser> userManager) : base(userManager, null, null)
         {
-            _personnelService = personnelService;
-            _projectService = projectService;
             _timeAwayService = timeAwayService;
             _persAssingService = persAssingService;
             _persEntryService = persEntryService;
             _infoService = infoService;
+            _attendanceService = attendanceService;
             _holidayService = holidayService;
-
-            _persService = persService;
             _projService = projService;
 
             _hostEnvironment = environment;
         }
 
-        #region Personnel CRUD
-        public IActionResult PersonnelInfo()
+        #region Personnel Assing CRUD
+        public IActionResult PersonnelAssing()
         {
-            List<RdCenterCalPersonnelInfoDto> personnelList = _personnelService.GetAll();
+            List<RdCenterTechProjectDto> allProject = _projService.GetAllProjectName();
+            List<RdCenterPersonInfoDto> allPersonnel = _infoService.GetAllPersonnel();
 
-            RdCenterCalPersonnelInfoViewModel personnelViewModel = new()
+            List<SelectListItem> projectCodeList = new();
+            foreach (var item in allProject)
             {
-                PersonnelList = personnelList
+                projectCodeList.Add(new SelectListItem
+                {
+                    Value = item.ProjectCode,
+                    Text = item.ProjectName
+                });
+            }
+
+            List<RdCenterCalPersonnelList> personnelList = new();
+            foreach (var item in allPersonnel)
+            {
+                personnelList.Add(new RdCenterCalPersonnelList {
+                    IdentityNumber = item.IdentityNumber,
+                    RegistrationNo = item.RegistrationNo,
+                    NameSurname = item.NameSurname,
+                    PersonPosition = item.PersonPosition.ToString(),
+                    WorkType = item.WorkType.ToString()
+                });
+            }
+
+            RdCenterCalPersAssingViewModel persAssingViewModel = new()
+            {
+                AllPersonnel = personnelList,
+                AllProject = projectCodeList
             };
 
-            return View(personnelViewModel);
-        }
-
-        public IActionResult PersonnelCreate()
-        {
-            RdCenterCalPersonnelInfoDto personnel = new();
-
-            RdCenterCalPersonnelInfoViewModel personnelViewModel = new()
-            {
-                NewPersonnelInfo = personnel
-            };
-
-            return PartialView("PartialView/PersonnelPartialView", personnelViewModel);
-        }
-
-        public IActionResult PersonnelUpdate(int id)
-        {
-            var personnel = _personnelService.GetById(id);
-
-            RdCenterCalPersonnelInfoViewModel personnelViewModel = new()
-            {
-                NewPersonnelInfo = personnel
-            };
-
-            return PartialView("PartialView/PersonnelPartialView", personnelViewModel);
-        }
-
-        public IActionResult PersonnelDelete(int id)
-        {
-            _personnelService.Delete(id);
-
-            AddSuccessMessage("Personel bilgisi silindi.");
-
-            return RedirectToAction("PersonnelInfo");
+            return View(persAssingViewModel);
         }
 
         [HttpPost]
-        public IActionResult PersonnelInfo(RdCenterCalPersonnelInfoViewModel personnelViewModel)
+        public IActionResult PersonnelAssing(RdCenterCalPersAssingViewModel persAssingViewModel)
         {
-            var personnel = _personnelService.GetById(personnelViewModel.NewPersonnelInfo.Id);
-            if (personnel == null)
-            {
-                personnelViewModel.NewPersonnelInfo.Year = GetSelectedYear();
-                personnelViewModel.NewPersonnelInfo.CreatedDate = DateTime.Now;
-                personnelViewModel.NewPersonnelInfo.CreatedUserName = User.Identity.Name;
+            //var persAssing = _persAssingService.GetById(persAssingViewModel.NewPersAssing.Id);
+            //if (persAssing == null)
+            //{
+            //    persAssingViewModel.NewPersAssing.Year = GetSelectedYear();
+            //    persAssingViewModel.NewPersAssing.CreatedDate = DateTime.Now;
+            //    persAssingViewModel.NewPersAssing.CreatedUserName = User.Identity.Name;
 
-                _personnelService.Add(personnelViewModel.NewPersonnelInfo);
+            //    _persAssingService.Add(persAssingViewModel.NewPersAssing);
 
-                AddSuccessMessage("Personel bilgisi eklendi.");
-            }
-            else
-            {
-                personnelViewModel.NewPersonnelInfo.Id = personnel.Id;
-                personnelViewModel.NewPersonnelInfo.Year = personnel.Year;
-                personnelViewModel.NewPersonnelInfo.CreatedDate = personnel.CreatedDate;
-                personnelViewModel.NewPersonnelInfo.CreatedUserName = personnel.CreatedUserName;
-                personnelViewModel.NewPersonnelInfo.ModifiedDate = DateTime.Now;
-                personnelViewModel.NewPersonnelInfo.ModifedUserName = User.Identity.Name;
+            //    AddSuccessMessage("Personele proje bilgisi eklendi.");
+            //}
+            //else
+            //{
+            //    persAssingViewModel.NewPersAssing.Id = persAssing.Id;
+            //    persAssingViewModel.NewPersAssing.Year = persAssing.Year;
+            //    persAssingViewModel.NewPersAssing.CreatedDate = persAssing.CreatedDate;
+            //    persAssingViewModel.NewPersAssing.CreatedUserName = persAssing.CreatedUserName;
+            //    persAssingViewModel.NewPersAssing.ModifiedDate = DateTime.Now;
+            //    persAssingViewModel.NewPersAssing.ModifedUserName = User.Identity.Name;
 
-                _personnelService.Update(personnelViewModel.NewPersonnelInfo);
+            //    _persAssingService.Update(persAssingViewModel.NewPersAssing);
 
-                AddSuccessMessage("Personel bilgisi güncellendi.");
-            }
+            //    AddSuccessMessage("Personele atanan proje bilgisi güncellendi.");
+            //}
 
-            return Redirect("PersonnelInfo");
-        }
-        #endregion
-
-        #region Project CRUD
-        public IActionResult ProjectInfo()
-        {
-            List<RdCenterCalProjectInfoDto> projectList = _projectService.GetAll();
-
-            RdCenterCalProjectInfoViewModel projectViewModel = new()
-            {
-                ProjectList = projectList
-            };
-
-            return View(projectViewModel);
-        }
-
-        public IActionResult ProjectCreate()
-        {
-            RdCenterCalProjectInfoDto project = new();
-
-            RdCenterCalProjectInfoViewModel projectViewModel = new()
-            {
-                NewProjectInfo = project
-            };
-
-            return PartialView("PartialView/ProjectPartialView", projectViewModel);
-        }
-
-        public IActionResult ProjectUpdate(int id)
-        {
-            var project = _projectService.GetById(id);
-
-            RdCenterCalProjectInfoViewModel projectViewModel = new()
-            {
-                NewProjectInfo = project
-            };
-
-            return PartialView("PartialView/ProjectPartialView", projectViewModel);
-        }
-
-        public IActionResult ProjectDelete(int id)
-        {
-            _projectService.Delete(id);
-
-            AddSuccessMessage("Proje bilgisi silindi.");
-
-            return RedirectToAction("ProjectInfo");
-        }
-
-        [HttpPost]
-        public IActionResult ProjectInfo(RdCenterCalProjectInfoViewModel projectViewModel)
-        {
-            var project = _projectService.GetById(projectViewModel.NewProjectInfo.Id);
-            if (project == null)
-            {
-                projectViewModel.NewProjectInfo.Year = GetSelectedYear();
-                projectViewModel.NewProjectInfo.CreatedDate = DateTime.Now;
-                projectViewModel.NewProjectInfo.CreatedUserName = User.Identity.Name;
-
-                _projectService.Add(projectViewModel.NewProjectInfo);
-
-                AddSuccessMessage("Proje bilgisi eklendi.");
-            }
-            else
-            {
-                projectViewModel.NewProjectInfo.Id = project.Id;
-                projectViewModel.NewProjectInfo.Year = project.Year;
-                projectViewModel.NewProjectInfo.CreatedDate = project.CreatedDate;
-                projectViewModel.NewProjectInfo.CreatedUserName = project.CreatedUserName;
-                projectViewModel.NewProjectInfo.ModifiedDate = DateTime.Now;
-                projectViewModel.NewProjectInfo.ModifedUserName = User.Identity.Name;
-
-                _projectService.Update(projectViewModel.NewProjectInfo);
-
-                AddSuccessMessage("Proje bilgisi güncellendi.");
-            }
-
-            return Redirect("ProjectInfo");
+            return Redirect("PersonnelAssing");
         }
         #endregion
 
@@ -287,90 +195,18 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         }
         #endregion
 
-        #region Personnel Assing CRUD
-        public IActionResult PersonnelAssing()
-        {
-            List<RdCenterCalPersAssingDto> persAssingList = _persAssingService.GetAll();
-
-            RdCenterCalPersAssingViewModel persAssingViewModel = new()
-            {
-                PersAssingList = persAssingList
-            };
-
-            return View(persAssingViewModel);
-        }
-
-        public IActionResult PersonnelAssingCreate()
-        {
-            RdCenterCalPersAssingDto persAssing = new();
-
-            RdCenterCalPersAssingViewModel persAssingViewModel = new()
-            {
-                NewPersAssing = persAssing
-            };
-
-            return PartialView("PartialView/PersAssingPartialView", persAssingViewModel);
-        }
-
-        public IActionResult PersonnelAssingUpdate(int id)
-        {
-            var persAssing = _persAssingService.GetById(id);
-
-            RdCenterCalPersAssingViewModel persAssingViewModel = new()
-            {
-                NewPersAssing = persAssing
-            };
-
-            return PartialView("PartialView/PersAssingPartialView", persAssingViewModel);
-        }
-
-        public IActionResult PersonnelAssingDelete(int id)
-        {
-            _persAssingService.Delete(id);
-
-            AddSuccessMessage("Personele atanan proje silindi.");
-
-            return RedirectToAction("PersonnelAssing");
-        }
-
-        [HttpPost]
-        public IActionResult PersonnelAssing(RdCenterCalPersAssingViewModel persAssingViewModel)
-        {
-            var persAssing = _persAssingService.GetById(persAssingViewModel.NewPersAssing.Id);
-            if (persAssing == null)
-            {
-                persAssingViewModel.NewPersAssing.Year = GetSelectedYear();
-                persAssingViewModel.NewPersAssing.CreatedDate = DateTime.Now;
-                persAssingViewModel.NewPersAssing.CreatedUserName = User.Identity.Name;
-
-                _persAssingService.Add(persAssingViewModel.NewPersAssing);
-
-                AddSuccessMessage("Personele proje bilgisi eklendi.");
-            }
-            else
-            {
-                persAssingViewModel.NewPersAssing.Id = persAssing.Id;
-                persAssingViewModel.NewPersAssing.Year = persAssing.Year;
-                persAssingViewModel.NewPersAssing.CreatedDate = persAssing.CreatedDate;
-                persAssingViewModel.NewPersAssing.CreatedUserName = persAssing.CreatedUserName;
-                persAssingViewModel.NewPersAssing.ModifiedDate = DateTime.Now;
-                persAssingViewModel.NewPersAssing.ModifedUserName = User.Identity.Name;
-
-                _persAssingService.Update(persAssingViewModel.NewPersAssing);
-
-                AddSuccessMessage("Personele atanan proje bilgisi güncellendi.");
-            }
-
-            return Redirect("PersonnelAssing");
-        }
-        #endregion
-
         #region PersonnelEntry CRUD
         public IActionResult PersonnelEntry()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var currentUser = _userManager.FindByIdAsync(userId).Result;
-            string workType = _infoService.GetByRegNo(currentUser.RegistrationNo).WorkType.ToString();
+            var persInfo = _infoService.GetByRegNo(currentUser.RegistrationNo);
+
+            string workType = string.Empty;
+            if (persInfo != null)
+            {
+                workType = persInfo.WorkType.ToString();
+            }
 
             var projectRelated = new SelectListGroup { Name = "Proje İlişkili" };
             var nonProjectRelated = new SelectListGroup { Name = "Proje İlişkisiz" };
@@ -427,7 +263,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var personnelEntry = _persEntryService.GetAllByYear(GetSelectedYear())
+            var personnelEntry = _persEntryService.GetAllByYearByUserId(GetSelectedYear(),userId)
                 .Select(x => new RdCenterCalPersonnelAddViewModel()
                 {
                     Id = x.Id,
@@ -446,12 +282,20 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         [HttpPost]
         public JsonResult CreateorUpdatePersonnelEntry(RdCenterCalPersonnelAddViewModel personnelViewModel)
         {
+            //bool isOK = CheckEntryTime(personnelViewModel);
+
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var currentUser = _userManager.FindByIdAsync(userId).Result;
 
-            string regNo = currentUser.RegistrationNo;
-            string workType = _infoService.GetByRegNo(regNo).WorkType.ToString();
+            var persInfo = _infoService.GetByRegNo(currentUser.RegistrationNo);
+            string workType = string.Empty;
+            string registrationNo = string.Empty;
+            if (persInfo != null)
+            {
+                workType = persInfo.WorkType.ToString();
+                registrationNo = persInfo.RegistrationNo;
+            }
 
             var personnelEntry = _persEntryService.GetById(personnelViewModel.Id);
 
@@ -462,7 +306,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                 personnelViewModel.Year = GetSelectedYear();
                 personnelViewModel.UserId = userId;
                 personnelViewModel.PersonnelFullName = currentUser.Name + " " + currentUser.LastName;
-                personnelViewModel.RegistrationNo = regNo;
+                personnelViewModel.RegistrationNo = registrationNo;
                 personnelViewModel.WorkType = workType;
                 personnelViewModel.Year = DateTime.Now.Year;
                 personnelViewModel.CreatedDate = DateTime.Now;
@@ -478,7 +322,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                 personnelViewModel.Id = personnelEntry.Id;
                 personnelViewModel.UserId = userId;
                 personnelViewModel.PersonnelFullName = currentUser.Name + " " + currentUser.LastName;
-                personnelViewModel.RegistrationNo = regNo;
+                personnelViewModel.RegistrationNo = registrationNo;
                 personnelViewModel.WorkType = workType;
                 personnelViewModel.Year = personnelEntry.Year;
                 personnelViewModel.ProjectName = personnelEntry.ProjectName;
@@ -503,6 +347,87 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             _persEntryService.Delete(id);
 
             return Json("200");
+        }
+
+        private bool CheckEntryTime(RdCenterCalPersonnelAddViewModel personnelViewModel)
+        {
+            DateTime startDate = Convert.ToDateTime(personnelViewModel.StartDate + " " + "00:00:00");
+            DateTime endDate = Convert.ToDateTime(personnelViewModel.EndDate + " " + "23:59:59");
+            var attendanceList = _attendanceService.GetAllByMonthByPersonnelId(personnelViewModel.RegistrationNo, startDate, endDate);
+
+            List<RdCenterCalPersAttendanceDto> newList = DeleteRepeateEvent(attendanceList).ToList();
+
+            /*if attendanceList start with çıkış, delete it. Always attendanceList must start with giriş*/
+            var itemRemove = newList.ElementAtOrDefault(0).TerminalName;
+            if (itemRemove.Contains("Çıkış"))
+            {
+                newList.RemoveAt(0);
+            }
+
+            string terminalName = string.Empty;
+            decimal projectTime = 0;
+            decimal timeAwayTime = 0;
+
+            string entryTime = string.Empty;
+            string outTime = string.Empty;
+            foreach (var item in newList)
+            {
+                terminalName = item.TerminalName.ToLower().Replace("ç", "c").Replace("ş", "s").Replace("ı", "i");
+                if (terminalName.Contains("giris"))
+                {
+                    entryTime = item.EventTime.ToShortTimeString();
+                }
+                if (terminalName.Contains("cikis"))
+                {
+                    outTime = item.EventTime.ToShortTimeString();
+                    TimeSpan duration = DateTime.Parse(outTime).Subtract(DateTime.Parse(entryTime));
+
+                    decimal hour = duration.Hours > 0 ? duration.Hours * 60 : 0;
+                    decimal minute = duration.Minutes > 0 ? hour + duration.Minutes : hour;
+
+                    if (minute < 30)
+                    {
+                        projectTime += minute;
+                    }
+
+                    if (minute > 30)
+                    {
+                        timeAwayTime += minute;
+                    }
+                }
+
+                var personnelEntry = _persEntryService.GetAllPersonnelByCode(personnelViewModel.Id,personnelViewModel.ProjectCode,personnelViewModel.TimeAwayCode);
+                
+                foreach (var persItem in personnelEntry)
+                {
+                    TimeSpan duration = DateTime.Parse(persItem.EndDate.ToShortTimeString()).Subtract(DateTime.Parse(persItem.StartDate.ToShortTimeString()));
+                    
+                    decimal hour = duration.Hours > 0 ? duration.Hours * 60 : 0;
+                    decimal minute = duration.Minutes > 0 ? hour + duration.Minutes : hour;
+
+                    if (!string.IsNullOrEmpty(persItem.ProjectCode))
+                    {
+
+                    }
+                }
+            }
+            return true;
+        }
+
+        private static List<RdCenterCalPersAttendanceDto> DeleteRepeateEvent(List<RdCenterCalPersAttendanceDto> personnelAttendance)
+        {
+            string terminalName = string.Empty;
+            foreach (var item in personnelAttendance.ToList())
+            {
+                if (item.TerminalName == terminalName)
+                {
+                    personnelAttendance.Remove(item);
+                }
+
+                terminalName = item.TerminalName;
+            };
+
+            return personnelAttendance;
         }
         #endregion
 
@@ -571,6 +496,19 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             if (entryList.Count == 0)
             {
                 TempData["ExcelError"] = "Excel dosya degerlerinde hata bulundu. Exceli kontrol ediniz.";
+            }
+
+            foreach (var item in entryList)
+            {
+                if (!string.IsNullOrEmpty(item.ProjectCode) && !string.IsNullOrEmpty(item.TimeAwayCode))
+                {
+                    TempData["ExcelError"] = "Proje kodu ve Dışarıda geçirilen süre kodu dolu olamaz. Exceli kontrol ediniz.";
+                }
+                if (string.IsNullOrEmpty(item.PersonnelFullName) || string.IsNullOrEmpty(item.RegistrationNo) ||
+                    string.IsNullOrEmpty(item.WorkType) || string.IsNullOrEmpty(item.ProjectName) || string.IsNullOrEmpty(item.TimeAwayName))
+                {
+                    TempData["ExcelError"] = "Boş alanları doldurunuz.";
+                }
             }
 
             return RedirectToAction("ManagerEntry");
@@ -754,7 +692,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                 holidayViewModel.NewHoliday.Month = holidayViewModel.NewHoliday.StartDate.Month;
                 holidayViewModel.NewHoliday.CreatedDate = DateTime.Now;
                 holidayViewModel.NewHoliday.CreatedUserName = User.Identity.Name;
-
+                holidayViewModel.NewHoliday.StartDate = new DateTime(holidayViewModel.NewHoliday.StartDate.Year, holidayViewModel.NewHoliday.StartDate.Month, holidayViewModel.NewHoliday.StartDate.Day, 08, 00, 00);
+                holidayViewModel.NewHoliday.EndDate = new DateTime(holidayViewModel.NewHoliday.EndDate.Year, holidayViewModel.NewHoliday.EndDate.Month, holidayViewModel.NewHoliday.EndDate.Day, 17, 00, 00);
                 _holidayService.Add(holidayViewModel.NewHoliday);
 
                 AddSuccessMessage("Resmi tatil bilgisi eklendi.");
@@ -764,6 +703,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                 holidayViewModel.NewHoliday.Id = holiday.Id;
                 holidayViewModel.NewHoliday.Year = holiday.Year;
                 holidayViewModel.NewHoliday.Month = holiday.Month;
+                holidayViewModel.NewHoliday.StartDate = new DateTime(holidayViewModel.NewHoliday.StartDate.Year, holidayViewModel.NewHoliday.StartDate.Month, holidayViewModel.NewHoliday.StartDate.Day, 08, 00, 00);
+                holidayViewModel.NewHoliday.EndDate = new DateTime(holidayViewModel.NewHoliday.EndDate.Year, holidayViewModel.NewHoliday.EndDate.Month, holidayViewModel.NewHoliday.EndDate.Day, 17, 00, 00);
                 holidayViewModel.NewHoliday.CreatedDate = holiday.CreatedDate;
                 holidayViewModel.NewHoliday.CreatedUserName = holiday.CreatedUserName;
                 holidayViewModel.NewHoliday.ModifiedDate = DateTime.Now;

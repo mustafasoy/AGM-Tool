@@ -81,17 +81,21 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         [HttpPost]
         public IActionResult PersonInfo(RdCenterPersonViewModel personViewModel)
         {
-            //check personnel info, if exists give error.
-            var checkPersonInfo = _infoService.GetByRegNo(personViewModel.NewPersonnelInfo.RegistrationNo);
-            if (checkPersonInfo != null)
-            {
-                AddErrorMessage("Personel daha önce kaydedilmiş.");
-                return View(personViewModel);
-            }
-
             var personInfo = _infoService.GetById(personViewModel.NewPersonnelInfo.Id);
             if (personInfo == null)
             {
+                bool isCheck = CheckPersonnelExists(personViewModel.NewPersonnelInfo.IdentityNumber);
+                if (isCheck)
+                {
+                    List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAllByYear(GetSelectedYear());
+                    RdCenterPersonViewModel personInfoViewModel = new()
+                    {
+                        PersonInfoList = personInfoList
+                    };
+
+                    return View(personInfoViewModel);
+                }
+
                 personViewModel.NewPersonnelInfo.Year = GetSelectedYear();
                 personViewModel.NewPersonnelInfo.CreatedDate = DateTime.Now;
                 personViewModel.NewPersonnelInfo.CreatedUserName = User.Identity.Name;
@@ -116,6 +120,19 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
 
             return RedirectToAction("PersonInfo");
         }
+
+        private bool CheckPersonnelExists(string identityNumber)
+        {
+            //check personnel info, if exists give error.
+            var checkPersonInfo = _infoService.GetByIdentityNo(identityNumber);
+            if (checkPersonInfo != null)
+            {
+                AddErrorMessage("Personel daha önce kaydedilmiş.");
+                return true;
+            }
+
+            return false;
+        }
         #endregion
 
         public IActionResult Reward()
@@ -139,7 +156,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
                 rewardViewModel.Reward.Year = GetSelectedYear();
                 rewardViewModel.Reward.CreatedDate = DateTime.Now;
                 rewardViewModel.Reward.CreatedUserName = User.Identity.Name;
-                
+
                 _rewardService.Add(rewardViewModel.Reward);
 
                 AddSuccessMessage("Performans değerlendirme bilgisi eklendi.");
@@ -166,7 +183,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
 
             RdCenterPersonTimeAwayViewModel timeAwayViewModel = new()
             {
-                TimeAwayList = timeAwayList
+                TimeAwayList = timeAwayList,
             };
 
             return View(timeAwayViewModel);
@@ -176,6 +193,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         {
             RdCenterPersonTimeAwayDto timeAwayInfo = new();
 
+            timeAwayInfo.Year = GetSelectedYear();
             RdCenterPersonTimeAwayViewModel timeAwayViewModel = new()
             {
                 NewTimeInfo = timeAwayInfo

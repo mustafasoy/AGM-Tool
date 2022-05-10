@@ -56,8 +56,6 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
 
             #region RdCenterCal Db Map
             _ = new RdCenterCalPersAttendanceMap(modelBuilder.Entity<RdCenterCalPersAttendanceDto>());
-            _ = new RdCenterCalPersonnelInfoMap(modelBuilder.Entity<RdCenterCalPersonnelInfoDto>());
-            _ = new RdCenterCalProjectInfoMap(modelBuilder.Entity<RdCenterCalProjectInfoDto>());
             _ = new RdCenterCalTimeAwayMap(modelBuilder.Entity<RdCenterCalTimeAwayDto>());
             _ = new RdCenterCalPersAssingMap(modelBuilder.Entity<RdCenterCalPersAssingDto>());
             _ = new RdCenterCalPersonnelEntryMap(modelBuilder.Entity<RdCenterCalPersonnelEntryDto>());

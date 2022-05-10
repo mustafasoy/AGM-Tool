@@ -197,7 +197,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
                     return View(schemaViewModel);
                 }
             }
-
+            centerSchema.Year = GetSelectedYear();
             centerSchema.CreatedDate = DateTime.Now;
             centerSchema.CreatedUserName = User.Identity.Name;
 

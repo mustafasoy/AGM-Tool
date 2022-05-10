@@ -156,7 +156,7 @@
     var Update = function (id) {
         $.ajax({
             type: "GET",
-            url: "/RdCenterTech/AttendedEventCreate",
+            url: "/RdCenterTech/AttendedEventUpdate",
             data: { id: id },
             success: function (response) {
                 $('#modalBody').html(response);

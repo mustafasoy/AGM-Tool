@@ -23,6 +23,7 @@
                             </div>
                             <div class="form-body">
                                 <div class="row">
+                                    <input asp-for="BusinessInfo.Year" hidden="hidden" />
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
                                             İşletme Ünvan
@@ -142,7 +143,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-8 form-group">
-                                        <input asp-for="BusinessInfo.RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control" />
+                                        <input asp-for="BusinessInfo.RegistrationNo" class="form-control" maxlength="26" onkeypress="return isNumberKey(event);" />
                                     </div>
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
@@ -181,7 +182,7 @@
                                         <input asp-for="BusinessInfo.CRSNumber" type="number" maxlength="16" class="form-control" onkeydown="return event.keyCode !== 69" />
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary mr-1">
+                                        <button type="submit" class="btn btn-primary">
                                             Kaydet
                                         </button>
                                     </div>
@@ -206,4 +207,12 @@
             $('input[name="BusinessInfo.CityText"]').val($("#city option:selected").text());
         })
     });
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if ((charCode > 47 && charCode < 58) || (charCode == 45)) {
+            return true;
+        }
+        return false;
+    }
 </script>

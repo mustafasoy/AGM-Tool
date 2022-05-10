@@ -20,10 +20,9 @@
 </div>
 
 <h6 class="invoice-address">
-    Proje Başlangıç Tarihi
+    Tatil Başlangıç Tarihi
 </h6>
 <div class="form-group">
-    <input asp-for="NewHoliday.StartDate" id="startDate" hidden="hidden" />
     <fieldset class="form-group position-relative has-icon-left">
         <input asp-for="NewHoliday.StartDate" type="date" id="startDatePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
         <div class="form-control-position">
@@ -33,10 +32,9 @@
 </div>
 
 <h6 class="invoice-address">
-    Proje Bitiş Tarihi
+    Tatil Bitiş Tarihi
 </h6>
 <div class="form-group">
-    <input asp-for="NewHoliday.EndDate" id="endDate" hidden="hidden" />
     <fieldset class="form-group position-relative has-icon-left">
         <input asp-for="NewHoliday.EndDate" type="date" id="endDatePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
         <div class="form-control-position">
@@ -47,7 +45,7 @@
 
 <script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
 <script>
-    var startDate = moment($("#startDate").val()).format('DD.MM.YYYY')
+    var startDate = moment($("#startDatePicker").val()).format('DD.MM.YYYY')
     if (startDate != "01.01.0001") {
         $("#startDatePicker").val(startDate);
     }
@@ -55,7 +53,7 @@
         $("#startDatePicker").val("");
     }
 
-    var endDate = moment($("#endDate").val()).format('DD.MM.YYYY')
+    var endDate = moment($("#endDatePicker").val()).format('DD.MM.YYYY')
     if (endDate != "01.01.0001") {
         $("#endDatePicker").val(endDate);
     }

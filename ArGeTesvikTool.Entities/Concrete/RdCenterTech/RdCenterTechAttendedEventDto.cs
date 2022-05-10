@@ -9,7 +9,7 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
         public ConferenceType Type { get; set; }
         public string AttendedEvent { get; set; }
         public ConferenceLocation Location { get; set; }
-        public DateTime AttendDate { get; set; }
+        public string AttendDate { get; set; }
         public int PersonNumber { get; set; }
     }
 

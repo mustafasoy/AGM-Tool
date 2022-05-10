@@ -43,6 +43,11 @@ namespace ArGeTesvikTool.Business.ValidationRules.CustomValidation
         {
             return new IdentityError() { Code = "PasswordRequiresUpper", Description = "Şifreniz en az bir büyük harf ('A'-'Z') içermelidir." };
         }
+
+        public override IdentityError PasswordRequiresLower()
+        {
+            return new IdentityError() { Code = "PasswordRequiresLower", Description = "Şifreniz en az bir küçük harf ('a'-'z') içermelidir." };
+        }
         #endregion
     }
 }

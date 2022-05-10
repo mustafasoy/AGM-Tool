@@ -29,12 +29,10 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("IsHalfDay");
 
             entity.Property(x => x.StartDate)
-                .HasColumnName("StartDate")
-                .HasColumnType("date");
+                .HasColumnName("StartDate");
 
             entity.Property(x => x.EndDate)
-                .HasColumnName("EndDate")
-                .HasColumnType("date");
+                .HasColumnName("EndDate");
 
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("CreatedDate")

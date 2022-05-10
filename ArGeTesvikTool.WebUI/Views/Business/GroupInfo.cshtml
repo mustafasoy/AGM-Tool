@@ -23,6 +23,7 @@
                             </div>
                             <div class="form-body">
                                 <div class="row">
+                                    <input asp-for="GroupInfo.Year" hidden="hidden" />
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
                                             Holding / Grup Ünvanı
@@ -61,14 +62,16 @@
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input asp-for="GroupInfo.FoundingDate" asp-format="{0:dd.MM.yyyy}" type="text"  class="form-control pickadate-months-year" placeholder="Tarih seçin">
+                                            <input asp-for="GroupInfo.FoundingDate" asp-format="{0:dd.MM.yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin">
                                             <div class="form-control-position">
                                                 <i class='bx bx-calendar'></i>
                                             </div>
                                         </fieldset>
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
+                                        <button type="submit" class="btn btn-primary">
+                                            Kaydet
+                                        </button>
                                     </div>
                                 </div>
                             </div>

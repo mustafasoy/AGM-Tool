@@ -89,7 +89,6 @@
     İşe Başladığı Tarih
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.StartDate" id="startDate" hidden="hidden" />
     <fieldset class="form-group position-relative has-icon-left">
         <input asp-for="NewPersonnelInfo.StartDate" type="date" id="datePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
         <div class="form-control-position">
@@ -110,7 +109,7 @@
             $('input[name="NewPersonnelInfo.CountryText"]').val($("#country option:selected").text());
         });
 
-        var dateVal = moment($("#startDate").val()).format('DD.MM.YYYY')
+        var dateVal = moment($("#datePicker").val()).format('DD.MM.YYYY')
         if (dateVal != "01.01.0001") {
             $("#datePicker").val(dateVal);
         }

@@ -23,6 +23,7 @@
                             </div>
                             <div class="form-body">
                                 <div class="row">
+                                    <input asp-for="BusinessContact.Year" hidden="hidden" />
                                     <div class="col-md-4">
                                         <h6 class="invoice-address">
                                             T.C Kimlik No / Yabancı Kimlik No
@@ -57,7 +58,9 @@
                                         <input asp-for="BusinessContact.PhoneNumber" type="text" id="phone" maxlength="14" class="form-control" placeholder="(532) 123-4567">
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary mr-1">Kaydet</button>
+                                        <button type="submit" class="btn btn-primary">
+                                            Kaydet
+                                        </button>
                                     </div>
                                 </div>
                             </div>

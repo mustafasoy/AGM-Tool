@@ -44,9 +44,9 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
                 .ToList();
         }
 
-        public List<RdCenterCalPublicHolidayDto> GetAllByYear(int year)
+        public List<RdCenterCalPublicHolidayDto> GetAllByMonth(DateTime startDate, DateTime endDate)
         {
-            return _holiday.GetList(x => x.Year == year);
+            return _holiday.GetList(x => x.StartDate >= startDate && x.EndDate <= endDate);
         }
     }
 }

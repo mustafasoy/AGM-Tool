@@ -35,8 +35,9 @@
     Katılım Tarih Aralığı
 </h6>
 <div class="form-group">
+    <input asp-for="NewAttendedEvent.Id" id="id" hidden="hidden" />
     <fieldset class="form-group position-relative has-icon-left">
-        <input asp-for="NewAttendedEvent.AttendDate" type="text" class="form-control showdropdowns" placeholder="Tarih seçin" />
+        <input asp-for="NewAttendedEvent.AttendDate" type="text" id="attendDate" class="form-control showdropdowns" placeholder="Tarih seçin" />
         <div class="form-control-position">
             <i class='bx bx-calendar'></i>
         </div>
@@ -51,3 +52,11 @@
 </div>
 
 <script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
+<script>
+    $(document).ready(function () {
+        var id = $("#id").val();
+        if (id == 0) {
+            $("#attendDate").val('');
+        }
+    })
+</script>

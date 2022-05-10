@@ -4,14 +4,16 @@ using ArGeTesvikTool.WebUI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArGeTesvikTool.WebUI.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220421113657_RdCenterTechAttendedEvents_Data_Edit")]
+    partial class RdCenterTechAttendedEvents_Data_Edit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1209,10 +1211,10 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("CreatedUserName");
 
-                    b.Property<string>("IdentityNumber")
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)")
-                        .HasColumnName("IdentityNumber");
+                    b.Property<string>("Mail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("Mail");
 
                     b.Property<string>("ModifedUserName")
                         .HasMaxLength(256)
@@ -1223,25 +1225,10 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnType("date")
                         .HasColumnName("ModifiedDate");
 
-                    b.Property<string>("NameSurname")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("NameSurname");
-
                     b.Property<string>("ProjectCode")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
                         .HasColumnName("ProjectCode");
-
-                    b.Property<string>("ProjectName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("ProjectName");
-
-                    b.Property<string>("RegistrationNo")
-                        .HasMaxLength(26)
-                        .HasColumnType("nvarchar(26)")
-                        .HasColumnName("RegistrationNo");
 
                     b.Property<int>("Year")
                         .HasMaxLength(4)
@@ -1380,6 +1367,129 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     b.ToTable("RdCenterCalPersonnelEntries");
                 });
 
+            modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenterCal.RdCenterCalPersonnelInfoDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("date")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<string>("CreatedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("CreatedUserName");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("Email");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)")
+                        .HasColumnName("LastName");
+
+                    b.Property<string>("ModifedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("ModifedUserName");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("date")
+                        .HasColumnName("ModifiedDate");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)")
+                        .HasColumnName("UserId");
+
+                    b.Property<int>("Year")
+                        .HasMaxLength(4)
+                        .HasColumnType("int")
+                        .HasColumnName("Year");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
+                    b.ToTable("RdCenterCalPersonnelInfos");
+                });
+
+            modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenterCal.RdCenterCalProjectInfoDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("date")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<string>("CreatedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("CreatedUserName");
+
+                    b.Property<string>("ModifedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("ModifedUserName");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("date")
+                        .HasColumnName("ModifiedDate");
+
+                    b.Property<string>("ProjectCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("ProjectCode");
+
+                    b.Property<DateTime>("ProjectEndDate")
+                        .HasColumnType("date")
+                        .HasColumnName("ProjectEndDate");
+
+                    b.Property<string>("ProjectName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("ProjectName");
+
+                    b.Property<DateTime>("ProjectStartDate")
+                        .HasColumnType("date")
+                        .HasColumnName("ProjectStartDate");
+
+                    b.Property<string>("ProjectType")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("ProjectType");
+
+                    b.Property<int>("Year")
+                        .HasMaxLength(4)
+                        .HasColumnType("int")
+                        .HasColumnName("Year");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectCode")
+                        .IsUnique()
+                        .HasFilter("[ProjectCode] IS NOT NULL");
+
+                    b.ToTable("RdCenterCalProjectInfos");
+                });
+
             modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenterCal.RdCenterCalPublicHolidayDto", b =>
                 {
                     b.Property<int>("Id")
@@ -1398,7 +1508,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("CreatedUserName");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("date")
                         .HasColumnName("EndDate");
 
                     b.Property<string>("HolidayName")
@@ -1425,7 +1535,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("Month");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("date")
                         .HasColumnName("StartDate");
 
                     b.Property<int>("Year")
@@ -1798,8 +1908,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AttendDate")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("AttendDate");
 
                     b.Property<string>("AttendedEvent")

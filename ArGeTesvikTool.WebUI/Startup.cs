@@ -92,8 +92,12 @@ namespace ArGeTesvikTool.WebUI
             }
 
             if (!env.IsDevelopment())
-                app.UseStatusCodePagesWithReExecute("/Error/{0}");
-
+            {
+                //app.UseStatusCodePagesWithReExecute("/Error/{0}");
+                app.UseDeveloperExceptionPage();
+                // Brings information page on pages that do not return content.
+                app.UseStatusCodePages();
+            }
 
             app.UseStaticFiles();
             app.UseSession();

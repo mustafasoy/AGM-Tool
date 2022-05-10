@@ -1,5 +1,4 @@
 ﻿using ArGeTesvikTool.Business.Abstract;
-using ArGeTesvikTool.Business.Concrete;
 using ArGeTesvikTool.Business.Utilities;
 using ArGeTesvikTool.Business.ValidationRules.FluentValidation;
 using ArGeTesvikTool.Entities.Concrete;
@@ -12,7 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
-using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -118,11 +116,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
                     HttpContext.Request.Scheme);
 
 
-                    //send an email with this link
+                    /*send an email with this link*/
                     MailMessage message = ConfirmAccountMail(registerViewModel, userConfirmLink);
                     await _mailService.SendMailAsync(message);
 
                     return RedirectToAction("ConfirmEmail");
+                    //return RedirectToAction("Login");
                 }
 
                 foreach (var error in result.Errors)

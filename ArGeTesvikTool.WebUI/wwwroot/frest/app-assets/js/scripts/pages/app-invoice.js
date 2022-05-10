@@ -43,7 +43,13 @@ $(document).ready(function () {
         '<"top d-flex flex-wrap"<"action-filters flex-grow-1"f><"actions action-btns d-flex align-items-center">><"clear">rt<"bottom"p>',
       language: {
         search: "",
-        searchPlaceholder: "Ara"
+          searchPlaceholder: "Ara",
+          emptyTable: "Gosterilecek kayit bulunamadi",
+          zeroRecords: "Hicbir eslesen kayit bulunamadi",
+          paginate: {
+              previous: "Geri",
+              next: "Ileri"
+          },
       },
       select: {
         style: "multi",

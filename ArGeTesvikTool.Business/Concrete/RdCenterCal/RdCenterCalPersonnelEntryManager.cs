@@ -46,6 +46,11 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
             return _personnelEntry.GetList(x => x.Year == year);
         }
 
+        public List<RdCenterCalPersonnelEntryDto> GetAllByYearByUserId(int year,string userId)
+        {
+            return _personnelEntry.GetList(x => x.Year == year && x.UserId == userId);
+        }
+
         public List<RdCenterCalPersonnelEntryDto> GetAllByMonth(DateTime startDate, DateTime endDate)
         {
             return _personnelEntry.GetList(x => x.StartDate >= startDate && x.EndDate <= endDate);
@@ -69,6 +74,16 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
         public List<RdCenterCalPersonnelEntryDto> GetAllByMonthByPersonnel(string regNo, DateTime startDate, DateTime endDate)
         {
             return _personnelEntry.GetList(x => x.RegistrationNo == regNo && x.StartDate >= startDate && x.EndDate <= endDate);
+        }
+
+        public List<RdCenterCalPersonnelEntryDto> GetAllPersonnelByCode(int id, string projectCode, string timeAwayCode)
+        {
+            if (!string.IsNullOrEmpty(projectCode))
+            {
+                return _personnelEntry.GetList(x => x.Id == id && x.ProjectCode == projectCode);
+            }
+
+            return _personnelEntry.GetList(x => x.Id == id && x.TimeAwayCode == timeAwayCode);
         }
     }
 }

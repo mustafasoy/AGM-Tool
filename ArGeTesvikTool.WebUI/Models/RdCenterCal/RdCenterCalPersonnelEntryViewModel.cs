@@ -9,5 +9,8 @@ namespace ArGeTesvikTool.WebUI.Models.RdCenterCal
         public List<SelectListItem> ProjectList { get; set; }
         public List<SelectListItem> TimeAwayList { get; set; }
         public List<RdCenterCalPersonnelEntryDto> PersonnelEntryList { get; set; }
+
+        //public string ProjectTime { get; set; }
+        //public string TimeAwayTime { get; set; }
     }
 }

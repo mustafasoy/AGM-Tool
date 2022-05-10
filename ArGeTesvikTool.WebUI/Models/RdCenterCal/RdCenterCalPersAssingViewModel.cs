@@ -1,11 +1,13 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
+using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace ArGeTesvikTool.WebUI.Models.RdCenterCal
 {
     public class RdCenterCalPersAssingViewModel
     {
-        public RdCenterCalPersAssingDto NewPersAssing { get; set; }
-        public List<RdCenterCalPersAssingDto> PersAssingList { get; set; }
+        public List<RdCenterCalPersonnelList> AllPersonnel { get; set; }
+        public List<SelectListItem> AllProject { get; set; }
     }
 }

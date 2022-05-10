@@ -95,10 +95,6 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             #endregion
 
             #region RdCenterCal
-            builder.RegisterType<RdCenterCalPersonnelManager>().As<IRdCenterCalPersonnelService>().SingleInstance();
-            builder.RegisterType<EfRdCenterCalPersonnelDal>().As<IRdCenterCalPersonnelDal>().SingleInstance();
-            builder.RegisterType<RdCenterCalProjectManager>().As<IRdCenterCalProjectService>().SingleInstance();
-            builder.RegisterType<EfRdCenterCalProjectDal>().As<IRdCenterCalProjectDal>().SingleInstance();
             builder.RegisterType<RdCenterCalTimeAwayManager>().As<IRdCenterCalTimeAwayService>().SingleInstance();
             builder.RegisterType<EfRdCenterCalTimeAwayDal>().As<IRdCenterCalTimeAwayDal>().SingleInstance();
             builder.RegisterType<RdCenterCalPersAssingManager>().As<IRdCenterCalPersAssingService>().SingleInstance();

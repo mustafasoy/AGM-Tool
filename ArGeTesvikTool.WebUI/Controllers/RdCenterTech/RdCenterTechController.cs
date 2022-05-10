@@ -552,6 +552,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             var mentorInfo = _mentorInfoService.GetById(mentorInfoViewModel.NewMentorInfo.Id);
             if (mentorInfo == null)
             {
+                mentorInfoViewModel.NewMentorInfo.Year = GetSelectedYear();
                 mentorInfoViewModel.NewMentorInfo.CreatedDate = DateTime.Now;
                 mentorInfoViewModel.NewMentorInfo.CreatedUserName = User.Identity.Name;
 

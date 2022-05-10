@@ -71,6 +71,10 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             foreach (var item in personnelEntries)
             {
                 IncomeDto newIncome = new();
+
+                newIncome.RegistrationNo = item.RegistrationNo;
+                newIncome.PersonnelFullName = item.PersonnelFullName;
+                
                 decimal timediff = Convert.ToDecimal((item.EndDate.Subtract(item.StartDate)).TotalHours);
 
                 #region Ar-Ge Merkezi İçerisinde Geçirilen Süre
@@ -126,7 +130,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             }
 
             //get working days between given start and end date
-            List<RdCenterCalPublicHolidayDto> publicholidays = _holidayService.GetAllByYear(reportViewModel.StartDate.Year);
+            List<RdCenterCalPublicHolidayDto> publicholidays = _holidayService.GetAllByMonth(reportViewModel.StartDate, reportViewModel.EndDate);
             List<DateTime> publicholidayList = new();
             foreach (var item in publicholidays)
             {
@@ -245,7 +249,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             }
 
             //get working days between given start and end date
-            List<RdCenterCalPublicHolidayDto> publicholidays = _holidayService.GetAllByYear(reportViewModel.StartDate.Year);
+            List<RdCenterCalPublicHolidayDto> publicholidays = _holidayService.GetAllByMonth(reportViewModel.StartDate, reportViewModel.EndDate);
             List<DateTime> publicholidayList = new();
             foreach (var item in publicholidays)
             {
@@ -605,7 +609,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 {
                     preMonthTransfer += Convert.ToDecimal((item.EndDate.Subtract(item.StartDate)).TotalHours);
                 }
-
             }
 
             return preMonthTransfer;
