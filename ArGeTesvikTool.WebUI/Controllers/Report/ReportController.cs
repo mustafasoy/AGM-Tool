@@ -8,6 +8,7 @@ using ArGeTesvikTool.Entities.Concrete.Report;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models;
 using ArGeTesvikTool.WebUI.Models.Report;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,6 +19,7 @@ using System.Security.Claims;
 
 namespace ArGeTesvikTool.WebUI.Controllers.Report
 {
+    [Authorize]
     public class ReportController : BaseController
     {
         private readonly IRdCenterCalPersonnelEntryService _persEntryService;

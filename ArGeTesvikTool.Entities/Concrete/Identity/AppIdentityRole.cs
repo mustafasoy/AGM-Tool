@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ArGeTesvikTool.Entities.Concrete;
+using Microsoft.AspNetCore.Identity;
 
 namespace ArGeTesvikTool.WebUI.Models
 {

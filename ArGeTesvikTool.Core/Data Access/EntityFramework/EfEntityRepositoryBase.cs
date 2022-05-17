@@ -33,6 +33,14 @@ namespace ArGeTesvikTool.Core.Data_Access.EntityFramework
             context.SaveChanges();
         }
 
+        public void UpdateList(List<TEntity> entity)
+        {
+            using TContext context = new();
+            var updatedEntity = context.Entry(entity);
+            updatedEntity.State = EntityState.Modified;
+            context.SaveChanges();
+        }
+
         public void Delete(TEntity entity)
         {
             using TContext context = new();

@@ -9,6 +9,7 @@ using ArGeTesvikTool.WebUI.Models;
 using ArGeTesvikTool.WebUI.Models.RdCenterCal;
 using ExcelDataReader;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -23,6 +24,7 @@ using System.Text;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
 {
+    [Authorize]
     public class RdCenterCalController : BaseController
     {
         private readonly IRdCenterCalTimeAwayService _timeAwayService;
@@ -67,7 +69,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             List<RdCenterCalPersonnelList> personnelList = new();
             foreach (var item in allPersonnel)
             {
-                personnelList.Add(new RdCenterCalPersonnelList {
+                personnelList.Add(new RdCenterCalPersonnelList
+                {
                     IdentityNumber = item.IdentityNumber,
                     RegistrationNo = item.RegistrationNo,
                     NameSurname = item.NameSurname,
@@ -86,34 +89,52 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         }
 
         [HttpPost]
-        public IActionResult PersonnelAssing(RdCenterCalPersAssingViewModel persAssingViewModel)
+        public JsonResult PersonnelAssing(List<RdCenterCalPersAssingDto> persAssingViewModel)
         {
-            //var persAssing = _persAssingService.GetById(persAssingViewModel.NewPersAssing.Id);
-            //if (persAssing == null)
-            //{
-            //    persAssingViewModel.NewPersAssing.Year = GetSelectedYear();
-            //    persAssingViewModel.NewPersAssing.CreatedDate = DateTime.Now;
-            //    persAssingViewModel.NewPersAssing.CreatedUserName = User.Identity.Name;
+            List<RdCenterCalPersAssingDto> persAssingList = new();
 
-            //    _persAssingService.Add(persAssingViewModel.NewPersAssing);
+            string projectCode = persAssingViewModel[0].ProjectCode;
+            var persAssing = _persAssingService.GetByYearProjectCode(GetSelectedYear(), projectCode);
 
-            //    AddSuccessMessage("Personele proje bilgisi eklendi.");
-            //}
-            //else
-            //{
-            //    persAssingViewModel.NewPersAssing.Id = persAssing.Id;
-            //    persAssingViewModel.NewPersAssing.Year = persAssing.Year;
-            //    persAssingViewModel.NewPersAssing.CreatedDate = persAssing.CreatedDate;
-            //    persAssingViewModel.NewPersAssing.CreatedUserName = persAssing.CreatedUserName;
-            //    persAssingViewModel.NewPersAssing.ModifiedDate = DateTime.Now;
-            //    persAssingViewModel.NewPersAssing.ModifedUserName = User.Identity.Name;
+            if (persAssing.Count == 0)
+            {
+                foreach (var item in persAssingViewModel)
+                {
+                    RdCenterCalPersAssingDto newPersAssing = new()
+                    {
+                        Year = GetSelectedYear(),
+                        IdentityNumber = item.IdentityNumber,
+                        RegistrationNo = item.RegistrationNo,
+                        NameSurname = item.NameSurname,
+                        ProjectCode = item.ProjectCode,
+                        ProjectName = item.ProjectName,
+                        CreatedDate = DateTime.Now,
+                        CreatedUserName = User.Identity.Name
+                    };
+                }
+                _persAssingService.AddList(persAssingList);
+                return Json("201");
+            }
 
-            //    _persAssingService.Update(persAssingViewModel.NewPersAssing);
-
-            //    AddSuccessMessage("Personele atanan proje bilgisi güncellendi.");
-            //}
-
-            return Redirect("PersonnelAssing");
+            foreach (var item in persAssingViewModel)
+            {
+                RdCenterCalPersAssingDto newPersAssing = new()
+                {
+                    Id = item.Id,
+                    Year = GetSelectedYear(),
+                    IdentityNumber = item.IdentityNumber,
+                    RegistrationNo = item.RegistrationNo,
+                    NameSurname = item.NameSurname,
+                    ProjectCode = item.ProjectCode,
+                    ProjectName = item.ProjectName,
+                    CreatedDate = persAssing[0].CreatedDate,
+                    CreatedUserName = persAssing[0].CreatedUserName,
+                    ModifiedDate = DateTime.Now,
+                    ModifedUserName = User.Identity.Name
+                };
+            }
+            _persAssingService.UpdateList(persAssingList);
+            return Json("201");
         }
         #endregion
 
@@ -263,7 +284,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var personnelEntry = _persEntryService.GetAllByYearByUserId(GetSelectedYear(),userId)
+            var personnelEntry = _persEntryService.GetAllByYearByUserId(GetSelectedYear(), userId)
                 .Select(x => new RdCenterCalPersonnelAddViewModel()
                 {
                     Id = x.Id,
@@ -396,12 +417,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                     }
                 }
 
-                var personnelEntry = _persEntryService.GetAllPersonnelByCode(personnelViewModel.Id,personnelViewModel.ProjectCode,personnelViewModel.TimeAwayCode);
-                
+                var personnelEntry = _persEntryService.GetAllPersonnelByCode(personnelViewModel.Id, personnelViewModel.ProjectCode, personnelViewModel.TimeAwayCode);
+
                 foreach (var persItem in personnelEntry)
                 {
                     TimeSpan duration = DateTime.Parse(persItem.EndDate.ToShortTimeString()).Subtract(DateTime.Parse(persItem.StartDate.ToShortTimeString()));
-                    
+
                     decimal hour = duration.Hours > 0 ? duration.Hours * 60 : 0;
                     decimal minute = duration.Minutes > 0 ? hour + duration.Minutes : hour;
 

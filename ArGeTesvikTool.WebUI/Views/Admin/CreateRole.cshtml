@@ -20,6 +20,7 @@
                             <div class="card-body pb-0 mx-25">
                                 <hr />
                                 <form asp-action="CreateRole" id="jquery-val-form">
+                                    @Html.AntiForgeryToken()
                                     <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">×</span>
@@ -31,9 +32,16 @@
                                                 Rol adı
                                             </h6>
                                             <fieldset class="invoice-address form-group">
-                                                <input asp-for="Name" type="text" class="form-control" placeholder="Yönetici, Personel" />
+                                                <input asp-for="Name" type="text" class="form-control" hidden="hidden" />
+                                                <fieldset class="invoice-address form-group">
+                                                    <select asp-for="RoleName" asp-items="Html.GetEnumSelectList<RoleName>()" id="roleName" class="form-control">
+                                                        <option value="">
+                                                            Seçiniz
+                                                        </option>
+                                                    </select>
+                                                </fieldset>
                                             </fieldset>
-                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                            <span asp-validation-for="RoleName" class="text-danger"></span>
                                             <h6 class="invoice-address form-group">
                                                 Rol tanım
                                             </h6>
@@ -66,3 +74,10 @@
     </div>
 </div>
 <!-- END: Content-->
+<script>
+    $(document).ready(function () {
+        $('#roleName').change(function () {
+            $('input[name="Name"]').val($("#roleName option:selected").text());
+        });
+    })
+</script>

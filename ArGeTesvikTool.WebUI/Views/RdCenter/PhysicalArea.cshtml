@@ -17,6 +17,7 @@
                     <div class="card-body">
                         <hr />
                         <form asp-action="PhysicalArea" method="post" id="jquery-val-form" enctype="multipart/form-data">
+                            @Html.AntiForgeryToken()
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-4">

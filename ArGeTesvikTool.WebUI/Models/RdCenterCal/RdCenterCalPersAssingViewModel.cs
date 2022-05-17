@@ -1,5 +1,4 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.RdCenterCal;
-using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 

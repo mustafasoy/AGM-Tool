@@ -33,6 +33,27 @@ namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation
             RuleFor(x => x.RegistrationNo)
                 .NotEmpty().WithMessage("Sicil numarasını giriniz.")
                 .MaximumLength(26);
+
+            RuleFor(x => x.StartDate)
+                .NotEmpty().WithMessage("işe başlangıç tarihi giriniz.");
+
+            RuleFor(x => x.PersonPosition)
+                .NotEmpty().WithMessage("Görevi seçiniz.");
+
+            RuleFor(x => x.WorkType)
+                .NotEmpty().WithMessage("Çalışma şeklini seçiniz.");
+
+            RuleFor(x => x.CountryCode)
+                .NotEmpty().WithMessage("Uyruğunu seçiniz.");
+
+            RuleFor(x => x.EducationStatu)
+                .NotEmpty().WithMessage("Eğitim durumunu seçiniz.");
+
+            RuleFor(x => x.GraduateUniversity)
+                .NotEmpty().WithMessage("Mezun olduğu lise/üniversite giriniz.");
+
+            RuleFor(x => x.UniversityDepartmant)
+                .NotEmpty().WithMessage("Mezun olduğu bölüm giriniz.");
         }
 
         private bool HasValidUserName(string arg)

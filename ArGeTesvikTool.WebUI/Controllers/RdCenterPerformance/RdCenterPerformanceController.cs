@@ -2,12 +2,14 @@
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerformance;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterPerformance;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerformance
 {
+    [Authorize]
     public class RdCenterPerformanceController : BaseController
     {
         private readonly IRdCenterPerformanceProjectService _projectService;

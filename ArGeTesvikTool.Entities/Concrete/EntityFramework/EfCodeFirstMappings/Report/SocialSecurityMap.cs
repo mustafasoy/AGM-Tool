@@ -38,31 +38,31 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.PreMonthTransfer)
                 .HasColumnName("PreMonthTransfer")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.IncentiveWorkingHour)
                 .HasColumnName("IncentiveWorkingHour")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.PreMonthAnnuelLeaveHour)
                 .HasColumnName("PreMonthAnnuelLeaveHour")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.AnnuelLeaveWorkingHour)
                 .HasColumnName("AnnuelLeaveWorkingHour")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.WeekendWorkingHour)
                 .HasColumnName("WeekendWorkingHour")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.PublicHolidayWorkingHour)
                 .HasColumnName("PublicHolidayWorkingHour")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.SsiWorkingHour)
                 .HasColumnName("SsiWorkingHour")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
         }
     }
 }

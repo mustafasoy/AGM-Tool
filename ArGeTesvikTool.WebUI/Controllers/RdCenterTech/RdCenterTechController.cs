@@ -4,6 +4,7 @@ using ArGeTesvikTool.Business.ValidationRules.FluentValidation.RdCenterTech;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterTech;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,6 +15,7 @@ using System.Linq;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 {
+    [Authorize]
     public class RdCenterTechController : BaseController
     {
         private readonly IRdCenterTechCollaborationService _collaborationService;

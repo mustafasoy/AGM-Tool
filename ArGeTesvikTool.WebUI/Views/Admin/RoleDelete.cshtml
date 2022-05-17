@@ -20,6 +20,7 @@
                             <div class="card-body pb-0 mx-25">
                                 <hr />
                                 <form asp-action="CreateRole" id="jquery-val-form">
+                                    @Html.AntiForgeryToken()
                                     <input type="hidden" asp-for="Id" />
                                     <div class="row invoice-info">
                                         <div class="col-lg-6 col-md-12 mt-25">

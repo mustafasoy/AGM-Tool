@@ -49,6 +49,9 @@ $(function () {
                 'User.Name': {
                     required: true
                 },
+                'User.Role': {
+                    required: true
+                },
                 'LastName': {
                     required: true
                 },
@@ -72,6 +75,36 @@ $(function () {
                 'ConfirmPassword': {
                     required: true,
                     equalTo: '#Password',
+                },
+                'CountryCode': {
+                    required: true,
+                },
+                'PersonPosition': {
+                    required: true,
+                },
+                'WorkType': {
+                    required: true,
+                },
+                'EducationStatu': {
+                    required: true,
+                },
+                'GraduateUniversity': {
+                    required: true,
+                },
+                'UniversityDepartmant': {
+                    required: true,
+                },
+                'MasterUniversity': {
+                    required: true,
+                },
+                'MasterDepartmant': {
+                    required: true,
+                },
+                'DoctoralUniversity': {
+                    required: true,
+                },
+                'DoctoralDepartmant': {
+                    required: true,
                 },
                 'RoleName': {
                     required: true

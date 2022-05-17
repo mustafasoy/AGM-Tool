@@ -14,29 +14,19 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
             _persAssing = persAssing;
         }
 
-        public void Add(RdCenterCalPersAssingDto rdCenterCalPersAssing)
+        public void AddList(List<RdCenterCalPersAssingDto> rdCenterCalPersAssingList)
         {
-            _persAssing.Add(rdCenterCalPersAssing);
+            _persAssing.AddList(rdCenterCalPersAssingList);
         }
 
-        public void Update(RdCenterCalPersAssingDto rdCenterCalPersAssing)
+        public void UpdateList(List<RdCenterCalPersAssingDto> rdCenterCalPersAssingList)
         {
-            _persAssing.Update(rdCenterCalPersAssing);
+            _persAssing.UpdateList(rdCenterCalPersAssingList);
         }
 
-        public void Delete(int id)
+        public List<RdCenterCalPersAssingDto> GetByYearProjectCode(int year, string projectCode)
         {
-            _persAssing.Delete(new RdCenterCalPersAssingDto { Id = id });
-        }
-
-        public RdCenterCalPersAssingDto GetById(int id)
-        {
-            return _persAssing.Get(x => x.Id == id);
-        }
-
-        public List<RdCenterCalPersAssingDto> GetAll()
-        {
-            return _persAssing.GetList();
+            return _persAssing.GetList(x=>x.Year == year && x.ProjectCode == projectCode);
         }
     }
 }

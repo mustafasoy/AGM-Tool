@@ -183,7 +183,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     CompanyName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     CountryCode = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: true),
                     CountryText = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Share = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Share = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
                     ShareAmount = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
@@ -227,6 +227,31 @@ namespace ArGeTesvikTool.WebUI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FiscalYears", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IncomeReports",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
+                    Month = table.Column<int>(type: "int", maxLength: 2, nullable: false),
+                    PersonnelFullName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    RegistrationNo = table.Column<string>(type: "nvarchar(26)", maxLength: 26, nullable: true),
+                    WorkType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    RdCenterTimeSpend = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
+                    RemoteTimeSpend = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
+                    ProjectTimeSpend = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
+                    UncentiveTimeSpend = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
+                    NonRdCenterTimeSpend = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
+                    NonRdCenterOtherTimeSpend = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
+                    AnnualLeaveTimeSpend = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
+                    BaseUsedDay = table.Column<decimal>(type: "decimal(4,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IncomeReports", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -303,36 +328,16 @@ namespace ArGeTesvikTool.WebUI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RdCenterCalManagerEntries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Mail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ProjectCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    TimeAwayCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Date = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Time = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    DateTime = table.Column<DateTime>(type: "date", nullable: false),
-                    Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
-                    CreatedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "date", nullable: false),
-                    ModifedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RdCenterCalManagerEntries", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RdCenterCalPersAssings",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Mail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    IdentityNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
+                    RegistrationNo = table.Column<string>(type: "nvarchar(26)", maxLength: 26, nullable: true),
+                    NameSurname = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ProjectCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    ProjectName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
                     CreatedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -364,15 +369,16 @@ namespace ArGeTesvikTool.WebUI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RdCenterCalPersonnelInfos",
+                name: "RdCenterCalPublicHolidays",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
+                    Month = table.Column<int>(type: "int", maxLength: 2, nullable: false),
+                    HolidayName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    IsHalfDay = table.Column<bool>(type: "bit", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
                     CreatedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -381,29 +387,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RdCenterCalPersonnelInfos", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RdCenterCalProjectInfos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProjectCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    ProjectName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ProjectType = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ProjectStartDate = table.Column<DateTime>(type: "date", nullable: false),
-                    ProjectEndDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
-                    CreatedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "date", nullable: false),
-                    ModifedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RdCenterCalProjectInfos", x => x.Id);
+                    table.PrimaryKey("PK_RdCenterCalPublicHolidays", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -474,32 +458,6 @@ namespace ArGeTesvikTool.WebUI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RdCenterFinancialInfos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NetSales = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TotalAsset = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SortTermLoan = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    LongTermLoan = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DomesticSales = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ExportSales = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    GrossSales = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RDExpenditure = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AcquisitionTurnover = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
-                    CreatedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "date", nullable: false),
-                    ModifedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RdCenterFinancialInfos", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RdCenterInfos",
                 columns: table => new
                 {
@@ -538,7 +496,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     CommercialProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsImportProduct = table.Column<bool>(type: "bit", nullable: false),
                     Explanation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Amount = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
                     CreatedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -548,33 +506,6 @@ namespace ArGeTesvikTool.WebUI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RdCenterPerformanceProjects", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RdCenterPersonInfos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdentityNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
-                    NameSurname = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    CountryCode = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: true),
-                    CountryText = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    EducationStatu = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    GraduateUniversity = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    UniversityDepartmant = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    PersonPosition = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    RegistrationNo = table.Column<string>(type: "nvarchar(26)", maxLength: 26, nullable: true),
-                    StartDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
-                    CreatedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "date", nullable: false),
-                    ModifedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RdCenterPersonInfos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -605,7 +536,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     ProjectCode = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ActivityType = table.Column<int>(type: "int", maxLength: 2, nullable: false),
                     Month = table.Column<int>(type: "int", maxLength: 2, nullable: false),
-                    MonthlyTimeAway = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    MonthlyTimeAway = table.Column<decimal>(type: "decimal(4,2)", nullable: false),
                     Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
                     CreatedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -684,7 +615,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     Text = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     AttendedEvent = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Location = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    AttendDate = table.Column<DateTime>(type: "date", nullable: false),
+                    AttendDate = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     PersonNumber = table.Column<int>(type: "int", nullable: false),
                     Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
@@ -868,12 +799,40 @@ namespace ArGeTesvikTool.WebUI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SocialSecurityReports",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
+                    Month = table.Column<int>(type: "int", maxLength: 2, nullable: false),
+                    PersonnelFullName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    RegistrationNo = table.Column<string>(type: "nvarchar(26)", maxLength: 26, nullable: true),
+                    WorkType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    WeekNumber = table.Column<int>(type: "int", nullable: false),
+                    PreMonthTransfer = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    IncentiveWorkingHour = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    PreMonthAnnuelLeaveHour = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    AnnuelLeaveWorkingHour = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    WeekendWorkingHour = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    PublicHolidayWorkingHour = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
+                    SsiWorkingHour = table.Column<decimal>(type: "decimal(6,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SocialSecurityReports", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    IdentityNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
+                    RegistrationNo = table.Column<string>(type: "nvarchar(26)", maxLength: 26, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -922,6 +881,9 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    PersonnelFullName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    RegistrationNo = table.Column<string>(type: "nvarchar(26)", maxLength: 26, nullable: true),
+                    WorkType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     ProjectCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     ProjectName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     TimeAwayCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
@@ -939,6 +901,45 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     table.PrimaryKey("PK_RdCenterCalPersonnelEntries", x => x.Id);
                     table.ForeignKey(
                         name: "FK_RdCenterCalPersonnelEntries_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RdCenterPersonInfos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdentityNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
+                    NameSurname = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    CountryCode = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: true),
+                    CountryText = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    EducationStatu = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    GraduateUniversity = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    UniversityDepartmant = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    MasterUniversity = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    MasterDepartmant = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    DoctoralUniversity = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    DoctoralDepartmant = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    PersonPosition = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    WorkType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    RegistrationNo = table.Column<string>(type: "nvarchar(26)", maxLength: 26, nullable: true),
+                    StartDate = table.Column<DateTime>(type: "date", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
+                    CreatedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "date", nullable: false),
+                    ModifedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RdCenterPersonInfos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RdCenterPersonInfos_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -1078,20 +1079,6 @@ namespace ArGeTesvikTool.WebUI.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RdCenterCalPersonnelInfos_Email",
-                table: "RdCenterCalPersonnelInfos",
-                column: "Email",
-                unique: true,
-                filter: "[Email] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RdCenterCalProjectInfos_ProjectCode",
-                table: "RdCenterCalProjectInfos",
-                column: "ProjectCode",
-                unique: true,
-                filter: "[ProjectCode] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RdCenterCalTimeAways_TimeAwayCode",
                 table: "RdCenterCalTimeAways",
                 column: "TimeAwayCode",
@@ -1105,16 +1092,24 @@ namespace ArGeTesvikTool.WebUI.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_RdCenterFinancialInfos_Year",
-                table: "RdCenterFinancialInfos",
-                column: "Year",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RdCenterInfos_Year",
                 table: "RdCenterInfos",
                 column: "Year",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RdCenterPersonInfos_RegistrationNo",
+                table: "RdCenterPersonInfos",
+                column: "RegistrationNo",
+                unique: true,
+                filter: "[RegistrationNo] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RdCenterPersonInfos_UserId",
+                table: "RdCenterPersonInfos",
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RdCenterPersonRewars_Year",
@@ -1207,6 +1202,9 @@ namespace ArGeTesvikTool.WebUI.Migrations
                 name: "FiscalYears");
 
             migrationBuilder.DropTable(
+                name: "IncomeReports");
+
+            migrationBuilder.DropTable(
                 name: "IndexNewDatas");
 
             migrationBuilder.DropTable(
@@ -1214,9 +1212,6 @@ namespace ArGeTesvikTool.WebUI.Migrations
 
             migrationBuilder.DropTable(
                 name: "RdCenterAreaInfos");
-
-            migrationBuilder.DropTable(
-                name: "RdCenterCalManagerEntries");
 
             migrationBuilder.DropTable(
                 name: "RdCenterCalPersAssings");
@@ -1228,10 +1223,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                 name: "RdCenterCalPersonnelEntries");
 
             migrationBuilder.DropTable(
-                name: "RdCenterCalPersonnelInfos");
-
-            migrationBuilder.DropTable(
-                name: "RdCenterCalProjectInfos");
+                name: "RdCenterCalPublicHolidays");
 
             migrationBuilder.DropTable(
                 name: "RdCenterCalTimeAways");
@@ -1241,9 +1233,6 @@ namespace ArGeTesvikTool.WebUI.Migrations
 
             migrationBuilder.DropTable(
                 name: "RdCenterDiscounts");
-
-            migrationBuilder.DropTable(
-                name: "RdCenterFinancialInfos");
 
             migrationBuilder.DropTable(
                 name: "RdCenterInfos");
@@ -1292,6 +1281,9 @@ namespace ArGeTesvikTool.WebUI.Migrations
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "SocialSecurityReports");
 
             migrationBuilder.DropTable(
                 name: "UserClaims");

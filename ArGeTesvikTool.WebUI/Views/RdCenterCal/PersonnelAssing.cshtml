@@ -13,32 +13,44 @@
                 <!-- select list start -->
                 <div class="users-list-filter px-1">
                     <form>
+                        @Html.AntiForgeryToken()
                         <div class="row border rounded py-2 mb-2">
                             <div class="col-lg-4">
                                 <h6 class="invoice-address">
                                     Proje Listesi
                                 </h6>
                                 <fieldset class="form-group">
-                                    <select asp-items="@Model.AllProject" class="select2 form-control select2-hidden-accessible"></select>
+                                    <select asp-items="@Model.AllProject" id="projectCode" class="select2 form-control select2-hidden-accessible">
+                                        <option selected="selected" value="">
+                                            Seçiniz
+                                        </option>
+                                    </select>
+                                    <div class="form-group">
+                                        <span id="error" class="text-danger"></span>
+                                    </div>
                                 </fieldset>
                             </div>
                         </div>
                     </form>
                 </div>
+                <div class="form-group">
+                    <span id="errorList" class="text-danger"></span>
+                </div>
                 <!-- select list ends -->
                 <div class="action-dropdown-btn d-none">
                     <div class="dropdown invoice-filter-action">
-                        <button class="btn btn-primary mr-1">
+                        <button class="btn btn-primary mr-1" id="save">
                             Kaydet
                         </button>
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table invoice-data-table dt-responsive nowrap" style="width:100%">
+                    <table id="personnelTable" class="table invoice-data-table dt-responsive nowrap" style="width:100%">
                         <thead style="text-transform:capitalize">
                             <tr>
                                 <th></th>
                                 <th></th>
+                                <th hidden="hidden">Id</th>
                                 <th>Kimlik Numarası</th>
                                 <th>Sicil Numarası</th>
                                 <th>Ad Soyad</th>
@@ -49,22 +61,23 @@
                         <tbody>
                             @foreach (var item in Model.AllPersonnel)
                             {
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>@item.IdentityNumber</td>
-                                <td>@item.RegistrationNo</td>
-                                <td>@item.NameSurname</td>
-                                <td>@item.PersonPosition</td>
-                                <td>@item.WorkType</td>
-                            </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td hidden="hidden">@item.Id</td>
+                                    <td>@item.IdentityNumber</td>
+                                    <td>@item.RegistrationNo</td>
+                                    <td>@item.NameSurname</td>
+                                    <td>@item.PersonPosition</td>
+                                    <td>@item.WorkType</td>
+                                </tr>
                             }
                         </tbody>
                     </table>
                 </div>
-                
             </section>
         </div>
     </div>
 </div>
 <!-- END: Content-->
+<script src="~/frest/app-assets/js/personnel-assign.js"></script>

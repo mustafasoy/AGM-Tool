@@ -1,7 +1,9 @@
-﻿using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings;
+﻿using ArGeTesvikTool.Entities.Concrete;
+using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace ArGeTesvikTool.WebUI.Models
 {
@@ -24,6 +26,7 @@ namespace ArGeTesvikTool.WebUI.Models
             modelBuilder.Entity<AppIdentityRole>(entity =>
             {
                 entity.ToTable(name: "Roles");
+
                 entity.Property(x => x.RoleText)
                 .HasColumnName("RoleText")
                 .HasMaxLength(20);
@@ -58,6 +61,9 @@ namespace ArGeTesvikTool.WebUI.Models
                 entity.Property(x => x.RegistrationNo)
                     .HasColumnName("RegistrationNo")
                     .HasMaxLength(26);
+
+                entity.Property(x => x.IsActive)
+                    .HasColumnName("IsActive");
             });
             modelBuilder.Entity<IdentityUserToken<string>>(entity =>
             {

@@ -2,7 +2,7 @@
 {
     public class RdCenterCalPersonnelList
     {
-        public bool IsCheck { get; set; }
+        public int Id { get; set; }
         public string IdentityNumber { get; set; }
         public string RegistrationNo { get; set; }
         public string NameSurname { get; set; }

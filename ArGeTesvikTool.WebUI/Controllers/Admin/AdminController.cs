@@ -4,16 +4,17 @@ using ArGeTesvikTool.Entities.Concrete;
 using ArGeTesvikTool.WebUI.Models;
 using ArGeTesvikTool.WebUI.Models.Admin;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 {
-
-    //[Authorize]
+    [Authorize]
     public class AdminController : BaseController
     {
         public AdminController(UserManager<AppIdentityUser> userManager, SignInManager<AppIdentityUser> signInManager, RoleManager<AppIdentityRole> roleManager = null) : base(userManager, signInManager, roleManager)
@@ -28,13 +29,33 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 
             foreach (var item in userList)
             {
+                var getUserRole = _userManager.GetRolesAsync(item).Result.FirstOrDefault();
                 UserDto userLine = item.Adapt<UserDto>();
+                userLine.Verified = item.EmailConfirmed == true ? "Evet" : "Hayır";
+                userLine.Status = item.IsActive == true ? "Aktif" : "Pasif";
+                userLine.Role = getUserRole;
+
                 newUser.Add(userLine);
+            }
+
+            List<string> roles = _roleManager.Roles
+                .Select(x => x.Name)
+                .ToList();
+
+            List<SelectListItem> roleList = new();
+            foreach (var item in roles)
+            {
+                roleList.Add(new SelectListItem
+                {
+                    Value = item,
+                    Text = item
+                });
             }
 
             UserListViewModel userListViewModel = new()
             {
-                Users = newUser
+                Users = newUser,
+                Roles = roleList
             };
 
             return View(userListViewModel);
@@ -47,33 +68,29 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             IQueryable<AppIdentityRole> identityRole = _roleManager.Roles;
             var getUserRole = _userManager.GetRolesAsync(identityUser).Result.FirstOrDefault();
 
-            TempData["UserRole"] = getUserRole != null
-                ? getUserRole
-                : string.Empty;
-
-            RoleDto userRole = new()
-            {
-                Name = getUserRole,
-            };
-
-            List<RoleDto> listRole = new();
-            listRole.Add(userRole);
+            List<SelectListItem> listRole = new();
             foreach (var item in identityRole)
             {
-                if (item.Name != getUserRole)
+                listRole.Add(new SelectListItem
                 {
-                    RoleDto roleLine = item.Adapt<RoleDto>();
-                    listRole.Add(roleLine);
-                }
+                    Value = item.Name,
+                    Text = item.Name
+                });
             }
 
-            ViewBag.RoleList = listRole;
+            UserDto user = identityUser.Adapt<UserDto>();
+            user.Role = getUserRole;
+            user.Status = identityUser.IsActive == true ? "Aktif" : "Pasif";
 
             UserViewModel userViewModel = new()
             {
-                User = identityUser.Adapt<UserDto>(),
+                User = user,
                 Roles = listRole
             };
+
+            TempData["UserRole"] = getUserRole != null
+                ? getUserRole
+                : string.Empty;
 
             return View(userViewModel);
         }
@@ -86,35 +103,45 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             {
                 AppIdentityUser identityUser = _userManager.FindByIdAsync(userViewModel.User.Id).Result;
 
-                identityUser.Name = userViewModel.User.Name;
-                identityUser.LastName = userViewModel.User.LastName;
-
-                var identityResult = await _userManager.UpdateAsync(identityUser);
-
-                string oldUserRole = TempData["UserRole"].ToString();
-
-                if (oldUserRole != userViewModel.RoleName)
+                if (identityUser != null)
                 {
-                    if (!string.IsNullOrEmpty(oldUserRole))
-                        await _userManager.RemoveFromRoleAsync(identityUser, oldUserRole);
+                    identityUser.Name = userViewModel.User.Name;
+                    identityUser.LastName = userViewModel.User.LastName;
+                    identityUser.IsActive = userViewModel.User.Status == "Aktif";
 
-                    await _userManager.AddToRoleAsync(identityUser, userViewModel.RoleName);
-                }
+                    var identityResult = await _userManager.UpdateAsync(identityUser);
 
-                if (!identityResult.Succeeded)
-                {
-                    AddModelError(identityResult);
+                    string oldUserRole = string.Empty;
+
+                    if (TempData["UserRole"] != null)
+                        oldUserRole = TempData["UserRole"].ToString();
+
+                    if (oldUserRole != userViewModel.User.Role)
+                    {
+                        if (!string.IsNullOrEmpty(oldUserRole))
+                            await _userManager.RemoveFromRoleAsync(identityUser, oldUserRole);
+
+                        await _userManager.AddToRoleAsync(identityUser, userViewModel.User.Role);
+                    }
+
+                    if (!identityResult.Succeeded)
+                    {
+                        AddModelError(identityResult);
+                    }
+                    else
+                    {
+                        await _userManager.UpdateSecurityStampAsync(identityUser);
+                        await _signInManager.SignOutAsync();
+                        await _signInManager.SignInAsync(identityUser, true);
+
+                        AddSuccessMessage("Güncelleme işlemi tamamlandı.");
+                        return RedirectToAction("ListUser");
+                    }
                 }
                 else
-                {
-                    await _userManager.UpdateSecurityStampAsync(identityUser);
-                    await _signInManager.SignOutAsync();
-                    await _signInManager.SignInAsync(identityUser, true);
-
-                    AddSuccessMessage("Güncelleme işlemi tamamlandı.");
-                    return RedirectToAction("ListUser");
-                }
+                    ModelState.AddModelError("", "Kullanıcı bulunamadı.");
             }
+
             return View(userViewModel);
         }
 

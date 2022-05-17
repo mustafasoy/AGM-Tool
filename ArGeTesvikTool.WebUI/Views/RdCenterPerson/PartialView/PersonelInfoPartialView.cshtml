@@ -3,13 +3,6 @@
 <input asp-for="NewPersonnelInfo.Id" hidden="hidden" />
 
 <h6 class="invoice-address">
-    Kimlik Numarası
-</h6>
-<div class="form-group">
-    <input asp-for="NewPersonnelInfo.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control">
-</div>
-
-<h6 class="invoice-address">
     İsim Soyad
 </h6>
 <div class="form-group">
@@ -17,9 +10,56 @@
 </div>
 
 <h6 class="invoice-address">
+    Kimlik Numarası
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control">
+</div>
+
+<h6 class="invoice-address">
+    Sgk Sicil No
+</h6>
+<div class="form-group">
+    <input asp-for="NewPersonnelInfo.RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control" />
+</div>
+
+<h6 class="invoice-address">
+    İşe Başladığı Tarih
+</h6>
+<div class="form-group">
+    <fieldset class="form-group position-relative has-icon-left">
+        <input asp-for="NewPersonnelInfo.StartDate" type="date" id="datePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+        <div class="form-control-position">
+            <i class='bx bx-calendar'></i>
+        </div>
+    </fieldset>
+</div>
+
+<h6 class="invoice-address">
+    Görevi
+</h6>
+<div class="form-group">
+    <select asp-for="NewPersonnelInfo.PersonPosition" asp-items="Html.GetEnumSelectList<PersonPosition>()" class="form-control">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
+</div>
+
+<h6 class="invoice-address">
+    Çalışma Şekli
+</h6>
+<div class="form-group">
+    <select asp-for="NewPersonnelInfo.WorkType" asp-items="Html.GetEnumSelectList<WorkType>()" class="form-control">
+        <option value="">
+            Seçiniz
+        </option>
+    </select>
+</div>
+
+<h6 class="invoice-address">
     Uyruğu
 </h6>
-
 <input asp-for="NewPersonnelInfo.CountryText" type="hidden" class="form-control" />
 <div class="form-group">
     <fieldset class="form-group">
@@ -56,45 +96,36 @@
     <input asp-for="NewPersonnelInfo.UniversityDepartmant" class="form-control" />
 </div>
 
-<h6 class="invoice-address">
-    Görevi
-</h6>
-<div class="form-group">
-    <select asp-for="NewPersonnelInfo.PersonPosition" asp-items="Html.GetEnumSelectList<PersonPosition>()" class="form-control">
-        <option value="">
-            Seçiniz
-        </option>
-    </select>
+<div id="master">
+    <h6 class="invoice-address">
+        Mezun Olduğu Yüksek Lisans Üniversite
+    </h6>
+    <div class="form-group">
+        <input asp-for="NewPersonnelInfo.MasterUniversity" class="form-control" />
+    </div>
+
+    <h6 class="invoice-address">
+        Mezun Olduğu Yüksek Lisans Bölüm
+    </h6>
+    <div class="form-group">
+        <input asp-for="NewPersonnelInfo.MasterDepartmant" class="form-control" />
+    </div>
 </div>
 
-<h6 class="invoice-address">
-    Çalışma Şekli
-</h6>
-<div class="form-group">
-    <select asp-for="NewPersonnelInfo.WorkType" asp-items="Html.GetEnumSelectList<WorkType>()" class="form-control">
-        <option value="">
-            Seçiniz
-        </option>
-    </select>
-</div>
+<div id="doctoral">
+    <h6 class="invoice-address">
+        Mezun Olduğu Doktora Üniversite
+    </h6>
+    <div class="form-group">
+        <input asp-for="NewPersonnelInfo.DoctoralUniversity" class="form-control" />
+    </div>
 
-<h6 class="invoice-address">
-    Sgk Sicil No
-</h6>
-<div class="form-group">
-    <input asp-for="NewPersonnelInfo.RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control" />
-</div>
-
-<h6 class="invoice-address">
-    İşe Başladığı Tarih
-</h6>
-<div class="form-group">
-    <fieldset class="form-group position-relative has-icon-left">
-        <input asp-for="NewPersonnelInfo.StartDate" type="date" id="datePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
-        <div class="form-control-position">
-            <i class='bx bx-calendar'></i>
-        </div>
-    </fieldset>
+    <h6 class="invoice-address">
+        Mezun Olduğu Doktora Bölüm
+    </h6>
+    <div class="form-group">
+        <input asp-for="NewPersonnelInfo.DoctoralDepartmant" class="form-control" />
+    </div>
 </div>
 
 <script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>

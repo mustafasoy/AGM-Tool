@@ -1,8 +1,10 @@
 ﻿using ArGeTesvikTool.Business.Abstract;
+using ArGeTesvikTool.Business.Abstract.RdCenterPerson;
 using ArGeTesvikTool.Business.Utilities;
 using ArGeTesvikTool.Business.ValidationRules.FluentValidation;
 using ArGeTesvikTool.Entities.Concrete;
 using ArGeTesvikTool.Entities.Concrete.Mail;
+using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
 using ArGeTesvikTool.WebUI.Models;
 using ArGeTesvikTool.WebUI.Models.Authentication;
 using Mapster;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -21,12 +24,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         private readonly IConfiguration _configuration;
         private readonly IMailService _mailService;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IRdCenterPersonInfoService _infoService;
 
-        public AuthenticationController(IConfiguration configuration, IMailService mailService, IWebHostEnvironment hostingEnvironment, UserManager<AppIdentityUser> userManager, SignInManager<AppIdentityUser> signInManager, RoleManager<AppIdentityRole> roleManager = null) : base(userManager, signInManager, roleManager)
+        public AuthenticationController(IConfiguration configuration, IMailService mailService, IWebHostEnvironment hostingEnvironment, IRdCenterPersonInfoService infoService, UserManager<AppIdentityUser> userManager, SignInManager<AppIdentityUser> signInManager, RoleManager<AppIdentityRole> roleManager = null) : base(userManager, signInManager, roleManager)
         {
             _configuration = configuration;
             _mailService = mailService;
             _hostingEnvironment = hostingEnvironment;
+            _infoService = infoService;
         }
 
         public IActionResult Login()
@@ -52,6 +57,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
                     if (!await _userManager.IsEmailConfirmedAsync(user))
                     {
                         ModelState.AddModelError("", "Giriş yapmak için mail adresiniz onaylanmalıdır.");
+                        return View(loginViewModel);
+                    }
+                    if (user.IsActive == false)
+                    {
+                        ModelState.AddModelError("", "Kullanıcınız aktif değildir. Sistem yöneticisi ile görüşünüz.");
                         return View(loginViewModel);
                     }
                     //if user is exist. clear user cookie info
@@ -89,6 +99,10 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDto registerViewModel)
         {
+            ViewBag.Country = registerViewModel.CountryCode != null
+                ? registerViewModel.CountryCode
+                : string.Empty;
+
             var validate = ValidatorTool.Validate(new RegisterValidator(), registerViewModel);
 
             bool checkIdentity = VerifyIdentityNumber(registerViewModel.IdentityNumber);
@@ -102,9 +116,18 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             {
                 AppIdentityUser identityUser = registerViewModel.Adapt<AppIdentityUser>();
 
+                identityUser.IsActive = true;
                 var result = await _userManager.CreateAsync(identityUser, registerViewModel.Password);
                 if (result.Succeeded)
                 {
+                    /*add personnel info to user and rdcenterpersoninfos table*/
+                    RdCenterPersonInfoDto personInfo = registerViewModel.Adapt<RdCenterPersonInfoDto>();
+                    personInfo.UserId = identityUser.Id;
+                    personInfo.Year = DateTime.Now.Year;
+                    personInfo.NameSurname = registerViewModel.Name + " " + registerViewModel.LastName;
+                    personInfo.CreatedDate = DateTime.Now;
+                    personInfo.CreatedUserName = registerViewModel.UserName;
+                    _infoService.Add(personInfo);
 
                     var userConfirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(identityUser);
 
@@ -115,13 +138,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
                     },
                     HttpContext.Request.Scheme);
 
-
                     /*send an email with this link*/
                     MailMessage message = ConfirmAccountMail(registerViewModel, userConfirmLink);
                     await _mailService.SendMailAsync(message);
 
                     return RedirectToAction("ConfirmEmail");
-                    //return RedirectToAction("Login");
                 }
 
                 foreach (var error in result.Errors)

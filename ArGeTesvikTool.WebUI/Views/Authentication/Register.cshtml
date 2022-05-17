@@ -31,58 +31,29 @@
                                     </div>
                                     <div class="card-body">
                                         <form asp-action="Register" method="post" id="jquery-val-form">
+                                            @Html.AntiForgeryToken()
                                             <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6 mb-50">
-                                                    <label asp-for="Name" class="text-bold-600">
-                                                        İsim
-                                                    </label>
-                                                    <input asp-for="Name" class="form-control" placeholder="İsim" />
-                                                    <span asp-validation-for="Name" class="error"></span>
-                                                </div>
-                                                <div class="form-group col-md-6 mb-50">
-                                                    <label asp-for="LastName" class="text-bold-600">
-                                                        Soy isim
-                                                    </label>
-                                                    <input asp-for="LastName" class="form-control" placeholder="Soy isim" />
-                                                    <span asp-validation-for="LastName" class="error"></span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group mb-50">
-                                                <label asp-for="IdentityNumber" class="text-bold-600">
-                                                    TC kimlik numarası
-                                                </label>
-                                                <input asp-for="IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control" placeholder="TC kimlik numarası" />
-                                                <span asp-validation-for="IdentityNumber" class="error"></span>
-                                            </div>
-                                            <div class="form-group mb-50">
-                                                <label asp-for="RegistrationNo" class="text-bold-600">
-                                                    Sicil numarası
-                                                </label>
-                                                <input asp-for="RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control" placeholder="Sicil numarası" />
-                                                <span asp-validation-for="RegistrationNo" class="error"></span>
-                                            </div>
                                             <div class="form-group mb-50">
                                                 <label asp-for="UserName" class="text-bold-600">
-                                                    Kullanıcı adı
+                                                    KULLANICI ADI
                                                 </label>
                                                 <input asp-for="UserName" class="form-control" placeholder="Kullanıcı adı" />
                                                 <span asp-validation-for="UserName" class="error"></span>
                                             </div>
                                             <div class="form-group mb-50">
                                                 <label asp-for="Email" class="text-bold-600">
-                                                    Mail adresi
+                                                    MAİL ADRESİ
                                                 </label>
                                                 <input asp-for="Email" class="form-control" type="email" placeholder="mail@mail.com" />
                                                 <span asp-validation-for="Email" class="error"></span>
                                             </div>
                                             <div class="form-group mb-2" id="show_hide_password">
                                                 <label asp-for="Password" class="text-bold-600">
-                                                    Şifre
+                                                    ŞİFRE
                                                 </label>
                                                 <fieldset class="form-group position-relative">
                                                     <input asp-for="Password" class="form-control" type="password" placeholder="············">
@@ -94,11 +65,165 @@
                                                     </div>
                                                 </fieldset>
                                             </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label asp-for="Name" class="text-bold-600">
+                                                        İSİM
+                                                    </label>
+                                                    <input asp-for="Name" class="form-control" placeholder="İsim" />
+                                                    <span asp-validation-for="Name" class="error"></span>
+                                                </div>
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label asp-for="LastName" class="text-bold-600">
+                                                        SOY İSİM
+                                                    </label>
+                                                    <input asp-for="LastName" class="form-control" placeholder="Soy isim" />
+                                                    <span asp-validation-for="LastName" class="error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label asp-for="IdentityNumber" class="text-bold-600">
+                                                        TC KİMLİK NUMARASI
+                                                    </label>
+                                                    <input asp-for="IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control" placeholder="TC kimlik numarası" />
+                                                    <span asp-validation-for="IdentityNumber" class="error"></span>
+                                                </div>
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label asp-for="RegistrationNo" class="text-bold-600">
+                                                        SİCİL NUMARASI
+                                                    </label>
+                                                    <input asp-for="RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control" placeholder="Sicil numarası" />
+                                                    <span asp-validation-for="RegistrationNo" class="error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-50">
+                                                <label asp-for="StartDate" class="text-bold-600">
+                                                    İŞE BAŞLANGIÇ TARİHİ
+                                                </label>
+                                                <fieldset class="form-group position-relative has-icon-left">
+                                                    <input asp-for="StartDate" asp-format="{0:dd.MM.yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+                                                    <div class="form-control-position">
+                                                        <i class='bx bx-calendar'></i>
+                                                    </div>
+                                                </fieldset>
+                                                <span asp-validation-for="StartDate" class="error"></span>
+                                            </div>
+                                            <div class="form-group mb-50">
+                                                <label asp-for="PersonPosition" class="text-bold-600">
+                                                    GÖREVİ
+                                                </label>
+                                                <div class="form-group">
+                                                    <fieldset class="form-group">
+                                                        <select asp-for="PersonPosition" asp-items="Html.GetEnumSelectList<PersonPosition>()" class="select2 form-control select2-hidden-accessible">
+                                                            <option selected="selected" value="">
+                                                                Seçiniz
+                                                            </option>
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                                <span asp-validation-for="PersonPosition" class="error"></span>
+                                            </div>
+                                            <div class="form-group mb-50">
+                                                <label asp-for="WorkType" class="text-bold-600">
+                                                    ÇALIŞMA ŞEKLİ
+                                                </label>
+                                                <div class="form-group">
+                                                    <fieldset class="form-group">
+                                                        <select asp-for="WorkType" asp-items="Html.GetEnumSelectList<WorkType>()" class="select2 form-control select2-hidden-accessible">
+                                                            <option selected="selected" value="">
+                                                                Seçiniz
+                                                            </option>
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                                <span asp-validation-for="WorkType" class="error"></span>
+                                            </div>
+                                            <div class="form-group mb-50">
+                                                <input asp-for="CountryText" type="hidden" class="form-control" />
+                                                <label asp-for="CountryCode" class="text-bold-600">
+                                                    UYRUĞU
+                                                </label>
+                                                <div class="form-group">
+                                                    <fieldset class="form-group">
+                                                        <select asp-for="CountryCode" id="country" class="select2 form-control select2-hidden-accessible">
+                                                            <option selected="selected" value="">
+                                                                Seçiniz
+                                                            </option>
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                                <span asp-validation-for="CountryCode" class="error"></span>
+                                            </div>
+                                            <div class="form-group mb-50">
+                                                <label asp-for="EducationStatu" class="text-bold-600">
+                                                    EĞİTİM DURUMU
+                                                </label>
+                                                <div class="form-group">
+                                                    <fieldset class="form-group">
+                                                        <select asp-for="EducationStatu" asp-items="Html.GetEnumSelectList<EducationStatu>()" id="educationStatu" class="select2 form-control select2-hidden-accessible">
+                                                            <option selected="selected" value="">
+                                                                Seçiniz
+                                                            </option>
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                                <span asp-validation-for="EducationStatu" class="error"></span>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label asp-for="GraduateUniversity" class="text-bold-600">
+                                                        MEZUN OLDUĞU LİSE/ÜNİVERSİTE
+                                                    </label>
+                                                    <input asp-for="GraduateUniversity" class="form-control" placeholder="Lise/Üniversite" />
+                                                    <span asp-validation-for="GraduateUniversity" class="error"></span>
+                                                </div>
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label asp-for="UniversityDepartmant" class="text-bold-600">
+                                                        MEZUN OLDUĞU BÖLÜM
+                                                    </label>
+                                                    <input asp-for="UniversityDepartmant" class="form-control" placeholder="Bölüm" />
+                                                    <span asp-validation-for="UniversityDepartmant" class="error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-row" id="master">
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label asp-for="MasterUniversity" class="text-bold-600">
+                                                        MEZUN OLDUĞU YÜKSEK LİSANS ÜNİ.
+                                                    </label>
+                                                    <input asp-for="MasterUniversity" class="form-control" placeholder="Yüksek Lisans Üniversite" />
+                                                    <span asp-validation-for="MasterUniversity" class="error"></span>
+                                                </div>
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label asp-for="MasterDepartmant" class="text-bold-600">
+                                                        MEZUN OLDUĞU YÜKSEK LİSANS BÖLÜM
+                                                    </label>
+                                                    <input asp-for="MasterDepartmant" class="form-control" placeholder="Yüksek Lisans Bölüm" />
+                                                    <span asp-validation-for="MasterDepartmant" class="error"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-row" id="doctoral">
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label asp-for="DoctoralUniversity" class="text-bold-600">
+                                                        MEZUN OLDUĞU DOKTORA ÜNİVERSİTE
+                                                    </label>
+                                                    <input asp-for="DoctoralUniversity" class="form-control" placeholder="Doktora Üniversite" />
+                                                    <span asp-validation-for="DoctoralUniversity" class="error"></span>
+                                                </div>
+                                                <div class="form-group col-md-6 mb-50">
+                                                    <label asp-for="DoctoralDepartmant" class="text-bold-600">
+                                                        MEZUN OLDUĞU DOKTORA BÖLÜM
+                                                    </label>
+                                                    <input asp-for="DoctoralDepartmant" class="form-control" placeholder="Doktora Bölüm" />
+                                                    <span asp-validation-for="DoctoralDepartmant" class="error"></span>
+                                                </div>
+                                            </div>
+
+                                            <br />
                                             <button type="submit" class="btn btn-primary glow position-relative w-100">
                                                 KAYIT OL
                                                 <i id="icon-arrow" class="bx bx-right-arrow-alt"></i>
                                             </button>
-
                                             <hr>
                                             <div class="text-center">
                                                 <small class="mr-25">
@@ -127,3 +252,17 @@
     </div>
 </div>
 <!-- END: Content-->
+<script src="~/frest/app-assets/vendors/js/jquery/jquery.min.js"></script>
+<script src="~/frest/app-assets/js/show-hide.js"></script>
+<script src="~/frest/app-assets/js/list-country.js"></script>
+<script src="~/frest/app-assets/js/education-statu.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#country').val('@ViewBag.Country');
+        $('#country').change();
+
+        $('#country').change(function () {
+            $('input[name="CountryText"]').val($("#country option:selected").text());
+        });
+    });
+</script>

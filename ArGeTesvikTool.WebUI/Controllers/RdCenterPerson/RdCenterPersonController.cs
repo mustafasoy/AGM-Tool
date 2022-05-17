@@ -4,6 +4,7 @@ using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterPerson;
 using ExcelDataReader;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using System.Text;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
 {
+    [Authorize]
     public class RdCenterPersonController : BaseController
     {
         private readonly IWebHostEnvironment _hostEnvironment;
@@ -33,6 +35,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         #region Person Info CRUD
         public IActionResult PersonInfo()
         {
+
             List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAllByYear(GetSelectedYear());
 
             RdCenterPersonViewModel personInfoViewModel = new()
@@ -81,42 +84,28 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         [HttpPost]
         public IActionResult PersonInfo(RdCenterPersonViewModel personViewModel)
         {
-            var personInfo = _infoService.GetById(personViewModel.NewPersonnelInfo.Id);
-            if (personInfo == null)
+            bool isCheck = CheckPersonnelExists(personViewModel.NewPersonnelInfo.IdentityNumber);
+            if (isCheck)
             {
-                bool isCheck = CheckPersonnelExists(personViewModel.NewPersonnelInfo.IdentityNumber);
-                if (isCheck)
+                List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAllByYear(GetSelectedYear());
+                RdCenterPersonViewModel personInfoViewModel = new()
                 {
-                    List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAllByYear(GetSelectedYear());
-                    RdCenterPersonViewModel personInfoViewModel = new()
-                    {
-                        PersonInfoList = personInfoList
-                    };
+                    PersonInfoList = personInfoList
+                };
 
-                    return View(personInfoViewModel);
-                }
-
-                personViewModel.NewPersonnelInfo.Year = GetSelectedYear();
-                personViewModel.NewPersonnelInfo.CreatedDate = DateTime.Now;
-                personViewModel.NewPersonnelInfo.CreatedUserName = User.Identity.Name;
-
-                _infoService.Add(personViewModel.NewPersonnelInfo);
-
-                AddSuccessMessage("Yeni personel kaydı eklendi.");
+                return View(personInfoViewModel);
             }
-            else
-            {
-                personViewModel.NewPersonnelInfo.Id = personInfo.Id;
-                personViewModel.NewPersonnelInfo.Year = personInfo.Year;
-                personViewModel.NewPersonnelInfo.CreatedDate = personInfo.CreatedDate;
-                personViewModel.NewPersonnelInfo.CreatedUserName = personInfo.CreatedUserName;
-                personViewModel.NewPersonnelInfo.ModifiedDate = DateTime.Now;
-                personViewModel.NewPersonnelInfo.ModifedUserName = User.Identity.Name;
 
-                _infoService.Update(personViewModel.NewPersonnelInfo);
+            personViewModel.NewPersonnelInfo.Id = personViewModel.NewPersonnelInfo.Id;
+            personViewModel.NewPersonnelInfo.Year = personViewModel.NewPersonnelInfo.Year;
+            personViewModel.NewPersonnelInfo.CreatedDate = personViewModel.NewPersonnelInfo.CreatedDate;
+            personViewModel.NewPersonnelInfo.CreatedUserName = personViewModel.NewPersonnelInfo.CreatedUserName;
+            personViewModel.NewPersonnelInfo.ModifiedDate = DateTime.Now;
+            personViewModel.NewPersonnelInfo.ModifedUserName = User.Identity.Name;
 
-                AddSuccessMessage("Personel kaydı güncellendi.");
-            }
+            _infoService.Update(personViewModel.NewPersonnelInfo);
+
+            AddSuccessMessage("Personel kaydı güncellendi.");
 
             return RedirectToAction("PersonInfo");
         }

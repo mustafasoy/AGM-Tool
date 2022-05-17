@@ -5,10 +5,8 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenterCal
 {
     public interface IRdCenterCalPersAssingService
     {
-        void Add(RdCenterCalPersAssingDto rdCenterCalPersAssing);
-        void Update(RdCenterCalPersAssingDto rdCenterCalPersAssing);
-        void Delete(int id);
-        RdCenterCalPersAssingDto GetById(int id);
-        List<RdCenterCalPersAssingDto> GetAll();
+        void AddList(List<RdCenterCalPersAssingDto> rdCenterCalPersAssingList);
+        void UpdateList(List<RdCenterCalPersAssingDto> rdCenterCalPersAssingList);
+        List<RdCenterCalPersAssingDto> GetByYearProjectCode(int year, string projectCode);
     }
 }

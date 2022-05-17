@@ -1,4 +1,5 @@
 ﻿using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
+using ArGeTesvikTool.WebUI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -11,11 +12,19 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
         {
             entity.ToTable("RdCenterPersonInfos");
 
+            entity.HasOne(s => s.User)
+                .WithOne(g => g.PersonnelInfo)
+                .HasForeignKey<RdCenterPersonInfoDto>(s => s.UserId);
+
             entity.HasIndex(x => x.RegistrationNo)
                 .IsUnique();
 
             entity.Property(x => x.Id)
                 .HasColumnName("Id");
+
+            entity.Property(x => x.UserId)
+                .HasColumnName("UserId")
+                .HasMaxLength(450);
 
             entity.Property(x => x.Year)
                 .HasColumnName("Year")
@@ -48,6 +57,22 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.UniversityDepartmant)
                 .HasColumnName("UniversityDepartmant")
+                .HasMaxLength(256);
+
+            entity.Property(x => x.MasterUniversity)
+                .HasColumnName("MasterUniversity")
+                .HasMaxLength(256);
+
+            entity.Property(x => x.MasterDepartmant)
+                .HasColumnName("MasterDepartmant")
+                .HasMaxLength(256);
+
+            entity.Property(x => x.DoctoralUniversity)
+                .HasColumnName("DoctoralUniversity")
+                .HasMaxLength(256);
+
+            entity.Property(x => x.DoctoralDepartmant)
+                .HasColumnName("DoctoralDepartmant")
                 .HasMaxLength(256);
 
             entity.Property(x => x.PersonPosition)

@@ -5,6 +5,7 @@ using ArGeTesvikTool.Business.ValidationRules.FluentValidation.RdCenter;
 using ArGeTesvikTool.Entities.Concrete.RdCenter;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,6 +14,7 @@ using System.IO;
 
 namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
 {
+    [Authorize]
     public class RdCenterController : BaseController
     {
         private readonly IRdCenterContactService _contactService;

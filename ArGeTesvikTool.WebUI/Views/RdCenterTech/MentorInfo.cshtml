@@ -88,6 +88,7 @@
                                 </button>
                             </div>
                             <form asp-action="MentorInfo" method="post" id="jquery-val-form">
+                                @Html.AntiForgeryToken()
                                 <div class="modal-body" id="modalBody">
                                 </div>
                                 <div class="modal-footer">

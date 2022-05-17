@@ -1573,6 +1573,16 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("CreatedUserName");
 
+                    b.Property<string>("DoctoralDepartmant")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("DoctoralDepartmant");
+
+                    b.Property<string>("DoctoralUniversity")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("DoctoralUniversity");
+
                     b.Property<string>("EducationStatu")
                         .IsRequired()
                         .HasMaxLength(25)
@@ -1588,6 +1598,16 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)")
                         .HasColumnName("IdentityNumber");
+
+                    b.Property<string>("MasterDepartmant")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("MasterDepartmant");
+
+                    b.Property<string>("MasterUniversity")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("MasterUniversity");
 
                     b.Property<string>("ModifedUserName")
                         .HasMaxLength(256)
@@ -1623,6 +1643,11 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("UniversityDepartmant");
 
+                    b.Property<string>("UserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("UserId");
+
                     b.Property<string>("WorkType")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -1639,6 +1664,10 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     b.HasIndex("RegistrationNo")
                         .IsUnique()
                         .HasFilter("[RegistrationNo] IS NOT NULL");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("RdCenterPersonInfos");
                 });
@@ -2388,11 +2417,11 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("AnnuelLeaveWorkingHour")
-                        .HasColumnType("decimal(4,2)")
+                        .HasColumnType("decimal(6,2)")
                         .HasColumnName("AnnuelLeaveWorkingHour");
 
                     b.Property<decimal>("IncentiveWorkingHour")
-                        .HasColumnType("decimal(4,2)")
+                        .HasColumnType("decimal(6,2)")
                         .HasColumnName("IncentiveWorkingHour");
 
                     b.Property<int>("Month")
@@ -2406,15 +2435,15 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("PersonnelFullName");
 
                     b.Property<decimal>("PreMonthAnnuelLeaveHour")
-                        .HasColumnType("decimal(4,2)")
+                        .HasColumnType("decimal(6,2)")
                         .HasColumnName("PreMonthAnnuelLeaveHour");
 
                     b.Property<decimal>("PreMonthTransfer")
-                        .HasColumnType("decimal(4,2)")
+                        .HasColumnType("decimal(6,2)")
                         .HasColumnName("PreMonthTransfer");
 
                     b.Property<decimal>("PublicHolidayWorkingHour")
-                        .HasColumnType("decimal(4,2)")
+                        .HasColumnType("decimal(6,2)")
                         .HasColumnName("PublicHolidayWorkingHour");
 
                     b.Property<string>("RegistrationNo")
@@ -2423,7 +2452,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("RegistrationNo");
 
                     b.Property<decimal>("SsiWorkingHour")
-                        .HasColumnType("decimal(4,2)")
+                        .HasColumnType("decimal(6,2)")
                         .HasColumnName("SsiWorkingHour");
 
                     b.Property<int>("WeekNumber")
@@ -2431,7 +2460,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("WeekNumber");
 
                     b.Property<decimal>("WeekendWorkingHour")
-                        .HasColumnType("decimal(4,2)")
+                        .HasColumnType("decimal(6,2)")
                         .HasColumnName("WeekendWorkingHour");
 
                     b.Property<string>("WorkType")
@@ -2467,6 +2496,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("RoleText")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
                         .HasColumnName("RoleText");
@@ -2504,6 +2534,10 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)")
                         .HasColumnName("IdentityNumber");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasColumnName("IsActive");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(256)
@@ -2679,6 +2713,15 @@ namespace ArGeTesvikTool.WebUI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ArGeTesvikTool.Entities.Concrete.RdCenterPerson.RdCenterPersonInfoDto", b =>
+                {
+                    b.HasOne("ArGeTesvikTool.WebUI.Models.AppIdentityUser", "User")
+                        .WithOne("PersonnelInfo")
+                        .HasForeignKey("ArGeTesvikTool.Entities.Concrete.RdCenterPerson.RdCenterPersonInfoDto", "UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("ArGeTesvikTool.WebUI.Models.AppIdentityRole", null)
@@ -2733,6 +2776,8 @@ namespace ArGeTesvikTool.WebUI.Migrations
             modelBuilder.Entity("ArGeTesvikTool.WebUI.Models.AppIdentityUser", b =>
                 {
                     b.Navigation("PersonnelEntries");
+
+                    b.Navigation("PersonnelInfo");
                 });
 #pragma warning restore 612, 618
         }

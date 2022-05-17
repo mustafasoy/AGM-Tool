@@ -17,36 +17,12 @@
                         <div class="row border rounded py-2 mb-2">
                             <div class="col-12 col-sm-6 col-lg-3">
                                 <h6 class="invoice-address">
-                                    Doğrulandı
-                                </h6>
-                                <fieldset class="form-group">
-                                    <select class="form-control" id="users-list-verified">
-                                        <option value="">
-                                            Hepsi
-                                        </option>
-                                        <option value="Evet">
-                                            Evet
-                                        </option>
-                                        <option value="Hayır">
-                                            Hayır
-                                        </option>
-                                    </select>
-                                </fieldset>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <h6 class="invoice-address">
                                     Rol
                                 </h6>
                                 <fieldset class="form-group">
-                                    <select class="form-control" id="users-list-role">
+                                    <select asp-items="@Model.Roles" id="users-list-role" class="form-control">
                                         <option value="">
-                                            Hepsi
-                                        </option>
-                                        <option value="Yönetici">
-                                            Yönetici
-                                        </option>
-                                        <option value="Personel">
-                                            Personel
+                                            Seçiniz
                                         </option>
                                     </select>
                                 </fieldset>
@@ -65,6 +41,24 @@
                                         </option>
                                         <option value="Pasif">
                                             Pasif
+                                        </option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <h6 class="invoice-address">
+                                    Doğrulandı
+                                </h6>
+                                <fieldset class="form-group">
+                                    <select class="form-control" id="users-list-verified">
+                                        <option value="">
+                                            Hepsi
+                                        </option>
+                                        <option value="Evet">
+                                            Evet
+                                        </option>
+                                        <option value="Hayır">
+                                            Hayır
                                         </option>
                                     </select>
                                 </fieldset>
@@ -116,15 +110,44 @@
                                                     @item.Name @item.LastName
                                                 </td>
                                                 <td>
-                                                    Evet
+                                                    @if (item.Verified == "Evet")
+                                                    {
+                                                        <span class="badge badge-light-success">
+                                                            Evet
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-light-danger">
+                                                            Hayır
+                                                        </span>
+                                                    }
                                                 </td>
                                                 <td>
-                                                    Personel
+                                                    @if (!string.IsNullOrEmpty(item.Role))
+                                                    {
+                                                        @item.Role
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>
+                                                            Atanan rol bulunamadı.
+                                                        </span>
+                                                    }
                                                 </td>
                                                 <td>
-                                                    <span class="badge badge-light-success">
-                                                        Active
-                                                    </span>
+                                                    @if (item.Status == "Aktif")
+                                                    {
+                                                        <span class="badge badge-light-success">
+                                                            Aktif
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge badge-light-danger">
+                                                            Pasif
+                                                        </span>
+                                                    }
                                                 </td>
                                                 <td>
                                                     <a asp-action="EditUser" asp-route-id="@item.Id" method="post">

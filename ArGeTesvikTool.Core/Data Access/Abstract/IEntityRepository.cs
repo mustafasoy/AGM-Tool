@@ -13,6 +13,7 @@ namespace ArGeTesvikTool.Core.Data_Access
         void AddList(List<T> entity);
         void Add(T entity);
         void Update(T entity);
+        void UpdateList(List<T> entity);
         void Delete(T entity);
     }
 }

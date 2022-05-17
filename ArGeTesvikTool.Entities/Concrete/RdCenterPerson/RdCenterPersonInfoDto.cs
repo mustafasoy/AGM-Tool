@@ -1,4 +1,5 @@
 ﻿using ArGeTesvikTool.Core.Entities;
+using ArGeTesvikTool.WebUI.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,30 +14,44 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterPerson
         public EducationStatu EducationStatu { get; set; }
         public string GraduateUniversity { get; set; }
         public string UniversityDepartmant { get; set; }
+        public string MasterUniversity { get; set; }
+        public string MasterDepartmant { get; set; }
+        public string DoctoralUniversity { get; set; }
+        public string DoctoralDepartmant { get; set; }
         public PersonPosition PersonPosition { get; set; }
         public WorkType WorkType { get; set; }
         public string RegistrationNo { get; set; }
         public DateTime StartDate { get; set; }
+
+
+        public string UserId { get; set; }
+        public AppIdentityUser User { get; set; }
     }
 
     public enum EducationStatu
     {
+        [Display(Name = "Mesles Lisesi(Öğrenci)")]
+        MeslekLiseOgrenci = 1,
+        [Display(Name = "Mesles Lisesi")]
+        MeslekLise = 2,
         [Display(Name = "Ön Lisans(Öğrenci)")]
-        OnLisansOgrenci = 1,
+        OnLisansOgrenci = 3,
         [Display(Name = "Ön Lisans")]
-        OnLisans = 2,
+        OnLisans = 4,
         [Display(Name = "Lisans(Öğrenci)")]
-        LisansOgrenci = 3,
+        LisansOgrenci = 5,
         [Display(Name = "Lisans")]
-        Lisans = 4,
+        Lisans = 6,
         [Display(Name = "Yüksek Lisans(Öğrenci)")]
-        YuksekLisansOgrenci = 5,
+        YuksekLisansOgrenci = 7,
         [Display(Name = "Yüksek Lisans")]
-        YuksekLisans = 6,
+        YuksekLisans = 8,
         [Display(Name = "Doktora(Öğrenci)")]
-        DoktoraOgrenci = 7,
+        DoktoraOgrenci = 9,
         [Display(Name = "Doktora")]
-        Doktora = 8,
+        Doktora = 10,
+        [Display(Name = "Diğer")]
+        Diger = 11,
     }
 
     public enum PersonPosition

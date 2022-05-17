@@ -94,6 +94,8 @@
                                 <i class="bx bx-user mr-50"></i>
                                 Profili Düzenle
                             </a>
+                            @*@if (User.IsInRole("Yönetici"))
+                                {*@
                             <div class="dropdown-divider mb-0"></div>
                             <a class="dropdown-item" asp-controller="Admin" asp-action="ListUser">
                                 <i class="bx bx-list-ol mr-50"></i>
@@ -104,6 +106,7 @@
                                 <i class="bx bx-add-to-queue mr-50"></i>
                                 Yeni Rol Oluştur
                             </a>
+                            @*  }*@
                             <div class="dropdown-divider mb-0"></div>
                             <a asp-controller="Authentication" asp-action="Logout" asp-route-returnUrl="/Authentication/Login" class="dropdown-item">
                                 <i class="bx bx-power-off mr-50"></i>
