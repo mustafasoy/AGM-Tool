@@ -26,27 +26,53 @@
                     <div class="form-group">
                         <span id="error" class="text-danger"></span>
                     </div>
-                    <h6 class="invoice-address">
-                        Proje Kodu
-                    </h6>
-                    <div class="form-group">
-                        <input id="projectName" hidden="hidden" />
-                        <select asp-items="@Model.ProjectList" id="projectCode" class="form-control">
-                            <option value="">
-                                Seçiniz
-                            </option>
-                        </select>
+                    <div id="projectRadio">
+                        <div class="radio radio-primary radio-glow d-inline-block mr-2 mb-1">
+                            <span id="projectMin" hidden="hidden"></span>
+                            <input type="radio" id="projectTime" name="radioTime" checked="checked">
+                            <label for="projectTime">
+                                İçeride geçirilen zaman süresi:
+                                &nbsp;&nbsp;
+                                <span id="projectText"></span>
+                            </label>
+                        </div>
                     </div>
-                    <h6 class="invoice-address">
-                        Dışarıda Geçirilen Süre Kodu
-                    </h6>
-                    <div class="form-group">
-                        <input id="timeAwayName" hidden="hidden" />
-                        <select asp-items="@Model.TimeAwayList" id="timeAwayCode" class="form-control">
-                            <option value="">
-                                Seçiniz
-                            </option>
-                        </select>
+                    <div id="timeAwayRadio">
+                        <div class="radio radio-success radio-glow d-inline-block mr-2 mb-1">
+                            <span id="timeAwayMin" hidden="hidden"></span>
+                            <input type="radio" id="outsideTime" name="radioTime">
+                            <label for="outsideTime">
+                                Dışarıda geçirilen zaman süresi:
+                                &nbsp;&nbsp;
+                                <span id="timeAwayText"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="project">
+                        <h6 class="invoice-address">
+                            Proje Kodu
+                        </h6>
+                        <div class="form-group">
+                            <input id="projectName" hidden="hidden" />
+                            <select asp-items="@Model.ProjectList" id="projectCode" class="form-control">
+                                <option value="">
+                                    Seçiniz
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="outside">
+                        <h6 class="invoice-address">
+                            Dışarıda Geçirilen Süre Kodu
+                        </h6>
+                        <div class="form-group">
+                            <input id="timeAwayName" hidden="hidden" />
+                            <select asp-items="@Model.TimeAwayList" id="timeAwayCode" class="form-control">
+                                <option value="">
+                                    Seçiniz
+                                </option>
+                            </select>
+                        </div>
                     </div>
                     <h6 class="invoice-address">
                         Başlangıç Tarih/Saat
@@ -164,51 +190,51 @@
     <div class="content-overlay"></div>
     <div class="content-wrapper">
         @*<div class="content-header row">
-            <div class="col-xl-3 col-md-4 col-12 activity-card"></div>
-            <div class="col-xl-3 col-md-4 col-12 activity-card">
-                <div class="card" style="margin-bottom:1rem">
-                    <div class="card-body pt-1">
-                        <div class="d-flex activity-content">
-                            <div class="avatar bg-rgba-primary m-0 mr-75">
-                                <div class="avatar-content">
-                                    <i class="bx bx-calendar-plus text-primary"></i>
+                <div class="col-xl-3 col-md-4 col-12 activity-card"></div>
+                <div class="col-xl-3 col-md-4 col-12 activity-card">
+                    <div class="card" style="margin-bottom:1rem">
+                        <div class="card-body pt-1">
+                            <div class="d-flex activity-content">
+                                <div class="avatar bg-rgba-primary m-0 mr-75">
+                                    <div class="avatar-content">
+                                        <i class="bx bx-calendar-plus text-primary"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-progress flex-grow-1">
-                                <small class="text-muted d-inline-block mb-50">İçeride Geçirilen Zaman</small>
-                                <input asp-for="ProjectTime" hidden="hidden" />
-                                <small class="float-right" id="projectTime">8</small>
+                                <div class="activity-progress flex-grow-1">
+                                    <small class="text-muted d-inline-block mb-50">İçeride Geçirilen Zaman</small>
+                                    <input asp-for="ProjectTime" hidden="hidden" />
+                                    <small class="float-right" id="projectTime">8</small>
 
-                                <div class="progress progress-bar-primary progress-sm">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="50" style="width:100%"></div>
+                                    <div class="progress progress-bar-primary progress-sm">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="50" style="width:100%"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-3 col-md-4 col-12 activity-card">
-                <div class="card" style="margin-bottom:1rem">
-                    <div class="card-body pt-1">
-                        <div class="d-flex activity-content">
-                            <div class="avatar bg-rgba-primary m-0 mr-75">
-                                <div class="avatar-content">
-                                    <i class="bx bx-calendar-check text-primary"></i>
+                <div class="col-xl-3 col-md-4 col-12 activity-card">
+                    <div class="card" style="margin-bottom:1rem">
+                        <div class="card-body pt-1">
+                            <div class="d-flex activity-content">
+                                <div class="avatar bg-rgba-primary m-0 mr-75">
+                                    <div class="avatar-content">
+                                        <i class="bx bx-calendar-check text-primary"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-progress flex-grow-1">
-                                <small class="text-muted d-inline-block mb-50">Dışarıda Geçirilen Zaman</small>
-                                <input asp-for="TimeAwayTime" hidden="hidden"/>
-                                <small class="float-right" id="timeAwayTime">0</small>
-                                <div class="progress progress-bar-success progress-sm">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="50" style="width:100%"></div>
+                                <div class="activity-progress flex-grow-1">
+                                    <small class="text-muted d-inline-block mb-50">Dışarıda Geçirilen Zaman</small>
+                                    <input asp-for="TimeAwayTime" hidden="hidden"/>
+                                    <small class="float-right" id="timeAwayTime">0</small>
+                                    <div class="progress progress-bar-success progress-sm">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="50" style="width:100%"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
         <div class="content-body">
             <!-- calendar Wrapper  -->
             <div class="calendar-wrapper position-relative">

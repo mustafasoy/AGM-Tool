@@ -1,6 +1,4 @@
-﻿using ArGeTesvikTool.Entities.Concrete;
-using ArGeTesvikTool.Entities.Concrete.Business;
-using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings;
+﻿using ArGeTesvikTool.Entities.Concrete.Business;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Business;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.Index;
 using ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.RdCenter;

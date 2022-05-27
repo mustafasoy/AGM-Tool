@@ -38,7 +38,7 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
             DateTime startDateTime = new(startDate.Year, startDate.Month, startDate.Day, 0, 0, 0, 0);
             DateTime endDateTime = new(endDate.Year, endDate.Month, endDate.Day, 23, 59, 59, 0);
 
-            return _attendance.GetList(x => x.UserId == regNo &&
+            return _attendance.GetList(x => x.PersonnelNumber == regNo &&
                                             x.EventTime >= startDateTime && x.EventTime <= endDateTime);
         }
     }

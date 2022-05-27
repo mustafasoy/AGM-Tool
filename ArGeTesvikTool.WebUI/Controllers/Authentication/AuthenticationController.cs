@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using System;
+using System.Data.Entity;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -114,6 +115,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 
             if (validate.IsValid)
             {
+                bool isCheck = CheckPersonnelExists(registerViewModel.IdentityNumber);
+                if (!isCheck)
+                {
+                    ModelState.AddModelError("IdentityNumber", "Aynı kimlik numarası daha önce kullanılmış ");
+                    return View(registerViewModel);
+                }
+
                 AppIdentityUser identityUser = registerViewModel.Adapt<AppIdentityUser>();
 
                 identityUser.IsActive = true;
@@ -334,6 +342,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
                 messageBody);
 
             return message;
+        }
+
+        private bool CheckPersonnelExists(string identityNumber)
+        {
+            //check personnel info, if exists give error.
+            var checkPersonInfo = _userManager.Users.FirstOrDefaultAsync(x => x.IdentityNumber == identityNumber).Result;
+
+            return checkPersonInfo != null;
         }
     }
 }

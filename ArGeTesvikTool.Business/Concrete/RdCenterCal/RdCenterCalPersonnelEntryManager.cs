@@ -73,7 +73,10 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterCal
 
         public List<RdCenterCalPersonnelEntryDto> GetAllByMonthByPersonnel(string regNo, DateTime startDate, DateTime endDate)
         {
-            return _personnelEntry.GetList(x => x.RegistrationNo == regNo && x.StartDate >= startDate && x.EndDate <= endDate);
+            DateTime startDateTime = new(startDate.Year, startDate.Month, startDate.Day, 0, 0, 0, 0);
+            DateTime endDateTime = new(endDate.Year, endDate.Month, endDate.Day, 23, 59, 59, 0);
+
+            return _personnelEntry.GetList(x => x.RegistrationNo == regNo && x.StartDate >= startDateTime && x.EndDate <= endDateTime);
         }
 
         public List<RdCenterCalPersonnelEntryDto> GetAllPersonnelByCode(int id, string projectCode, string timeAwayCode)

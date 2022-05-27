@@ -2,6 +2,17 @@
     $('#projectCode, #timeAwayCode').on('change', function () {
         $('#error').text('');
     });
+
+    $("#outside").hide();
+    $("input[name='radioTime']").click(function () {
+        if ($("#projectTime").is(":checked")) {
+            $("#project").show();
+            $("#outside").hide();
+        } else {
+            $("#outside").show();
+            $("#project").hide();
+        }
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -10,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var events = [];
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        googleCalendarApiKey: 'AIzaSyAcToVvraZ9HVOTPTsP_tU7fKC-pBBGS0Q',
+        googleCalendarApiKey: 'AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE',
         contentHeight: 750,
         themeSystem: 'bootstrap',
         bootstrapFontAwesome: {
@@ -40,6 +51,13 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         selectable: true,
         select: function (selectionInfo) {
+            var end = moment(selectionInfo.end);
+            var start = moment(selectionInfo.start);
+
+            if (end.isAfter(start, 'day')) {
+                calendar.unselect();
+                return;
+            }
             selectedEvent = {
                 id: 0,
                 userId: 0,
@@ -47,7 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 timeAwayCode: "",
                 start: moment(selectionInfo.start),
                 end: moment(selectionInfo.end),
-            }
+            };
+
+            getPersonnelTime();
             openCreateOrUpdateModal();
         },
         //slotDuration: '00:15:00',
@@ -130,6 +150,31 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#saveModal').modal();
     };
 
+    function getPersonnelTime() {
+        var sDate = selectedEvent.start.format('DD.MM.YYYY')
+        var eDate = selectedEvent.end.format('DD.MM.YYYY')
+        $.ajax({
+            type: 'GET',
+            url: '/RdCenterCal/GetPersonnelTime',
+            data: {
+                startDate: sDate,
+                endDate: eDate,
+            },
+            success: function (response) {
+                $('#projectText').text(response.projectTime);
+                $('#projectMin').text(response.projectMin);
+                $('#timeAwayText').text(response.timeAwayTime);
+                $('#timeAwayMin').text(response.projectMin);
+                if (!response.projectTime) {
+                    $("#projectRadio").hide();
+                }
+                if (!response.timeAwayTime) {
+                    $("#timeAwayRadio").hide();
+                }
+            }
+        });
+    };
+
     function getPersonnelEntry() {
         $.ajax({
             type: 'GET',
@@ -176,49 +221,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var token = $('input[name="__RequestVerificationToken"]').val();
 
-    function saveAppoinment(events) {
-        $.ajax({
-            type: 'POST',
-            url: '/RdCenterCal/CreateorUpdatePersonnelEntry',
-            data: {
-                __RequestVerificationToken: token,
-                personnelViewModel: events
-            },
-            success: function (response) {
-                if (response === "201" || response==="204") {
-                    getPersonnelEntry();
-                    $('#saveModal').modal('hide');
-                    response === "201" ? showMessage('Kayıt eklendi.') : showMessage('Kayıt güncellendi.')
-                }
-                else {
-                    $('#saveModal').modal('hide');
-                    showErrorMessage('Kayıt eklenemedi.')
-                }
-            },
-            error: function () {
-                $('#saveModal').modal('hide');
-                showErrorMessage('Kayıt eklenirken hata oluştu.')
-            }
-        });
-    }
-
     $('#save').click(function () {
         $('#error').text('');
 
-        if (!$('#projectCode').val() && !$('#timeAwayCode').val()) {
-            $('#error').text('Proje kodu veya Dışarıda geçirilen süre kodu seçiniz.');
+        checkTimeOk();
+        if ($('#error').text() != '') {
             return;
         }
+
+        if (!$('#projectCode').val() && !$('#timeAwayCode').val()) {
+            if (!$('#projectCode').val()) {
+                $('#error').text('Proje kodu seçiniz.');
+            }
+            else {
+                $('#error').text('Dışarıda geçirilen süre kodu seçiniz.');
+            }
+            return;
+        };
 
         var projectName;
         if ($('#projectCode').val() != "") {
             projectName = $("#projectCode option:selected").text()
-        }
+        };
 
         var timeAwayName;
         if ($('#timeAwayCode').val() != "") {
             timeAwayName = $("#timeAwayCode option:selected").text()
-        }
+        };
 
         var events = {
             Id: $('#entryId').val(),
@@ -236,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
     $('#update').click(function () {
         $('#updateModal').modal('hide');
         openCreateOrUpdateModal();
-    })
+    });
 
     $('#delete').click(function () {
         if (confirm('Kaydı silmek istediğinize emin misiniz?')) {
@@ -258,5 +287,51 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         }
-    })
+    });
+
+    function saveAppoinment(events) {
+        $.ajax({
+            type: 'POST',
+            url: '/RdCenterCal/CreateorUpdatePersonnelEntry',
+            data: {
+                __RequestVerificationToken: token,
+                personnelViewModel: events
+            },
+            success: function (response) {
+                if (response === "201" || response === "204") {
+                    getPersonnelEntry();
+                    $('#saveModal').modal('hide');
+                    response === "201" ? showMessage('Kayıt eklendi.') : showMessage('Kayıt güncellendi.')
+                }
+                else {
+                    $('#saveModal').modal('hide');
+                    showErrorMessage('Kayıt eklenemedi.')
+                }
+            },
+            error: function () {
+                $('#saveModal').modal('hide');
+                showErrorMessage('Kayıt eklenirken hata oluştu.')
+            }
+        });
+    };
+
+    function checkTimeOk() {
+        var projectTimeEntered = $('#projectMin').text();
+        var timeAwayTimeEntered = $('#timeAwayMin').text();
+
+        var sTime = selectedEvent.start.format('YYYY-MM-DD HH:mm')
+        var eTime = selectedEvent.end.format('YYYY-MM-DD HH:mm')
+
+        var diff = (new Date(eTime) - new Date(sTime)) / (1000 * 60);
+        if ($("#projectTime").is(":checked")) {
+            if (diff > projectTimeEntered) {
+                $('#error').text('Proje koduna fazla süre girdiniz');
+            }
+        }
+        else {
+            if (diff > timeAwayTimeEntered) {
+                $('#error').text('Dışarıda geçirilen koduna fazla süre girdiniz');
+            }
+        }
+    }
 });
