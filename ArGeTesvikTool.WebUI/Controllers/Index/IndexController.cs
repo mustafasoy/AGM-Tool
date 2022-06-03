@@ -26,11 +26,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.Index
             _newDataService = newDataService;
         }
 
+        [Route("index")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Route("yeni-giris")]
         public IActionResult NewData(int year)
         {
             var newData = _newDataService.GetByYear(year);
@@ -44,6 +46,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Index
         }
 
         [HttpPost]
+        [Route("yeni-giris")]
         public IActionResult NewData(NewDataViewModel newDataViewModel)
         {
             var newData = _newDataService.GetByYear(newDataViewModel.NewData.Year);
@@ -71,6 +74,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Index
             return RedirectToAction("Index", "Home");
         }
 
+        [Route("gorev")]
         public IActionResult Employment(int year)
         {
             List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAllByYear(year);
@@ -97,6 +101,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Index
 
         }
 
+        [Route("harcama-yogunlugu")]
         public IActionResult SpendingIntensity(int year)
         {
             List<RdCenterAmountDto> amountList = _amountService.GetAllByYear(year);
@@ -116,21 +121,25 @@ namespace ArGeTesvikTool.WebUI.Controllers.Index
             return View(spendingIntensityInfoViewModel);
         }
 
+        [Route("isbirligi")]
         public IActionResult Cooperation()
         {
             return View();
         }
 
+        [Route("ticarilestirme")]
         public IActionResult Commercialization()
         {
             return View();
         }
 
+        [Route("mulkiyet-yeterliligi")]
         public IActionResult PropertyCompetence()
         {
             return View();
         }
 
+        [Route("diger")]
         public IActionResult Other()
         {
             return View();

@@ -46,7 +46,6 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
             _ = new RdCenterContactMap(modelBuilder.Entity<RdCenterContactDto>());
             _ = new RdCenterInfoMap(modelBuilder.Entity<RdCenterInfoDto>());
             _ = new RdCenterSchemaMap(modelBuilder.Entity<RdCenterSchemaDto>());
-            _ = new RdCenterAreaInfoMap(modelBuilder.Entity<RdCenterAreaInfoDto>());
             _ = new RdCenterPhysicalAreaMap(modelBuilder.Entity<RdCenterPhysicalAreaDto>());
             _ = new RdCenterAmountMap(modelBuilder.Entity<RdCenterAmountDto>());
             _ = new RdCenterDiscountMap(modelBuilder.Entity<RdCenterDiscountDto>());

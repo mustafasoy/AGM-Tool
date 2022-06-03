@@ -51,6 +51,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         }
 
         #region Personnel Assing CRUD
+        [Route("projeye-personel-ata")]
         public IActionResult PersonnelAssing()
         {
             List<RdCenterTechProjectDto> allProject = _projService.GetAllProjectName();
@@ -139,6 +140,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         #endregion
 
         #region TimeAway CRUD
+        [Route("disarida-gecirilen-sure-giris")]
         public IActionResult TimeAway()
         {
             List<RdCenterCalTimeAwayDto> timeAwayList = _timeAwayService.GetAll();
@@ -185,6 +187,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         }
 
         [HttpPost]
+        [Route("disarida-gecirilen-sure-giris")]
         public IActionResult TimeAway(RdCenterCalTimeAwayViewModel timeAwayViewModel)
         {
             var timeAway = _timeAwayService.GetById(timeAwayViewModel.NewTimeAway.Id);
@@ -212,11 +215,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                 AddSuccessMessage("Dışarıda geçen süre bilgisi güncellendi.");
             }
 
-            return Redirect("TimeAway");
+            return RedirectToAction("TimeAway");
         }
         #endregion
 
         #region PersonnelEntry CRUD
+        [Route("personel-aktivite-giris")]
         public IActionResult PersonnelEntry()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -306,6 +310,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             var currentUser = _userManager.FindByIdAsync(userId).Result;
 
             var attendanceList = _attendanceService.GetAllByMonthByPersonnelId(currentUser.RegistrationNo, Convert.ToDateTime(startDate), Convert.ToDateTime(endDate));
+            
             List<RdCenterCalPersAttendanceDto> newList = DeleteRepeateEvent(attendanceList).ToList();
 
             /*if attendanceList start with çıkış, delete it. Always attendanceList must start with giriş*/
@@ -320,7 +325,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             }
 
             double projectTime = 0;
-            double timeAwayTime = 0;
 
             string inTime = string.Empty;
             foreach (var item in newList)
@@ -347,7 +351,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             projectTime = projectTime >= 465 ? 480 : projectTime;
 
             /*calculate timeAwayTime*/
-            timeAwayTime = 480 - projectTime;
+            double timeAwayTime = 480 - projectTime;
 
             /*get personnel activity entry*/
             var personnelEntry = _persEntryService.GetAllByMonthByPersonnel(currentUser.RegistrationNo, Convert.ToDateTime(startDate), Convert.ToDateTime(endDate));
@@ -383,7 +387,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                     : string.Format("{0} saat", (int)outsideHour.TotalHours);
             }
 
-            RdCenterCalPersonnelEntryViewModel allowedTime = new() {
+            RdCenterCalPersonnelEntryViewModel allowedTime = new()
+            {
                 ProjectTime = allowedProjectHours,
                 ProjectMin = projectTime.ToString(),
                 TimeAwayTime = allowedTimeAwayHours,
@@ -391,6 +396,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             };
 
             return Json(allowedTime);
+        }
+
+        public JsonResult DeletePersonnelEntry(int id)
+        {
+            _persEntryService.Delete(id);
+
+            return Json("200");
         }
 
         [HttpPost]
@@ -454,13 +466,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             }
         }
 
-        public JsonResult DeletePersonnelEntry(int id)
-        {
-            _persEntryService.Delete(id);
-
-            return Json("200");
-        }
-
         private static List<RdCenterCalPersAttendanceDto> DeleteRepeateEvent(List<RdCenterCalPersAttendanceDto> personnelAttendance)
         {
             string terminalName = string.Empty;
@@ -480,6 +485,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
 
         #region ManagerEntry CRUD
         [Authorize(Roles = "Yönetici")]
+        [Route("yonetici-aktivite-giris")]
         public IActionResult ManagerEntry()
         {
             List<RdCenterCalPersonnelEntryDto> managerList = _persEntryService.GetAllByYear(GetSelectedYear());
@@ -577,6 +583,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         }
 
         [HttpPost]
+        [Route("yonetici-aktivite-giris")]
         public IActionResult ManagerEntry(RdCenterCalManagerEntryViewModel managerViewModel)
         {
             var entry = _persEntryService.GetById(managerViewModel.EntryInfo.Id);
@@ -661,6 +668,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         #endregion
 
         #region PublicHoliday CRUD
+        [Route("tatil-tanimla")]
         public IActionResult PublicHoliday()
         {
             int year = GetSelectedYear();
@@ -731,6 +739,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         }
 
         [HttpPost]
+        [Route("tatil-tanimla")]
         public IActionResult PublicHoliday(RdCenterCalPublicHolidayViewModel holidayViewModel)
         {
             var holiday = _holidayService.GetById(holidayViewModel.NewHoliday.Id);

@@ -34,13 +34,15 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             _hostingEnvironment = hostingEnvironment;
             _infoService = infoService;
         }
-
+        [Route("")]
+        [Route("giris")]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("giris")]
         public async Task<IActionResult> Login(LoginDto loginViewModel)
         {
             var validate = ValidatorTool.Validate(new LoginValidator(), loginViewModel);
@@ -92,12 +94,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View(loginViewModel);
         }
 
+        [Route("uyelik")]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("uyelik")]
         public async Task<IActionResult> Register(RegisterDto registerViewModel)
         {
             ViewBag.Country = registerViewModel.CountryCode != null
@@ -165,6 +169,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View(registerViewModel);
         }
 
+        [Route("mail-onayla")]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             if (!string.IsNullOrEmpty(userId))
@@ -186,12 +191,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View();
         }
 
+        [Route("sifre-sifirla")]
         public IActionResult ResetPassword()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("sifre-sifirla")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordViewModel)
         {
             var user = await _userManager.FindByEmailAsync(resetPasswordViewModel.Email);
@@ -224,12 +231,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View(resetPasswordViewModel);
         }
 
-        public IActionResult ResetPasswordConfirm(string userId, string token)
+        [Route("sifre-sifirla-onay")]
+        public IActionResult ResetPasswordConfirm()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("sifre-sifirla-onay")]
         public async Task<IActionResult> ResetPasswordConfirm(ResetPasswordDto resetPasswordViewModel)
         {
             var validate = ValidatorTool.Validate(new ResetPasswordValidator(), resetPasswordViewModel);
@@ -257,14 +266,17 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View(resetPasswordViewModel);
         }
 
+        [Route("sifre-onay")]
         public IActionResult ConfirmPassword()
         {
             return View();
         }
 
-        public void Logout()
+        [Route("cikis")]
+        public async Task<IActionResult> Logout()
         {
-            _signInManager.SignOutAsync().Wait();
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login");
         }
 
         private MailMessage ConfirmAccountMail(RegisterDto user, string userConfirmLink)

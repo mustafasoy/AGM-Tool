@@ -55,9 +55,9 @@ namespace ArGeTesvikTool.WebUI
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = new PathString("/Authentication/Login");
-                options.LogoutPath = new PathString("/Authentication/Logout");
-                options.AccessDeniedPath = new PathString("/Member/AccessDenied");
+                options.LoginPath = new PathString("/giris");
+                options.LogoutPath = new PathString("/cikis");
+                options.AccessDeniedPath = new PathString("/erisim-ret");
                 //options.Cookie = cookieBuilder;
                 //options.ExpireTimeSpan = TimeSpan.FromDays(30);
                 //options.SlidingExpiration = true;
@@ -87,19 +87,14 @@ namespace ArGeTesvikTool.WebUI
             }
 
             if (!env.IsDevelopment())
-            {
-                //app.UseStatusCodePagesWithReExecute("/Error/{0}");
-                app.UseDeveloperExceptionPage();
-                // Brings information page on pages that do not return content.
-                app.UseStatusCodePages();
-            }
+                app.UseStatusCodePagesWithReExecute("/hata/{0}");
 
             app.UseStaticFiles();
             app.UseSession();
             // Middleware used for microsoft identity
             app.UseAuthentication();
 
-            app.UseMvc(ConfigureRoutes);//app.UseMvcWithDefaultRoute();
+            app.UseMvc(ConfigureRoutes);
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)

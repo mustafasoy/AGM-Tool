@@ -33,6 +33,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         #region Person Info CRUD
+        [Route("calisan-personel")]
         public IActionResult PersonInfo()
         {
 
@@ -82,6 +83,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         [HttpPost]
+        [Route("calisan-personel")]
         public IActionResult PersonInfo(RdCenterPersonViewModel personViewModel)
         {
             bool isCheck = CheckPersonnelExists(personViewModel.NewPersonnelInfo.IdentityNumber);
@@ -124,6 +126,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
         #endregion
 
+        [Route("performans-odul")]
         public IActionResult Reward()
         {
             var reward = _rewardService.GetByYear(GetSelectedYear());
@@ -137,6 +140,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         [HttpPost]
+        [Route("performans-odul")]
         public IActionResult Reward(RdCenterRewardViewModel rewardViewModel)
         {
             var reward = _rewardService.GetByYear(rewardViewModel.Reward.Year);
@@ -166,6 +170,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         #region TimeAway CRUD
+        [Route("disarida-gecen-sure-tanımla")]
         public IActionResult TimeAway()
         {
             List<RdCenterPersonTimeAwayDto> timeAwayList = _timeAwayService.GetAllByYear(GetSelectedYear());
@@ -213,6 +218,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         [HttpPost]
+        [Route("disarida-gecen-sure-tanımla")]
         public IActionResult ImportExcel(IFormFile formFile)
         {
             string fileName = Path.Combine(_hostEnvironment.WebRootPath, "files", formFile.FileName);
@@ -329,6 +335,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
         #endregion
 
+        [Route("personel-bilgi")]
         public IActionResult StaffInfo()
         {
             var personInfoList = _infoService.GetAllByYear(GetSelectedYear());
@@ -359,6 +366,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             return View(staffInfoListView);
         }
 
+        [Route("destelenecek-program")]
         public IActionResult SupportedProgram()
         {
             var personInfoList = _infoService.GetAllByYear(GetSelectedYear());

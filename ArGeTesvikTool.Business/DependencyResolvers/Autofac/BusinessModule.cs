@@ -84,8 +84,6 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRdCenterInfoDal>().As<IRdCenterInfoDal>().SingleInstance();
             builder.RegisterType<RdCenterSchemaManager>().As<IRdCenterSchemaService>().SingleInstance();
             builder.RegisterType<EfRdCenterSchemaDal>().As<IRdCenterSchemaDal>().SingleInstance();
-            builder.RegisterType<RdCenterAreaInfoManager>().As<IRdCenterAreaInfoService>().SingleInstance();
-            builder.RegisterType<EfRdCenterAreaInfoDal>().As<IRdCenterAreaInfoDal>().SingleInstance();
             builder.RegisterType<RdCenterPhysicalAreaManager>().As<IRdCenterPhysicalAreaService>().SingleInstance();
             builder.RegisterType<EfRdCenterPhysicalAreaDal>().As<IRdCenterPhysicalAreaDal>().SingleInstance();
             builder.RegisterType<RdCenterAmountManager>().As<IRdCenterAmountService>().SingleInstance();

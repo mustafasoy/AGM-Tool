@@ -20,11 +20,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.Member
 
         }
 
+        [Route("uye")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Route("uye-duzenle")]
         public IActionResult Edit()
         {
             var user = GetCurrentUser;
@@ -39,6 +41,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Member
         }
 
         [HttpPost]
+        [Route("uye-duzenle")]
         public async Task<IActionResult> Edit(EditViewModel userInfoChangeViewModel)
         {
             if (CheckUserInfo(userInfoChangeViewModel.User))
@@ -73,6 +76,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Member
         }
 
         [HttpPost]
+        [Route("uye-sifre-duzenle")]
         public async Task<IActionResult> EditPassword(EditViewModel passwordInfoChangeViewModel)
         {
             var currentUser = GetCurrentUser;
@@ -133,6 +137,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Member
             return View(passwordInfoChangeViewModel);
         }
 
+        [Route("erisim-ret")]
         public IActionResult AccessDenied()
         {
             return View();

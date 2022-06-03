@@ -44,7 +44,6 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
         public DbSet<RdCenterContactDto> RdCenterContracts { get; set; }
         public DbSet<RdCenterInfoDto> RdCenterInfos { get; set; }
         public DbSet<RdCenterSchemaDto> RdCenterSchemas { get; set; }
-        public DbSet<RdCenterAreaInfoDto> RdCenterAreaInfos { get; set; }
         public DbSet<RdCenterPhysicalAreaDto> RdPhysicalAreas { get; set; }
         public DbSet<RdCenterAmountDto> RdCenterAmounts { get; set; }
         public DbSet<RdCenterDiscountDto> RdCenterDiscounts { get; set; }

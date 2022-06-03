@@ -20,6 +20,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerformance
         }
 
         #region Project CRUD
+        [Route("ticari-rapor")]
         public IActionResult Project()
         {
             List<RdCenterPerformanceProjectDto> projectList = _projectService.GetAllByYear(GetSelectedYear());
@@ -66,6 +67,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerformance
         }
 
         [HttpPost]
+        [Route("ticari-rapor")]
         public IActionResult Project(RdCenterPerformanceProjectViewModel projectViewModel)
         {
             var project = _projectService.GetById(projectViewModel.NewProjectInfo.Id);

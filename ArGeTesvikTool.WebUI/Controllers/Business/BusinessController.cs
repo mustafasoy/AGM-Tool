@@ -39,6 +39,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             _financialService = financialService;
         }
 
+
+        [Route("isletme-yetkili")]
         public IActionResult Contact()
         {
             var contact = _contactService.GetByYear(GetSelectedYear());
@@ -52,6 +54,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
+        [Route("isletme-yetkili")]
         public IActionResult Contact(BusinessContactViewModel contactViewModel)
         {
             var validate = ValidatorTool.Validate(new BusinessContactValidator(), contactViewModel.BusinessContact);
@@ -97,6 +100,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return View(contactViewModel);
         }
 
+        [Route("isletme-bilgi")]
         public IActionResult Info()
         {
             var info = _infoService.GetByYear(GetSelectedYear());
@@ -114,6 +118,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
+        [Route("isletme-bilgi")]
         public IActionResult Info(BusinessInfoViewModel infoViewModel)
         {
             var validate = ValidatorTool.Validate(new BusinessInfoValidator(), infoViewModel.BusinessInfo);
@@ -150,6 +155,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return View(infoViewModel);
         }
 
+        [Route("tanitici-bilgi")]
         public IActionResult Intro()
         {
             var intro = _introService.GetByYear(GetSelectedYear());
@@ -163,6 +169,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
+        [Route("tanitici-bilgi")]
         public IActionResult Intro(BusinessIntroViewModel introViewModel)
         {
             var intro = _introService.GetByYear(introViewModel.BusinessIntro.Year);
@@ -192,6 +199,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             return RedirectToAction("Index", "Home");
         }
 
+        [Route("holding-bilgi")]
         public IActionResult GroupInfo()
         {
             var groupInfo = _groupInfoService.GetByYear(GetSelectedYear());
@@ -208,6 +216,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
+        [Route("holding-bilgi")]
         public IActionResult GroupInfo(GroupInfoViewModel groupInfoViewModel)
         {
             var validate = ValidatorTool.Validate(new BusinessGroupInfoValidator(), groupInfoViewModel.GroupInfo);
@@ -246,6 +255,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         #region Shareholder CRUD
+        [Route("isletme-ortak")]
         public IActionResult Shareholder()
         {
             List<ShareholdersDto> shareholderList = _shareholderService.GetAll();
@@ -294,6 +304,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
+        [Route("isletme-ortak")]
         public IActionResult Shareholder(ShareholderViewModel shareholderViewModel)
         {
             var shareholder = _shareholderService.GetById(shareholderViewModel.NewShareholder.Id);
@@ -321,11 +332,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                 AddSuccessMessage("Ortaklık kaydı güncellendi.");
             }
 
-            return Redirect("Shareholder");
+            return RedirectToAction("Shareholder");
         }
         #endregion
 
         #region Personnel Distribution CRUD
+        [Route("personel-dagilim")]
         public IActionResult PersonnelDistribution()
         {
             List<PersonnelDistributionDto> personnelDistribution = _personnelService.GetAll();
@@ -372,6 +384,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
+        [Route("personel-dagilim")]
         public IActionResult PersonnelDistribution(PersonnelDistributionViewModel distributionViewModel)
         {
             var shareholder = _personnelService.GetById(distributionViewModel.NewPersonnel.Id);
@@ -399,11 +412,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                 AddSuccessMessage("Personel kaydı güncellendi.");
             }
 
-            return Redirect("PersonnelDistribution");
+            return RedirectToAction("PersonnelDistribution");
         }
         #endregion
 
         #region Financial CRUD
+        [Route("finansal-bilgi")]
         public IActionResult FinancialInfo()
         {
             List<BusinessFinancialInfoDto> financialInfo = _financialService.GetAll();
@@ -450,6 +464,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
+        [Route("finansal-bilgi")]
         public IActionResult FinancialInfo(FinancialInfoViewModel financialInfoViewModel)
         {
             var financialInfo = _financialService.GetById(financialInfoViewModel.NewFinancialInfo.Id);
@@ -477,11 +492,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                 AddSuccessMessage("Finansal bilgi kaydı güncellendi.");
             }
 
-            return Redirect("FinancialInfo");
+            return RedirectToAction("FinancialInfo");
         }
         #endregion
 
         #region Schema CRUD
+        [Route("organizasyon-sema")]
         public IActionResult Schema()
         {
             var schemaList = _schemaService.GetAllByYear(GetSelectedYear());
@@ -515,6 +531,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
+        [Route("organizasyon-sema")]
         public IActionResult Schema(BusinessSchemaViewModel schemaViewModel, List<IFormFile> formFile)
         {
             if (ModelState.IsValid)
@@ -559,6 +576,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
         #endregion
 
+        [Route("arge-strateji")]
         public IActionResult Strategy()
         {
             var strategy = _strategyService.GetByYear(GetSelectedYear());
@@ -573,6 +591,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
         }
 
         [HttpPost]
+        [Route("arge-strateji")]
         public IActionResult Strategy(StrategyViewModel strategyViewModel)
         {
             var strategy = _strategyService.GetByYear(strategyViewModel.Strategy.Year);

@@ -8,6 +8,7 @@ using ArGeTesvikTool.WebUI.Models.RdCenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,22 +21,21 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         private readonly IRdCenterContactService _contactService;
         private readonly IRdCenterInfoService _infoService;
         private readonly IRdCenterSchemaService _schemaService;
-        private readonly IRdCenterAreaInfoService _areaInfoService;
         private readonly IRdCenterPhysicalAreaService _physicalAreaService;
         private readonly IRdCenterAmountService _amountService;
         private readonly IRdCenterDiscountService _discountService;
 
-        public RdCenterController(IRdCenterContactService contactService, IRdCenterInfoService infoService, IRdCenterSchemaService schemaService, IRdCenterAreaInfoService areaInfoService, IRdCenterPhysicalAreaService physicalAreaService, IRdCenterAmountService amountService, IRdCenterDiscountService discountService)
+        public RdCenterController(IRdCenterContactService contactService, IRdCenterInfoService infoService, IRdCenterSchemaService schemaService, IRdCenterPhysicalAreaService physicalAreaService, IRdCenterAmountService amountService, IRdCenterDiscountService discountService)
         {
             _contactService = contactService;
             _infoService = infoService;
             _schemaService = schemaService;
-            _areaInfoService = areaInfoService;
             _physicalAreaService = physicalAreaService;
             _amountService = amountService;
             _discountService = discountService;
         }
 
+        [Route("agm-yetkili")]
         public IActionResult Contact()
         {
             var contact = _contactService.GetByYear(GetSelectedYear());
@@ -49,6 +49,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
+        [Route("agm-yetkili")]
         public IActionResult Contact(RdCenterContactViewModel contactViewModel)
         {
             var validate = ValidatorTool.Validate(new RdCenterContactValidator(), contactViewModel.RdCenterContact);
@@ -88,6 +89,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
             return View(contactViewModel);
         }
 
+        [Route("agm-bilgi")]
         public IActionResult Info()
         {
             var info = _infoService.GetByYear(GetSelectedYear());
@@ -105,6 +107,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
+        [Route("agm-bilgi")]
         public IActionResult Info(RdCenterInfoViewModel infoViewModel)
         {
             var validate = ValidatorTool.Validate(new RdCenterInfoValidator(), infoViewModel.RdCenterInfo);
@@ -143,6 +146,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         #region Schema CRUD
+        [Route("agm-sema")]
         public IActionResult Schema()
         {
             var schemaList = _schemaService.GetAllByYear(GetSelectedYear());
@@ -172,6 +176,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
+        [Route("agm-sema")]
         public IActionResult Schema(RdCenterSchemaViewModel schemaViewModel, List<IFormFile> formFile)
         {
             RdCenterSchemaDto centerSchema = new();
@@ -211,76 +216,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
         #endregion
 
-        #region AreaInfo CRUD
-        public IActionResult AreaInfo()
-        {
-            var areaInfoList = _areaInfoService.GetAllByYear(GetSelectedYear());
-
-            RdCenterAreaInfoViewModel areaInfoViewModel = new()
-            {
-                AreaInfoList = areaInfoList
-            };
-
-            return View(areaInfoViewModel);
-        }
-
-        public IActionResult AreaInfoDelete(int id)
-        {
-            _areaInfoService.Delete(id);
-
-            AddSuccessMessage("ArGe merkezi fiziki alan bilgisi silindi.");
-
-            return RedirectToAction("AreaInfo");
-        }
-
-        public IActionResult AreaInfoDownload(int id)
-        {
-            var areaInfo = _areaInfoService.GetById(id);
-
-            return DownloadFile(areaInfo);
-        }
-
-        [HttpPost]
-        public IActionResult AreaInfo(RdCenterAreaInfoViewModel areaInfoViewModel, List<IFormFile> formFile)
-        {
-            RdCenterAreaInfoDto areaInfo = new();
-            foreach (var item in formFile)
-            {
-                if (item.Length > 0)
-                {
-                    using var stream = new MemoryStream();
-                    item.CopyToAsync(stream).Wait();
-                    areaInfo.FileName = item.FileName;
-                    areaInfo.Content = stream.ToArray();
-                    areaInfo.ContentType = item.ContentType;
-                }
-            }
-
-            var areaInfoList = _areaInfoService.GetAllByYear(2022);
-            foreach (var item in areaInfoList)
-            {
-                if (item.FileName == areaInfo.FileName)
-                {
-                    ModelState.AddModelError("FormFile", "Dosya mevcut. Farklı dosya seçiniz");
-
-                    areaInfoViewModel.AreaInfoList = areaInfoList;
-
-                    return View(areaInfoList);
-                }
-            }
-            areaInfo.Year = GetSelectedYear();
-            areaInfo.CreatedDate = DateTime.Now;
-            areaInfo.CreatedUserName = User.Identity.Name;
-
-            _areaInfoService.Add(areaInfo);
-
-            AddSuccessMessage("ArGe merkezi fiziki alan bilgisi eklendi.");
-
-            return RedirectToAction("AreaInfo");
-        }
-        #endregion
-
         #region PhysicalArea CRUD
+        [Route("agm-fiziksel-alan")]
         public IActionResult PhysicalArea()
         {
             var physicalAreaList = _physicalAreaService.GetAllByYear(GetSelectedYear());
@@ -310,6 +247,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
+        [Route("agm-fiziksel-alan")]
         public IActionResult PhysicalArea(RdCenterPhysicalAreaViewModel physicalAreaViewModel, List<IFormFile> formFile)
         {
             RdCenterPhysicalAreaDto physicalArea = new();
@@ -350,6 +288,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         #endregion
 
         #region Discount CRUD
+        [Route("agm-indirim")]
         public IActionResult Discount()
         {
             List<RdCenterDiscountDto> discountList = _discountService.GetAllByYear(GetSelectedYear());
@@ -396,6 +335,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
+        [Route("agm-indirim")]
         public IActionResult Discount(RdCenterDiscountViewModel discountViewModel)
         {
             var discount = _discountService.GetById(discountViewModel.NewDiscountInfo.Id);
@@ -428,6 +368,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         #endregion
 
         #region Amount CRUD
+        [Route("agm-kanun")]
         public IActionResult Amount()
         {
             List<RdCenterAmountDto> amountList = _amountService.GetAllByYear(GetSelectedYear());
@@ -474,6 +415,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenter
         }
 
         [HttpPost]
+        [Route("agm-kanun")]
         public IActionResult Amount(RdCenterAmountViewModel amountViewModel)
         {
             var amount = _amountService.GetById(amountViewModel.NewAmountInfo.Id);

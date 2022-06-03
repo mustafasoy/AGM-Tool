@@ -19,6 +19,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Home
             _fiscalYearService = fiscalYearService;
         }
 
+        [Route("anasayfa")]
         public IActionResult Index()
         {
             List<FiscalYearDto> fiscalYear = _fiscalYearService.GetYearList();

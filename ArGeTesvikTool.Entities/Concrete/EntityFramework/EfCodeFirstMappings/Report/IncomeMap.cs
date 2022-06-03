@@ -35,35 +35,35 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
 
             entity.Property(x => x.RdCenterTimeSpend)
                 .HasColumnName("RdCenterTimeSpend")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.RemoteTimeSpend)
                 .HasColumnName("RemoteTimeSpend")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.ProjectTimeSpend)
                 .HasColumnName("ProjectTimeSpend")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.UncentiveTimeSpend)
                 .HasColumnName("UncentiveTimeSpend")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.NonRdCenterTimeSpend)
                 .HasColumnName("NonRdCenterTimeSpend")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.NonRdCenterOtherTimeSpend)
                 .HasColumnName("NonRdCenterOtherTimeSpend")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.AnnualLeaveTimeSpend)
                 .HasColumnName("AnnualLeaveTimeSpend")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
 
             entity.Property(x => x.BaseUsedDay)
                 .HasColumnName("BaseUsedDay")
-                .HasColumnType("decimal(4,2)");
+                .HasColumnType("decimal(6,2)");
         }
     }
 }

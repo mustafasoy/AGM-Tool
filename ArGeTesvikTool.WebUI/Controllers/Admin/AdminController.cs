@@ -22,6 +22,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 
         }
 
+        [Route("kullanici-liste")]
         public IActionResult ListUser()
         {
             var userList = _userManager.Users.ToList();
@@ -61,6 +62,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View(userListViewModel);
         }
 
+        [Route("kullanici-duzenle")]
         public IActionResult EditUser(string id)
         {
             AppIdentityUser identityUser = _userManager.FindByIdAsync(id).Result;
@@ -96,6 +98,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         }
 
         [HttpPost]
+        [Route("kullanici-duzenle")]
         public async Task<IActionResult> EditUser(UserViewModel userViewModel)
         {
             var validate = ValidatorTool.Validate(new UserInfoChangeValidator(), userViewModel.User);
@@ -145,12 +148,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View(userViewModel);
         }
 
+        [Route("rol-olustur")]
         public IActionResult CreateRole()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("rol-olustur")]
         public async Task<IActionResult> CreateRole(RoleDto roleViewModel)
         {
             var validate = ValidatorTool.Validate(new RoleCreateValidator(), roleViewModel);
@@ -178,6 +183,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View(roleViewModel);
         }
 
+        [Route("rol-liste")]
         public IActionResult ListRole()
         {
             List<RoleDto> listRole = GetUserRoleList();
@@ -190,6 +196,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
             return View(roleListViewModel);
         }
 
+        [Route("rol-liste")]
         public IActionResult RoleDelete(string id)
         {
             RoleDto roleInfo = GetRole(id);
@@ -198,6 +205,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         }
 
         [HttpPost]
+        [Route("rol-sil")]
         public async Task<IActionResult> RoleDelete(RoleDto roleViewModel)
         {
             var validate = ValidatorTool.Validate(new RoleCreateValidator(), roleViewModel);
@@ -219,6 +227,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         }
 
         [HttpPost]
+        [Route("rol-guncelle")]
         public async Task<IActionResult> RoleUpdate(RoleDto roleViewModel)
         {
             var validate = ValidatorTool.Validate(new RoleCreateValidator(), roleViewModel);

@@ -4,7 +4,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Error
 {
     public class ErrorController : Controller
     {
-        [Route("Error/{statusCode}")]
+        [Route("hata/{statusCode}")]
         public IActionResult HttpStatusCodeHandler(int statusCode)
         {
             string viewName = string.Empty;

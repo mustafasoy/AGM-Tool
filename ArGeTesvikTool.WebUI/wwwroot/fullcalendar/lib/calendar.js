@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             getPersonnelTime();
-            openCreateOrUpdateModal();
         },
         //slotDuration: '00:15:00',
         //slotLabelInterval: '00:15:00',
@@ -130,7 +129,6 @@ document.addEventListener('DOMContentLoaded', function () {
     calendar.render();
     getPersonnelEntry();
 
-
     $('#startDatetimepicker, #endDatetimepicker, #UpdateStartDatetimepicker, #UpdateEndDatetimepicker').datetimepicker({
         format: 'DD.MM.YYYY HH:mm',
         locale: 'tr'
@@ -171,6 +169,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!response.timeAwayTime) {
                     $("#timeAwayRadio").hide();
                 }
+                openCreateOrUpdateModal();
+            },
+            error: function () {
+                showErrorMessage('Kapı geçiş verileri bulunamadı.');
             }
         });
     };

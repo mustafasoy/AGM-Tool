@@ -40,6 +40,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         #region Project CRUD
+        [Route("devam-eden-proje")]
         public IActionResult OngoingProject()
         {
             List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(GetSelectedYear(), ProjectStatu.Devam.ToString());
@@ -52,6 +53,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return View(projectViewModel);
         }
 
+        [Route("proje-goruntule")]
         public IActionResult ProjectView(int id)
         {
             var project = _projectService.GetById(id);
@@ -73,6 +75,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return RedirectToAction("OngoingProject");
         }
 
+        [Route("proje-duzenle")]
         public IActionResult ProjectModify(int id)
         {
             var project = _projectService.GetById(id);
@@ -86,6 +89,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
+        [Route("proje-duzenle")]
         public IActionResult ProjectModify(RdCenterTechProjectViewModel projectViewModel)
         {
             var validate = ValidatorTool.Validate(new RdCenterTechProjectValidator(), projectViewModel.NewProject);
@@ -124,6 +128,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return View(projectViewModel);
         }
 
+        [Route("tamamlanan-proje")]
         public IActionResult CompletedProject()
         {
             List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(GetSelectedYear(), ProjectStatu.Tamam.ToString());
@@ -136,6 +141,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return View(projectViewModel);
         }
 
+        [Route("iptal-edilen-proje")]
         public IActionResult CanceledProject()
         {
             List<RdCenterTechProjectDto> projectList = _projectService.GetAllByYearStatu(GetSelectedYear(), ProjectStatu.Iptal.ToString());
@@ -150,6 +156,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         #endregion
 
         #region Collaboration CRUD
+        [Route("isbirilik")]
         public IActionResult Collaboration()
         {
             List<RdCenterTechCollaborationDto> collaborationList = _collaborationService.GetAll();
@@ -198,6 +205,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
+        [Route("isbirilik")]
         public IActionResult Collaboration(RdCenterTechCollabrationViewModel collaborationViewModel)
         {
             var collaboration = _collaborationService.GetById(collaborationViewModel.NewCollaboration.Id);
@@ -230,6 +238,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         #endregion
 
         #region Project Management CRUD
+        [Route("proje-yonetim")]
         public IActionResult ProjectManagement()
         {
             var projectManagementList = _projectManagementService.GetAllByYear(GetSelectedYear());
@@ -259,6 +268,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
+        [Route("proje-yonetim")]
         public IActionResult ProjectManagement(RdCenterTechProjectManagementViewModel projectManagementViewModel, List<IFormFile> formFile)
         {
             if (ModelState.IsValid)
@@ -303,6 +313,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
         #endregion
 
+        [Route("uye-olunan-yerler")]
         public IActionResult AcademicLibrary()
         {
             var academicLibrary = _academicLibraryService.GetByYear(GetSelectedYear());
@@ -316,6 +327,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
+        [Route("uye-olunan-yerler")]
         public IActionResult AcademicLibrary(RdCenterTechAcademicLibraryViewModel academicLibraryViewModel)
         {
             var contact = _academicLibraryService.GetByYear(academicLibraryViewModel.AcademicLibrary.Year);
@@ -347,6 +359,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         #region AttendedEvent CRUD
+        [Route("katilinan-etkinlik")]
         public IActionResult AttendedEvent()
         {
             List<RdCenterTechAttendedEventDto> attendedEventList = _attendedEventService.GetAllByYear(GetSelectedYear());
@@ -393,6 +406,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
+        [Route("katilinan-etkinlik")]
         public IActionResult AttendedEvent(RdCenterTechAttendedEventViewModel attendedEventViewModel)
         {
             var attendedEvent = _attendedEventService.GetById(attendedEventViewModel.NewAttendedEvent.Id);
@@ -425,6 +439,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         #endregion
 
         #region Software CRUD
+        [Route("kullailan-yazilim")]
         public IActionResult Software()
         {
             List<RdCenterTechSoftwareDto> softwareList = _softwareService.GetAllByYear(GetSelectedYear());
@@ -471,6 +486,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
+        [Route("kullailan-yazilim")]
         public IActionResult Software(RdCenterTechSoftwareViewModel softwareViewModel)
         {
             var software = _softwareService.GetById(softwareViewModel.NewSoftware.Id);
@@ -503,6 +519,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         #endregion
 
         #region Mentor Info CRUD
+        [Route("mentor-bilgi")]
         public IActionResult MentorInfo()
         {
             List<RdCenterTechMentorInfoDto> mentorInfoList = _mentorInfoService.GetAllByYear(GetSelectedYear());
@@ -549,6 +566,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
+        [Route("mentor-bilgi")]
         public IActionResult MentorInfo(RdCenterTechMentorInfoViewModel mentorInfoViewModel)
         {
             var mentorInfo = _mentorInfoService.GetById(mentorInfoViewModel.NewMentorInfo.Id);
@@ -581,6 +599,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         #endregion
 
         #region Intellectual Property CRUD
+        [Route("mulkiyet-hak")]
         public IActionResult IntellectualProperty()
         {
             var projectList = _projectService.GetAllProjectNameByYear(GetSelectedYear());
@@ -634,6 +653,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         }
 
         [HttpPost]
+        [Route("mulkiyet-hak")]
         public IActionResult IntellectualProperty(RdCenterTechIntellectualPropertyViewModel propertyInfoViewModel)
         {
             var propertyInfo = _propertyService.GetById(propertyInfoViewModel.NewProperty.Id);

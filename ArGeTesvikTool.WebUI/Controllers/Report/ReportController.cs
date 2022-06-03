@@ -61,12 +61,15 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         [HttpPost]
         public IActionResult Income(ReportViewModel reportViewModel)
         {
+            if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
+                return View(reportViewModel);
+
             var personnelEntries = _persEntryService.GetAllByMonth(reportViewModel.StartDate, reportViewModel.EndDate);
 
             if (personnelEntries.Count == 0)
             {
                 AddErrorMessage("Aradığınız kritere uygun kayıt bulunamadı.");
-                return RedirectToAction("Income", "Report");
+                return View(reportViewModel);
             }
 
             List<IncomeDto> incomeList = new();
@@ -76,7 +79,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
 
                 newIncome.RegistrationNo = item.RegistrationNo;
                 newIncome.PersonnelFullName = item.PersonnelFullName;
-                
+
                 decimal timediff = Convert.ToDecimal((item.EndDate.Subtract(item.StartDate)).TotalHours);
 
                 #region Ar-Ge Merkezi İçerisinde Geçirilen Süre
@@ -180,7 +183,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             }
 
             var checkIsExists = _income.GetByYearByMonth(reportViewModel.StartDate.Year, reportViewModel.StartDate.Month);
-            if (checkIsExists ==null)
+            if (checkIsExists == null)
             {
                 _income.AddList(collect);
             }
@@ -207,12 +210,15 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         [HttpPost]
         public IActionResult SocialSecurity(ReportViewModel reportViewModel)
         {
+            if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
+                return View(reportViewModel);
+
             var personnelEntries = _persEntryService.GetAllByMonth(reportViewModel.StartDate, reportViewModel.EndDate);
 
             if (personnelEntries.Count == 0)
             {
                 AddErrorMessage("Aradığınız kritere uygun kayıt bulunamadı.");
-                return RedirectToAction("SocialSecurity", "Report");
+                return View(reportViewModel);
             }
 
             List<SocialSecurityDto> ssiList = new();
@@ -229,12 +235,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
 
                 newSsi.WeekNumber = GetCurrentDayOfWeekNumber(item.StartDate);
 
-                GetPreMonthActivities(reportViewModel.StartDate);
+                //GetPreMonthActivities(reportViewModel.StartDate);
 
                 #region Teşvikli çalışma süresi
-                if (Convert.ToInt32(item.TimeAwayCode) != 90 || Convert.ToInt32(item.TimeAwayCode) <= 91 || Convert.ToInt32(item.TimeAwayCode) <= 99)
+                if (Convert.ToInt32(item.TimeAwayCode) >= 1 && Convert.ToInt32(item.TimeAwayCode) <= 12)
                 {
-                    newSsi.PreMonthTransfer = GetPreMonthActivities(item.StartDate);
+                    if (newSsi.WeekNumber == 1)
+                        newSsi.PreMonthTransfer = GetPreMonthActivities(item.RegistrationNo, item.StartDate);
+
                     newSsi.IncentiveWorkingHour = timediff;
                 }
                 #endregion
@@ -242,8 +250,10 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 #region Yıllık izin süresi
                 if (item.TimeAwayCode == "90")
                 {
-                    newSsi.PreMonthAnnuelLeaveHour = GetPreMonthAnnuelLeaveHour(item.StartDate);
-                    newSsi.PreMonthAnnuelLeaveHour = timediff;
+                    if (newSsi.WeekNumber == 1)
+                        newSsi.PreMonthAnnuelLeaveHour = GetPreMonthAnnuelLeaveHour(item.RegistrationNo, item.StartDate);
+
+                    newSsi.AnnuelLeaveWorkingHour = timediff;
                 }
                 #endregion
 
@@ -255,12 +265,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             List<DateTime> publicholidayList = new();
             foreach (var item in publicholidays)
             {
-                int timeDiff = Convert.ToInt32(item.EndDate.Subtract(item.StartDate).TotalHours);
-                for (int i = 0; i < timeDiff; i++)
-                {
-                    publicholidayList.Add(item.StartDate.AddDays(i));
-                }
+                publicholidayList.Add(item.StartDate);
             }
+
             int businessDayCount = GetBusinessDays(reportViewModel.StartDate, reportViewModel.EndDate, publicholidayList);
             int weekendDayCount = GetWeekendDays(reportViewModel.StartDate);
 
@@ -367,6 +374,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         [HttpPost]
         public IActionResult PersonnelActivityReport(ActivityReportViewModel reportViewModel)
         {
+            if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
+                return View(reportViewModel);
+
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var currentUser = _userManager.FindByIdAsync(userId).Result;
 
@@ -388,7 +398,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             if (result.Count == 0)
             {
                 AddErrorMessage("Aradığınız kritere uygun kayıt bulunamadı.");
-                return RedirectToAction("PersonnelActivityReport", "Report");
+                return View(reportViewModel);
             }
 
             var content = _excelService.ActivityExportExcel(result, "Personel Aktivite Rapor");
@@ -414,6 +424,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         [HttpPost]
         public IActionResult PersonnelReport(ActivityReportViewModel reportViewModel)
         {
+            if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
+                return View(reportViewModel);
+
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var currentUser = _userManager.FindByIdAsync(userId).Result;
 
@@ -422,7 +435,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             if (result.Count == 0)
             {
                 AddErrorMessage("Aradığınız kritere uygun kayıt bulunamadı.");
-                return RedirectToAction("PersonnelReport", "Report");
+                return View(reportViewModel);
             }
 
             var content = _excelService.PdksExportExcel(result, "Personel Pdks Rapor");
@@ -489,6 +502,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         [HttpPost]
         public IActionResult ManagerActivityReport(ActivityReportViewModel reportViewModel)
         {
+            if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
+                return View(reportViewModel);
+
             string[] projectList = Request.Form["projectList"];
             string[] timeAwayList = Request.Form["timeAwayList"];
             string[] personnelList = Request.Form["personnelList"];
@@ -513,7 +529,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             if (result.Count == 0)
             {
                 AddErrorMessage("Aradığınız kritere uygun kayıt bulunamadı.");
-                return RedirectToAction("ManagerActivityReport", "Report");
+                return View(reportViewModel);
             }
 
             var content = _excelService.ActivityExportExcel(result, "Yönetici Aktivite Rapor");
@@ -547,6 +563,9 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         [HttpPost]
         public IActionResult ManagerReport(ActivityReportViewModel reportViewModel)
         {
+            if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
+                return View(reportViewModel);
+
             var result = _persAttendance.GetAllByMonth(reportViewModel.StartDate, reportViewModel.EndDate);
 
             string[] personnelList = Request.Form["personnelList"];
@@ -559,7 +578,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             if (result.Count == 0)
             {
                 AddErrorMessage("Aradığınız kritere uygun kayıt bulunamadı.");
-                return RedirectToAction("PersonnelReport", "Report");
+                return View(reportViewModel);
             }
 
             var content = _excelService.PdksExportExcel(result, "Yönetici Pdks Rapor");
@@ -569,40 +588,50 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Yönetici Pdks Rapor.xlsx");
         }
 
-        private decimal GetPreMonthActivities(DateTime date)
+        private bool DateControl(DateTime startDate, DateTime endDate)
         {
-            DateTime firstDateOfMonth = new DateTime(date.Year, date.Month, 1);
+            if (startDate > endDate)
+            {
+                AddErrorMessage("Başlangıç tarihi bitiş tarihinden büyük olamaz.");
+                return false;
+            }
+            return true;
+        }
+
+        private decimal GetPreMonthActivities(string regNo, DateTime date)
+        {
+            DateTime firstDateOfMonth = new(date.Year, date.Month, 1);
 
             int firstDayOfMonth = (int)(firstDateOfMonth.DayOfWeek - 1) * -1;
             DateTime startDate = firstDateOfMonth.AddDays(firstDayOfMonth);
 
-            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            var daysInMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
+            DateTime endDate = new(startDate.Year, startDate.Month, daysInMonth);
 
-            var personnelEntries = _persEntryService.GetAllByMonth(startDate, endDate);
+            var personnelEntries = _persEntryService.GetAllByMonthByPersonnel(regNo, startDate, endDate);
 
             decimal preMonthTransfer = 0;
             foreach (var item in personnelEntries)
             {
-                if (Convert.ToInt32(item.TimeAwayCode) != 90 || Convert.ToInt32(item.TimeAwayCode) <= 91 || Convert.ToInt32(item.TimeAwayCode) <= 99)
+                if (Convert.ToInt32(item.TimeAwayCode) >= 1 && Convert.ToInt32(item.TimeAwayCode) <= 12)
                 {
-                    preMonthTransfer += Convert.ToDecimal((item.EndDate.Subtract(item.StartDate)).TotalHours);
+                    preMonthTransfer += Convert.ToDecimal(item.EndDate.Subtract(item.StartDate).TotalHours);
                 }
-
             }
 
             return preMonthTransfer;
         }
 
-        private decimal GetPreMonthAnnuelLeaveHour(DateTime date)
+        private decimal GetPreMonthAnnuelLeaveHour(string regNo, DateTime date)
         {
-            DateTime firstDateOfMonth = new DateTime(date.Year, date.Month, 1);
+            DateTime firstDateOfMonth = new(date.Year, date.Month, 1);
 
             int firstDayOfMonth = (int)(firstDateOfMonth.DayOfWeek - 1) * -1;
             DateTime startDate = firstDateOfMonth.AddDays(firstDayOfMonth);
 
             DateTime endDate = startDate.AddMonths(1).AddDays(-1);
 
-            var personnelEntries = _persEntryService.GetAllByMonth(startDate, endDate);
+            var personnelEntries = _persEntryService.GetAllByMonthByPersonnel(regNo, startDate, endDate);
 
             decimal preMonthTransfer = 0;
             foreach (var item in personnelEntries)
@@ -628,17 +657,18 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         private static int GetWeekendDays(DateTime date)
         {
             int daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
-            DateTime firstOfMonth = new DateTime(date.Year, date.Month, 1);
+            DateTime firstOfMonth = new(date.Year, date.Month, 1);
+
             //days of week starts by default as Sunday = 0
             int firstDayOfMonth = (int)firstOfMonth.DayOfWeek;
-            decimal weeksInMonth = ((decimal)(firstDayOfMonth + daysInMonth) / 7);
+            decimal weeksInMonth = (decimal)(firstDayOfMonth + daysInMonth) / 7;
 
             return (int)Math.Round(weeksInMonth);
         }
 
         private static int GetCurrentDayOfWeekNumber(DateTime date)
         {
-            DateTime beginningOfMonth = new DateTime(date.Year, date.Month, 1);
+            DateTime beginningOfMonth = new(date.Year, date.Month, 1);
 
             return (int)Math.Truncate((double)date.Subtract(beginningOfMonth).TotalDays / 7f) + 1;
         }
