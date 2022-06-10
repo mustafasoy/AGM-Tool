@@ -54,7 +54,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         [Route("projeye-personel-ata")]
         public IActionResult PersonnelAssing()
         {
-            List<RdCenterTechProjectDto> allProject = _projService.GetAllProjectName();
+            List<RdCenterTechProjectDto> allProject = _projService.GetAllProjectNameByYear(GetSelectedYear());
             List<RdCenterPersonInfoDto> allPersonnel = _infoService.GetAllPersonnel();
 
             List<SelectListItem> projectCodeList = new();
@@ -237,7 +237,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             var nonProjectRelated = new SelectListGroup { Name = "Proje İlişkisiz" };
 
             var timeAwayList = _timeAwayService.GetAll();
-            var projectList = _projService.GetAllProjectName();
+            var projectList = _projService.GetAllProjectNameByYear(GetSelectedYear());
 
             List<SelectListItem> timeAwaySelectList = new();
             foreach (var item in timeAwayList)
@@ -288,30 +288,169 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var personnelEntry = _persEntryService.GetAllByYearByUserId(GetSelectedYear(), userId)
-                .Select(x => new RdCenterCalPersonnelAddViewModel()
-                {
-                    Id = x.Id,
-                    UserId = userId,
-                    ProjectCode = x.ProjectCode,
-                    ProjectName = x.ProjectName,
-                    TimeAwayCode = x.TimeAwayCode,
-                    TimeAwayName = x.TimeAwayName,
-                    StartDate = x.StartDate,
-                    EndDate = x.EndDate
-                });
+            var personnelEntry = _persEntryService.GetAllByYearByUserId(GetSelectedYear(), userId);
 
-            return Json(personnelEntry);
+            List<RdCenterCalPersonnelAddViewModel> entryList = new();
+            foreach (var item in personnelEntry)
+            {
+                RdCenterCalPersonnelAddViewModel data = new()
+                {
+                    Id = item.Id,
+                    UserId = userId,
+                    ProjectCode = item.ProjectCode,
+                    ProjectName = item.ProjectName,
+                    TimeAwayCode = item.TimeAwayCode,
+                    TimeAwayName = item.TimeAwayName,
+                    StartDate = item.StartDate,
+                    EndDate = item.EndDate
+                };
+
+                entryList.Add(data);
+            }
+
+            /*getHolidays*/
+            var holidayEntry = _holidayService.GetAllByYear(GetSelectedYear());
+            DateTime startDate;
+            foreach (var item in holidayEntry)
+            {
+                startDate = item.StartDate;
+
+                RdCenterCalPersonnelAddViewModel data = new()
+                {
+                    ProjectCode = item.HolidayName,
+                    StartDate = startDate.Date,
+                    EndDate = startDate.Date + TimeSpan.FromHours(23) + TimeSpan.FromMinutes(59)
+                };
+                entryList.Add(data);
+            }
+
+            return Json(entryList);
         }
 
-        public JsonResult GetPersonnelTime(string startDate, string endDate)
+        public JsonResult GetPersonnelTime(int id, string startDate, string endDate)
+        {
+            List<RdCenterCalPublicHolidayDto> publicholidays = _holidayService.GetAllByMonth(Convert.ToDateTime(startDate), Convert.ToDateTime(endDate));
+            if (publicholidays.Count > 0)
+                return Json("401");
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentUser = _userManager.FindByIdAsync(userId).Result;
+
+            var attendanceList = _attendanceService.GetAllByMonthByPersonnelId(currentUser.RegistrationNo, Convert.ToDateTime(startDate), Convert.ToDateTime(endDate));
+
+            List<RdCenterCalPersAttendanceDto> newList = DeleteRepeateEvent(attendanceList).ToList();
+
+            /*if attendanceList start with çıkış, delete it. Always attendanceList must start with giriş*/
+            var itemRemove = newList.ElementAtOrDefault(0).TerminalName;
+            itemRemove = itemRemove.ToLower()
+                .Replace("ç", "c")
+                .Replace("ş", "s")
+                .Replace("ı", "i");
+            if (itemRemove.Contains("cikis"))
+            {
+                newList.RemoveAt(0);
+            }
+
+            double projectTime = 0;
+
+            string inTime = string.Empty;
+            foreach (var item in newList)
+            {
+                string terminalName = item.TerminalName.ToLower().Replace("ç", "c").Replace("ş", "s").Replace("ı", "i");
+                if (terminalName.Contains("giris"))
+                {
+                    inTime = item.EventTime.ToLongTimeString();
+                }
+                if (terminalName.Contains("cikis"))
+                {
+                    string outTime = item.EventTime.ToLongTimeString();
+                    TimeSpan duration = DateTime.Parse(outTime).Subtract(DateTime.Parse(inTime));
+
+                    double x = (Convert.ToDouble(duration.Seconds) / Convert.ToDouble(60));
+                    double hour = duration.Hours > 0 ? duration.Hours * 60 : 0;
+                    double minute = duration.Minutes > 0 ? hour + duration.Minutes + (duration.Seconds / Convert.ToDouble(60)) : hour;
+
+                    projectTime += minute;
+                }
+            }
+
+            /*if total inTime is bigger than 7 hour 45 min round it 8 hour*/
+            projectTime = projectTime >= 465 ? 480 : projectTime;
+
+            /*calculate timeAwayTime*/
+            double timeAwayTime = 480 - projectTime;
+
+            var personnelEntry = _persEntryService.GetAllByMonthByPersonnel(currentUser.RegistrationNo, Convert.ToDateTime(startDate), Convert.ToDateTime(endDate));
+            foreach (var item in personnelEntry)
+            {
+                /*get personnel activity entry*/
+                /*if update modal open, don't calculate selected personnel entry time*/
+                if (id != 0 && item.StartDate == Convert.ToDateTime(startDate) && item.EndDate == Convert.ToDateTime(endDate))
+                    continue;
+
+                TimeSpan duration = item.EndDate.Subtract(item.StartDate);
+                double hour = duration.Hours > 0 ? duration.Hours * 60 : 0;
+                double minute = duration.Minutes > 0 ? hour + duration.Minutes + (duration.Seconds / 60) : hour;
+
+                if (!string.IsNullOrEmpty(item.ProjectCode))
+                    projectTime -= minute;
+                if (!string.IsNullOrEmpty(item.TimeAwayCode))
+                    timeAwayTime -= minute;
+            }
+
+            string allowedProjectHours = string.Empty;
+            string allowedTimeAwayHours = string.Empty;
+
+            if (projectTime > 0)
+            {
+                TimeSpan projectHour = TimeSpan.FromMinutes(projectTime);
+
+                if (projectHour.Hours > 0 && projectHour.Minutes > 0)
+                    allowedProjectHours = string.Format("{0} saat {1} dakika", projectHour.Hours, projectHour.Minutes);
+
+                if (projectHour.Hours > 0 && projectHour.Minutes == 0)
+                    allowedProjectHours = string.Format("{0} saat", projectHour.Hours);
+
+                if (projectHour.Hours == 0 && projectHour.Minutes > 0)
+                    allowedProjectHours = string.Format("{0} dakika", projectHour.Minutes);
+
+            }
+            if (timeAwayTime > 0)
+            {
+                TimeSpan outsideHour = TimeSpan.FromMinutes(timeAwayTime);
+
+                if (outsideHour.Hours > 0 && outsideHour.Minutes > 0)
+                    allowedTimeAwayHours = string.Format("{0} saat {1} dakika", outsideHour.Hours, outsideHour.Minutes);
+
+                if (outsideHour.Hours > 0 && outsideHour.Minutes == 0)
+                    allowedTimeAwayHours = string.Format("{0} saat", outsideHour.Hours);
+
+                if (outsideHour.Hours == 0 && outsideHour.Minutes > 0)
+                    allowedTimeAwayHours = string.Format("{0} dakika", outsideHour.Minutes);
+            }
+
+            RdCenterCalPersonnelEntryViewModel allowedTime = new()
+            {
+                ProjectTime = allowedProjectHours,
+                ProjectMin = projectTime.ToString(),
+                TimeAwayTime = allowedTimeAwayHours,
+                TimeAwayMin = timeAwayTime.ToString()
+            };
+
+            return Json(allowedTime);
+        }
+
+        public JsonResult CheckPersonnelTime(string startDate, string endDate, string timeAwayCode)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var currentUser = _userManager.FindByIdAsync(userId).Result;
 
             var attendanceList = _attendanceService.GetAllByMonthByPersonnelId(currentUser.RegistrationNo, Convert.ToDateTime(startDate), Convert.ToDateTime(endDate));
-            
+
             List<RdCenterCalPersAttendanceDto> newList = DeleteRepeateEvent(attendanceList).ToList();
+
+            if (newList.Count == 0)
+                return Json("404");
 
             /*if attendanceList start with çıkış, delete it. Always attendanceList must start with giriş*/
             var itemRemove = newList.ElementAtOrDefault(0).TerminalName;
@@ -367,35 +506,15 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                     timeAwayTime -= minute;
             }
 
-            string allowedProjectHours = string.Empty;
-            string allowedTimeAwayHours = string.Empty;
+            /*check new event time is ok*/
+            TimeSpan entryDuration = DateTime.Parse(endDate).Subtract(DateTime.Parse(startDate));
+            if (string.IsNullOrEmpty(timeAwayCode) && entryDuration.TotalMinutes > projectTime)
+                return Json("400");
 
-            if (projectTime > 0)
-            {
-                TimeSpan projectHour = TimeSpan.FromMinutes(projectTime);
+            if (!string.IsNullOrEmpty(timeAwayCode) && entryDuration.TotalMinutes > timeAwayTime)
+                return Json("400");
 
-                allowedProjectHours = projectHour.Minutes > 0
-                    ? string.Format("{0} saat {1} dakika", (int)projectHour.TotalHours, projectHour.Minutes)
-                    : string.Format("{0} saat", (int)projectHour.TotalHours);
-            }
-            if (timeAwayTime > 0)
-            {
-                TimeSpan outsideHour = TimeSpan.FromMinutes(timeAwayTime);
-
-                allowedTimeAwayHours = outsideHour.Minutes > 0
-                    ? string.Format("{0} saat {1} dakika", (int)outsideHour.TotalHours, outsideHour.Minutes)
-                    : string.Format("{0} saat", (int)outsideHour.TotalHours);
-            }
-
-            RdCenterCalPersonnelEntryViewModel allowedTime = new()
-            {
-                ProjectTime = allowedProjectHours,
-                ProjectMin = projectTime.ToString(),
-                TimeAwayTime = allowedTimeAwayHours,
-                TimeAwayMin = timeAwayTime.ToString()
-            };
-
-            return Json(allowedTime);
+            return Json("200");
         }
 
         public JsonResult DeletePersonnelEntry(int id)
@@ -427,6 +546,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
 
             if (personnelEntry == null)
             {
+                /*create*/
                 personnelViewModel.Year = GetSelectedYear();
                 personnelViewModel.UserId = userId;
                 personnelViewModel.PersonnelFullName = currentUser.Name + " " + currentUser.LastName;
@@ -441,29 +561,29 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
 
                 return Json("201");
             }
-            else
-            {
-                personnelViewModel.Id = personnelEntry.Id;
-                personnelViewModel.UserId = userId;
-                personnelViewModel.PersonnelFullName = currentUser.Name + " " + currentUser.LastName;
-                personnelViewModel.RegistrationNo = registrationNo;
-                personnelViewModel.WorkType = workType;
-                personnelViewModel.Year = personnelEntry.Year;
-                personnelViewModel.ProjectName = personnelEntry.ProjectName;
-                personnelViewModel.TimeAwayName = personnelEntry.TimeAwayName;
-                personnelViewModel.StartDate = personnelViewModel.StartDate;
-                personnelViewModel.EndDate = personnelViewModel.EndDate;
-                personnelViewModel.CreatedDate = personnelEntry.CreatedDate;
-                personnelViewModel.CreatedUserName = personnelEntry.CreatedUserName;
-                personnelViewModel.ModifiedDate = DateTime.Now;
-                personnelViewModel.ModifedUserName = User.Identity.Name;
 
-                entryDto = personnelViewModel.Adapt<RdCenterCalPersonnelEntryDto>();
+            /*update*/
+            personnelViewModel.Id = personnelEntry.Id;
+            personnelViewModel.UserId = userId;
+            personnelViewModel.PersonnelFullName = currentUser.Name + " " + currentUser.LastName;
+            personnelViewModel.RegistrationNo = registrationNo;
+            personnelViewModel.WorkType = workType;
+            personnelViewModel.Year = personnelEntry.Year;
+            personnelViewModel.ProjectName = personnelEntry.ProjectName;
+            personnelViewModel.TimeAwayName = personnelEntry.TimeAwayName;
+            personnelViewModel.StartDate = personnelViewModel.StartDate;
+            personnelViewModel.EndDate = personnelViewModel.EndDate;
+            personnelViewModel.CreatedDate = personnelEntry.CreatedDate;
+            personnelViewModel.CreatedUserName = personnelEntry.CreatedUserName;
+            personnelViewModel.ModifiedDate = DateTime.Now;
+            personnelViewModel.ModifedUserName = User.Identity.Name;
 
-                _persEntryService.Update(entryDto);
+            entryDto = personnelViewModel.Adapt<RdCenterCalPersonnelEntryDto>();
 
-                return Json("204");
-            }
+            _persEntryService.Update(entryDto);
+
+            return Json("204");
+
         }
 
         private static List<RdCenterCalPersAttendanceDto> DeleteRepeateEvent(List<RdCenterCalPersAttendanceDto> personnelAttendance)
@@ -772,7 +892,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                 AddSuccessMessage("Resmi tatil bilgisi güncellendi.");
             }
 
-            return Redirect("PublicHoliday");
+            return RedirectToAction("PublicHoliday");
         }
         #endregion
     }

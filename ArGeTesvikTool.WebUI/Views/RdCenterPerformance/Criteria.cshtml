@@ -1,0 +1,136 @@
+﻿@model RdCenterPerformanceCriteriaViewModel
+@{
+    ViewBag.Title = "Performans Kriterleri";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            Diğer Bilgiler
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="Other" method="get">
+                            @Html.AntiForgeryToken()
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address text-justify">
+                                            <b>Kriterler</b>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <h6 class="invoice-address text-justify">
+                                            <b>@Model.CriteriaInfo.Year</b>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <h6 class="invoice-address text-justify">
+                                            <b>@Model.CriteriaInfo.PreYear</b>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address text-justify">
+                                            Ar-Ge veya Tasarım Harcamalarının Toplam Ciro İçindeki Payı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.TotalRDTurnover" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.PreTotalRDTurnover" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address text-justify">
+                                            Tescil Edilen Ulusal Veya Uluslararası Patent Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.RegistiredPatentNumber" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.PreRegistiredPatentNumber" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address text-justify">
+                                            Uluslararası Destekli Proje Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.IntSupportedrojectNumber" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.PreIntSupportedrojectNumber" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address text-justify">
+                                            Lisansüstü Dereceli Araştırmacı Sayısının Toplam Ar-Ge Personeli Sayısına Oranı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.MasterPersonnelRatio" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.PreMasterPersonnelRatio" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address text-justify">
+                                            Toplam Araştırmacı Sayısının Toplam Ar-Ge Personeli Sayısına Oranı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.TotalPersonnelRatio" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.PreTotalPersonnelRatio" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address text-justify">
+                                            Ar-Ge Sonucu Ortaya Çıkan Yeni Ürünlerden Elde Edilen Cironun Toplam Ciroya Oranı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.TotalTurnoverRatio" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="CriteriaInfo.PreTotalTurnoverRatio" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

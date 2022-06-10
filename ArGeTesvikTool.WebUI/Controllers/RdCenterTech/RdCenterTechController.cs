@@ -1,6 +1,7 @@
 ﻿using ArGeTesvikTool.Business.Abstract.RdCenterTech;
 using ArGeTesvikTool.Business.Utilities;
 using ArGeTesvikTool.Business.ValidationRules.FluentValidation.RdCenterTech;
+using ArGeTesvikTool.Core.Entities;
 using ArGeTesvikTool.Entities.Concrete.RdCenterTech;
 using ArGeTesvikTool.WebUI.Controllers.Authentication;
 using ArGeTesvikTool.WebUI.Models.RdCenterTech;
@@ -66,6 +67,37 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return View(projectViewModel);
         }
 
+        [HttpPost]
+        [Route("proje-goruntule")]
+        public IActionResult ProjectView(RdCenterTechProjectViewModel projectViewModel)
+        {
+            var project = _projectService.GetById(projectViewModel.NewProject.Id);
+
+            projectViewModel.NewProject.Id = project.Id;
+            projectViewModel.NewProject.Year = project.Year;
+            projectViewModel.NewProject.CreatedDate = project.CreatedDate;
+            projectViewModel.NewProject.CreatedUserName = project.CreatedUserName;
+            projectViewModel.NewProject.ModifiedDate = DateTime.Now;
+            projectViewModel.NewProject.ModifedUserName = User.Identity.Name;
+
+            _projectService.Update(projectViewModel.NewProject);
+
+            AddSuccessMessage("Proje kaydı güncelledi.");
+
+            string redirectAction = string.Empty;
+            switch (project.ProjectStatu)
+            {
+                case ProjectStatu.Tamam:
+                    redirectAction = "CompletedProject";
+                    break;
+                case ProjectStatu.Iptal:
+                    redirectAction = "CanceledProject";
+                    break;
+            }
+
+            return RedirectToAction(redirectAction);
+        }
+
         public IActionResult ProjectDelete(int id)
         {
             _projectService.Delete(id);
@@ -90,11 +122,23 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 
         [HttpPost]
         [Route("proje-duzenle")]
-        public IActionResult ProjectModify(RdCenterTechProjectViewModel projectViewModel)
+        public IActionResult ProjectModify(RdCenterTechProjectViewModel projectViewModel, List<IFormFile> projectFile)
         {
             var validate = ValidatorTool.Validate(new RdCenterTechProjectValidator(), projectViewModel.NewProject);
             if (validate.IsValid)
             {
+                foreach (var item in projectFile)
+                {
+                    if (item.Length > 0)
+                    {
+                        using var stream = new MemoryStream();
+                        item.CopyToAsync(stream).Wait();
+                        projectViewModel.NewProject.ProjectFileName = item.FileName;
+                        projectViewModel.NewProject.ProjectContent = stream.ToArray();
+                        projectViewModel.NewProject.ProjectContentType = item.ContentType;
+                    }
+                }
+
                 var project = _projectService.GetById(projectViewModel.NewProject.Id);
                 if (project == null)
                 {
@@ -120,7 +164,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
                     AddSuccessMessage("Proje kaydı güncelledi.");
                 }
 
-                return RedirectToAction("OngoingProject", new { year = 2022 });
+                return RedirectToAction("OngoingProject");
             }
 
             AddValidatorError(validate);
@@ -152,6 +196,17 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             };
 
             return View(projectViewModel);
+        }
+
+        public FileStreamResult ProjectDownload(int id)
+        {
+            var project = _projectService.GetById(id);
+
+            var content = new MemoryStream(project.ProjectContent);
+            var contentType = project.ProjectContentType;
+            var fileName = project.ProjectFileName;
+
+            return File(content, contentType, fileName);
         }
         #endregion
 
@@ -434,7 +489,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
                 AddSuccessMessage("Katılım sağlanan kongre,konferans kaydı güncelledi.");
             }
 
-            return Redirect("AttendedEvent");
+            return RedirectToAction("AttendedEvent");
         }
         #endregion
 
@@ -602,18 +657,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         [Route("mulkiyet-hak")]
         public IActionResult IntellectualProperty()
         {
-            var projectList = _projectService.GetAllProjectNameByYear(GetSelectedYear());
-
             List<RdCenterTechIntellectualPropertyDto> propertyInfoList = _propertyService.GetAll();
 
             RdCenterTechIntellectualPropertyViewModel propertyInfoViewModel = new()
             {
                 PropertyList = propertyInfoList,
-                ProjectList = projectList.Select(x => new SelectListItem
-                {
-                    Value = x.ProjectCode,
-                    Text = x.ProjectName
-                }).ToList(),
             };
 
             return View(propertyInfoViewModel);
@@ -623,9 +671,15 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
         {
             RdCenterTechIntellectualPropertyDto propertyInfo = new();
 
+            var projectList = _projectService.GetAllProjectNameByYear(GetSelectedYear());
             RdCenterTechIntellectualPropertyViewModel propertyInfoViewModel = new()
             {
-                NewProperty = propertyInfo
+                NewProperty = propertyInfo,
+                ProjectList = projectList.Select(x => new SelectListItem
+                {
+                    Value = x.ProjectCode,
+                    Text = x.ProjectName,
+                }).ToList()
             };
 
             return PartialView("PartialView/IntellectualPropertyPartialView", propertyInfoViewModel);
@@ -633,11 +687,17 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 
         public IActionResult IntellectualPropertyUpdate(int id)
         {
+            var projectList = _projectService.GetAllProjectNameByYear(GetSelectedYear());
             var propertyInfo = _propertyService.GetById(id);
 
             RdCenterTechIntellectualPropertyViewModel propertyInfoViewModel = new()
             {
-                NewProperty = propertyInfo
+                NewProperty = propertyInfo,
+                ProjectList = projectList.Select(x => new SelectListItem
+                {
+                    Value = x.ProjectCode,
+                    Text = x.ProjectName,
+                }).ToList()
             };
 
             return PartialView("PartialView/IntellectualPropertyPartialView", propertyInfoViewModel);
@@ -649,7 +709,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 
             AddSuccessMessage("Fikri ve Sinai mülkiyet kaydı silindi.");
 
-            return RedirectToAction("MentorInfo", new { year = 2022 });
+            return RedirectToAction("IntellectualProperty");
         }
 
         [HttpPost]

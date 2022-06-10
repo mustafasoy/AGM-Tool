@@ -42,14 +42,9 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterTech
                                                      x.ProjectStatu == (ProjectStatu)Enum.Parse(typeof(ProjectStatu), projectStatus));
         }
 
-        public List<RdCenterTechProjectDto> GetAllProjectName()
+        public List<RdCenterTechProjectDto> GetAllByYear(int year)
         {
-            return _rdCenterTechProject.GetList()
-                            .Select(x => new RdCenterTechProjectDto
-                            {
-                                ProjectCode = x.ProjectCode,
-                                ProjectName = x.ProjectName
-                            }).ToList();
+            return _rdCenterTechProject.GetList(x => x.Year == year);
         }
 
         public List<RdCenterTechProjectDto> GetAllProjectNameByYear(int year)

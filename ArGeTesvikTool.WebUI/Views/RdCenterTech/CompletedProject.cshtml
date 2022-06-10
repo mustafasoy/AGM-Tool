@@ -108,3 +108,11 @@
     </div>
 </div>
 <!-- END: Content-->
+<script>
+    $(document).ready(function () {
+        var message = "@(TempData["SuccessMessage"] as string)";
+        if (message != "") {
+            showMessage(message);
+        }
+    })
+</script>

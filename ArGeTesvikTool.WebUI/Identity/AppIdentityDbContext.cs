@@ -54,10 +54,14 @@ namespace ArGeTesvikTool.WebUI.Models
                     .HasColumnName("LastName")
                     .HasMaxLength(256);
 
+                entity.HasIndex(x => x.IdentityNumber)
+                    .IsUnique();
                 entity.Property(x => x.IdentityNumber)
                     .HasColumnName("IdentityNumber")
                     .HasMaxLength(11);
 
+                entity.HasIndex(x => x.RegistrationNo)
+                    .IsUnique();
                 entity.Property(x => x.RegistrationNo)
                     .HasColumnName("RegistrationNo")
                     .HasMaxLength(26);

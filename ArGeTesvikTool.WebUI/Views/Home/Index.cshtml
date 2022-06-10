@@ -79,5 +79,28 @@
                 location.reload();
             }
         })
-    }
+    };
+
+    (function () {
+        /*number of seconds*/
+        const idleDurationSecs = 120;
+        /*redirect idle users to this URL*/
+        const redirectUrl = '/cikis';
+        /*variable to hold the timeout, do not modify*/
+        let idleTimeout;
+
+        const resetIdleTimeout = function () {
+            /*clears the existing timeout*/
+            if (idleTimeout) clearTimeout(idleTimeout);
+
+            /*set a new idle timeout to load the redirectUrl after idleDurationSecs*/
+            idleTimeout = setTimeout(() => location.href = redirectUrl, idleDurationSecs * 1000);
+        };
+        /*init on page load*/
+        resetIdleTimeout();
+        /*reset the idle timeout on any of the events listed below*/
+        ['click', 'touchstart', 'mousemove'].forEach(evt =>
+            document.addEventListener(evt, resetIdleTimeout, false)
+        );
+    })();
 </script>

@@ -53,10 +53,10 @@ namespace ArGeTesvikTool.Entities.Concrete.RdCenterTech
     public enum ServiceProcurement
     {
         [Display(Name = "Yurt içi")]
-        Devam = 1,
+        YurtIci = 1,
         [Display(Name = "Yurt dışı")]
-        Tamam = 2,
+        YurtDisi = 2,
         [Display(Name = "Her ikisi")]
-        Iptal = 3,
+        Ikisi = 3,
     }
 }

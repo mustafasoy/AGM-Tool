@@ -6,21 +6,21 @@
     İsim Soyad
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.NameSurname" class="form-control">
+    <input asp-for="NewPersonnelInfo.NameSurname" class="form-control" disabled="disabled" />
 </div>
 
 <h6 class="invoice-address">
     Kimlik Numarası
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control">
+    <input asp-for="NewPersonnelInfo.IdentityNumber" type="number" verifyidentitynumber=this onkeydown="return event.keyCode !== 69" class="form-control" disabled="disabled" />
 </div>
 
 <h6 class="invoice-address">
     Sgk Sicil No
 </h6>
 <div class="form-group">
-    <input asp-for="NewPersonnelInfo.RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control" />
+    <input asp-for="NewPersonnelInfo.RegistrationNo" type="number" maxlength="26" onkeydown="return event.keyCode !== 69" class="form-control" disabled="disabled" />
 </div>
 
 <h6 class="invoice-address">

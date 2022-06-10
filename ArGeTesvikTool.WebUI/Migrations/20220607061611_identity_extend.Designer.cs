@@ -4,14 +4,16 @@ using ArGeTesvikTool.WebUI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArGeTesvikTool.WebUI.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220607061611_identity_extend")]
+    partial class identity_extend
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2066,8 +2068,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("IntServiceProcurementAmount");
 
                     b.Property<string>("IntSupportProgram")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("IntSupportProgram");
 
                     b.Property<string>("ModifedUserName")
@@ -2085,13 +2086,11 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("NatServiceProcurementAmount");
 
                     b.Property<string>("NatSupportProgram")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("NatSupportProgram");
 
                     b.Property<string>("OrderBase")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("OrderBase");
 
                     b.Property<int>("PersonNumber")
@@ -2099,8 +2098,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("PersonNumber");
 
                     b.Property<string>("ProjectActivity")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("ProjectActivity");
 
                     b.Property<string>("ProjectCode")
@@ -2130,8 +2128,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("ProjectFileName");
 
                     b.Property<string>("ProjectInnovative")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("ProjectInnovative");
 
                     b.Property<string>("ProjectName")
@@ -2140,13 +2137,11 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("ProjectName");
 
                     b.Property<string>("ProjectOutput")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("ProjectOutput");
 
                     b.Property<string>("ProjectRequirement")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("ProjectRequirement");
 
                     b.Property<DateTime>("ProjectStartDate")
@@ -2160,19 +2155,15 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("ProjectStatu");
 
                     b.Property<string>("ProjectSubject")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("ProjectSubject");
 
                     b.Property<string>("ProjectSummary")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("ProjectSummary");
 
-                    b.Property<string>("ServiceProcurement")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
+                    b.Property<int>("ServiceProcurement")
+                        .HasColumnType("int")
                         .HasColumnName("ServiceProcurement");
 
                     b.Property<string>("ServiceProcurementAmount")
@@ -2181,8 +2172,7 @@ namespace ArGeTesvikTool.WebUI.Migrations
                         .HasColumnName("ServiceProcurementAmount");
 
                     b.Property<string>("ServiceProcurementSubject")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("ServiceProcurementSubject");
 
                     b.Property<string>("SupportAmount")

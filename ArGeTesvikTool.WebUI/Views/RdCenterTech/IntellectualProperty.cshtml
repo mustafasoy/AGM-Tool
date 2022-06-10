@@ -49,48 +49,51 @@
                                             <th>
                                                 Başvuru Tarihi
                                             </th>
+                                            <th>
+                                                İşlemler
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var item in Model.PropertyList)
                                         {
                                             rowNumber++;
-                                        <tr>
-                                            <td hidden="hidden">
-                                                @rowNumber
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ProjectName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ProperyType)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.InventionType)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.International)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.DevelopmentPlace)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Statu)
-                                            </td>
-                                            <td>
-                                                @Html.Raw(item.ApplicationDate.ToString("dd/MM/yyyy"))
-                                            </td>
-                                            <td>
-                                                <div class="invoice-action">
-                                                    <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
-                                                        <i class="bx bx-edit"></i>
-                                                    </a>
-                                                    <a asp-action="IntellectualPropertyDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
-                                                        <i class="bx bx-trash"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td hidden="hidden">
+                                                    @rowNumber
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ProjectName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ProperyType)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.InventionType)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.International)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.DevelopmentPlace)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Statu)
+                                                </td>
+                                                <td>
+                                                    @Html.Raw(item.ApplicationDate.ToString("dd/MM/yyyy"))
+                                                </td>
+                                                <td>
+                                                    <div class="invoice-action">
+                                                        <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
+                                                            <i class="bx bx-edit"></i>
+                                                        </a>
+                                                        <a asp-action="IntellectualPropertyDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                            <i class="bx bx-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
                                 </table>
@@ -133,9 +136,10 @@
 <!-- END: Content-->
 <script>
     $(document).ready(function () {
+        var message = "@(TempData["SuccessMessage"] as string)";
         if (message != "") {
             showMessage(message);
-        };
+        }
     });
 
     $(function () {

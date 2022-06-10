@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 
@@ -46,6 +47,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
 
             _excelService = excelService;
         }
+        [Route("gelir-vergisi")]
         public IActionResult Income()
         {
             DateTime startDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -59,6 +61,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         }
 
         [HttpPost]
+        [Route("gelir-vergisi-rapor")]
         public IActionResult Income(ReportViewModel reportViewModel)
         {
             if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
@@ -82,24 +85,27 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
 
                 decimal timediff = Convert.ToDecimal((item.EndDate.Subtract(item.StartDate)).TotalHours);
 
+                //if daily activity is bigger than 8 hours, do it 8 always
+                timediff = IsTimeBiggerThanEight(ref timediff);
+
                 #region Ar-Ge Merkezi İçerisinde Geçirilen Süre
-                if (!string.IsNullOrEmpty(item.ProjectCode))
+                if (string.IsNullOrEmpty(item.TimeAwayCode))
                 {
-                    newIncome.RdCenterTimeSpend = IsTimeBiggerThanEight(ref timediff);
+                    newIncome.RdCenterTimeSpend = timediff;
                 }
                 #endregion
 
                 #region Uzaktan Çalışma Süresi
                 if (item.TimeAwayCode == "12")
                 {
-                    newIncome.RemoteTimeSpend = IsTimeBiggerThanEight(ref timediff);
+                    newIncome.RemoteTimeSpend = timediff;
                 }
                 #endregion
 
                 #region Projeler veya Lisansüstü Eğitim Kapsamında Ar-Ge Merkezi Dışında Geçirilen Teşvikli Süre
                 if (Convert.ToInt32(item.TimeAwayCode) >= 1 && Convert.ToInt32(item.TimeAwayCode) <= 11)
                 {
-                    newIncome.ProjectTimeSpend = IsTimeBiggerThanEight(ref timediff);
+                    newIncome.ProjectTimeSpend = timediff;
                 }
                 #endregion
 
@@ -139,14 +145,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             List<DateTime> publicholidayList = new();
             foreach (var item in publicholidays)
             {
-                int timeDiff = Convert.ToInt32(item.EndDate.Subtract(item.StartDate).TotalHours);
-                for (int i = 0; i < timeDiff; i++)
-                {
-                    publicholidayList.Add(item.StartDate.AddDays(i));
-                }
+                publicholidayList.Add(item.StartDate);
             }
+
             int businessDayCount = GetBusinessDays(reportViewModel.StartDate, reportViewModel.EndDate, publicholidayList);
-            int weekendDayCount = GetWeekendDays(reportViewModel.StartDate);
+            int weekendDayCount = GetWeekendDays(reportViewModel.StartDate, businessDayCount, publicholidayList);
 
             var collect = incomeList
                 .GroupBy(x => new
@@ -173,13 +176,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 decimal netWorkingTime = businessDayCount * 8 - item.AnnualLeaveTimeSpend;
                 decimal incentiveWorkingTime = item.RdCenterTimeSpend + item.RemoteTimeSpend + item.ProjectTimeSpend;
                 decimal incentiveRate = incentiveWorkingTime / netWorkingTime;
-                decimal incentiveWeekendRate = weekendDayCount * incentiveRate;
-                decimal publicHolidayRate = publicholidays.Count * incentiveRate;
+                decimal incentiveWeekendRate = weekendDayCount * 8 * incentiveRate;
+                decimal publicHolidayRate = publicholidays.Count * 8 * incentiveRate;
                 decimal annualLeave = item.AnnualLeaveTimeSpend * incentiveRate;
                 decimal incentiveTimeTotal = incentiveWorkingTime + incentiveWeekendRate + publicHolidayRate + annualLeave;
                 decimal incentiveDayCount = incentiveTimeTotal / 8;
 
-                item.BaseUsedDay = Math.Floor(incentiveDayCount);
+                item.BaseUsedDay = Math.Floor(incentiveDayCount) > 30 ? 30 : Math.Floor(incentiveDayCount);
             }
 
             var checkIsExists = _income.GetByYearByMonth(reportViewModel.StartDate.Year, reportViewModel.StartDate.Month);
@@ -195,6 +198,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Gelir Vergisi Rapor.xlsx");
         }
 
+        [Route("sgk-rapor")]
         public IActionResult SocialSecurity()
         {
             DateTime startDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -208,6 +212,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         }
 
         [HttpPost]
+        [Route("sgk-rapor")]
         public IActionResult SocialSecurity(ReportViewModel reportViewModel)
         {
             if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
@@ -235,10 +240,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
 
                 newSsi.WeekNumber = GetCurrentDayOfWeekNumber(item.StartDate);
 
-                //GetPreMonthActivities(reportViewModel.StartDate);
-
                 #region Teşvikli çalışma süresi
-                if (Convert.ToInt32(item.TimeAwayCode) >= 1 && Convert.ToInt32(item.TimeAwayCode) <= 12)
+                if (!string.IsNullOrEmpty(item.ProjectCode) || (Convert.ToInt32(item.TimeAwayCode) >= 1 && Convert.ToInt32(item.TimeAwayCode) <= 12))
                 {
                     if (newSsi.WeekNumber == 1)
                         newSsi.PreMonthTransfer = GetPreMonthActivities(item.RegistrationNo, item.StartDate);
@@ -263,13 +266,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             //get working days between given start and end date
             List<RdCenterCalPublicHolidayDto> publicholidays = _holidayService.GetAllByMonth(reportViewModel.StartDate, reportViewModel.EndDate);
             List<DateTime> publicholidayList = new();
+            List<Tuple<DateTime, int>> publicholidayWeekNumber = new();
             foreach (var item in publicholidays)
             {
                 publicholidayList.Add(item.StartDate);
+                publicholidayWeekNumber.Add(new Tuple<DateTime, int>(item.StartDate,GetCurrentDayOfWeekNumber(item.StartDate)));
             }
 
             int businessDayCount = GetBusinessDays(reportViewModel.StartDate, reportViewModel.EndDate, publicholidayList);
-            int weekendDayCount = GetWeekendDays(reportViewModel.StartDate);
 
             var collect = ssiList
                 .GroupBy(x => new
@@ -295,9 +299,16 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 if (item.WeekNumber == 1)
                     item.WeekendWorkingHour = (int)(item.PreMonthTransfer + item.IncentiveWorkingHour + item.PreMonthAnnuelLeaveHour + item.AnnuelLeaveWorkingHour) >= 40 ? 16 : 0;
                 else
-                    item.WeekendWorkingHour = (int)(item.IncentiveWorkingHour + item.AnnuelLeaveWorkingHour);
+                    item.WeekendWorkingHour = (int)(item.IncentiveWorkingHour + item.AnnuelLeaveWorkingHour) >= 40 ? 16 : 0;
 
-                item.PublicHolidayWorkingHour = publicholidays.Count * 8;
+                if (item.WeekNumber == 5)
+                    item.WeekendWorkingHour = 0;
+
+                var weekNumber = publicholidayWeekNumber.FirstOrDefault(x => x.Item2 == item.WeekNumber);
+                if (weekNumber != null && weekNumber.Item2 == item.WeekNumber)
+                {
+                    item.PublicHolidayWorkingHour = publicholidays.Count * 8;
+                }
 
                 decimal monthlyincentiveTotalTime = item.IncentiveWorkingHour + item.WeekendWorkingHour;
                 decimal netWorkingTime = businessDayCount * 8 - item.AnnuelLeaveWorkingHour;
@@ -323,6 +334,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "SGK Rapor.xlsx");
         }
 
+        [Route("personel-aktivite-rapor")]
         public IActionResult PersonnelActivityReport()
         {
             DateTime startDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -331,7 +343,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             var nonProjectRelated = new SelectListGroup { Name = "Proje İlişkisiz" };
             var timeAwayList = _timeAwayService.GetAll();
 
-            var projectList = _projService.GetAllProjectName();
+            var projectList = _projService.GetAllProjectNameByYear(GetSelectedYear());
 
             List<SelectListItem> timeAwaySelectList = new();
             foreach (var item in timeAwayList)
@@ -372,6 +384,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         }
 
         [HttpPost]
+        [Route("personel-aktivite-rapor")]
         public IActionResult PersonnelActivityReport(ActivityReportViewModel reportViewModel)
         {
             if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
@@ -408,6 +421,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Personel Aktivite Rapor.xlsx");
         }
 
+        [Route("personel-pdks-rapor")]
         public IActionResult PersonnelReport()
         {
             DateTime startDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -422,6 +436,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         }
 
         [HttpPost]
+        [Route("personel-pdks-rapor")]
         public IActionResult PersonnelReport(ActivityReportViewModel reportViewModel)
         {
             if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
@@ -445,6 +460,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Personel Pdks Rapor.xlsx");
         }
 
+        [Route("yonetici-aktivite-rapor")]
         public IActionResult ManagerActivityReport()
         {
             DateTime startDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -453,8 +469,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             var nonProjectRelated = new SelectListGroup { Name = "Proje İlişkisiz" };
 
             var timeAwayList = _timeAwayService.GetAll();
-            var projectList = _projService.GetAllProjectName();
-            var personnelList = _infoService.GetAllByYear(2022);
+            var projectList = _projService.GetAllProjectNameByYear(GetSelectedYear());
+            var personnelList = _infoService.GetAllByYear(GetSelectedYear());
 
             List<SelectListItem> timeAwaySelectList = new();
             foreach (var item in timeAwayList)
@@ -500,6 +516,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         }
 
         [HttpPost]
+        [Route("yonetici-aktivite-rapor")]
         public IActionResult ManagerActivityReport(ActivityReportViewModel reportViewModel)
         {
             if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
@@ -540,6 +557,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 "Yönetici Aktivite Rapor.xlsx");
         }
 
+        [Route("yonetici-pdks-rapor")]
         public IActionResult ManagerReport()
         {
             var personnelList = _infoService.GetAllByYear(2022);
@@ -561,6 +579,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         }
 
         [HttpPost]
+        [Route("yonetici-pdks-rapor")]
         public IActionResult ManagerReport(ActivityReportViewModel reportViewModel)
         {
             if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
@@ -613,7 +632,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             decimal preMonthTransfer = 0;
             foreach (var item in personnelEntries)
             {
-                if (Convert.ToInt32(item.TimeAwayCode) >= 1 && Convert.ToInt32(item.TimeAwayCode) <= 12)
+                if (!string.IsNullOrEmpty(item.ProjectCode) || (Convert.ToInt32(item.TimeAwayCode) >= 1 && Convert.ToInt32(item.TimeAwayCode) <= 12))
                 {
                     preMonthTransfer += Convert.ToDecimal(item.EndDate.Subtract(item.StartDate).TotalHours);
                 }
@@ -629,7 +648,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             int firstDayOfMonth = (int)(firstDateOfMonth.DayOfWeek - 1) * -1;
             DateTime startDate = firstDateOfMonth.AddDays(firstDayOfMonth);
 
-            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+            var daysInMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
+            DateTime endDate = new(startDate.Year, startDate.Month, daysInMonth);
 
             var personnelEntries = _persEntryService.GetAllByMonthByPersonnel(regNo, startDate, endDate);
 
@@ -654,21 +674,27 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 .Count(a => !holidays.Any(x => x == a));
         }
 
-        private static int GetWeekendDays(DateTime date)
+        private static int GetWeekendDays(DateTime date, int businessDays, List<DateTime> holidays)
         {
-            int daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
-            DateTime firstOfMonth = new(date.Year, date.Month, 1);
+            var daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
+            DateTime endDate = new(date.Year, date.Month, daysInMonth);
 
-            //days of week starts by default as Sunday = 0
-            int firstDayOfMonth = (int)firstOfMonth.DayOfWeek;
-            decimal weeksInMonth = (decimal)(firstDayOfMonth + daysInMonth) / 7;
+            int holidayDays = 0;
+            foreach (var item in holidays)
+            {
+                if (item.DayOfWeek == DayOfWeek.Saturday || item.DayOfWeek == DayOfWeek.Sunday)
+                    holidayDays++;
+            }
 
-            return (int)Math.Round(weeksInMonth);
+            return (int)endDate.Day - businessDays - holidayDays;
         }
 
         private static int GetCurrentDayOfWeekNumber(DateTime date)
         {
             DateTime beginningOfMonth = new(date.Year, date.Month, 1);
+
+            while (date.Date.AddDays(1).DayOfWeek != CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek)
+                date = date.AddDays(1);
 
             return (int)Math.Truncate((double)date.Subtract(beginningOfMonth).TotalDays / 7f) + 1;
         }

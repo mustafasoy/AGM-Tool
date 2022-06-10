@@ -24,6 +24,7 @@
                             </div>
                             <div class="form-body">
                                 <div class="row">
+                                    <input asp-for="NewData.Year" hidden="hidden"/>
                                     <div class="col-md-7">
                                         <h6 class="invoice-address text-justify">
                                             Faaliyet Yılı İçinde Ar-Ge Merkezinin Kabul Edilen AB ve Uluslararası Destekli Proje Sayısı
@@ -50,7 +51,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-2 form-group">
-                                        <input asp-for="NewData.PeriodicExpenditure" class="form-control" />
+                                        <input asp-for="NewData.PeriodicExpenditure" class="form-control currency" />
                                     </div>
                                     <div class="col-md-3"></div>
 
@@ -60,7 +61,17 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-2 form-group text-justify">
-                                        <input asp-for="NewData.PublicPeriodicExpenditure" class="form-control" />
+                                        <input asp-for="NewData.PublicPeriodicExpenditure" class="form-control currency" />
+                                    </div>
+                                    <div class="col-md-3"></div>
+
+                                    <div class="col-md-7">
+                                        <h6 class="invoice-address text-justify">
+                                            Ar-Ge Merkezinde Yürütülen (Devam Eden+Başlayan+Tamamlanan) Firmalar Arası Ar-Ge İşbirliği Olan Projelerin Dönemsel (Faaliyet Yılı) Harcaması (TL)
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group text-justify">
+                                        <input asp-for="NewData.ProjectPeriodicExpenditure" class="form-control currency" />
                                     </div>
                                     <div class="col-md-3"></div>
 
@@ -70,7 +81,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-2 form-group">
-                                        <input asp-for="NewData.DomesticSalesRevenue" class="form-control" />
+                                        <input asp-for="NewData.DomesticSalesRevenue" class="form-control currency" />
                                     </div>
                                     <div class="col-md-3"></div>
 
@@ -80,7 +91,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-md-2 form-group">
-                                        <input asp-for="NewData.OverseasSalesRevenue" class="form-control" />
+                                        <input asp-for="NewData.OverseasSalesRevenue" class="form-control currency" />
                                     </div>
                                     <div class="col-md-3"></div>
 

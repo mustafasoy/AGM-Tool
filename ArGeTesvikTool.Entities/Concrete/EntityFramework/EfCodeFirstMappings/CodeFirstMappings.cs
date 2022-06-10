@@ -78,6 +78,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
 
             #region RdCenterPerformance Db Map
             _ = new RdCenterPerformanceProjectMap(modelBuilder.Entity<RdCenterPerformanceProjectDto>());
+            _ = new RdCenterPerformanceDecisionMap(modelBuilder.Entity<RdCenterPerformanceDecisionDto>());
             #endregion
 
             #region Report Db Map

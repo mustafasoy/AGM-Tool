@@ -10,5 +10,6 @@ namespace ArGeTesvikTool.Business.Abstract.RdCenterTech
         void Delete(int id);
         RdCenterTechIntellectualPropertyDto GetById(int id);
         List<RdCenterTechIntellectualPropertyDto> GetAll();
+        List<RdCenterTechIntellectualPropertyDto> GetAllByYear(int year);
     }
 }

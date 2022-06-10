@@ -1,6 +1,6 @@
-﻿@model CommercializationViewModel
+﻿@model ProjectCapacityViewModel
 @{
-    ViewBag.Title = "Ticarileşmeye Dair Bilgiler";
+    ViewBag.Title = "Proje Kapasitelerine Dair Bilgiler";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -15,37 +15,47 @@
                     </div>
                     <div class="card-body">
                         <hr />
-                        <form asp-action="Commercialization" method="get">
+                        <form asp-action="EmploymentInfo" method="get">
                             @Html.AntiForgeryToken()
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-5">
                                         <h6 class="invoice-address text-justify">
-                                            Faaliyet Yılı Toplam Ciro Miktarı (TL)
+                                            Yürütülen (Devam Eden+Başlayan+Tamamlanan) Projelerin Dönemsel (Faaliyet Yılı) Harcaması (TL)
                                         </h6>
                                     </div>
                                     <div class="col-md-2 form-group">
-                                        <input asp-for="CommercializationInfo.TotalTurnoverAmount" class="form-control" readonly="readonly" />
+                                        <input asp-for="ProjectCapacityInfo.PeriodProjectExpense" class="form-control currency" readonly="readonly" />
                                     </div>
                                     <div class="col-md-5"></div>
 
                                     <div class="col-md-5">
                                         <h6 class="invoice-address text-justify">
-                                            Geliştirilen (Son 3 Yıl İçinde) Yeni Ürünlerden Elde Edilen Toplam Yurtiçi Satış Geliri (TL)
+                                            Yürütülen (Devam Eden+Başlayan+Tamamlanan) Tüm Kamu Destekli Projelere Faaliyet Yılı İçindeki Toplam Kamu Katkısı (TL)
                                         </h6>
                                     </div>
                                     <div class="col-md-2 form-group">
-                                        <input asp-for="CommercializationInfo.DomesticSalesRevenue" class="form-control" readonly="readonly" />
+                                        <input asp-for="ProjectCapacityInfo.PeriodUtilityExpense" class="form-control currency" readonly="readonly" />
                                     </div>
                                     <div class="col-md-5"></div>
 
                                     <div class="col-md-5">
                                         <h6 class="invoice-address text-justify">
-                                            Geliştirilen (Son 3 Yıl İçinde) Yeni Ürünlerden Elde Edilen Toplam Yurtdışı Satış Geliri (TL)
+                                            Faaliyet Yılı İçinde Ar-Ge Merkezinin Kabul Edilen AB ve Uluslararası Destekli Proje Sayısı
                                         </h6>
                                     </div>
                                     <div class="col-md-2 form-group">
-                                        <input asp-for="CommercializationInfo.OverseasSalesRevenue" class="form-control" readonly="readonly" />
+                                        <input asp-for="ProjectCapacityInfo.IntSupportedProjectNumber" class="form-control" readonly="readonly" />
+                                    </div>
+                                    <div class="col-md-5"></div>
+
+                                    <div class="col-md-5">
+                                        <h6 class="invoice-address text-justify">
+                                            Faaliyet Yılı İçinde Ar-Ge Merkezinin Kabul Edilen Ulusal Destekli Proje Sayısı
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <input asp-for="ProjectCapacityInfo.NationalAcceptedProjectNumber" class="form-control" readonly="readonly" />
                                     </div>
                                     <div class="col-md-5"></div>
                                 </div>

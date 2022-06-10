@@ -56,10 +56,12 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("ProjectContentType");
 
             entity.Property(x => x.NatSupportProgram)
-                .HasColumnName("NatSupportProgram");
+                .HasColumnName("NatSupportProgram")
+                .HasMaxLength(100);
 
             entity.Property(x => x.IntSupportProgram)
-                .HasColumnName("IntSupportProgram");
+                .HasColumnName("IntSupportProgram")
+                .HasMaxLength(100);
 
             entity.Property(x => x.TotalProjectIncome)
                 .HasColumnName("TotalProjectIncome")
@@ -74,13 +76,17 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasMaxLength(20);
 
             entity.Property(x => x.OrderBase)
-                .HasColumnName("OrderBase");
+                .HasColumnName("OrderBase")
+                .HasMaxLength(100);
 
             entity.Property(x => x.ServiceProcurementSubject)
-                .HasColumnName("ServiceProcurementSubject");
+                .HasColumnName("ServiceProcurementSubject")
+                .HasMaxLength(100);
 
             entity.Property(x => x.ServiceProcurement)
-                .HasColumnName("ServiceProcurement");
+                .HasColumnName("ServiceProcurement")
+                .HasMaxLength(10)
+                .HasConversion(x => x.ToString(), x => (ServiceProcurement)Enum.Parse(typeof(ServiceProcurement), x));
 
             entity.Property(x => x.ServiceProcurementAmount)
                 .HasColumnName("ServiceProcurementAmount")
@@ -104,23 +110,28 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings.R
                 .HasColumnName("IncomeContentType");
 
             entity.Property(x => x.ProjectSubject)
-                .HasColumnName("ProjectSubject");
+                .HasColumnName("ProjectSubject")
+                .HasMaxLength(100);
 
             entity.Property(x => x.ProjectSummary)
-                .HasColumnName("ProjectSummary");
+                .HasColumnName("ProjectSummary")
+                .HasMaxLength(100);
 
             entity.Property(x => x.ProjectRequirement)
-                .HasColumnName("ProjectRequirement");
-
+                .HasColumnName("ProjectRequirement")
+                .HasMaxLength(500);
 
             entity.Property(x => x.ProjectActivity)
-                .HasColumnName("ProjectActivity");
+                .HasColumnName("ProjectActivity")
+                .HasMaxLength(500);
 
             entity.Property(x => x.ProjectInnovative)
-                .HasColumnName("ProjectInnovative");
+                .HasColumnName("ProjectInnovative")
+                .HasMaxLength(500);
 
             entity.Property(x => x.ProjectOutput)
-                .HasColumnName("ProjectOutput");
+                .HasColumnName("ProjectOutput")
+                .HasMaxLength(500);
 
             entity.Property(x => x.DocumentFileName)
                 .HasColumnName("DocumentFileName");

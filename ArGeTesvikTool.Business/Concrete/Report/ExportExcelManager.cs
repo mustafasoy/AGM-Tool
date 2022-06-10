@@ -230,7 +230,7 @@ namespace ArGeTesvikTool.Business.Concrete.Report
             worksheet.Cell(currentRow, 6).Style.Font.Bold = true;
             worksheet.Cell(currentRow, 6).Style.Fill.BackgroundColor = XLColor.Gainsboro;
 
-            worksheet.Cell(currentRow, 7).Value = "Önceki Ay Devir";
+            worksheet.Cell(currentRow, 7).Value = "Yıllık İzin Önceki Ay Devir";
             worksheet.Cell(currentRow, 7).Style.Font.Bold = true;
             worksheet.Cell(currentRow, 7).Style.Fill.BackgroundColor = XLColor.Gainsboro;
 
@@ -246,9 +246,9 @@ namespace ArGeTesvikTool.Business.Concrete.Report
             worksheet.Cell(currentRow, 10).Style.Font.Bold = true;
             worksheet.Cell(currentRow, 10).Style.Fill.BackgroundColor = XLColor.Gainsboro;
 
-            worksheet.Cell(currentRow, 10).Value = "SGK Arge Günü";
-            worksheet.Cell(currentRow, 10).Style.Font.Bold = true;
-            worksheet.Cell(currentRow, 10).Style.Fill.BackgroundColor = XLColor.Gainsboro;
+            worksheet.Cell(currentRow, 11).Value = "SGK Arge Günü";
+            worksheet.Cell(currentRow, 11).Style.Font.Bold = true;
+            worksheet.Cell(currentRow, 11).Style.Fill.BackgroundColor = XLColor.Gainsboro;
             #endregion
 
             #region Body

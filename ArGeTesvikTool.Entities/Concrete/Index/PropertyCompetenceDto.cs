@@ -6,8 +6,7 @@
         public int RegNationalPatentNumber { get; set; }
         public int ApplyIntPatentNumber { get; set; }
         public int ApplyNationalPatentNumber { get; set; }
-        public int RegIntModelNumber { get; set; }
-        public int RegNationalModelNumber { get; set; }
+        public int RegModelNumber { get; set; }
         public int RegIntDesignNumber { get; set; }
         public int RegSoftwareNumber { get; set; }
         public int TriadicPatentNumber { get; set; }

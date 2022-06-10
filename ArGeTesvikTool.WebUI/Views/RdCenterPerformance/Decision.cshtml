@@ -1,0 +1,58 @@
+﻿@model RdCenterPerformanceDecisionViewModel
+@{
+    ViewBag.Title = "İşletme Tanıtıcı Bilgileri";
+}
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-primary">
+                            İşletme Tanıtıcı Bilgileri
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <hr />
+                        <form asp-action="Decision" method="post" id="jquery-val-form">
+                            @Html.AntiForgeryToken()
+                            <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="form-body">
+                                <div class="row">
+                                    <input asp-for="DecisionInfo.Year" hidden="hidden" />
+                                    <div class="col-12">
+                                        <h6 class="invoice-address">
+                                            Faaliyet Yılına İlişkin Değerlendirme Toplantısında Alınan Kararlar
+                                        </h6>
+                                        <fieldset class="form-group">
+                                            <textarea asp-for="DecisionInfo.ActivityYearText" class="form-control" rows="15"></textarea>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-12">
+                                        <h6 class="invoice-address">
+                                            Değerlendirme Toplantısında Alınan Kararlara İlişkin Çalışmalar
+                                        </h6>
+                                        <fieldset class="form-group">
+                                            <textarea asp-for="DecisionInfo.DecisionMeetText" class="form-control" rows="15"></textarea>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            Kaydet
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->

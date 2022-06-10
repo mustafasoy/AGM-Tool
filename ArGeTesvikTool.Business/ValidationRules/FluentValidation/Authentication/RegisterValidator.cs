@@ -17,7 +17,7 @@ namespace ArGeTesvikTool.Business.ValidationRules.FluentValidation
                 .MinimumLength(2).WithMessage("Soy isim 2 karakterden fazla olmalıdır.");
             
             RuleFor(x => x.UserName)
-                .Must(HasValidUserName).WithMessage("Kullanıcı adı sayı içeremez.");
+                .Must(HasValidUserName).WithMessage("Kullanıcı adı sayı veya özel karakter içeremez.");
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Mail adresi giriniz.")

@@ -6,5 +6,6 @@
         public string PeriodicExpenditure { get; set; }
         public string PublicPeriodicExpenditure { get; set; }
         public string ProjectPeriodicExpenditure { get; set; }
+        public string OrderBaseProjectNumber { get; set; }
     }
 }

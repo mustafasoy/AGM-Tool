@@ -524,10 +524,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
             var schema = _schemaService.GetById(id);
 
             return DownloadFile(schema);
-
-            //AddSuccessMessage("İşletme organizasyon şeması silindi.");
-
-            //return RedirectToAction("Schema");
         }
 
         [HttpPost]
@@ -549,7 +545,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Business
                     }
                 }
 
-                var schema = _schemaService.GetAllByYear(2022);
+                var schema = _schemaService.GetAllByYear(GetSelectedYear());
                 foreach (var item in schema)
                 {
                     if (item.FileName == businessSchema.FileName)

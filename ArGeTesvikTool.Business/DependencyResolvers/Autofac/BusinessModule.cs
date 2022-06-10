@@ -136,6 +136,8 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             #region RdCenterPerformance
             builder.RegisterType<RdCenterPerformanceProjectManager>().As<IRdCenterPerformanceProjectService>().SingleInstance();
             builder.RegisterType<EfRdCenterPerformanceProjectDal>().As<IRdCenterPerformanceProjectDal>().SingleInstance();
+            builder.RegisterType<RdCenterPerformanceDecisionManager>().As<IRdCenterPerformanceDecisionService>().SingleInstance();
+            builder.RegisterType<EfRdCenterPerformanceDecisionDal>().As<IRdCenterPerformanceDecisionDal>().SingleInstance();
             #endregion
 
             #region Report

@@ -4,7 +4,7 @@ namespace ArGeTesvikTool.Entities.Concrete.Index
 {
     public class EmploymentDto
     {
-        public DateTime DocReceiptDate { get; set; }
+        public string DocReceiptDate { get; set; }
         public int GraduateDoctoralNumber { get; set; }
         public int GraduateMasterDegreeNumber { get; set; }
         public int GraduateBachelorDegreeNumber { get; set; }
@@ -14,6 +14,7 @@ namespace ArGeTesvikTool.Entities.Concrete.Index
         public int TechnicianNumber { get; set; }
         public int NewPersonTotalNumber { get; set; }
         public int TotalResearcherNumber { get; set; }
+        public int TotalRDNumber { get; set; }
         public int WomenPersonNumber { get; set; }
         public int InternNumber { get; set; }
         public int OverSeasPersonNumber { get; set; }

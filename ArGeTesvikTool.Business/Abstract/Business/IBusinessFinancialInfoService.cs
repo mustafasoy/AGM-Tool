@@ -9,6 +9,7 @@ namespace ArGeTesvikTool.Business.Abstract.Business
         void Update(BusinessFinancialInfoDto businessFinancialInfo);
         void Delete(int id);
         BusinessFinancialInfoDto GetById(int id);
+        BusinessFinancialInfoDto GetByYear(int year);
         List<BusinessFinancialInfoDto> GetAll();
     }
 }

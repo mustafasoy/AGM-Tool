@@ -5,6 +5,7 @@ using ArGeTesvikTool.Business.ValidationRules.FluentValidation;
 using ArGeTesvikTool.Entities.Concrete;
 using ArGeTesvikTool.Entities.Concrete.Mail;
 using ArGeTesvikTool.Entities.Concrete.RdCenterPerson;
+using ArGeTesvikTool.WebUI.Controllers.Base;
 using ArGeTesvikTool.WebUI.Models;
 using ArGeTesvikTool.WebUI.Models.Authentication;
 using Mapster;
@@ -104,9 +105,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
         [Route("uyelik")]
         public async Task<IActionResult> Register(RegisterDto registerViewModel)
         {
-            ViewBag.Country = registerViewModel.CountryCode != null
-                ? registerViewModel.CountryCode
-                : string.Empty;
+            ViewBag.Country = registerViewModel.CountryCode ?? string.Empty;
 
             var validate = ValidatorTool.Validate(new RegisterValidator(), registerViewModel);
 
@@ -119,10 +118,17 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
 
             if (validate.IsValid)
             {
-                bool isCheck = CheckPersonnelExists(registerViewModel.IdentityNumber);
-                if (!isCheck)
+                var userCheck = await _userManager.FindByIdentityNumberAsync(registerViewModel.IdentityNumber);
+                if (userCheck != null)
                 {
-                    ModelState.AddModelError("IdentityNumber", "Aynı kimlik numarası daha önce kullanılmış ");
+                    ModelState.AddModelError("IdentityNumber", "Aynı kimlik numarası daha önce kullanılmış.");
+                    return View(registerViewModel);
+                }
+
+                userCheck = await _userManager.FindByRegistrationNumberAsync(registerViewModel.IdentityNumber);
+                if (userCheck != null)
+                {
+                    ModelState.AddModelError("RegistrationNo", "Aynı sicil numarası daha önce kullanılmış.");
                     return View(registerViewModel);
                 }
 
@@ -354,14 +360,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Authentication
                 messageBody);
 
             return message;
-        }
-
-        private bool CheckPersonnelExists(string identityNumber)
-        {
-            //check personnel info, if exists give error.
-            var checkPersonInfo = _userManager.Users.FirstOrDefaultAsync(x => x.IdentityNumber == identityNumber).Result;
-
-            return checkPersonInfo != null;
         }
     }
 }

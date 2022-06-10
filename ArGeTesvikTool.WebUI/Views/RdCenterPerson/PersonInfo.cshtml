@@ -12,11 +12,11 @@
             </h4>
             <br />
             <section class="invoice-list-wrapper">
-                <div class="invoice-create-btn mb-1">
+                @*<div class="invoice-create-btn mb-1">
                     <a class="btn btn-primary invoice-create" onclick="Create()">
                         Yeni Personel Ekle
                     </a>
-                </div>
+                </div>*@
                 <div class="users-list-table">
                     <div class="card">
                         <div class="card-body">
@@ -136,9 +136,9 @@
                                                     <a href="#" onclick="Update(@item.Id)" class="mr-1" data-toggle="tooltip" title="Satırı düzenle">
                                                         <i class="bx bx-edit"></i>
                                                     </a>
-                                                    <a asp-action="PersonInfoDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
+                                                    @*<a asp-action="PersonInfoDelete" asp-route-id="@item.Id" method="post" data-toggle="tooltip" title="Satırı sil">
                                                         <i class="bx bx-trash"></i>
-                                                    </a>
+                                                    </a>*@
                                                 </div>
                                             </td>
                                         </tr>
@@ -208,17 +208,17 @@
         })
     });
 
-    var Create = function () {
-        $.ajax({
-            type: "GET",
-            url: "/RdCenterPerson/PersonInfoCreate",
-            success: function (response) {
-                $("#datePicker").val("");
-                $('#modalBody').html(response);
-                $('#addNewModal').modal('show');
-            }
-        })
-    }
+    //var Create = function () {
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/RdCenterPerson/PersonInfoCreate",
+    //        success: function (response) {
+    //            $("#datePicker").val("");
+    //            $('#modalBody').html(response);
+    //            $('#addNewModal').modal('show');
+    //        }
+    //    })
+    //}
 
     var Update = function (id) {
         $.ajax({

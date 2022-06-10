@@ -38,6 +38,11 @@ namespace ArGeTesvikTool.Business.Concrete.Business
             return _businessFinancial.Get(x => x.Id == id);
         }
 
+        public BusinessFinancialInfoDto GetByYear(int year)
+        {
+            return _businessFinancial.Get(x => x.Year == year);
+        }
+
         public List<BusinessFinancialInfoDto> GetAll()
         {
             return _businessFinancial.GetList();

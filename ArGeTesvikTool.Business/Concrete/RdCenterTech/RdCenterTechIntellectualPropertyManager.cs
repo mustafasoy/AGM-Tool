@@ -38,5 +38,10 @@ namespace ArGeTesvikTool.Business.Concrete.RdCenterTech
         {
             return _rdCenterTechIntellectualProperty.GetList();
         }
+
+        public List<RdCenterTechIntellectualPropertyDto> GetAllByYear(int year)
+        {
+            return _rdCenterTechIntellectualProperty.GetList(x => x.Year == year);
+        }
     }
 }

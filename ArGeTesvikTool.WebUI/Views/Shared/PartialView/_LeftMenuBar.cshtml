@@ -196,14 +196,14 @@
                 </span>
             </a>
         </li>
-        <li active-when="/RdCenterPerson/TimeAway">
+        @*<li active-when="/RdCenterPerson/TimeAway">
             <a asp-controller="RdCenterPerson" asp-action="TimeAway">
                 <i class="bx bx-timer"></i>
                 <span class="menu-title text-truncate" data-i18n="Time Away">
                     Dışarıda Geçirilen Süre
                 </span>
             </a>
-        </li>
+        </li>*@
         <li active-when="/RdCenterPerson/SupportedProgram">
             <a asp-controller="RdCenterPerson" asp-action="SupportedProgram">
                 <i class="bx bx-git-compare"></i>
@@ -316,16 +316,16 @@
         </span>
     </a>
     <ul class="menu-content">
-        <li class="nav-item">
-            <a href="#">
+        <li active-when="/RdCenterPerformance/Decision">
+            <a asp-controller="RdCenterPerformance" asp-action="Decision">
                 <i class="bx bx-spreadsheet"></i>
                 <span class="menu-item text-truncate" data-i18n="Taken Decision">
                     Değer. Top. Alınan Karar
                 </span>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="#">
+        <li active-when="/RdCenterPerformance/Criteria">
+            <a asp-controller="RdCenterPerformance" asp-action="Criteria">
                 <i class="bx bx-stats"></i>
                 <span class="menu-item text-truncate" data-i18n="Performance Criteria">
                     AGM Performans Kriteri

@@ -1,6 +1,6 @@
 ﻿@model RdCenterTechProjectViewModel
 @{
-    ViewData["Title"] = "Projeleri Düzenle";
+    ViewBag.Title = "Projeleri Düzenle";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -15,7 +15,7 @@
                         <div class="heading-elements">
                             <ul class="list-inline mb-0 d-flex align-items-center">
                                 <li class="ml-2">
-                                    <button type="submit" class="btn btn-outline-primary btn-sm mr-1 mb-1" onclick="location.href='@Url.Action("OngoingProject", "RdCenterTech","2022")'">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm mr-1 mb-1" onclick="location.href='@Url.Action("OngoingProject", "RdCenterTech")'">
                                         <i class="bx bx-undo"></i>
                                         <span class="align-middle ml-25">
                                             Geri
@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body">
                         <hr />
-                        <form asp-action="ProjectModify" method="post" id="jquery-val-form">
+                        <form asp-action="ProjectModify" method="post" id="jquery-val-form" enctype="multipart/form-data">
                             @Html.AntiForgeryToken()
                             <div asp-validation-summary="ModelOnly" class="alert bg-rgba-danger alert-dismissible mb-2">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -125,7 +125,9 @@
                                             </div>
                                         </fieldset>
                                     </div>
-                                    <div class="col-md-5"></div>
+                                    <div class="col-md-5">
+                                        <a asp-action="ProjectDownload" asp-route-id="@Model.NewProject.Id" method="post" class="mr-1" data-toggle="tooltip" title="Dosyayı indir">@Model.NewProject.ProjectFileName</a>
+                                    </div>
                                     <div class="col-md-3">
                                         <h6 class="invoice-address">
                                             Ulusal Destek Programı

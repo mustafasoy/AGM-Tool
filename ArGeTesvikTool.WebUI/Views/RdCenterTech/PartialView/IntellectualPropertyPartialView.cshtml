@@ -6,7 +6,7 @@
     Proje
 </h6>
 <div class="form-group">
-    <select asp-for="NewProperty.ProjectName" asp-items="@Model.ProjectList" class="form-control" id="projectName">
+    <select asp-for="NewProperty.ProjectName" asp-items="@Model.ProjectList" id="projectCode" class="form-control">
         <option value="">
             Seçiniz
         </option>
@@ -69,7 +69,7 @@
 </h6>
 <div class="form-group">
     <fieldset class="form-group position-relative has-icon-left">
-        <input asp-for="NewProperty.ApplicationDate" asp-format="{0:dd.MM.yyyy}" type="text" id="datePicker" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+        <input asp-for="NewProperty.ApplicationDate" type="date" id="applicationDate" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
         <div class="form-control-position">
             <i class='bx bx-calendar'></i>
         </div>
@@ -77,3 +77,12 @@
 </div>
 
 <script src="~/frest/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js"></script>
+<script>
+    var applicationDate = moment($("#applicationDate").val()).format('DD.MM.YYYY')
+    if (applicationDate != "01.01.0001") {
+        $("#applicationDate").val(applicationDate);
+    }
+    else {
+        $("#applicationDate").val("");
+    }
+</script>

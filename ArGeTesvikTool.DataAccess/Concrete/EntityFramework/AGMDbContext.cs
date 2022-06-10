@@ -76,6 +76,7 @@ namespace ArGeTesvikTool.DataAccess.Concrete.EntityFramework
 
         #region RdCenterPerformance Db Set
         public DbSet<RdCenterPerformanceProjectDto> RdCenterPerformanceProjects { get; set; }
+        public DbSet<RdCenterPerformanceDecisionDto> RdCenterPerformanceDecisions { get; set; }
         #endregion
 
         #region Report Db Set

@@ -36,7 +36,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         [Route("calisan-personel")]
         public IActionResult PersonInfo()
         {
-
             List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAllByYear(GetSelectedYear());
 
             RdCenterPersonViewModel personInfoViewModel = new()
@@ -47,17 +46,17 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             return View(personInfoViewModel);
         }
 
-        public IActionResult PersonInfoCreate()
-        {
-            RdCenterPersonInfoDto personInfo = new();
+        //public IActionResult PersonInfoCreate()
+        //{
+        //    RdCenterPersonInfoDto personInfo = new();
 
-            RdCenterPersonViewModel personViewModel = new()
-            {
-                NewPersonnelInfo = personInfo
-            };
+        //    RdCenterPersonViewModel personViewModel = new()
+        //    {
+        //        NewPersonnelInfo = personInfo
+        //    };
 
-            return PartialView("PartialView/PersonelInfoPartialView", personViewModel);
-        }
+        //    return PartialView("PartialView/PersonelInfoPartialView", personViewModel);
+        //}
 
         public IActionResult PersonInfoUpdate(int id)
         {
@@ -73,35 +72,39 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
             return PartialView("PartialView/PersonelInfoPartialView", personViewModel);
         }
 
-        public IActionResult PersonInfoDelete(int id)
-        {
-            _infoService.Delete(id);
+        //public IActionResult PersonInfoDelete(int id)
+        //{
+        //    _infoService.Delete(id);
 
-            AddSuccessMessage("Personel kaydı silindi.");
+        //    AddSuccessMessage("Personel kaydı silindi.");
 
-            return RedirectToAction("PersonelInfo");
-        }
+        //    return RedirectToAction("PersonelInfo");
+        //}
 
         [HttpPost]
         [Route("calisan-personel")]
         public IActionResult PersonInfo(RdCenterPersonViewModel personViewModel)
         {
-            bool isCheck = CheckPersonnelExists(personViewModel.NewPersonnelInfo.IdentityNumber);
-            if (isCheck)
-            {
-                List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAllByYear(GetSelectedYear());
-                RdCenterPersonViewModel personInfoViewModel = new()
-                {
-                    PersonInfoList = personInfoList
-                };
+            //bool isCheck = CheckPersonnelExists(personViewModel.NewPersonnelInfo.IdentityNumber);
+            //if (isCheck)
+            //{
+            //    List<RdCenterPersonInfoDto> personInfoList = _infoService.GetAllByYear(GetSelectedYear());
+            //    RdCenterPersonViewModel personInfoViewModel = new()
+            //    {
+            //        PersonInfoList = personInfoList
+            //    };
 
-                return View(personInfoViewModel);
-            }
+            //    return View(personInfoViewModel);
+            //}
+            var personInfo = _infoService.GetById(personViewModel.NewPersonnelInfo.Id);
 
-            personViewModel.NewPersonnelInfo.Id = personViewModel.NewPersonnelInfo.Id;
-            personViewModel.NewPersonnelInfo.Year = personViewModel.NewPersonnelInfo.Year;
-            personViewModel.NewPersonnelInfo.CreatedDate = personViewModel.NewPersonnelInfo.CreatedDate;
-            personViewModel.NewPersonnelInfo.CreatedUserName = personViewModel.NewPersonnelInfo.CreatedUserName;
+            personViewModel.NewPersonnelInfo.UserId = personInfo.UserId;
+            personViewModel.NewPersonnelInfo.NameSurname = personInfo.NameSurname;
+            personViewModel.NewPersonnelInfo.IdentityNumber = personInfo.IdentityNumber;
+            personViewModel.NewPersonnelInfo.RegistrationNo = personInfo.RegistrationNo;
+            personViewModel.NewPersonnelInfo.Year = personInfo.Year;
+            personViewModel.NewPersonnelInfo.CreatedDate = personInfo.CreatedDate;
+            personViewModel.NewPersonnelInfo.CreatedUserName = personInfo.CreatedUserName;
             personViewModel.NewPersonnelInfo.ModifiedDate = DateTime.Now;
             personViewModel.NewPersonnelInfo.ModifedUserName = User.Identity.Name;
 
