@@ -2,253 +2,254 @@
   "listItems": [
     {
       "name": "Isletme Yetkilisi",
-      "url": "/Business/Contact",
+      "url": "/isletme-yetkili",
       "icon": "bx bx-street-view"
     },
     {
       "name": "Isletme Bilgileri",
-      "url": "/Business/Info",
+      "url": "/isletme-bilgi",
       "icon": "bx bx-sitemap"
     },
     {
       "name": "Isletme Tanitici Bilgileri",
-      "url": "/Business/Intro",
+      "url": "/tanitici-bilgi",
       "icon": "bx bx-info-circle"
     },
     {
       "name": "Bagli Oldugu Holding",
-      "url": "/Business/GroupInfo",
+      "url": "/holding-bilgi",
       "icon": "bx bx-shape-circle"
     },
     {
       "name": "Isletme Ortaklari",
-      "url": "/Business/Shareholder",
+      "url": "/isletme-ortak",
       "icon": "bx bx-user-plus"
     },
     {
       "name": "Organizasyon semasi",
-      "url": "/Business/Schema",
+      "url": "/organizasyon-sema",
       "icon": "bx bx-line-chart"
     },
     {
       "name": "Personel Dagilimi",
-      "url": "/Business/PersonnelDistribution",
+      "url": "/personel-dagilim",
       "icon": "bx bxs-group"
     },
     {
+      "name": "Ar-Ge Stratejeleri",
+      "url": "/arge-strateji",
+      "icon": "bx bx-doughnut-chart"
+    },
+    {
       "name": "Isletme Mali ve Finanslar Bilgi",
-      "url": "/Business/FinancialInfo",
+      "url": "/finansal-bilgi",
       "icon": "bx bx-wallet"
     },
     {
       "name": "AGM Yetkilisi",
-      "url": "/RdCenter/Contact",
+      "url": "/agm-yetkili",
       "icon": "bx bx-task"
     },
     {
       "name": "AGM Bilgileri",
-      "url": "/RdCenter/Info",
+      "url": "/agm-bilgi",
       "icon": "bx bx-info-circle"
     },
     {
       "name": "Organizasyon semasi",
-      "url": "/RdCenter/Schema",
+      "url": "/agm-sema",
       "icon": "bx bx-git-repo-forked"
     },
     {
       "name": "AGM Fiziki Alan Bilgi",
-      "url": "/RdCenter/PhysicalArea",
+      "url": "/agm-fiziksel-alan",
       "icon": "bx bxs-component"
     },
     {
       "name": "Ar-Ge Indirimine Konu Olan",
-      "url": "/RdCenter/Amount",
+      "url": "/agm-kanun",
       "icon": "bx bx-credit-card"
     },
     {
       "name": "5746 Sayili Kanun Kapsaminda",
-      "url": "/RdCenter/Discount",
+      "url": "/agm-indirim",
       "icon": "bx bx-detail"
     },
-
     {
-      "name": "Proje Bazinda Finansal Bilgi",
-      "url": "/RdCenter/ProjectFinancalInfo",
-      "icon": "bx bxl-stripe"
-    },
-    {
-      "name": "calisan Personel Bilgileri",
-      "url": "/RdCenterPerson/PersonInfo",
+      "name": "Calisan Personel Bilgileri",
+      "url": "/calisan-personel",
       "icon": "bx bx-user-plus"
     },
     {
       "name": "AGM Personel Bilgileri",
-      "url": "/RdCenterPerson/StaffInfo",
+      "url": "/personel-bilgi",
       "icon": "bx bx-user-pin"
     },
     {
       "name": "Perf.Deg./Odul Sistemi",
-      "url": "/RdCenterPerson/Reward",
+      "url": "/performans-odul",
       "icon": "bx bx-chart"
     },
     {
-      "name": "Disarida Gecirilen Sure",
-      "url": "/RdCenterPerson/TimeAway",
-      "icon": "bx bx-timer"
-    },
-    {
       "name": "Desteklenecek Program",
-      "url": "/RdCenterPerson/SupportedProgram",
+      "url": "/destelenecek-program",
       "icon": "bx bx-git-compare"
     },
     {
       "name": "Devam Eden Projeler",
-      "url": "/RdCenterTech/OngoingProject",
+      "url": "/devam-eden-proje",
       "icon": "bx bx-rotate-right"
     },
     {
       "name": "Tamamlanan Projeler",
-      "url": "/RdCenterTech/CompletedProject",
+      "url": "/tamamlanan-proje",
       "icon": "bx bx-check-circle"
     },
 
     {
       "name": "Iptal Edilen Projeler",
-      "url": "/RdCenterTech/CanceledProject",
+      "url": "/iptal-edilen-proje",
       "icon": "bx bx-x-circle"
     },
     {
       "name": "Proje Yonetim Sureci",
-      "url": "/RdCenterTech/ProjectManagement",
+      "url": "/proje-yonetim",
       "icon": "bx bx-category-alt"
     },
     {
       "name": "Uluslararasi Isbirlikleri",
-      "url": "/RdCenterTech/Collaboration",
+      "url": "/isbirilik",
       "icon": "bx bx-compass"
     },
-
     {
       "name": "Kutuphane/Veri Tabani",
-      "url": "/RdCenterTech/AcademicLibrary",
+      "url": "/uye-olunan-yerler",
       "icon": "bx bx-data"
     },
     {
       "name": "Katilinan Etkinlik/Egitim",
-      "url": "/RdCenterTech/AttendedEvent",
+      "url": "/katilinan-etkinlik",
       "icon": "bx bx-book-bookmark"
     },
     {
       "name": "Fikri/Sinai Mulkiyet Haklari",
-      "url": "/RdCenterTech/IntellectualProperty",
+      "url": "/mulkiyet-hak",
       "icon": "bx bx-copyright"
     },
     {
       "name": "Mentorluk Bilgileri",
-      "url": "/RdCenterTech/MentorInfo",
+      "url": "/mentor-bilgi",
       "icon": "bx bx-user-voice"
     },
     {
       "name": "Ekipman ve Yazilim Liste",
-      "url": "/RdCenterTech/Software",
+      "url": "/kullailan-yazilim",
       "icon": "bx bx-file"
     },
     {
       "name": "Degerlendir Toplantisinda Alinan Karar",
-      "url": "",
+      "url": "/degerlendirme-toplanti",
       "icon": "bx bx-spreadsheet"
     },
     {
       "name": "AGM Performans Kriteri",
-      "url": "",
+      "url": "performans-kriter",
       "icon": "bx bx-stats"
     },
     {
       "name": "Ticari Proje Rapor",
-      "url": "/RdCenterPerformanceController/Project",
+      "url": "/ticari-rapor",
       "icon": "bx bx-receipt"
     },
     {
       "name": "Endeks Bilgileri Ekle",
-      "url": "/Index/NewData",
+      "url": "/yeni-giris",
       "icon": "bx bx-customize"
     },
     {
       "name": "Istihdama Daire Bilgiler",
-      "url": "/Index/Employment",
+      "url": "/istihdam-bilgi",
       "icon": "bx bx-id-card"
     },
     {
       "name": "Harcama Yogunluguna Dair Bilgier",
-      "url": "/Index/SpendingIntensity",
+      "url": "/harcama-yogunlugu",
       "icon": "bx bx-bar-chart"
     },
     {
       "name": "Proje Kapsamina Dair Bilgiler",
-      "url": "/Index/ProjectCapacity",
+      "url": "/proje-kapasite",
       "icon": "bx bx-toggle-right"
     },
     {
       "name": "Isbirligi ve Etkinlige Dair Bilgiler",
-      "url": "/Index/Cooperation",
+      "url": "/isbirligi",
+      "icon": "bx bx-sitemap"
+    },
+    {
+      "name": "Ticarileþmeye Dair Bilgiler",
+      "url": "/ticarilestirme",
       "icon": "bx bx-sitemap"
     },
     {
       "name": "Fikri Mulkiyet Yetkisine Dair Bilgiler",
-      "url": "/Index/PropertyCompetence",
+      "url": "/mulkiyet-yeterliligi",
       "icon": "bx bx-lock-open-alt"
     },
     {
       "name": "Diger Bilgier",
-      "url": "/Index/Other",
+      "url": "/diger",
       "icon": "bx bx-data"
     },
     {
       "name": "Disarida Gecirilen Sure Tanim",
-      "url": "/RdCenterCal/TimeAway",
+      "url": "/disarida-gecirilen-sure-giris",
       "icon": "bx bx-time"
     },
     {
-      "name": "Resmi ve Dini Tatil Tanimla",
-      "url": "/RdCenterCal/PublicHoliday",
+      "name": "Projeye Personel Ata",
+      "url": "/tatil-tanimla",
       "icon": "bx bx-columns"
     },
     {
-      "name": "Pdks Entegrasyonu",
-      "url": " ",
-      "icon": "bx bx-git-compare"
+      "name": "Resmi ve Dini Tatil Tanimla",
+      "url": "/tatil-tanimla",
+      "icon": "bx bx-columns"
     },
     {
       "name": "Personel Aktivite Girisi",
-      "url": "/RdCenterCal/PersonnelEntry",
+      "url": "/personel-aktivite-giris",
       "icon": "bx bx-group"
     },
     {
-      "name": "Yonetici Aktivite Girisi",
-      "url": "/RdCenterCal/ManagerEntry",
-      "icon": "bx bx-user-voice"
-    },
-
-    {
       "name": "Personel Aktivite Raporu",
-      "url": "/Report/PersonnelActivityReport",
+      "url": "/personel-aktivite-rapor",
       "icon": "bx bx-chart"
     },
     {
+      "name": "Personel Pdks Raporu",
+      "url": "/personel-pdks-rapor",
+      "icon": "bx bx-bar-chart-square"
+    },
+    {
+      "name": "Yonetici Aktivite Girisi",
+      "url": "/yonetici-aktivite-giris",
+      "icon": "bx bx-user-voice"
+    },
+    {
       "name": "Yonetici Aktivite Raporu",
-      "url": "/Report/ManagerActivityReport",
+      "url": "/yonetici-aktivite-rapor",
       "icon": "bx bx-line-chart"
     },
     {
-      "name": "Personel Pdks Raporu",
-      "url": "/Report/PersonnelReport",
-      "icon": "bx bx-bar-chart-square"
-    },
-
-    {
       "name": "Yonetici Pdks Raporu",
-      "url": "/Report/ManagerReport",
+      "url": "/yonetici-pdks-rapor",
       "icon": "bx bx-bar-chart"
+    },
+    {
+      "name": "Uzaktan Çalýþma Kontrol Raporu",
+      "url": "/uzaktan-calisma-kontrol-rapor",
+      "icon": "bx bx-laptop"
     },
     {
       "name": "Gelir Vergisi Raporu",

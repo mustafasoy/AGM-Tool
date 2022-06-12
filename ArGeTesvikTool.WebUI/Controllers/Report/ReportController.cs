@@ -577,7 +577,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
 
             return View(reportViewModel);
         }
-
+        
         [HttpPost]
         [Route("yonetici-pdks-rapor")]
         public IActionResult ManagerReport(ActivityReportViewModel reportViewModel)
@@ -605,6 +605,27 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             return File(
                 content,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Yönetici Pdks Rapor.xlsx");
+        }
+
+        [Route("uzaktan-calisma-kontrol-rapor")]
+        public IActionResult TeleworkingReport()
+        {
+            var personnelList = _infoService.GetAllByYear(2022);
+
+            DateTime startDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
+
+            ActivityReportViewModel reportViewModel = new()
+            {
+                StartDate = startDate,
+                EndDate = startDate.AddMonths(1).AddDays(-1),
+                PersonnelList = personnelList.Select(x => new SelectListItem
+                {
+                    Value = x.RegistrationNo,
+                    Text = x.NameSurname,
+                }).ToList(),
+            };
+
+            return View(reportViewModel);
         }
 
         private bool DateControl(DateTime startDate, DateTime endDate)

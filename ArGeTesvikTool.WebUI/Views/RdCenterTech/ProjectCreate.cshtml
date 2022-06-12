@@ -1,6 +1,6 @@
 ﻿@model RdCenterTechProjectViewModel
 @{
-    ViewBag.Title = "Projeleri Düzenle";
+    ViewBag.Title = "Yeni Proje Oluştur";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="text-primary">
-                            Proje Bilgilerini Düzenle
+                            Yeni Proje Bilgisi Ekle
                         </h4>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0 d-flex align-items-center">
@@ -125,9 +125,7 @@
                                             </div>
                                         </fieldset>
                                     </div>
-                                    <div class="col-md-5">
-                                        <a asp-action="ProjectDownload" asp-route-id="@Model.NewProject.Id" method="post" class="mr-1" data-toggle="tooltip" title="Dosyayı indir">@Model.NewProject.ProjectFileName</a>
-                                    </div>
+                                    <div class="col-md-5"></div>
                                     <div class="col-md-3">
                                         <h6 class="invoice-address">
                                             Ulusal Destek Programı
@@ -261,7 +259,7 @@
                                         </fieldset>
                                     </div>
                                     <div class="col-md-5">
-                                        <a asp-action="IncomeDownload" asp-route-id="@Model.NewProject.Id" method="post" class="mr-1" data-toggle="tooltip" title="Dosyayı indir">@Model.NewProject.IncomeFileName</a>
+                                        <div class="col-md-5"></div>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="invoice-address">
@@ -331,9 +329,7 @@
                                             </div>
                                         </fieldset>
                                     </div>
-                                    <div class="col-md-5">
-                                        <a asp-action="DocumentDownload" asp-route-id="@Model.NewProject.Id" method="post" class="mr-1" data-toggle="tooltip" title="Dosyayı indir">@Model.NewProject.DocumentFileName</a>
-                                    </div>
+                                    <div class="col-md-5"></div>
 
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary mr-1">

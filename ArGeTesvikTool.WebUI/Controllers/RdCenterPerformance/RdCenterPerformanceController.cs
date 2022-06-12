@@ -112,7 +112,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerformance
         }
         #endregion
 
-        [Route("degerlendirme-toplantı")]
+        [Route("degerlendirme-toplanti")]
         public IActionResult Decision()
         {
             RdCenterPerformanceDecisionDto decisionText = _decisionService.GetByYear(GetSelectedYear());
@@ -126,7 +126,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerformance
         }
 
         [HttpPost]
-        [Route("degerlendirme-toplantı")]
+        [Route("degerlendirme-toplanti")]
         public IActionResult Decision(RdCenterPerformanceDecisionViewModel decisionViewModel)
         {
             var intro = _decisionService.GetByYear(decisionViewModel.DecisionInfo.Year);

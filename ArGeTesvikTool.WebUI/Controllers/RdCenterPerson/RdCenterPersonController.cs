@@ -173,7 +173,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterPerson
         }
 
         #region TimeAway CRUD
-        [Route("disarida-gecen-sure-tanımla")]
+        [Route("disarida-gecen-sure-tanimla")]
         public IActionResult TimeAway()
         {
             List<RdCenterPersonTimeAwayDto> timeAwayList = _timeAwayService.GetAllByYear(GetSelectedYear());

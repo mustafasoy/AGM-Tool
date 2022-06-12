@@ -107,6 +107,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             return RedirectToAction("OngoingProject");
         }
 
+        [Route("proje-olustur")]
+        public IActionResult ProjectCreate()
+        {
+            RdCenterTechProjectViewModel projectViewModel = new();
+
+            return View(projectViewModel);
+        }
+
         [Route("proje-duzenle")]
         public IActionResult ProjectModify(int id)
         {
@@ -122,7 +130,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
 
         [HttpPost]
         [Route("proje-duzenle")]
-        public IActionResult ProjectModify(RdCenterTechProjectViewModel projectViewModel, List<IFormFile> projectFile)
+        public IActionResult ProjectModify(RdCenterTechProjectViewModel projectViewModel, List<IFormFile> projectFile, List<IFormFile> incomeFile, List<IFormFile> documentFile)
         {
             var validate = ValidatorTool.Validate(new RdCenterTechProjectValidator(), projectViewModel.NewProject);
             if (validate.IsValid)
@@ -136,6 +144,30 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
                         projectViewModel.NewProject.ProjectFileName = item.FileName;
                         projectViewModel.NewProject.ProjectContent = stream.ToArray();
                         projectViewModel.NewProject.ProjectContentType = item.ContentType;
+                    }
+                }
+
+                foreach (var item in incomeFile)
+                {
+                    if (item.Length > 0)
+                    {
+                        using var stream = new MemoryStream();
+                        item.CopyToAsync(stream).Wait();
+                        projectViewModel.NewProject.IncomeFileName = item.FileName;
+                        projectViewModel.NewProject.IncomeContent = stream.ToArray();
+                        projectViewModel.NewProject.IncomeContentType = item.ContentType;
+                    }
+                }
+
+                foreach (var item in documentFile)
+                {
+                    if (item.Length > 0)
+                    {
+                        using var stream = new MemoryStream();
+                        item.CopyToAsync(stream).Wait();
+                        projectViewModel.NewProject.DocumentFileName = item.FileName;
+                        projectViewModel.NewProject.DocumentContent = stream.ToArray();
+                        projectViewModel.NewProject.DocumentContentType = item.ContentType;
                     }
                 }
 
@@ -158,6 +190,28 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
                     projectViewModel.NewProject.CreatedUserName = project.CreatedUserName;
                     projectViewModel.NewProject.ModifiedDate = DateTime.Now;
                     projectViewModel.NewProject.ModifedUserName = User.Identity.Name;
+
+
+                    if (string.IsNullOrEmpty(projectViewModel.NewProject.ProjectFileName))
+                    {
+                        projectViewModel.NewProject.ProjectFileName = project.ProjectFileName;
+                        projectViewModel.NewProject.ProjectContent = project.ProjectContent;
+                        projectViewModel.NewProject.ProjectContentType = project.ProjectContentType;
+                    }
+
+                    if (string.IsNullOrEmpty(projectViewModel.NewProject.IncomeFileName))
+                    {
+                        projectViewModel.NewProject.IncomeFileName = project.IncomeFileName;
+                        projectViewModel.NewProject.IncomeContent = project.IncomeContent;
+                        projectViewModel.NewProject.IncomeContentType = project.IncomeContentType;
+                    }
+
+                    if (string.IsNullOrEmpty(projectViewModel.NewProject.DocumentFileName))
+                    {
+                        projectViewModel.NewProject.DocumentFileName = project.DocumentFileName;
+                        projectViewModel.NewProject.DocumentContent = project.DocumentContent;
+                        projectViewModel.NewProject.DocumentContentType = project.DocumentContentType;
+                    }
 
                     _projectService.Update(projectViewModel.NewProject);
 
@@ -205,6 +259,28 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterTech
             var content = new MemoryStream(project.ProjectContent);
             var contentType = project.ProjectContentType;
             var fileName = project.ProjectFileName;
+
+            return File(content, contentType, fileName);
+        }
+
+        public FileStreamResult IncomeDownload(int id)
+        {
+            var project = _projectService.GetById(id);
+
+            var content = new MemoryStream(project.IncomeContent);
+            var contentType = project.IncomeContentType;
+            var fileName = project.IncomeFileName;
+
+            return File(content, contentType, fileName);
+        }
+
+        public FileStreamResult DocumentDownload(int id)
+        {
+            var project = _projectService.GetById(id);
+
+            var content = new MemoryStream(project.DocumentContent);
+            var contentType = project.DocumentContentType;
+            var fileName = project.DocumentFileName;
 
             return File(content, contentType, fileName);
         }

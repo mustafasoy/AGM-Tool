@@ -91,7 +91,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Index
 
             EmploymentDto employmentData = new()
             {
-                DocReceiptDate = rdCenterInfo.DocReceiptDate.ToString(),
+                DocReceiptDate = rdCenterInfo != null ? rdCenterInfo.DocReceiptDate.ToString("dd.MM.yyyy") : string.Empty,
                 GraduateDoctoralNumber = personInfoList.Where(x => x.EducationStatu == EducationStatu.Doktora && x.PersonPosition == PersonPosition.Arastirmaci).Count(),
                 GraduateMasterDegreeNumber = personInfoList.Where(x => x.EducationStatu == EducationStatu.YuksekLisans && x.PersonPosition == PersonPosition.Arastirmaci).Count(),
                 GraduateBachelorDegreeNumber = personInfoList.Where(x => x.EducationStatu == EducationStatu.Lisans && x.PersonPosition == PersonPosition.Arastirmaci).Count(),

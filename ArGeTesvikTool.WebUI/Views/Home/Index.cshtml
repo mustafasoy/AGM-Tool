@@ -83,7 +83,7 @@
 
     (function () {
         /*number of seconds*/
-        const idleDurationSecs = 120;
+        const idleDurationSecs = 150;
         /*redirect idle users to this URL*/
         const redirectUrl = '/cikis';
         /*variable to hold the timeout, do not modify*/
@@ -92,7 +92,6 @@
         const resetIdleTimeout = function () {
             /*clears the existing timeout*/
             if (idleTimeout) clearTimeout(idleTimeout);
-
             /*set a new idle timeout to load the redirectUrl after idleDurationSecs*/
             idleTimeout = setTimeout(() => location.href = redirectUrl, idleDurationSecs * 1000);
         };

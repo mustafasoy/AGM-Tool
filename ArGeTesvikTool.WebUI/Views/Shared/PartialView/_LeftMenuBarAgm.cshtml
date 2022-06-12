@@ -22,7 +22,7 @@
             <a asp-controller="RdCenterCal" asp-action="PersonnelAssing">
                 <i class="bx bx-id-card"></i>
                 <span class="menu-title text-truncate" data-i18n="Assign Personnel">
-                    Projeye Personel Ataması
+                    Projeye Personel Ata
                 </span>
             </a>
         </li>
@@ -40,59 +40,87 @@
 <!-- agm personnel schedule-->
 <li class="nav-item has-sub">
     <a href="#">
-        <i class="bx bx-bar-chart-alt-2"></i>
+        <i class="bx bx-layer"></i>
         <span class="menu-title text-truncate" data-i18n="Personnel Schedule">
-            Personel Çizelgesi
+            İşlemler
         </span>
     </a>
     <ul class="menu-content">
-        <li active-when="/RdCenterCal/PersonnelEntry">
-            <a asp-controller="RdCenterCal" asp-action="PersonnelEntry">
+        <li class="has-sub is-shown">
+            <a class="d-flex align-items-center" href="#">
                 <i class="bx bx-group"></i>
-                <span class="menu-item text-truncate" data-i18n="Personnel Entry">
-                    Personel Aktivite Girişi
+                <span class="menu-item text-truncate" data-i18n="RD Financal">
+                    Personel İşlemleri
                 </span>
             </a>
+            <ul class="menu-content" style="">
+                <li active-when="/RdCenterCal/PersonnelEntry">
+                    <a asp-controller="RdCenterCal" asp-action="PersonnelEntry">
+                        <i class="bx bx-user-plus"></i>
+                        <span class="menu-item text-truncate" data-i18n="Personnel Entry">
+                            Aktivite Girişi
+                        </span>
+                    </a>
+                </li>
+                <li active-when="/Report/PersonnelActivityReport">
+                    <a asp-controller="Report" asp-action="PersonnelActivityReport">
+                        <i class="bx bx-chart"></i>
+                        <span class="menu-title text-truncate" data-i18n="Personnel Activity Report">
+                            Aktivite Raporu
+                        </span>
+                    </a>
+                </li>
+                <li active-when="/Report/PersonnelReport">
+                    <a asp-controller="Report" asp-action="PersonnelReport">
+                        <i class="bx bx-bar-chart-square"></i>
+                        <span class="menu-title text-truncate" data-i18n="Personnel Report">
+                            Pdks Raporu
+                        </span>
+                    </a>
+                </li>
+            </ul>
         </li>
-        <li active-when="/RdCenterCal/ManagerEntry">
-            <a asp-controller="RdCenterCal" asp-action="ManagerEntry">
+        <li class="has-sub is-shown">
+            <a class="d-flex align-items-center" href="#">
                 <i class="bx bx-user-voice"></i>
-                <span class="menu-title text-truncate" data-i18n="Manager Entry">
-                    Yönetici Aktivite Girişi
+                <span class="menu-item text-truncate" data-i18n="RD Financal">
+                    Yönetici İşlemleri
                 </span>
             </a>
-        </li>
-        <li active-when="/Report/PersonnelActivityReport">
-            <a asp-controller="Report" asp-action="PersonnelActivityReport">
-                <i class="bx bx-chart"></i>
-                <span class="menu-title text-truncate" data-i18n="Personnel Activity Report">
-                    Pers. Aktivite Raporu
-                </span>
-            </a>
-        </li>
-        <li active-when="/Report/ManagerActivityReport">
-            <a asp-controller="Report" asp-action="ManagerActivityReport">
-                <i class="bx bx-line-chart"></i>
-                <span class="menu-title text-truncate" data-i18n="Manager Activity Report">
-                    Yönetici Aktivite Raporu
-                </span>
-            </a>
-        </li>
-        <li active-when="/Report/PersonnelReport">
-            <a asp-controller="Report" asp-action="PersonnelReport">
-                <i class="bx bx-bar-chart-square"></i>
-                <span class="menu-title text-truncate" data-i18n="Personnel Report">
-                    Personel Pdks Raporu
-                </span>
-            </a>
-        </li>
-        <li active-when="/Report/ManagerReport">
-            <a asp-controller="Report" asp-action="ManagerReport">
-                <i class="bx bx-bar-chart"></i>
-                <span class="menu-title text-truncate" data-i18n="Manager Report">
-                    Yönetici Pdks Raporu
-                </span>
-            </a>
+            <ul class="menu-content" style="">
+                <li active-when="/RdCenterCal/ManagerEntry">
+                    <a asp-controller="RdCenterCal" asp-action="ManagerEntry">
+                        <i class="bx bx-user-check"></i>
+                        <span class="menu-title text-truncate" data-i18n="Manager Entry">
+                            Aktivite Girişi
+                        </span>
+                    </a>
+                </li>
+                <li active-when="/Report/ManagerActivityReport">
+                    <a asp-controller="Report" asp-action="ManagerActivityReport">
+                        <i class="bx bx-line-chart"></i>
+                        <span class="menu-title text-truncate" data-i18n="Manager Activity Report">
+                            Aktivite Raporu
+                        </span>
+                    </a>
+                </li>
+                <li active-when="/Report/ManagerReport">
+                    <a asp-controller="Report" asp-action="ManagerReport">
+                        <i class="bx bx-bar-chart"></i>
+                        <span class="menu-title text-truncate" data-i18n="Manager Report">
+                            Pdks Raporu
+                        </span>
+                    </a>
+                </li>
+                <li active-when="/Report/TeleworkingReport">
+                    <a asp-controller="Report" asp-action="TeleworkingReport">
+                        <i class="bx bx-laptop"></i>
+                        <span class="menu-title text-truncate" data-i18n="Teleworking Report">
+                            Uzaktan Çalışma Kontrol Rapor
+                        </span>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </li>
