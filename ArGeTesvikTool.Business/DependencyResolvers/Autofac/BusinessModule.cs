@@ -145,6 +145,8 @@ namespace ArGeTesvikTool.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfIncomeDal>().As<IIncomeDal>().SingleInstance();
             builder.RegisterType<SocialSecurityManager>().As<ISocialSecurityService>().SingleInstance();
             builder.RegisterType<EfSocialSecurityDal>().As<ISocialSecurityDal>().SingleInstance();
+            builder.RegisterType<TeleworkingManager>().As<ITeleworkingService>().SingleInstance();
+            builder.RegisterType<EfTeleworkingDal>().As<ITeleworkingDal>().SingleInstance();
             builder.RegisterType<ExportExcelManager>().As<IExportExcelService>().SingleInstance();
             #endregion
         }

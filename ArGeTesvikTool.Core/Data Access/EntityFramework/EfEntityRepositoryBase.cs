@@ -49,6 +49,13 @@ namespace ArGeTesvikTool.Core.Data_Access.EntityFramework
             context.SaveChanges();
         }
 
+        public void DeleteList(List<TEntity> entity)
+        {
+            using TContext context = new();
+            context.RemoveRange(entity);
+            context.SaveChanges();
+        }
+
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
             using TContext context = new();

@@ -1,6 +1,6 @@
 ﻿@model ReportViewModel
 @{
-    ViewBag.Title = "Gelir Vergisi Rapor";
+    ViewBag.Title = "Uzaktan Çalışma Kontrol Rapor";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -12,12 +12,12 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="text-primary">
-                                Gelir Vergisi Rapor
+                                Uzaktan Çalışma Kontrol Rapor
                             </h4>
                         </div>
                         <hr />
                         <div class="card-body" style="padding-bottom: 21rem">
-                            <form asp-action="Income" method="post" id="jquery-val-form">
+                            <form asp-action="TeleworkingReport" method="post" id="jquery-val-form">
                                 @Html.AntiForgeryToken()
                                 <div class="row">
                                     <div class="col-md-6">
@@ -26,7 +26,7 @@
                                         </h6>
                                         <div class="form-group">
                                             <fieldset class="form-group position-relative has-icon-left">
-                                                <input asp-for="StartDate" asp-format="{0:dd.MM.yyyy}" type="text" id="startDate" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+                                                <input asp-for="StartDate" asp-format="{0:dd.MM.yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
                                                 <div class="form-control-position">
                                                     <i class='bx bx-calendar'></i>
                                                 </div>
@@ -39,7 +39,7 @@
                                         </h6>
                                         <div class="form-group">
                                             <fieldset class="form-group position-relative has-icon-left">
-                                                <input asp-for="EndDate" asp-format="{0:dd.MM.yyyy}" type="text" id="endDate" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
+                                                <input asp-for="EndDate" asp-format="{0:dd.MM.yyyy}" type="text" class="form-control pickadate-months-year" placeholder="Tarih seçin" />
                                                 <div class="form-control-position">
                                                     <i class='bx bx-calendar'></i>
                                                 </div>

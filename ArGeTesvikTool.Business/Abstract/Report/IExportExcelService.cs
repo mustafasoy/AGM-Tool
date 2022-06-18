@@ -10,5 +10,6 @@ namespace ArGeTesvikTool.Business.Abstract
         byte[] PdksExportExcel(List<RdCenterCalPersAttendanceDto> list, string excelName);
         byte[] IncomeExportExcel(List<IncomeDto> list, string excelName);
         byte[] SsiExportExcel(List<SocialSecurityDto> list, string excelName);
+        byte[] TeleworkingExportExcel(List<TeleworkingDto> list, string excelName);
     }
 }

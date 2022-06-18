@@ -274,5 +274,54 @@ namespace ArGeTesvikTool.Business.Concrete.Report
 
             return stream.ToArray();
         }
+
+        public byte[] TeleworkingExportExcel(List<TeleworkingDto> list, string excelName)
+        {
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add(excelName);
+
+            worksheet.Columns().Width = 75;
+
+            var currentRow = 1;
+
+            #region Header
+            worksheet.Cell(currentRow, 1).Value = "Personel Adı Soyadı";
+            worksheet.Cell(currentRow, 1).Style.Font.Bold = true;
+            worksheet.Cell(currentRow, 1).Style.Fill.BackgroundColor = XLColor.Gainsboro;
+
+            worksheet.Cell(currentRow, 2).Value = "İçeride Geçirilen Süre";
+            worksheet.Cell(currentRow, 2).Style.Font.Bold = true;
+            worksheet.Cell(currentRow, 2).Style.Fill.BackgroundColor = XLColor.Gainsboro;
+
+            worksheet.Cell(currentRow, 3).Value = "Dışarıda Geçirilen Süre";
+            worksheet.Cell(currentRow, 3).Style.Font.Bold = true;
+            worksheet.Cell(currentRow, 3).Style.Fill.BackgroundColor = XLColor.Gainsboro;
+
+            worksheet.Cell(currentRow, 4).Value = "Uzaktan Çalışma Süresi";
+            worksheet.Cell(currentRow, 4).Style.Font.Bold = true;
+            worksheet.Cell(currentRow, 4).Style.Fill.BackgroundColor = XLColor.Gainsboro;
+
+            worksheet.Cell(currentRow, 5).Value = "Uzaktan Çalışma Süresi Düzeltilen";
+            worksheet.Cell(currentRow, 5).Style.Font.Bold = true;
+            worksheet.Cell(currentRow, 5).Style.Fill.BackgroundColor = XLColor.Gainsboro;
+            #endregion
+
+            #region Body
+            foreach (var item in list)
+            {
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = item.PersonnelFullName;
+                worksheet.Cell(currentRow, 2).Value = item.ProjectTimeSpend;
+                worksheet.Cell(currentRow, 3).Value = item.OutsideTimeSpend;
+                worksheet.Cell(currentRow, 4).Value = item.TeleworkingTimeSpend;
+                worksheet.Cell(currentRow, 5).Value = item.EditedTeleworkingTimeSpend;
+            }
+            #endregion
+
+            using var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+
+            return stream.ToArray();
+        }
     }
 }

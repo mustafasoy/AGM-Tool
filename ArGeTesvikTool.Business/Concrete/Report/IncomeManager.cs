@@ -13,14 +13,20 @@ namespace ArGeTesvikTool.Business.Concrete.Report
         {
             _income = income;
         }
-        public IncomeDto GetByYearByMonth(int year, int month)
-        {
-            return _income.Get(x => x.Year == year && x.Month == month);
-        }
 
         public void AddList(List<IncomeDto> incomeList)
         {
             _income.AddList(incomeList);
+        }
+
+        public void DeleteList(List<IncomeDto> incomeList)
+        {
+            _income.DeleteList(incomeList);
+        }
+
+        public List<IncomeDto> GetByYearByMonth(int year, int month)
+        {
+            return _income.GetList(x => x.Year == year && x.Month == month);
         }
     }
 }

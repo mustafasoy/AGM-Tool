@@ -14,14 +14,19 @@ namespace ArGeTesvikTool.Business.Concrete.Report
             _socialSecurity = socialSecurity;
         }
 
-        public SocialSecurityDto GetByYearByMonth(int year, int month)
-        {
-            return _socialSecurity.Get(x => x.Year == year && x.Month == month);
-        }
-
         public void AddList(List<SocialSecurityDto> ssiList)
         {
             _socialSecurity.AddList(ssiList);
+        }
+
+        public void DeleteList(List<SocialSecurityDto> ssiList)
+        {
+            _socialSecurity.DeleteList(ssiList);
+        }
+
+        public List<SocialSecurityDto> GetByYearByMonth(int year, int month)
+        {
+            return _socialSecurity.GetList(x => x.Year == year && x.Month == month);
         }
     }
 }

@@ -97,21 +97,21 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             string projectCode = persAssingViewModel[0].ProjectCode;
             var persAssing = _persAssingService.GetByYearProjectCode(GetSelectedYear(), projectCode);
 
+            var user = GetCurrentUser;
             if (persAssing.Count == 0)
             {
                 foreach (var item in persAssingViewModel)
                 {
-                    RdCenterCalPersAssingDto newPersAssing = new()
-                    {
+                    persAssingList.Add(new RdCenterCalPersAssingDto(){
                         Year = GetSelectedYear(),
-                        IdentityNumber = item.IdentityNumber,
-                        RegistrationNo = item.RegistrationNo,
+                        IdentityNumber = user.IdentityNumber,
+                        RegistrationNo = user.RegistrationNo,
                         NameSurname = item.NameSurname,
                         ProjectCode = item.ProjectCode,
                         ProjectName = item.ProjectName,
                         CreatedDate = DateTime.Now,
                         CreatedUserName = User.Identity.Name
-                    };
+                    });
                 }
                 _persAssingService.AddList(persAssingList);
                 return Json("201");
@@ -119,12 +119,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
 
             foreach (var item in persAssingViewModel)
             {
-                RdCenterCalPersAssingDto newPersAssing = new()
+                persAssingList.Add(new RdCenterCalPersAssingDto()
                 {
                     Id = item.Id,
                     Year = GetSelectedYear(),
-                    IdentityNumber = item.IdentityNumber,
-                    RegistrationNo = item.RegistrationNo,
+                    IdentityNumber = user.IdentityNumber,
+                    RegistrationNo = user.RegistrationNo,
                     NameSurname = item.NameSurname,
                     ProjectCode = item.ProjectCode,
                     ProjectName = item.ProjectName,
@@ -132,7 +132,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                     CreatedUserName = persAssing[0].CreatedUserName,
                     ModifiedDate = DateTime.Now,
                     ModifedUserName = User.Identity.Name
-                };
+                });
             }
             _persAssingService.UpdateList(persAssingList);
             return Json("201");
@@ -277,7 +277,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                 {
                     Value = x.ProjectCode,
                     Text = x.ProjectName,
-                }).ToList(),
+                })
+                .ToList(),
                 TimeAwayList = timeAwaySelectList
             };
 
@@ -293,8 +294,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             List<RdCenterCalPersonnelAddViewModel> entryList = new();
             foreach (var item in personnelEntry)
             {
-                RdCenterCalPersonnelAddViewModel data = new()
-                {
+                entryList.Add(new RdCenterCalPersonnelAddViewModel() {
                     Id = item.Id,
                     UserId = userId,
                     ProjectCode = item.ProjectCode,
@@ -303,25 +303,25 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
                     TimeAwayName = item.TimeAwayName,
                     StartDate = item.StartDate,
                     EndDate = item.EndDate
-                };
-
-                entryList.Add(data);
+                });
             }
 
             /*getHolidays*/
             var holidayEntry = _holidayService.GetAllByYear(GetSelectedYear());
-            DateTime startDate;
             foreach (var item in holidayEntry)
             {
-                startDate = item.StartDate;
-
-                RdCenterCalPersonnelAddViewModel data = new()
+                int diffDays = Convert.ToInt32(item.EndDate.Subtract(item.StartDate).TotalDays);
+                for (int i = 0; i <= diffDays; i++)
                 {
-                    ProjectCode = item.HolidayName,
-                    StartDate = startDate.Date,
-                    EndDate = startDate.Date + TimeSpan.FromHours(23) + TimeSpan.FromMinutes(59)
-                };
-                entryList.Add(data);
+                    RdCenterCalPersonnelAddViewModel data = new()
+                    {
+                        ProjectCode = item.HolidayName,
+                        StartDate = item.StartDate.Date,
+                        EndDate = item.StartDate.Date + TimeSpan.FromHours(23) + TimeSpan.FromMinutes(59)
+                    };
+                    entryList.Add(data);
+                    item.StartDate = item.StartDate.AddDays(1);
+                }
             }
 
             return Json(entryList);

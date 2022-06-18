@@ -5,7 +5,8 @@ namespace ArGeTesvikTool.Business.Abstract.Report
 {
     public interface ISocialSecurityService
     {
-        SocialSecurityDto GetByYearByMonth(int year, int month);
+        List<SocialSecurityDto> GetByYearByMonth(int year, int month);
         void AddList(List<SocialSecurityDto> ssiList);
+        void DeleteList(List<SocialSecurityDto> ssiList);
     }
 }

@@ -1,6 +1,6 @@
 ﻿@model ReportViewModel
 @{
-    ViewBag.Title = "Gelir Vergisi Rapor";
+    ViewBag.Title = "Gelir Vergisi Rapor İndir";
 }
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -17,7 +17,7 @@
                         </div>
                         <hr />
                         <div class="card-body" style="padding-bottom: 21rem">
-                            <form asp-action="Income" method="post" id="jquery-val-form">
+                            <form asp-action="IncomeDownload" method="post" id="jquery-val-form">
                                 @Html.AntiForgeryToken()
                                 <div class="row">
                                     <div class="col-md-6">
@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="col-sm-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary">
-                                            Getir
+                                            İndir
                                         </button>
                                     </div>
                                 </div>

@@ -134,21 +134,57 @@
         </span>
     </a>
     <ul class="menu-content">
-        <li active-when="/Report/Income">
-            <a asp-controller="Report" asp-action="Income">
-                <i class="bx bx-table"></i>
-                <span class="menu-item text-truncate" data-i18n="Income Report">
-                    Gelir Vergisi Raporu
+        <li class="has-sub is-shown">
+            <a class="d-flex align-items-center" href="#">
+                <i class="bx bxl-google-plus"></i>
+                <span class="menu-item text-truncate" data-i18n="Income">
+                    Gelir Vergisi
                 </span>
             </a>
+            <ul class="menu-content" style="">
+                <li active-when="/Report/Income">
+                    <a asp-controller="Report" asp-action="Income">
+                        <i class="bx bx-analyse"></i>
+                        <span class="menu-item text-truncate" data-i18n="Income Report">
+                            Rapor Çalıştır
+                        </span>
+                    </a>
+                </li>
+                <li active-when="/Report/IncomeDownload">
+                    <a asp-controller="Report" asp-action="IncomeDownload">
+                        <i class="bx bx-cloud-download"></i>
+                        <span class="menu-item text-truncate" data-i18n="Income Report Download">
+                            Rapor İndir
+                        </span>
+                    </a>
+                </li>
+            </ul>
         </li>
-        <li active-when="/Report/SocialSecurity">
-            <a asp-controller="Report" asp-action="SocialSecurity">
-                <i class="bx bx-copy-alt"></i>
-                <span class="menu-item" data-i18n="SSI Report">
-                    SGK Raporu
+        <li class="has-sub is-shown">
+            <a class="d-flex align-items-center" href="#">
+                <i class="bx bxl-skype"></i>
+                <span class="menu-item text-truncate" data-i18n="SSI">
+                    SGK
                 </span>
             </a>
+            <ul class="menu-content" style="">
+                <li active-when="/Report/SocialSecurity">
+                    <a asp-controller="Report" asp-action="SocialSecurity">
+                        <i class="bx bx-analyse"></i>
+                        <span class="menu-item" data-i18n="SSI Report">
+                            Rapor Çalıştır
+                        </span>
+                    </a>
+                </li>
+                <li active-when="/Report/SocialSecurityDownload">
+                    <a asp-controller="Report" asp-action="SocialSecurityDownload">
+                        <i class="bx bx-cloud-download"></i>
+                        <span class="menu-item" data-i18n="SSI Report Download">
+                            Rapor İndir
+                        </span>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </li>

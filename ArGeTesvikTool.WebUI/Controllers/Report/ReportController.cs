@@ -31,9 +31,10 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         private readonly IRdCenterTechProjectService _projService;
         private readonly IIncomeService _income;
         private readonly ISocialSecurityService _socialSecurity;
+        private readonly ITeleworkingService _teleworking;
         private readonly IExportExcelService _excelService;
 
-        public ReportController(IRdCenterCalPersonnelEntryService persEntryService, IRdCenterCalPublicHolidayService holidayService, IRdCenterCalTimeAwayService timeAwayService, IRdCenterCalPersAttendanceService persAttendance, IRdCenterTechProjectService projService, IRdCenterPersonInfoService infoService, IIncomeService income, ISocialSecurityService socialSecurity, IExportExcelService excelService, UserManager<AppIdentityUser> userManager) : base(userManager, null, null)
+        public ReportController(IRdCenterCalPersonnelEntryService persEntryService, IRdCenterCalPublicHolidayService holidayService, IRdCenterCalTimeAwayService timeAwayService, IRdCenterCalPersAttendanceService persAttendance, IRdCenterTechProjectService projService, IRdCenterPersonInfoService infoService, IIncomeService income, ISocialSecurityService socialSecurity, ITeleworkingService teleworking, IExportExcelService excelService, UserManager<AppIdentityUser> userManager) : base(userManager, null, null)
         {
             _persEntryService = persEntryService;
             _holidayService = holidayService;
@@ -44,10 +45,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
 
             _income = income;
             _socialSecurity = socialSecurity;
+            _teleworking = teleworking;
 
             _excelService = excelService;
         }
-        [Route("gelir-vergisi")]
+
+        #region Gelir Vergisi
+        [Route("gelir-vergi-rapor")]
         public IActionResult Income()
         {
             DateTime startDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -61,7 +65,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         }
 
         [HttpPost]
-        [Route("gelir-vergisi-rapor")]
+        [Route("gelir-vergi-rapor")]
         public IActionResult Income(ReportViewModel reportViewModel)
         {
             if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
@@ -145,7 +149,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             List<DateTime> publicholidayList = new();
             foreach (var item in publicholidays)
             {
-                publicholidayList.Add(item.StartDate);
+                int diffDays = Convert.ToInt32(item.EndDate.Subtract(item.StartDate).TotalDays);
+                for (int i = 0; i <= diffDays; i++)
+                {
+                    publicholidayList.Add(new(item.StartDate.Year, item.StartDate.Month, item.StartDate.Day, 0, 0, 0, 0));
+                    item.StartDate = item.StartDate.AddDays(1);
+                }
             }
 
             int businessDayCount = GetBusinessDays(reportViewModel.StartDate, reportViewModel.EndDate, publicholidayList);
@@ -158,6 +167,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 })
                 .Select(x => new IncomeDto
                 {
+                    Year = reportViewModel.StartDate.Year,
+                    Month = reportViewModel.StartDate.Month,
                     RegistrationNo = x.Key.RegistrationNo,
                     PersonnelFullName = x.First().PersonnelFullName,
                     RdCenterTimeSpend = x.Sum(x => x.RdCenterTimeSpend),
@@ -185,11 +196,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 item.BaseUsedDay = Math.Floor(incentiveDayCount) > 30 ? 30 : Math.Floor(incentiveDayCount);
             }
 
-            var checkIsExists = _income.GetByYearByMonth(reportViewModel.StartDate.Year, reportViewModel.StartDate.Month);
-            if (checkIsExists == null)
-            {
-                _income.AddList(collect);
-            }
+            incomeList.Clear();
+            incomeList = _income.GetByYearByMonth(reportViewModel.StartDate.Year, reportViewModel.StartDate.Month);
+            if (incomeList.Count > 0)
+                _income.DeleteList(incomeList);
+
+            _income.AddList(collect);
 
             var content = _excelService.IncomeExportExcel(collect, "Gelir Vergisi Rapor");
 
@@ -198,6 +210,42 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Gelir Vergisi Rapor.xlsx");
         }
 
+        [Route("gelir-vergi-rapor-indir")]
+        public IActionResult IncomeDownload()
+        {
+            DateTime startDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
+            ReportViewModel reportViewModel = new()
+            {
+                StartDate = startDate,
+                EndDate = startDate.AddMonths(1).AddDays(-1)
+            };
+
+            return View(reportViewModel);
+        }
+
+        [HttpPost]
+        [Route("gelir-vergi-rapor-indir")]
+        public IActionResult IncomeDownload(ReportViewModel reportViewModel)
+        {
+            if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
+                return View(reportViewModel);
+
+            List<IncomeDto> incomeList = _income.GetByYearByMonth(reportViewModel.StartDate.Year, reportViewModel.StartDate.Month);
+            if (incomeList.Count != 0)
+            {
+                var excelDownload = _excelService.IncomeExportExcel(incomeList, "Gelir Vergisi Rapor");
+
+                return File(
+                    excelDownload,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Gelir Vergisi Rapor.xlsx");
+            }
+
+            AddErrorMessage("Aradığınız kritere uygun kayıt bulunamadı.");
+            return View(reportViewModel);
+        }
+        #endregion
+
+        #region SGK
         [Route("sgk-rapor")]
         public IActionResult SocialSecurity()
         {
@@ -227,7 +275,6 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             }
 
             List<SocialSecurityDto> ssiList = new();
-
             foreach (var item in personnelEntries)
             {
                 SocialSecurityDto newSsi = new();
@@ -269,8 +316,13 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             List<Tuple<DateTime, int>> publicholidayWeekNumber = new();
             foreach (var item in publicholidays)
             {
-                publicholidayList.Add(item.StartDate);
-                publicholidayWeekNumber.Add(new Tuple<DateTime, int>(item.StartDate,GetCurrentDayOfWeekNumber(item.StartDate)));
+                int diffDays = Convert.ToInt32(item.EndDate.Subtract(item.StartDate).TotalDays);
+                for (int i = 0; i <= diffDays; i++)
+                {
+                    publicholidayList.Add(new(item.StartDate.Year, item.StartDate.Month, item.StartDate.Day, 0, 0, 0, 0));
+                    publicholidayWeekNumber.Add(new Tuple<DateTime, int>(item.StartDate, GetCurrentDayOfWeekNumber(item.StartDate)));
+                    item.StartDate = item.StartDate.AddDays(1);
+                }
             }
 
             int businessDayCount = GetBusinessDays(reportViewModel.StartDate, reportViewModel.EndDate, publicholidayList);
@@ -283,6 +335,8 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 })
                 .Select(x => new SocialSecurityDto
                 {
+                    Year = reportViewModel.StartDate.Year,
+                    Month = reportViewModel.StartDate.Month,
                     RegistrationNo = x.Key.RegistrationNo,
                     PersonnelFullName = x.First().PersonnelFullName,
                     WorkType = x.First().WorkType,
@@ -306,9 +360,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
 
                 var weekNumber = publicholidayWeekNumber.FirstOrDefault(x => x.Item2 == item.WeekNumber);
                 if (weekNumber != null && weekNumber.Item2 == item.WeekNumber)
-                {
                     item.PublicHolidayWorkingHour = publicholidays.Count * 8;
-                }
 
                 decimal monthlyincentiveTotalTime = item.IncentiveWorkingHour + item.WeekendWorkingHour;
                 decimal netWorkingTime = businessDayCount * 8 - item.AnnuelLeaveWorkingHour;
@@ -321,11 +373,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 item.SsiWorkingHour = Math.Floor(incentiveTimeTotal);
             }
 
-            var checkIsExists = _socialSecurity.GetByYearByMonth(reportViewModel.StartDate.Year, reportViewModel.StartDate.Month);
-            if (checkIsExists == null)
-            {
-                _socialSecurity.AddList(collect);
-            }
+            ssiList.Clear();
+            ssiList = _socialSecurity.GetByYearByMonth(reportViewModel.StartDate.Year, reportViewModel.StartDate.Month);
+            if (ssiList.Count > 0)
+                _socialSecurity.DeleteList(ssiList);
+
+            _socialSecurity.AddList(collect);
 
             var content = _excelService.SsiExportExcel(collect, "SGK Rapor");
 
@@ -333,6 +386,41 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
                 content,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "SGK Rapor.xlsx");
         }
+
+        [Route("sgk-rapor-indir")]
+        public IActionResult SocialSecurityDownload()
+        {
+            DateTime startDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
+            ReportViewModel reportViewModel = new()
+            {
+                StartDate = startDate,
+                EndDate = startDate.AddMonths(1).AddDays(-1)
+            };
+
+            return View(reportViewModel);
+        }
+
+        [HttpPost]
+        [Route("sgk-rapor-indir")]
+        public IActionResult SocialSecurityDownload(ReportViewModel reportViewModel)
+        {
+            if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
+                return View(reportViewModel);
+
+            List<SocialSecurityDto> ssiList = _socialSecurity.GetByYearByMonth(reportViewModel.StartDate.Year, reportViewModel.StartDate.Month);
+            if (ssiList.Count != 0)
+            {
+                var excelDownload = _excelService.SsiExportExcel(ssiList, "SGK Rapor");
+
+                return File(
+                    excelDownload,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "SGK Rapor.xlsx");
+            }
+
+            AddErrorMessage("Aradığınız kritere uygun kayıt bulunamadı.");
+            return View(reportViewModel);
+        }
+        #endregion
 
         [Route("personel-aktivite-rapor")]
         public IActionResult PersonnelActivityReport()
@@ -577,7 +665,7 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
 
             return View(reportViewModel);
         }
-        
+
         [HttpPost]
         [Route("yonetici-pdks-rapor")]
         public IActionResult ManagerReport(ActivityReportViewModel reportViewModel)
@@ -610,22 +698,109 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
         [Route("uzaktan-calisma-kontrol-rapor")]
         public IActionResult TeleworkingReport()
         {
-            var personnelList = _infoService.GetAllByYear(2022);
-
             DateTime startDate = new(DateTime.Now.Year, DateTime.Now.Month, 1);
-
-            ActivityReportViewModel reportViewModel = new()
+            ReportViewModel reportViewModel = new()
             {
                 StartDate = startDate,
-                EndDate = startDate.AddMonths(1).AddDays(-1),
-                PersonnelList = personnelList.Select(x => new SelectListItem
-                {
-                    Value = x.RegistrationNo,
-                    Text = x.NameSurname,
-                }).ToList(),
+                EndDate = startDate.AddMonths(1).AddDays(-1)
             };
 
             return View(reportViewModel);
+        }
+
+        [HttpPost]
+        [Route("uzaktan-calisma-kontrol-rapor")]
+        public IActionResult TeleworkingReport(ReportViewModel reportViewModel)
+        {
+            if (!DateControl(reportViewModel.StartDate, reportViewModel.EndDate))
+                return View(reportViewModel);
+
+            List<TeleworkingDto> teleworkingList = _teleworking.GetByYearByMonth(reportViewModel.StartDate.Year, reportViewModel.StartDate.Month);
+            if (teleworkingList.Count != 0)
+            {
+                var excelDownload = _excelService.TeleworkingExportExcel(teleworkingList, "Uzaktan Çalışma Kontrol Rapor");
+
+                return File(
+                    excelDownload,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Uzaktan Çalışma Kontrol Rapor.xlsx");
+            }
+
+            var personnelEntries = _persEntryService.GetAllByMonth(reportViewModel.StartDate, reportViewModel.EndDate);
+
+            if (personnelEntries.Count == 0)
+            {
+                AddErrorMessage("Aradığınız kritere uygun kayıt bulunamadı.");
+                return View(reportViewModel);
+            }
+
+            teleworkingList.Clear();
+            foreach (var item in personnelEntries)
+            {
+                TeleworkingDto teleworking = new();
+
+                teleworking.PersonnelFullName = item.PersonnelFullName;
+                decimal timediff = Convert.ToDecimal((item.EndDate.Subtract(item.StartDate)).TotalHours);
+                if (!string.IsNullOrEmpty(item.ProjectCode))
+                    teleworking.ProjectTimeSpend += timediff;
+
+                if (!string.IsNullOrEmpty(item.TimeAwayCode) && item.TimeAwayCode != "12")
+                    teleworking.OutsideTimeSpend += timediff;
+                else
+                    teleworking.TeleworkingTimeSpend += timediff;
+
+                teleworkingList.Add(teleworking);
+            }
+
+            var collect = teleworkingList
+                .GroupBy(x => new
+                {
+                    x.PersonnelFullName,
+                })
+                .Select(x => new TeleworkingDto
+                {
+                    Year = reportViewModel.StartDate.Year,
+                    Month = reportViewModel.StartDate.Month,
+                    PersonnelFullName = x.Key.PersonnelFullName,
+                    ProjectTimeSpend = x.Sum(x => x.ProjectTimeSpend),
+                    OutsideTimeSpend = x.Sum(x => x.OutsideTimeSpend),
+                    TeleworkingTimeSpend = x.Sum(x => x.TeleworkingTimeSpend),
+                })
+                .ToList();
+
+            decimal totalProjectTimeSpend = 0;
+            decimal totalOutsideTimeSpend = 0;
+            decimal totalTeleworkingTimeSpend = 0;
+            foreach (var item in collect)
+            {
+                totalProjectTimeSpend += item.ProjectTimeSpend;
+                totalOutsideTimeSpend += item.OutsideTimeSpend;
+                totalTeleworkingTimeSpend += item.TeleworkingTimeSpend;
+            }
+
+            decimal totalTimeSpend = totalProjectTimeSpend + totalOutsideTimeSpend;
+            if (totalTeleworkingTimeSpend > totalTimeSpend)
+            {
+                /*uzaktan çalışma süresi toplam diğer zamanlardan daha fazla ise,
+                kalan bu zamanları uzaktan çalışma süresi en fazla olandan başlayarak dağıt*/
+                decimal remainingtime = totalTeleworkingTimeSpend - totalTimeSpend;
+                int numberofTeleworkingPers = collect.Where(x => x.TeleworkingTimeSpend != 0).Count();
+
+                decimal dividedTime = remainingtime / numberofTeleworkingPers;
+                collect = collect.OrderByDescending(x => x.TeleworkingTimeSpend).ToList();
+
+                for (int i = 0; i < numberofTeleworkingPers; i++)
+                {
+                    collect[i].EditedTeleworkingTimeSpend = collect[i].TeleworkingTimeSpend - dividedTime;
+                }
+            }
+
+            _teleworking.AddList(collect);
+
+            var content = _excelService.TeleworkingExportExcel(collect, "Uzaktan Çalışma Kontrol Rapor");
+
+            return File(
+                content,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Uzaktan Çalışma Kontrol Rapor.xlsx");
         }
 
         private bool DateControl(DateTime startDate, DateTime endDate)
@@ -633,6 +808,11 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
             if (startDate > endDate)
             {
                 AddErrorMessage("Başlangıç tarihi bitiş tarihinden büyük olamaz.");
+                return false;
+            }
+            if (startDate.Month != endDate.Month)
+            {
+                AddErrorMessage("Rapor aralığı 1 ay'dan fazla olamaz.");
                 return false;
             }
             return true;
@@ -688,6 +868,14 @@ namespace ArGeTesvikTool.WebUI.Controllers.Report
 
         private static int GetBusinessDays(DateTime startDate, DateTime endDate, List<DateTime> holidays)
         {
+            holidays = holidays.OrderBy(x => x.Date).ToList();
+
+            foreach (var item in holidays.Where(x => x.Date.DayOfWeek != DayOfWeek.Saturday && x.Date.DayOfWeek != DayOfWeek.Sunday))
+            {
+                holidays.RemoveAt(1);
+                break;
+            }
+
             return Enumerable.Range(0, (endDate - startDate).Days)
                 .Select(a => startDate.AddDays(a))
                 .Where(a => a.DayOfWeek != DayOfWeek.Sunday)

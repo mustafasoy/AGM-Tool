@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
     $('#projectCode').change(function () {
         $('#error').text('');
-
     });
 });
 
@@ -19,8 +18,8 @@ $(function () {
 
         var token = $('input[name="__RequestVerificationToken"]').val();
 
-        var projectCode = $("#projectCode option:selected").text();
-        var projectName = $("#projectCode option:selected").val();
+        var projectCode = $("#projectCode option:selected").val();
+        var projectName = $("#projectCode option:selected").text();
 
         var persList = [];
         $("#personnelTable input[type=checkbox]:checked").each(function (i) {

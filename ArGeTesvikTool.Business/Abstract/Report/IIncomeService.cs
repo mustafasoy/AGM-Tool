@@ -5,7 +5,8 @@ namespace ArGeTesvikTool.Business.Abstract.Report
 {
     public interface IIncomeService
     {
-        IncomeDto GetByYearByMonth(int year, int month);
+        List<IncomeDto> GetByYearByMonth(int year, int month);
         void AddList(List<IncomeDto> incomeList);
+        void DeleteList(List<IncomeDto> incomeList);
     }
 }

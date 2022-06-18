@@ -84,6 +84,7 @@ namespace ArGeTesvikTool.Entities.Concrete.EntityFramework.EfCodeFirstMappings
             #region Report Db Map
             _ = new IncomeMap(modelBuilder.Entity<IncomeDto>());
             _ = new SocialSecurityMap(modelBuilder.Entity<SocialSecurityDto>());
+            _ = new TeleworkingMap(modelBuilder.Entity<TeleworkingDto>());
             #endregion
 
             return modelBuilder;

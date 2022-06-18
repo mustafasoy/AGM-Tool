@@ -187,7 +187,7 @@
       "icon": "bx bx-sitemap"
     },
     {
-      "name": "Ticarileþmeye Dair Bilgiler",
+      "name": "Ticarilemeye Dair Bilgiler",
       "url": "/ticarilestirme",
       "icon": "bx bx-sitemap"
     },
@@ -247,19 +247,29 @@
       "icon": "bx bx-bar-chart"
     },
     {
-      "name": "Uzaktan Çalýþma Kontrol Raporu",
+      "name": "Uzaktan Calisma Kontrol Raporu",
       "url": "/uzaktan-calisma-kontrol-rapor",
       "icon": "bx bx-laptop"
     },
     {
-      "name": "Gelir Vergisi Raporu",
-      "url": "/Report/Income",
-      "icon": "bx bx-table"
+      "name": "Gelir Vergisi Rapor Calistir",
+      "url": "/gelir-vergi-rapor",
+      "icon": "bx bx-analyse"
     },
     {
-      "name": "SGK Raporu",
-      "url": "/Report/SocialSecurity",
-      "icon": "bx bx-copy-alt"
+      "name": "Gelir Vergisi Rapor Indir ",
+      "url": "/gelir-vergi-rapor-indir",
+      "icon": "bx bx-cloud-download"
+    },
+    {
+      "name": "SGK Rapor Calistir",
+      "url": "/sgk-rapor",
+      "icon": "bx bx-analyse"
+    }
+    {
+      "name": "SGK Rapor Indir",
+      "url": "/sgk-rapor-indir",
+      "icon": "bx bx-cloud-download"
     }
   ]
 }

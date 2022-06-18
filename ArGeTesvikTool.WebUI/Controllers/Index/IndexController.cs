@@ -146,12 +146,12 @@ namespace ArGeTesvikTool.WebUI.Controllers.Index
             decimal periodProjectExpense = 0;
             foreach (var item in projectList)
             {
-                periodProjectExpense += Convert.ToDecimal(item.TotalProjectIncome)
-                                        + Convert.ToDecimal(item.EquityAmount)
-                                        + Convert.ToDecimal(item.SupportAmount)
-                                        + Convert.ToDecimal(item.ServiceProcurementAmount)
-                                        + Convert.ToDecimal(item.NatServiceProcurementAmount)
-                                        + Convert.ToDecimal(item.IntServiceProcurementAmount);
+                periodProjectExpense += item.TotalProjectIncome != null ? Convert.ToDecimal(item.TotalProjectIncome) : 0
+                                        + item.EquityAmount != null ? Convert.ToDecimal(item.EquityAmount) : 0
+                                        + item.SupportAmount != null ? Convert.ToDecimal(item.SupportAmount) : 0
+                                        + item.ServiceProcurementAmount != null ? Convert.ToDecimal(item.ServiceProcurementAmount) : 0
+                                        + item.NatServiceProcurementAmount != null ? Convert.ToDecimal(item.NatServiceProcurementAmount) : 0
+                                        + item.IntServiceProcurementAmount != null ? Convert.ToDecimal(item.IntServiceProcurementAmount) : 0;
             }
             ProjectCapacityDto projectCapacity = new()
             {

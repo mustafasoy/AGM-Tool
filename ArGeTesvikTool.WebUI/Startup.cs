@@ -86,14 +86,14 @@ namespace ArGeTesvikTool.WebUI
                 app.UseStatusCodePages();
             }
 
-            if (!env.IsDevelopment())
+            if (!env.IsDevelopment()) {
+                app.UseExceptionHandler("/hata/500");
                 app.UseStatusCodePagesWithReExecute("/hata/{0}");
-
+            }
             app.UseStaticFiles();
             app.UseSession();
             // Middleware used for microsoft identity
             app.UseAuthentication();
-
             app.UseMvc(ConfigureRoutes);
         }
 
