@@ -10,7 +10,7 @@
 
     $('#projectCode, #timeAwayCode').on('change', function () {
         $('#error').text('');
-        if ($('#timeAwayCode').val() != 1 && $('#timeAwayCode').val() != 2) {
+        if ($('#timeAwayCode').val() >= 3 && $('#timeAwayCode').val() <= 12) {
             $("#project").show();
         }
         else {
@@ -20,7 +20,7 @@
 
     $('#updateProjectCode, #updateTimeAwayCode').on('change', function () {
         $('#updateError').text('');
-        if ($('#updateTimeAwayCode').val() != 1 && $('#updateTimeAwayCode').val() != 2) {
+        if ($('#updateTimeAwayCode').val() >= 3 && $('#updateTimeAwayCode').val() <= 12) {
             $("#updateProject").show();
         }
         else {
@@ -28,7 +28,7 @@
         }
     });
 
-    $("#outside").hide();
+    /*$("#outside").hide();*/
     $("input[name='radioTime']").click(function () {
         if ($("#projectTime").is(":checked")) {
             $("#project").show();
@@ -93,7 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 end: moment(selectionInfo.end),
             };
 
-            getPersonnelTime();
+            checkPreWeekTime();
+            //getPersonnelTime();
         },
         //slotDuration: '00:15:00',
         //slotLabelInterval: '00:15:00',
@@ -234,6 +235,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function openCreateOrUpdateModal() {
         $('#error').text('');
+
+        if ($("#projectTime").is(":checked")) {
+            $("#project").show();
+            $("#outside").hide();
+            $('#timeAwayCode').prop('selectedIndex', 0);
+        } else {
+            $("#outside").show();
+            $("#project").hide();
+            $('#projectCode').prop('selectedIndex', 0);
+        }
+
         if (selectedEvent != null) {
             $('#entryId').val(selectedEvent.id);
             $('#userId').val(selectedEvent.userId);
@@ -354,6 +366,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 calendar.addEventSource(events);
+            }
+        });
+    };
+
+    function checkPreWeekTime() {
+        var entryId = selectedEvent.id;
+        var sDate = selectedEvent.start.format('DD.MM.YYYY')
+        var eDate = selectedEvent.end.format('DD.MM.YYYY')
+        $.ajax({
+            type: 'GET',
+            url: '/RdCenterCal/CheckPreWeekPersonnelTime',
+            data: {
+                id: entryId,
+                startDate: sDate,
+                endDate: eDate,
+            },
+            success: function (response) {
+                if (response === '401') {
+                    showErrorMessage('Bir önceki haftanın eksik girişlerinizi tamamlayınız.');
+                    return;
+                }
+                getPersonnelTime();
             }
         });
     };

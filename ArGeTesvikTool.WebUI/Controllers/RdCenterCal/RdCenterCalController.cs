@@ -517,6 +517,51 @@ namespace ArGeTesvikTool.WebUI.Controllers.RdCenterCal
             return Json("200");
         }
 
+        public JsonResult CheckPreWeekPersonnelTime(int id, string startDate, string endDate)
+        {
+            DateTime sDate = Convert.ToDateTime(startDate).AddDays(-7);
+            DateTime eDate = Convert.ToDateTime(endDate).AddDays(-7);
+            while (sDate.DayOfWeek != DayOfWeek.Monday)
+            {
+                sDate = sDate.AddDays(-1);
+            }
+
+            while (eDate.DayOfWeek != DayOfWeek.Sunday)
+            {
+                eDate = eDate.AddDays(1);
+            }
+
+            List<RdCenterCalPublicHolidayDto> publicholidays = _holidayService.GetAllByMonth(sDate, eDate);
+            List<DateTime> publicholidayList = new();
+            foreach (var item in publicholidays)
+            {
+                int diffDays = Convert.ToInt32(item.EndDate.Subtract(item.StartDate).TotalDays);
+                for (int i = 0; i <= diffDays; i++)
+                {
+                    publicholidayList.Add(new(item.StartDate.Year, item.StartDate.Month, item.StartDate.Day, 0, 0, 0, 0));
+                    item.StartDate = item.StartDate.AddDays(1);
+                }
+            }
+
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentUser = _userManager.FindByIdAsync(userId).Result;
+
+            var personnelEntry = _persEntryService.GetAllByMonthByPersonnel(currentUser.RegistrationNo, sDate, eDate);
+            double totalHours = 0;
+            foreach (var item in personnelEntry)
+            {
+                TimeSpan duration = item.EndDate.Subtract(item.StartDate);
+                totalHours += duration.TotalHours;
+            }
+
+            //add annual leave time to totalhours
+            totalHours += publicholidayList.Count * 8;
+            if (totalHours < 40)
+                return Json("401");
+
+            return Json("200");
+        }
+
         public JsonResult DeletePersonnelEntry(int id)
         {
             _persEntryService.Delete(id);
